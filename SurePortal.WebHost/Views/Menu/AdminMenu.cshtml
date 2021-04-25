@@ -1,0 +1,68 @@
+﻿
+@using SurePortal.WebHost.Common
+@model List<SurePortal.WebHost.Modules.Navigation.Application.Dto.MenuPagingDto>
+
+@{
+    var menuLevl1 = Model.Where(e => e.ParentId == null).OrderBy(e => e.Order).ToList();
+    string siteUrl = System.Configuration.ConfigurationManager.AppSettings["SiteURL"];
+    siteUrl = siteUrl.Substring(0, siteUrl.Length - 1);
+}
+
+<div class="content d-flex flex-column flex-column-fluid pb-0" id="kt_content">
+    <div class="subheader py-2 subheader-solid" id="kt_subheader" style="margin-top:-10px; margin-left: 1px;">
+        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <div class="d-flex align-items-center flex-wrap mr-2">                
+                <a href="/feature/menu/index" class="bg-hover-white text-hover-primary text-dark font-size-h5 font-weight-bold mt-2 mb-2 mr-5">
+                    Quản trị hệ thống
+                </a>
+                <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
+                <span class="text-muted font-weight-bold mr-4">Bảng điều khiển</span>
+            </div>
+        </div>
+    </div>
+    <div class="card card-custom gutter-b mx-9px">
+        <div class="card-body">
+            <div class="menu-admin">               
+                <div class="menu-nav">
+                    @for (int i = 0; i < menuLevl1.Count; i++)
+                    {
+                        var itemlv1 = menuLevl1[i];
+                        string linklv1 = "#";
+                        if (!string.IsNullOrEmpty(itemlv1.Link))
+                        {
+                            linklv1 = itemlv1.Link.Replace("~", "");
+                            linklv1 = siteUrl + itemlv1.Link;
+                        }
+                        <div class="row">
+                            @*<a href="@linklv1" class="menu-link">
+                            <i class="@itemlv1.Icon"></i>
+                            <span class="menu-text font-size-lg text-dark text-uppercase">@itemlv1.Name</span>
+                             </a>*@
+                            @{
+                                var menuLV2 = Model.Where(e => e.ParentId == itemlv1.Id).OrderBy(e => e.Order).ToList();
+                            }
+                            @foreach (var itemLv2 in menuLV2)
+                            {
+                                string linklv2 = "#";
+                                if (!string.IsNullOrEmpty(itemLv2.Link))
+                                {
+                                    linklv2 = itemLv2.Link.Replace("~", "");
+                                    linklv2 = siteUrl + itemLv2.Link;
+                                }
+                                <div class="col-md-3">
+                                    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" href="@linklv2">
+                                        <span class="nav-icon py-2 w-auto">
+                                            <i class="@itemLv2.Icon">
+                                            </i>
+                                        </span>
+                                        <span class="nav-text font-size-lg py-2 font-weight-bold text-center">@itemLv2.Name</span>
+                                    </a>
+                                </div>                                
+                             }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

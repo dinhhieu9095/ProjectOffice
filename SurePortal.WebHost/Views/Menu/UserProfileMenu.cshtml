@@ -1,0 +1,23 @@
+﻿@using SurePortal.WebHost.Common
+@model List<SurePortal.WebHost.Modules.Navigation.Application.Dto.MenuPagingDto>
+@{
+    string siteUrl = System.Configuration.ConfigurationManager.AppSettings["SiteURL"];
+    siteUrl = siteUrl.Substring(0, siteUrl.Length - 1);
+}
+
+<ul class="dropdown-menu dropdown-menu-default">
+    @foreach (var item in Model)
+    {
+        string linklv1 = "#";
+        if (!string.IsNullOrEmpty(item.Link))
+        {
+            linklv1 = item.Link.Replace("~", "");
+            linklv1 = siteUrl + item.Link;
+        }
+        <li>
+            <a href="@linklv1">
+                <i class="@item.Icon"></i> @item.Name kjhkjhkj
+            </a>
+        </li>
+    }
+</ul>

@@ -1,0 +1,752 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="..\packages\PdfiumViewer.Native.x86.v8-xfa.2018.4.8.256\Build\PdfiumViewer.Native.x86.v8-xfa.props" Condition="Exists('..\packages\PdfiumViewer.Native.x86.v8-xfa.2018.4.8.256\Build\PdfiumViewer.Native.x86.v8-xfa.props')" />
+  <Import Project="..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\Build\PdfiumViewer.Native.x86_64.v8-xfa.props" Condition="Exists('..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\Build\PdfiumViewer.Native.x86_64.v8-xfa.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F1D75719-46B5-4198-B164-DFBF437E4DC7}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SurePortal.WebHost</RootNamespace>
+    <AssemblyName>SurePortal.WebHost</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.2</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.2</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\ChatHub.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\MapperConfig.cs" />
+    <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\SwaggerConfig.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="App_Start\UnitySubResolver.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Common\CommonValues.cs" />
+    <Compile Include="Common\Constant.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Navigation\BaseMenuController.cs" />
+    <Compile Include="Controllers\Navigation\MenuController.cs" />
+    <Compile Include="Controllers\Navigation\NavNodeController.cs" />
+    <Compile Include="Controllers\OrgController.cs" />
+    <Compile Include="Controllers\_apis\ModuleController.cs" />
+    <Compile Include="Controllers\_apis\SsoController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\CurrentUserViewModel.cs" />
+    <Compile Include="Models\Navigation\MenuModel.cs" />
+    <Compile Include="Models\Navigation\NavNodeModel.cs" />
+    <Compile Include="Models\Requests\LoginRequest.cs" />
+    <Compile Include="Models\Requests\LogoutRequest.cs" />
+    <Compile Include="Models\Responses\LoginResponse.cs" />
+    <Compile Include="Modules\Navigation\Application\Dto\BaseSearchDto.cs" />
+    <Compile Include="Modules\Navigation\Application\Dto\NavNodeDto.cs" />
+    <Compile Include="Modules\Navigation\Application\Dto\RoleDto.cs" />
+    <Compile Include="Modules\Navigation\Application\Dto\RoleMenuDto.cs" />
+    <Compile Include="Modules\Navigation\Application\Services\BaseService.cs" />
+    <Compile Include="Modules\Navigation\Application\Services\NavNode\INavNodeService.cs" />
+    <Compile Include="Modules\Navigation\Application\Services\NavNode\NavNodeService.cs" />
+    <Compile Include="Modules\Navigation\Domain\Entities\MenuRoleEntity.cs" />
+    <Compile Include="Modules\Navigation\Domain\Entities\NavNodeEntity.cs" />
+    <Compile Include="Modules\Navigation\Domain\Entities\RoleEntity.cs" />
+    <Compile Include="Modules\Navigation\Domain\POCO\Menu.cs" />
+    <Compile Include="Modules\Navigation\Domain\POCO\MenuRole.cs" />
+    <Compile Include="Modules\Navigation\Domain\POCO\NavNode.cs" />
+    <Compile Include="Modules\Navigation\Domain\POCO\Role.cs" />
+    <Compile Include="Modules\Navigation\Domain\Repositories\INavNodeRepository.cs" />
+    <Compile Include="Modules\Navigation\Infrastructure\Repositories\NavNodeRepository.cs" />
+    <Compile Include="Modules\Navigation\Migrations\202011300825566_InitialNav.cs" />
+    <Compile Include="Modules\Navigation\Migrations\202011300825566_InitialNav.designer.cs">
+      <DependentUpon>202011300825566_InitialNav.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Navigation\Migrations\202012160401045_InitialNav1.cs" />
+    <Compile Include="Modules\Navigation\Migrations\202012160401045_InitialNav1.designer.cs">
+      <DependentUpon>202012160401045_InitialNav1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Navigation\Migrations\202012161056108_InitialNav2.cs" />
+    <Compile Include="Modules\Navigation\Migrations\202012161056108_InitialNav2.designer.cs">
+      <DependentUpon>202012161056108_InitialNav2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Navigation\Migrations\Configuration.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="Modules\Navigation\Application\Dto\MenuDto.cs" />
+    <Compile Include="Modules\Navigation\Application\Services\Menu\IMenuService.cs" />
+    <Compile Include="Modules\Navigation\Application\Services\Menu\MenuService.cs" />
+    <Compile Include="Modules\Navigation\Domain\Entities\MenuEntity.cs" />
+    <Compile Include="Modules\Navigation\Domain\Repositories\IMenuRepository.cs" />
+    <Compile Include="Modules\Navigation\Infrastructure\Config\MenuConfiguration.cs" />
+    <Compile Include="Modules\Navigation\Infrastructure\NavigationContext.cs" />
+    <Compile Include="Modules\Navigation\Infrastructure\Repositories\MenuRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\alertify.min.css" />
+    <Content Include="Content\css\easy-autocomplete.min.css" />
+    <Content Include="Content\css\easy-autocomplete.themes.css" />
+    <Content Include="Content\css\notify.css" />
+    <Content Include="Content\js\alertify.min.js" />
+    <Content Include="Content\js\bootbox.all.min.js" />
+    <Content Include="Content\js\jquery-3.5.1.min.js" />
+    <Content Include="Content\js\jquery.easy-autocomplete.min.js" />
+    <Content Include="Content\js\jquery.twbsPagination.min.js" />
+    <Content Include="Content\js\jquery.validate.min.js" />
+    <Content Include="Content\js\jstree\jstree.js" />
+    <Content Include="Content\js\jstree\jstree.min.js" />
+    <Content Include="Content\js\jstree\themes\default-dark\32px.png" />
+    <Content Include="Content\js\jstree\themes\default-dark\40px.png" />
+    <Content Include="Content\js\jstree\themes\default-dark\style.css" />
+    <Content Include="Content\js\jstree\themes\default-dark\style.min.css" />
+    <Content Include="Content\js\jstree\themes\default-dark\throbber.gif" />
+    <Content Include="Content\js\jstree\themes\default\32px.png" />
+    <Content Include="Content\js\jstree\themes\default\40px.png" />
+    <Content Include="Content\js\jstree\themes\default\style.css" />
+    <Content Include="Content\js\jstree\themes\default\style.min.css" />
+    <Content Include="Content\js\jstree\themes\default\throbber.gif" />
+    <Content Include="Content\js\notify.js" />
+    <Content Include="Content\js\select2.full.min.js" />
+    <Content Include="Content\js\sureportal.common.js" />
+    <Content Include="Content\metronic\css\datatables.bundle.css" />
+    <Content Include="Content\metronic\css\fonts\la-brands-400.svg" />
+    <Content Include="Content\metronic\css\fonts\la-regular-400.svg" />
+    <Content Include="Content\metronic\css\fonts\la-solid-900.svg" />
+    <Content Include="Content\metronic\css\task.css" />
+    <Content Include="Content\metronic\css\custom.css" />
+    <Content Include="Content\metronic\css\fonts\fa-brands-400.svg" />
+    <Content Include="Content\metronic\css\fonts\fa-regular-400.svg" />
+    <Content Include="Content\metronic\css\fonts\fa-solid-900.svg" />
+    <Content Include="Content\metronic\css\fonts\Flaticon.svg" />
+    <Content Include="Content\metronic\css\fonts\Flaticon2.svg" />
+    <Content Include="Content\metronic\css\fonts\Ki.svg" />
+    <Content Include="Content\metronic\css\fullcalendar.bundle.css" />
+    <Content Include="Content\metronic\css\light%281%29.css" />
+    <Content Include="Content\metronic\css\light%282%29.css" />
+    <Content Include="Content\metronic\css\light%283%29.css" />
+    <Content Include="Content\metronic\css\light.css" />
+    <Content Include="Content\metronic\css\login-1.css" />
+    <Content Include="Content\metronic\css\plugins.bundle.css" />
+    <Content Include="Content\metronic\css\prismjs.bundle.css" />
+    <Content Include="Content\metronic\css\style.bundle.css" />
+    <Content Include="Content\metronic\fonts\%40fortawesome\fa-brands-400.svg" />
+    <Content Include="Content\metronic\fonts\%40fortawesome\fa-regular-400.svg" />
+    <Content Include="Content\metronic\fonts\%40fortawesome\fa-solid-900.svg" />
+    <Content Include="Content\metronic\fonts\line-awesome\la-brands-400.svg" />
+    <Content Include="Content\metronic\fonts\line-awesome\la-regular-400.svg" />
+    <Content Include="Content\metronic\fonts\line-awesome\la-solid-900.svg" />
+    <Content Include="Content\metronic\img\bg-4.jpg" />
+    <Content Include="Content\metronic\img\bg-5.jpg" />
+    <Content Include="Content\metronic\img\favicon.ico" />
+    <Content Include="Content\metronic\img\favicon.png" />
+    <Content Include="Content\metronic\img\img-4.jpg" />
+    <Content Include="Content\metronic\img\logo-dark.png" />
+    <Content Include="Content\metronic\img\logo-trinhkydientu.png" />
+    <Content Include="Content\metronic\img\logo\nexa.png" />
+    <Content Include="Content\metronic\img\media\img-10.jpg" />
+    <Content Include="Content\metronic\img\media\img-12.jpg" />
+    <Content Include="Content\metronic\img\media\img-14.jpg" />
+    <Content Include="Content\metronic\img\media\img-17.jpg" />
+    <Content Include="Content\metronic\img\media\img-18.jpg" />
+    <Content Include="Content\metronic\img\media\img-19.jpg" />
+    <Content Include="Content\metronic\img\media\img-9.jpg" />
+    <Content Include="Content\metronic\img\stars.png" />
+    <Content Include="Content\metronic\img\svg\Angle-double-left.svg" />
+    <Content Include="Content\metronic\img\svg\Barcode-read.svg" />
+    <Content Include="Content\metronic\img\svg\Building.svg" />
+    <Content Include="Content\metronic\img\svg\Chart-line1.svg" />
+    <Content Include="Content\metronic\img\svg\Clipboard-check.svg" />
+    <Content Include="Content\metronic\img\svg\CMD.svg" />
+    <Content Include="Content\metronic\img\svg\Commode1.svg" />
+    <Content Include="Content\metronic\img\svg\File.svg" />
+    <Content Include="Content\metronic\img\svg\Folder-solid.svg" />
+    <Content Include="Content\metronic\img\svg\Group-chat.svg" />
+    <Content Include="Content\metronic\img\svg\Heart.svg" />
+    <Content Include="Content\metronic\img\svg\Layout-4-blocks.svg" />
+    <Content Include="Content\metronic\img\svg\Layout-arrange.svg" />
+    <Content Include="Content\metronic\img\svg\Mail-attachment.svg" />
+    <Content Include="Content\metronic\img\svg\Notifications1.svg" />
+    <Content Include="Content\metronic\img\svg\PenAndRuller.svg" />
+    <Content Include="Content\metronic\img\svg\Snoozed-mail.svg" />
+    <Content Include="Content\metronic\img\svg\svg-group-folders-primary.svg" />
+    <Content Include="Content\metronic\img\svg\svg-group-folders.svg" />
+    <Content Include="Content\metronic\img\svg\Time-schedule.svg" />
+    <Content Include="Content\metronic\img\svg\Trash.svg" />
+    <Content Include="Content\metronic\img\svg\Up-2.svg" />
+    <Content Include="Content\metronic\img\svg\Wallet3.svg" />
+    <Content Include="Content\metronic\img\svg\Write.svg" />
+    <Content Include="Content\metronic\js\datatables.bundle.js" />
+    <Content Include="Content\metronic\js\fullcalendar.bundle.js" />
+    <Content Include="Content\metronic\js\gtm.js" />
+    <Content Include="Content\metronic\js\hotjar-1070954.js" />
+    <Content Include="Content\metronic\js\login-general.js" />
+    <Content Include="Content\metronic\js\modules.418db05d8becb177a17c.js" />
+    <Content Include="Content\metronic\js\plugins.bundle.js" />
+    <Content Include="Content\metronic\js\prismjs.bundle.js" />
+    <Content Include="Content\metronic\js\scripts.bundle.js" />
+    <Content Include="Content\metronic\js\widgets.js" />
+    <Content Include="Content\metronic\svg\001-boy.svg" />
+    <Content Include="Content\metronic\svg\003-puzzle.svg" />
+    <Content Include="Content\metronic\svg\005-bebo.svg" />
+    <Content Include="Content\metronic\svg\006-girl-3.svg" />
+    <Content Include="Content\metronic\svg\006-plurk.svg" />
+    <Content Include="Content\metronic\svg\009-boy-4.svg" />
+    <Content Include="Content\metronic\svg\011-boy-5.svg" />
+    <Content Include="Content\metronic\svg\014-girl-7.svg" />
+    <Content Include="Content\metronic\svg\014-kickstarter.svg" />
+    <Content Include="Content\metronic\svg\015-boy-6.svg" />
+    <Content Include="Content\metronic\svg\015-telegram.svg" />
+    <Content Include="Content\metronic\svg\016-boy-7.svg" />
+    <Content Include="Content\metronic\svg\018-girl-9.svg" />
+    <Content Include="Content\metronic\svg\047-girl-25.svg" />
+    <Content Include="Content\metronic\svg\063-japan.svg" />
+    <Content Include="Content\metronic\svg\064-vietnam.svg" />
+    <Content Include="Content\metronic\svg\128-spain.svg" />
+    <Content Include="Content\metronic\svg\162-germany.svg" />
+    <Content Include="Content\metronic\svg\195-france.svg" />
+    <Content Include="Content\metronic\svg\226-united-states.svg" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="package.json" />
+    <Content Include="log4net.config" />
+    <Content Include="Content\metronic\css\fonts\Flaticon.eot" />
+    <Content Include="Content\metronic\css\fonts\Flaticon.ttf" />
+    <Content Include="Content\metronic\css\fonts\Flaticon.woff" />
+    <Content Include="Content\metronic\css\fonts\Flaticon2.eot" />
+    <Content Include="Content\metronic\css\fonts\Flaticon2.ttf" />
+    <Content Include="Content\metronic\css\fonts\Flaticon2.woff" />
+    <Content Include="Content\metronic\css\fonts\Flaticon2.woff2" />
+    <Content Include="fonts\slack-icons-Regular.woff" />
+    <Content Include="Content\metronic\fonts\line-awesome\la-brands-400.eot" />
+    <Content Include="Content\metronic\fonts\line-awesome\la-brands-400.ttf" />
+    <Content Include="Content\metronic\fonts\line-awesome\la-brands-400.woff" />
+    <Content Include="Content\metronic\fonts\line-awesome\la-brands-400.woff2" />
+    <Content Include="Content\metronic\fonts\line-awesome\la-regular-400.eot" />
+    <Content Include="Content\metronic\fonts\line-awesome\la-regular-400.ttf" />
+    <Content Include="Content\metronic\fonts\line-awesome\la-regular-400.woff" />
+    <Content Include="Content\metronic\fonts\line-awesome\la-regular-400.woff2" />
+    <Content Include="Content\metronic\fonts\line-awesome\la-solid-900.eot" />
+    <Content Include="Content\metronic\fonts\line-awesome\la-solid-900.ttf" />
+    <Content Include="Content\metronic\fonts\line-awesome\la-solid-900.woff" />
+    <Content Include="Content\metronic\fonts\line-awesome\la-solid-900.woff2" />
+    <Content Include="Content\metronic\css\fonts\la-brands-400.eot" />
+    <Content Include="Content\metronic\css\fonts\la-brands-400.ttf" />
+    <Content Include="Content\metronic\css\fonts\la-brands-400.woff" />
+    <Content Include="Content\metronic\css\fonts\la-brands-400.woff2" />
+    <Content Include="Content\metronic\css\fonts\la-regular-400.eot" />
+    <Content Include="Content\metronic\css\fonts\la-regular-400.ttf" />
+    <Content Include="Content\metronic\css\fonts\la-regular-400.woff" />
+    <Content Include="Content\metronic\css\fonts\la-regular-400.woff2" />
+    <Content Include="Content\metronic\css\fonts\la-solid-900.eot" />
+    <Content Include="Content\metronic\css\fonts\la-solid-900.ttf" />
+    <Content Include="Content\metronic\css\fonts\la-solid-900.woff" />
+    <Content Include="Content\metronic\css\fonts\la-solid-900.woff2" />
+    <None Include="Scripts\jquery-1.8.0.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.0.js" />
+    <Content Include="Scripts\jquery-1.8.0.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.1.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.1.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Error\InternalServerError.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="_ViewStart.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_LayoutTree.cshtml" />
+    <Content Include="Views\Shared\_LeftMenuTreePartial.cshtml" />
+    <Content Include="Views\Shared\_LayoutNoAside.cshtml" />
+    <Content Include="Views\Home\TopNavigation.cshtml" />
+    <Content Include="Views\Menu\UserProfileMenu.cshtml" />
+    <Content Include="Views\Shared\_LayoutTask.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Menu\AdminMenu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\" />
+    <Folder Include="Modules\zSampleFoldel\Application\Dto\" />
+    <Folder Include="Modules\zSampleFoldel\Application\Services\" />
+    <Folder Include="Modules\zSampleFoldel\Domain\Entities\" />
+    <Folder Include="Modules\zSampleFoldel\Domain\Repositories\" />
+    <Folder Include="Modules\zSampleFoldel\Infrastructure\Config\" />
+    <Folder Include="Modules\zSampleFoldel\Infrastructure\Repositories\" />
+    <Folder Include="Modules\zSampleFoldel\Infrastructure\UnitOfWork\" />
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\metronic\css\fonts\fa-brands-400.eot" />
+    <Content Include="Content\metronic\css\fonts\fa-brands-400.ttf" />
+    <Content Include="Content\metronic\css\fonts\fa-brands-400.woff" />
+    <Content Include="Content\metronic\css\fonts\fa-brands-400.woff2" />
+    <Content Include="Content\metronic\css\fonts\fa-regular-400.eot" />
+    <Content Include="Content\metronic\css\fonts\fa-regular-400.ttf" />
+    <Content Include="Content\metronic\css\fonts\fa-regular-400.woff" />
+    <Content Include="Content\metronic\css\fonts\fa-regular-400.woff2" />
+    <Content Include="Content\metronic\css\fonts\fa-solid-900.eot" />
+    <Content Include="Content\metronic\css\fonts\fa-solid-900.ttf" />
+    <Content Include="Content\metronic\css\fonts\fa-solid-900.woff" />
+    <Content Include="Content\metronic\css\fonts\fa-solid-900.woff2" />
+    <Content Include="Content\metronic\css\fonts\Ki.oet" />
+    <Content Include="Content\metronic\css\fonts\Ki.ttf" />
+    <Content Include="Content\metronic\css\fonts\Ki.woff" />
+    <Content Include="Content\metronic\css\fonts\Ki.woff2" />
+    <Content Include="Content\metronic\fonts\%40fortawesome\fa-brands-400.eot" />
+    <Content Include="Content\metronic\fonts\%40fortawesome\fa-brands-400.ttf" />
+    <Content Include="Content\metronic\fonts\%40fortawesome\fa-brands-400.woff" />
+    <Content Include="Content\metronic\fonts\%40fortawesome\fa-brands-400.woff2" />
+    <Content Include="Content\metronic\fonts\%40fortawesome\fa-regular-400.eot" />
+    <Content Include="Content\metronic\fonts\%40fortawesome\fa-regular-400.ttf" />
+    <Content Include="Content\metronic\fonts\%40fortawesome\fa-regular-400.woff" />
+    <Content Include="Content\metronic\fonts\%40fortawesome\fa-regular-400.woff2" />
+    <Content Include="Content\metronic\fonts\%40fortawesome\fa-solid-900.eot" />
+    <Content Include="Content\metronic\fonts\%40fortawesome\fa-solid-900.ttf" />
+    <Content Include="Content\metronic\fonts\%40fortawesome\fa-solid-900.woff" />
+    <Content Include="Content\metronic\fonts\%40fortawesome\fa-solid-900.woff2" />
+    <None Include="packages.config" />
+    <Content Include="Views\Shared\_FooterPartial.cshtml" />
+    <Content Include="Views\Shared\_LanguagePartial.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="Views\Shared\_LeftMenuPartial.cshtml" />
+    <Content Include="Views\Shared\_ModalPartial.cshtml" />
+    <Content Include="Views\Shared\_NotificationPartial.cshtml" />
+    <Content Include="Views\Shared\_TopMenuPartial.cshtml" />
+    <Content Include="Views\Shared\_UserProfilePartial.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\Menu\GetPaging.cshtml" />
+    <Content Include="Views\Menu\Insert.cshtml" />
+    <Content Include="Views\Menu\NavNodeInfo.cshtml" />
+    <Content Include="Views\Menu\Template\Breadcrumb.cshtml" />
+    <Content Include="Views\Menu\Template\Menu.cshtml" />
+    <Content Include="Views\Menu\Template\Search.cshtml" />
+    <Content Include="Views\Menu\Update.cshtml" />
+    <Content Include="Views\NavNode\GetPaging.cshtml" />
+    <Content Include="Views\NavNode\Index.cshtml" />
+    <Content Include="Views\NavNode\Template\Breadcrumb.cshtml" />
+    <Content Include="Views\NavNode\Template\Search.cshtml" />
+    <Content Include="Views\Org\PickUserOrgChart.cshtml" />
+    <Content Include="Views\NavNode\Insert.cshtml" />
+    <Content Include="Views\NavNode\Template\NavNode.cshtml" />
+    <Content Include="Views\NavNode\Update.cshtml" />
+    <Content Include="Views\Shared\_OrgChartModalPartial.cshtml" />
+    <Content Include="Views\Shared\_LayoutPopup.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Menu\LeftMenu.cshtml" />
+    <Content Include="Views\Menu\TopMenu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Ardalis.GuardClauses, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ardalis.GuardClauses.3.0.0\lib\net40\Ardalis.GuardClauses.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.EF6, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.EF6.1.1.1\lib\net45\AutoMapper.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.4.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=5.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.5.0.1\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="commons-collections4-4.4, Version=8.1.4.0, Culture=neutral, PublicKeyToken=8783d630753e2b3f, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-common.8.1.4\lib\commons-collections4-4.4.dll</HintPath>
+    </Reference>
+    <Reference Include="commons-math3-3.6.1, Version=8.1.4.0, Culture=neutral, PublicKeyToken=8783d630753e2b3f, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-common.8.1.4\lib\commons-math3-3.6.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DelegateDecompiler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
+      <HintPath>..\packages\DelegateDecompiler.0.23.0\lib\net40-client\DelegateDecompiler.dll</HintPath>
+    </Reference>
+    <Reference Include="DelegateDecompiler.EntityFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
+      <HintPath>..\packages\DelegateDecompiler.EntityFramework.0.23.0\lib\net45\DelegateDecompiler.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=5.2.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.5.2.1\lib\net45\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.AWT.WinForms, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.AWT.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Beans, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Beans.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Charsets, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Charsets.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Cldrdata, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Cldrdata.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Corba, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Corba.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Core, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Jdbc, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Jdbc.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Localedata, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Localedata.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Management, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Management.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Media, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Media.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Misc, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Misc.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Naming, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Naming.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Nashorn, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Nashorn.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Remoting, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Remoting.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Security, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.SwingAWT, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.SwingAWT.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Text, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Tools, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Tools.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Util, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.API, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.XML.API.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.Bind, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.XML.Bind.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.Crypto, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.XML.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.Parse, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.XML.Parse.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.Transform, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.XML.Transform.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.WebServices, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.XML.WebServices.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.XPath, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.XML.XPath.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.Reflection, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.Runtime, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.Runtime.JNI, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.Runtime.JNI.dll</HintPath>
+    </Reference>
+    <Reference Include="JetBrains.Annotations, Version=2019.1.3.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.2019.1.3\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Reflection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Reflection.1.1.0.0\lib\Mono.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="mpxj, Version=8.1.4.0, Culture=neutral, PublicKeyToken=8783d630753e2b3f, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj.8.1.4\lib\mpxj.dll</HintPath>
+    </Reference>
+    <Reference Include="MpxjUtilities, Version=8.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-common.8.1.4\lib\MpxjUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfiumViewer, Version=2.13.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfiumViewer.2.13.0.0\lib\net20\PdfiumViewer.dll</HintPath>
+    </Reference>
+    <Reference Include="poi-4.1.2, Version=8.1.4.0, Culture=neutral, PublicKeyToken=8783d630753e2b3f, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-common.8.1.4\lib\poi-4.1.2.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="RazorGenerator.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorGenerator.Mvc.2.4.9\lib\net40\RazorGenerator.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="RefactorThis.GraphDiff, Version=3.1.2.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
+      <HintPath>..\packages\RefactorThis.GraphDiff.3.1.2\lib\net40\RefactorThis.GraphDiff.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.11.4.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.11.4\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="rtfparserkit-1.15.0, Version=8.1.4.0, Culture=neutral, PublicKeyToken=8783d630753e2b3f, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-common.8.1.4\lib\rtfparserkit-1.15.0.dll</HintPath>
+    </Reference>
+    <Reference Include="sqlite-jdbc-3.30.1, Version=8.1.4.0, Culture=neutral, PublicKeyToken=8783d630753e2b3f, processorArchitecture=MSIL">
+      <HintPath>..\packages\net.sf.mpxj-common.8.1.4\lib\sqlite-jdbc-3.30.1.dll</HintPath>
+    </Reference>
+    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Compression.Base, Version=18.2460.0.55, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Compression.Base.18.2.0.55\lib\net46\Syncfusion.Compression.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks, Version=4.0.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Unity.Abstractions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Abstractions.3.3.0\lib\net45\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Configuration, Version=5.2.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.7.0\lib\net46\Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.8.6.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Container.5.8.6\lib\net46\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Interception, Version=5.5.0.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.7.0\lib\net46\Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mvc, Version=5.0.13.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc.5.0.13\lib\net46\Unity.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mvc5, Version=1.3.0.0, Culture=neutral, PublicKeyToken=43da31bc42a85347, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc5.1.3.0\lib\net45\Unity.Mvc5.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RegistrationByConvention, Version=2.1.5.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.7.0\lib\net46\Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WebHelpers.Mvc5, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebHelpers.Mvc5.2.1.1\lib\net45\WebHelpers.Mvc5.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202011270957018_InitialNav.resx">
+      <DependentUpon>202011270957018_InitialNav.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Navigation\Migrations\202011300825566_InitialNav.resx">
+      <DependentUpon>202011300825566_InitialNav.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Navigation\Migrations\202012160401045_InitialNav1.resx">
+      <DependentUpon>202012160401045_InitialNav1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Navigation\Migrations\202012161056108_InitialNav2.resx">
+      <DependentUpon>202012161056108_InitialNav2.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SurePortal.Core.Kernel\SurePortal.Core.Kernel.csproj">
+      <Project>{ecd84ef0-b902-41a1-b8e6-2113d278bb8f}</Project>
+      <Name>SurePortal.Core.Kernel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50613</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:46391/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:46391/</IISAppRootUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\Build\PdfiumViewer.Native.x86_64.v8-xfa.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\Build\PdfiumViewer.Native.x86_64.v8-xfa.props'))" />
+    <Error Condition="!Exists('..\packages\PdfiumViewer.Native.x86.v8-xfa.2018.4.8.256\Build\PdfiumViewer.Native.x86.v8-xfa.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PdfiumViewer.Native.x86.v8-xfa.2018.4.8.256\Build\PdfiumViewer.Native.x86.v8-xfa.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\net.sf.mpxj-ikvm.8.1.4\build\net.sf.mpxj-ikvm.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\net.sf.mpxj-ikvm.8.1.4\build\net.sf.mpxj-ikvm.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\net.sf.mpxj-ikvm.8.1.4\build\net.sf.mpxj-ikvm.targets" Condition="Exists('..\packages\net.sf.mpxj-ikvm.8.1.4\build\net.sf.mpxj-ikvm.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

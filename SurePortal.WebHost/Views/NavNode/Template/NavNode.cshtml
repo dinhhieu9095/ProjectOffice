@@ -1,0 +1,86 @@
+﻿@using SurePortal.WebHost.Common
+@model SurePortal.WebHost.Models.Navigation.NavNodeUpdateModel
+
+<div class="row">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.IsLayoutNavNode)
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>
+                @Html.DisplayNameFor(x => x.Name)
+                <span class="symbol-valid">*</span>
+            </label>
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control", placeholder = "Nhập tên" })
+            @Html.ValidationMessageFor(x => x.Name, string.Empty, new { @style = "color: #e7505a" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>
+                @Html.DisplayNameFor(x => x.Areas)
+            </label>
+            @Html.TextBoxFor(x => x.Areas, new { @class = "form-control" })
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>
+                @Html.DisplayNameFor(x => x.Controller)
+            </label>
+            @Html.TextBoxFor(x => x.Controller, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>
+                @Html.DisplayNameFor(x => x.Action)
+            </label>
+            @Html.TextBoxFor(x => x.Action, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Action, string.Empty, new { @style = "color: #e7505a" })
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>
+                @Html.DisplayNameFor(x => x.Params)
+            </label>
+            @Html.TextBoxFor(x => x.Params, new { @class = "form-control", placeholder = "Nhập params" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group text-center">
+            @Html.ValidationMessage("ErrSubmit", new { @class = "ErrSubmit errMsg" })
+            <input style="display:none;opacity:0"
+                   type="checkbox"
+                   @(!ViewData.ModelState.IsValid ? "checked" : "")
+                   onchange="HideLoading();" />
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-mini btn-info" onclick="lacviet_addNavnode.onSubmit()">
+        <i class="glyphicon glyphicon-save mr5"></i>
+        Lưu
+    </button>
+    <button type="button" class="btn default" data-dismiss="modal" aria-hidden="true">
+        <i class="fa fa-close mr5"></i>
+        Đóng
+    </button>
+</div>
+
+
+
+

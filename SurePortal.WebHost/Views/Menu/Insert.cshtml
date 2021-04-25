@@ -1,0 +1,149 @@
+﻿@using SurePortal.WebHost.Common
+@model SurePortal.WebHost.Models.Navigation.MenuUpdateModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/css/alertify.min.css" rel="stylesheet" />
+<link href="~/Content/css/default.min.css" rel="stylesheet" />
+<link href="~/Content/css/easy-autocomplete.min.css" rel="stylesheet" />
+<link href="~/Content/css/easy-autocomplete.themes.min.css" rel="stylesheet" />
+@helper Popup()
+{
+    <div class="modal fade" id="stackPopup" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content" id="popupPageDetail">
+            </div>
+        </div>
+    </div>
+}
+@section styles{}
+<div class="content d-flex flex-column flex-column-fluid pb-0" id="kt_content" style="margin-top:-10px; margin-left: 1px">
+    @Html.Partial(Model.TemplateBreadcrumbURL, Model)
+
+    <div class="card card-custom gutter-b mx-9px">
+        <div class="card-body">
+            @using (Ajax.BeginForm(Constant.Action.Insert, Constant.Controller.Menu, new AjaxOptions
+            {
+                HttpMethod = "POST",
+                OnSuccess = "lacviet_add.onUpdateSuccess",
+                LoadingElementId = "element-loading"
+            }, new { @role = "form", @id = "frmSubmit" }))
+            {
+                Html.RenderPartial(Model.TemplateURL, Model);
+            }
+        </div>
+    </div>
+</div>
+<!-- BEGIN MODAL -->
+@Popup()
+<!-- END MODAL -->
+@section scripts
+{
+    <script src="~/Content/js/jquery.easy-autocomplete.min.js"></script>
+    <script src="~/Content/js/jquery.twbsPagination.min.js"></script>
+    <script src="~/Content/js/alertify.min.js"></script>
+    <script>
+        $(function () {
+            var elmAuto = '#navAutocomplete';
+            var options = {
+                url: function (phrase) {
+                    return "/menu/easyautocomplete?keySearch=" + phrase;
+                },
+                getValue: function (element) {
+                    return element.name;
+                },
+                template: {
+                    type: "description",
+                    fields: {
+                        description: "displayName"
+                    }
+                },
+                ajaxSettings: {
+                    dataType: "json",
+                    method: "POST",
+                    data: {
+                        dataType: "json"
+                    }
+                },
+                preparePostData: function (data) {
+                    data.phrase = $(elmAuto).val();
+                    return data;
+                },
+                list: {
+                    maxNumberOfElements: 10,
+                    sort: {
+                        enabled: true
+                    },
+                    onChooseEvent: function () {
+                        debugger;
+                        var selectedItemValue = $(elmAuto).getSelectedItemData().id;
+                        $("#NavNodeId").val(selectedItemValue);
+                        var selectedItemText = $(elmAuto).getSelectedItemData().displayName;
+                        $("#Link").val(selectedItemText);
+                    },
+                    onSelectItemEvent: function () { },
+                    onHideListEvent: function () { },
+                    onClickEvent: function () { },
+                    onKeyEnterEvent: function () { },
+                    onShowListEvent: function () { }
+                },
+                theme: "square",
+                requestDelay: 300,
+                placeholder: "Tìm kiếm..."
+            };
+            $(elmAuto).easyAutocomplete(options);
+
+            $("#slectRole").select2();
+            $("#slectUser").select2({
+                ajax: {
+                    url: '@Url.Action(Constant.Action.SearchUser, Constant.Controller.Menu)',
+                     data: function (params) {
+                         debugger;
+                        var query = {
+                            deptId: '00000000-0000-0000-0000-000000000000',
+                            pageIndex: 1,
+                            pageSize: 10,
+                            keyword: params.term,
+                        }
+
+                        // Query parameters will be ?search=[term]&page=[page]
+                         if (params.term.length >= 2) {
+                             return query;
+                         }
+
+                     },
+                     delay: 250,
+                     placeholder: 'Search for a repository',
+                     dataType: 'json',
+                     processResults: function (data) {
+                         return {
+                             results: data
+                         };
+                     }
+                }
+            });
+        });
+    </script>
+    <script>
+        var lacviet_add = {
+            onUpdateSuccess: function (result) {
+                if (result.status == true) {
+                    //lacviet_notification.updateSuccess();
+                    //window.location.reload();
+                    //$("#btnDORequestClose").trigger("click");
+                    //alertify.se(data.msg).set({ title: "THÔNG BÁO LỖI" });
+                    window.location.href = '@Url.Action(Constant.Action.Index, Constant.Controller.Menu)';
+                }
+                else {
+                    alertify.alert(data.msg).set({ title: "THÔNG BÁO LỖI" });
+                    //$('span.error').text(result.msg);
+                    //lacviet_notification.deleteFail();
+                    //HideLoading();
+                }
+            }            
+        }
+    </script>
+}
+
+

@@ -1,0 +1,85 @@
+﻿@using SurePortal.WebHost.Common
+@model List<SurePortal.WebHost.Modules.Navigation.Application.Dto.MenuPagingDto>
+
+@{
+    var menuLevl1 = Model.Where(e => e.ParentId == null).OrderBy(e => e.Order).ToList();
+    string siteUrl = System.Configuration.ConfigurationManager.AppSettings["SiteURL"];
+    siteUrl = siteUrl.Substring(0, siteUrl.Length - 1);
+}
+
+        <div class="header-menu-wrapper header-menu-wrapper-left" id="kt_header_menu_wrapper">
+            <div id="kt_header_menu" class="hor-menu  hor-menu-light header-menu header-menu-mobile header-menu-layout-default">
+                <ul class="menu-nav">
+                    <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here menu-item-active" data-menu-toggle="hover" aria-haspopup="true">
+                        <a href="@siteUrl" class="menu-link menu-toggle1 bg-danger">
+                            <i class="fas fa-home text-white"></i>
+                        </a>
+                    </li>
+                    @for (int i = 0; i < menuLevl1.Count; i++)
+                    {
+                        var itemlv1 = menuLevl1[i];
+                        string linklv1 = "#";
+                        if (!string.IsNullOrEmpty(itemlv1.Link))
+                        {
+                            linklv1 = itemlv1.Link.Replace("~", "");
+                            linklv1 = siteUrl + itemlv1.Link;
+                        }
+                        <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
+                            <a href="@linklv1" class="menu-link">
+                                <i class="@itemlv1.Icon"></i>
+                                <span class="menu-text font-size-lg text-dark text-uppercase">@itemlv1.Name</span>
+                            </a>
+                            <div class="menu-submenu menu-submenu-fixed menu-submenu-left" style="width:1000px">
+                                <div class="menu-subnav">
+                                    <ul class="menu-content">
+                                        @{
+                                            var menuLV2 = Model.Where(e => e.ParentId == itemlv1.Id).OrderBy(e => e.Order).ToList();
+                                        }
+                                        @foreach (var itemLv2 in menuLV2)
+                                        {
+                                            string linklv2 = "#";
+                                            if (!string.IsNullOrEmpty(itemLv2.Link))
+                                            {
+                                                linklv2 = itemLv2.Link.Replace("~", "");
+                                                linklv2 = siteUrl + itemLv2.Link;
+                                            }
+                                            <li class="menu-item">
+                                                <h3 class="menu-heading menu-toggle">
+                                                    <i class="@itemLv2.Icon"></i>
+                                                    <a class="menu-text" href="@linklv2">@itemLv2.Name</a>
+                                                </h3>
+                                                <ul class="menu-inner">
+                                                    @{
+                                                        var menuLV3 = Model.Where(e => e.ParentId == itemLv2.Id).OrderBy(e => e.Order).ToList();
+                                                    }
+                                                    @foreach (var itemLv3 in menuLV3)
+                                                    {
+                                                        string linklv3 = "#";
+                                                        if (!string.IsNullOrEmpty(itemLv3.Link))
+                                                        {
+                                                            linklv3 = itemLv3.Link.Replace("~", "");
+                                                            linklv3 = siteUrl + itemLv3.Link;
+                                                        }
+                                                        <li class="menu-item" aria-haspopup="true">
+                                                            <a href="@linklv3" class="menu-link">
+                                                                @*<span class="menu-icon"><i class=">@itemLv3.Icon"></i></span>*@
+                                                                <i class="menu-bullet menu-bullet-line">
+                                                                    <span></span>
+                                                                </i>
+                                                                <span class="menu-text">@itemLv3.Name</span>
+                                                            </a>
+                                                        </li>
+                                                    }
+
+                                                </ul>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+   

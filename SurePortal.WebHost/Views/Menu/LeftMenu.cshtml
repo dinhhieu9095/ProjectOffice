@@ -1,0 +1,102 @@
+﻿@using SurePortal.WebHost.Common
+@model List<SurePortal.WebHost.Modules.Navigation.Application.Dto.MenuPagingDto>
+
+@{
+    var menuLevl1 = Model.Where(e => e.ParentId == null).OrderBy(e => e.Order).ToList();
+    string siteUrl = System.Configuration.ConfigurationManager.AppSettings["SiteURL"];
+    siteUrl = siteUrl.Substring(0, siteUrl.Length - 1);
+}
+
+<div class="aside aside-left aside-fixed d-flex flex-column flex-row-auto" id="kt_aside">
+    <div class="brand flex-column-auto" id="kt_brand" kt-hidden-height="65" style="">
+        <a href="/" class="brand-logo">
+            <img alt="Logo" src="~/Content/metronic/img/logo-dark.png">
+        </a>
+        <button class="brand-toggle btn btn-sm px-0" id="kt_aside_toggle" style="display:none">
+            <span class="svg-icon svg-icon svg-icon-xl">
+                <img src="~/Content/metronic/img/svg/Angle-double-left.svg" />
+            </span>
+        </button>
+    </div>
+    <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
+        <div id="kt_aside_menu" class="aside-menu scroll ps ps--active-y" data-menu-vertical="1" data-menu-scroll="1" data-menu-dropdown-timeout="500" style="height: 509px; overflow: hidden;">
+            <ul class="menu-nav">
+                @foreach (var itemlv1 in menuLevl1)
+                {
+                    string linklv1 = "#";
+                    if (!string.IsNullOrEmpty(itemlv1.Link))
+                    {
+                        linklv1 = siteUrl + itemlv1.Link;
+                    }
+                    var menuLV2 = Model.Where(e => e.ParentId == itemlv1.Id).OrderBy(e => e.Order).ToList();
+
+                        <li class="menu-item menu-item-submenu menu-item-open" aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="@linklv1" class="menu-link">
+                                <span class="menu-icon">
+                                    <i class="@itemlv1.Icon"></i>
+                                </span>
+                                <span class="menu-text">@itemlv1.Name</span>
+                            </a>
+                            <a href="javascript:;" class="menu-toggle @(menuLV2.Count > 0 ? "anchor-right":"")">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+
+                            <div class="menu-submenu">
+                                <ul class="menu-subnav">
+                                    <li class="menu-item menu-item-parent" aria-haspopup="true">
+                                        <span class="menu-link">
+                                            <span class="menu-text">@itemlv1.Name</span>
+                                        </span>
+                                    </li>
+
+                                    @foreach (var itemLv2 in menuLV2)
+                                    {
+                                        string linklv2 = "#";
+                                        if (!string.IsNullOrEmpty(itemLv2.Link))
+                                        {
+                                            linklv2 = siteUrl + itemLv2.Link;
+                                        }
+                                        var menuLV3 = Model.Where(e => e.ParentId == itemLv2.Id).OrderBy(e => e.Order).ToList();
+
+                                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                            <a href="@linklv2" class="menu-link">
+                                                <span class="menu-icon">
+                                                    <i class="@itemLv2.Icon"></i>
+                                                </span>
+                                                <span class="menu-text">@itemLv2.Name</span>
+                                            </a>
+                                            <a href="javascript:;" class="menu-toggle @(menuLV3.Count > 0 ? "anchor-right":"")">
+                                                <i class="fas fa-chevron-right"></i>
+                                            </a>
+                                            <div class="menu-submenu">
+                                                <ul class="menu-subnav">
+                                                    @foreach (var itemLv3 in menuLV3)
+                                                    {
+                                                        string linklv3 = "#";
+                                                        if (!string.IsNullOrEmpty(itemLv3.Link))
+                                                        {
+                                                            linklv3 = siteUrl + itemLv3.Link;
+                                                        }
+                                                        <li class="menu-item" aria-haspopup="true">
+                                                            <a href="@linklv3" class="menu-link">
+                                                                <i class="@itemLv3.Icon">
+                                                                    <span></span>
+                                                                </i>
+                                                                <span class="menu-text">@itemLv3.Name</span>
+                                                            </a>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                    }
+
+                                </ul>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>

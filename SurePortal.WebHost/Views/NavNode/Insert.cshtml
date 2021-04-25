@@ -1,0 +1,58 @@
+﻿@using SurePortal.WebHost.Common
+@model SurePortal.WebHost.Models.Navigation.NavNodeUpdateModel
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title">
+        Tạo mới đường link
+    </h4>
+</div>
+<div class="modal-body detail-container">
+
+    @using (Ajax.BeginForm(Constant.Action.Insert, Constant.Controller.NavNode, new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "lacviet_add.onUpdateSuccess",
+        LoadingElementId = "element-loading"
+    }, new { @role = "form", @id = "frmSubmitNavNode" }))
+    {
+        Html.RenderPartial(Model.TemplateURL, Model);
+    }
+</div>
+
+
+<script type="text/javascript">
+
+    var lacviet_addNavnode = {
+        onSubmit: function () {
+            var _name = $('#frmSubmitNavNode').find("#Name").val();
+            if (_name == '' || _name == typeof undefined) {
+                alertify.alert('Tên là bắt buộc').set({ title: "THÔNG BÁO LỖI" });
+                $('#frmSubmitNavNode').find("#Name").focus();
+                return false;
+            }
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action(Constant.Action.Insert, Constant.Controller.NavNode)',
+                data: $("#frmSubmitNavNode").serialize(),
+                success: function (response) {
+                    if (response.status) {
+
+                        if ('@Model.IsLayoutNavNode' == 'True') {
+                            window.location.reload();
+                        } else {
+                            $('#stackPopup').modal('toggle');
+                        }
+                    }
+                    else {
+                        alertify.alert(response.msg).set({ title: "THÔNG BÁO LỖI" });
+                    }
+                }
+            });
+        }
+    }
+</script>
+
+
+
+

@@ -1,0 +1,176 @@
+﻿@using SurePortal.WebHost.Models.Orgs.Departments
+@using SurePortal.WebHost.Models.Orgs.Users
+@using System.Collections.Generic
+@using System.Linq
+
+@using SurePortal.WebHost.Models.Orgs.Departments
+@{
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+    ViewBag.Title = "Sơ đồ tổ chức";
+    string m_ApplicationPath = HttpContext.Current.Request.ApplicationPath + '/';
+    m_ApplicationPath = m_ApplicationPath.Replace("//", "/");
+}
+
+@section Scripts{
+    <script type="text/javascript">
+            var OrgUserSelected = [];
+            var loadOrgTreeByParentIdUrl = "@Url.Action("DepartmentTreeByParentID", "Org")";
+            var isCollapsible = false;
+            function OrgChartCollapsible(element, id) {
+
+                    isCollapsible = true;
+                    $.getJSON(loadOrgTreeByParentIdUrl, {
+                        ParentId: id,
+                    }, function (data) {
+                        var html = "";
+                        html += "<ul>";
+                        //Add Org in tree
+                        for (var i = 0; i < data.DepartmentModels.length; i++) {
+                            html += "<li id='" + data.DepartmentModels[i].ID + "' parentId='" + data.DepartmentModels[i].ParentID + "'>";
+                            html += '<span class="tvcollapse collapsible" onclick="OrgChartCollapsible(this,\'' + data.DepartmentModels[i].OrgID + '\');">&nbsp;</span>';
+                            //html += "<label><span class='orgimage'><img src='" + data.OrgViewModels[i].DepthTypeIcon + "' alt='" + data.OrgViewModels[i].DepthTypeIcon + "' /></span>";
+                            html += "<span>";
+                            html += "<a>" + data.DepartmentModels[i].Name + "</a>";
+                            html += "</span></label>";
+                            if (data.DepartmentModels[i].UserDepartment.length > 0) {
+                                //Add User in tree
+                                for (var j = 0; j < data.DepartmentModels[i].UserDepartment.length; j++) {
+                                    html += "<li>";
+                                    html += "<span style='width:15px; display:inline-block'>&nbsp;</span>";
+                                    html += "<label><span class='orguserselect'><input type='checkbox' value='" + data.DepartmentModels[i].UserDepartment[j].UserName + "' onchange='OrgUserOnChange(this);'/></span>";
+                                    html += "<span class='orgimage'><img src='" + "m_ApplicationPath" + "Content/Images/icon-user.png' alt='' /></span>";
+                                    html += "<span>";
+                                    html += "<a>" + data.DepartmentModels[i].UserDepartment[j].FullName + "</a>";
+                                    html += "</span></label>";
+                                    html += "</li>";
+                                    OrgUserDataList.push(data.DepartmentModels[i].UserDepartment[j]);
+                                }
+                            }
+
+                            html += "</li>";
+                        }
+
+                        
+                       
+                        html += "</ul>";
+                        $(element).closest('li').append(html);
+                        $(element).addClass("cached");
+                        $(element).closest('li').children('ul').css('display', 'none');
+                        $(element).closest('li').children('ul').slideToggle();
+                        isCollapsible = false;
+                    });
+
+                $(element).toggleClass("tvcollapse tvexpand");
+            }
+
+            function OrgUserOnChange(element)
+            {
+                var userName = $(element).attr("value");
+                if (element.checked == true)
+                {
+                    if(userName != "")
+                    {
+                        // find the selected item in list model
+                        var selectedItem;
+                        for(var i = 0; i < OrgUserDataList.length; i++)
+                        {
+                            if(OrgUserDataList[i].UserName == userName){
+                                selectedItem = OrgUserDataList[i];
+                                break;
+                            }
+                        }
+
+                        if("@this.ViewBag.IsMultiSelect" == "True")
+                        {
+                            OrgUserSelected.push(selectedItem);
+                        }
+                        else
+                        {
+                            OrgUserSelected.splice(0,OrgUserSelected.length);
+                            OrgUserSelected.push(selectedItem);
+                            // clear all select
+                            $(".orguserselect").each(function(index,element){
+                                if($(element).find("input").attr("value") != selectedItem.UserName)
+                                {
+                                    $(element).find("input").prop("checked", false);
+                                }
+                            });
+                        }
+                    }
+                }
+                else
+                {
+                    if(userName != "")
+                    {
+                        // find the selected item in lis model
+                        var selectedItem;
+
+                        $.each(OrgUserSelected,function(index,element){
+                            if(element.UserName == userName){
+                                selectedItem = element;
+                            }
+                        });
+
+                        OrgUserSelected.splice(selectedItem,1);
+                    }
+                }
+                //Setvalue
+                document.getElementById("OrgUserSelected").value = JSON.stringify(OrgUserSelected);
+            }
+    </script>
+}
+
+<div class="orgchart-main">
+    <div class="treeview-container scroll_container" style="max-height: 600px;overflow-y:scroll;">
+        <div class="treeview" id="treeview">
+            <ul>
+                @if (Model != null && Model.DepartmentModels != null && Model.DepartmentModels.Count > 0)
+                {
+                    foreach (var departmentModel in Model.DepartmentModels)
+                    {
+                <li id="@departmentModel.Id" parentid="@departmentModel.ParentID">
+                    <span class="tvexpand collapsible cached" onclick="OrgChartCollapsible(this,'@departmentModel.Id');">&nbsp;</span>
+                    <input type="checkbox" value="@departmentModel.ID+';#'+@departmentModel.Name" onchange="OrgUserOnChange(this);" />
+                    <span>
+                        <a>@departmentModel.Name</a>
+                    </span>
+                    <ul>
+                        @if (departmentModel.UserDepartment.Count > 0)
+                        {
+                            foreach (var UserInfo in departmentModel.UserDepartment)
+                            {
+                                <li>
+                                    <span style='width:15px; display:inline-block'>&nbsp;</span>
+                                    <label>
+                                        <span class='orguserselect'><input type='checkbox' value='@UserInfo.UserName' onchange='OrgUserOnChange(this);' /></span>
+                                        <span class='orgimage'><img src='@m_ApplicationPath/Content/Images/icon-user.png' alt='' /></span>
+                                        <span>
+                                            <a>@UserInfo.FullName</a>
+                                        </span>
+                                    </label>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </li>
+                    }
+                }
+            </ul>
+        </div>
+        <input type="hidden" id="OrgUserSelected" name="OrgUserSelected" />
+    </div>
+    <div class="popup-bottom">
+        <div class="col-md-12 modal-footer">
+            <input name="Command" class="btn btn-primary" id="btnOrgUserOK" type="submit" value="Đồng ý" />
+            <input name="Command" class="btn btn-primary" id="btnOrgUserClose" type="button" value="Đóng" />
+        </div>
+    </div>
+    @*<script type="text/javascript">
+            $("#btnOrgUserClose").click(function () {
+                $("#OrgUserSelect").modal('toggle');
+            });
+        </script>*@
+
+</div>
+
+

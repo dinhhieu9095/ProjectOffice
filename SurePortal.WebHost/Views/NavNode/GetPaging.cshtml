@@ -1,0 +1,184 @@
+﻿@using SurePortal.WebHost.Common
+@model SurePortal.WebHost.Models.Navigation.NavNodePagingModel
+@{
+    int countRow = (Model.PageIndex - 1) * Model.PageSize;
+}
+<style type="text/css">
+    .table-scroll .table-scrollable {
+        position: relative;
+        width: 100%;
+        z-index: 1;
+        margin: auto auto 0 auto !important;
+        overflow: auto;
+        max-height: calc(100vh - 290px);
+        min-height: 200px;
+        border: 1px solid #e7ecf1;
+    }
+
+    .table-scroll thead th {
+        width: auto;
+        white-space: nowrap;
+        background-color: #f5f5f5 !important;
+    }
+
+    .table-scroll th:nth-last-child(1) {
+        position: -webkit-sticky;
+        position: sticky;
+        right: 0;
+        width: 100px !important;
+        max-width: 100px;
+        min-width: 100px;
+        z-index: 2;
+        background-color: #f5f5f5 !important;
+    }
+
+    .table-scroll td:nth-last-child(1) {
+        position: -webkit-sticky;
+        position: sticky;
+        right: 0;
+        width: 100px !important;
+        max-width: 100px;
+        min-width: 100px;
+        z-index: 2;
+        background-color: #f5f5f5 !important;
+    }
+
+    .table-scroll thead th:nth-last-child(1) {
+        z-index: 5 !important;
+    }
+
+    .table-scroll tbody td:nth-last-child(1) {
+        z-index: 5 !important;
+    }
+</style>
+@helper ButtonControls()
+{
+<div class="doc-group-title pull-right">
+    <a onclick="lacviet_lstpage.onAddNavNode()"
+       data-toggle="modal"
+       data-target="#stackPopup"
+       class="btn btn-info btn-df">
+        <i class="icon icon-plus mr5"></i> Thêm
+    </a>
+</div>
+}
+@helper ThTable()
+{
+<tr>
+    <th class="text-center">#</th>
+    <th>Tên</th>
+    @*<th>Loại menu</th>*@
+    <th>Url</th>
+    <th>Trạng thái</th>
+    <th style="min-width:70px;">Thao tác</th>
+</tr>
+}
+<div class="row mt10">
+    <div class="col-md-4">
+        <div class="doc-group-title">
+            <span aria-hidden="true" class="fa fa-key"></span>
+            Tìm thấy tổng số <span id="lbl-um-total" class="span-total">@Model.TotalPage</span> biểu ghi
+        </div>
+    </div>
+    <div class="col-md-8">
+        @ButtonControls()
+    </div>
+</div>
+<div class="row mt10">
+    <div class="col-md-12">
+        <div class="searh-result">
+            <div id="table-scroll" class="table-scroll">
+                <div class="table-scrollable">
+                    <table class="table table-bordered main-table" style="min-width:1600px">
+                        <thead class="flip-content1">
+                            @ThTable()
+                        </thead>
+                        <tbody id="bodyView">
+                            @foreach (var item in Model.LstData)
+                            {
+                                countRow++;
+                            <tr>
+                                <td class="text-center">@countRow </td>
+                                <td >
+                                    <a onclick="lacviet_lstpage.onUpdate('@item.Id')"
+                                         data-toggle="modal"
+                                        data-target="#stackPopup"  
+                                       href="#">
+                                        @item.Name
+                                    </a>
+                                </td>
+                                @*<td >@item.DisplayStatus</td>*@
+                                <td>@item.DisplayLink</td>
+                                <td>@item.DisplayActiveFag</td>
+                                <td class="text-right">
+                                    <a onclick="lacviet_lstpage.onUpdate('@item.Id')"
+                                       data-toggle="modal"
+                                       data-target="#stackPopup"
+                                       class="btn btn-xs btn-icon-only btn-info action-btn-edit"
+                                       href="#"
+                                       title="Cập nhật">
+                                        <i class="icon icon-pencil mr5"></i>
+                                    </a>
+                                    <button class="btn btn-xs red btn-icon-only" data-toggle="tooltip"
+                                            title="Xóa"
+                                            onclick="lacviet_lstpage.onDelete('@item.Id')">
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="pagination-control">
+            <div class="row">
+                <div class="col-md-12 pull-right">
+                    <div id="page-selection" class="padding-top-15 clearboth">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        //$('[data-toggle="tooltip"]').tooltip();
+        if (@Model.PageSize <= @Model.TotalPage) {
+        $('#page-selection').twbsPagination('destroy');
+        $('#page-selection').twbsPagination({
+            totalPages: @(Model.TotalPage/Model.PageSize+1),
+            startPage: @Model.PageIndex,
+            maxVisible: 10,
+            visiblePages: @(Model.TotalPage/Model.PageSize>= 10 ? 10 : (Model.TotalPage / Model.PageSize+1)),
+            initiateStartPageClick: false,
+            first: '<span class="ms-bold fa fa-angle-double-left"></span>',
+            last: '<span class="ms-bold fa fa-angle-double-right"></span>',
+            next: '<span class="ms-bold fa fa-angle-right"></span>',
+            prev: '<span class="ms-bold fa fa-angle-left"></span>',
+            activeClass: 'active',
+            disabledClass: 'disabled',
+            nextClass: 'next',
+            prevClass: 'prev',
+            lastClass: 'last',
+            firstClass: 'first',
+            onPageClick: function (event, page) {
+                lacviet_lstpage.onSearch(page);
+            }
+        });
+        $('#page-selection').fadeIn();
+    }
+    else {
+        $('#page-selection').fadeOut();
+    }
+    });
+</script>
+

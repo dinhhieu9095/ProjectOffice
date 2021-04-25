@@ -1,0 +1,205 @@
+﻿@using SurePortal.WebHost.Common
+@model SurePortal.WebHost.Models.Navigation.NavNodeIndexModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@helper Popup()
+{
+    <div class="modal fade" id="stackPopup" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content" id="popupPageDetail">
+            </div>
+        </div>
+    </div>
+}
+@section styles{}
+<div class="content d-flex flex-column flex-column-fluid pb-0" id="kt_content">
+    @Html.Partial(Model.TemplateBreadcrumbURL, Model)
+    @Html.Partial(Model.TemplateSearchURL)
+    <div class="card card-custom gutter-b">
+        <div class="card-body">
+            <div id="body-content"></div>
+        </div>
+    </div>
+</div>
+<!-- BEGIN MODAL -->
+@Popup()
+<!-- END MODAL -->
+@section scripts
+{
+    <script src="~/Content/js/jquery.twbsPagination.min.js"></script>
+    <script src="~/Content/js/alertify.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var pageIndex = 1;
+            lacviet_lstpage.onSearch(pageIndex);
+            // $('.lacviet-dl-select2').select2({ width: 'resolve' });
+            $("#btnSearchMore").click(function (event) {
+                event.preventDefault();
+                var clss = 'hidden';
+                var checkclcs = $('.moreSearchItem').hasClass(clss);
+                if (checkclcs) {
+                    $('.moreSearchItem').removeClass(clss);
+                } else {
+                    $('.moreSearchItem').addClass(clss);
+                }
+            });
+        });
+        var ctorPage = {
+            UrlPage: '@Url.Action(Constant.Action.GetPaging, Model.Controller)',
+            UrlDelete: '@Url.Action(Constant.Action.Delete, Model.Controller)',
+            UrlUpdate: '@Url.Action(Constant.Action.Update, Model.Controller)?@Constant.Parameter.Id',
+            UrlChangeActive: '@Url.Action(Constant.Action.ChangeActive, Model.Controller)',
+            ParamPageIndex: '@Constant.Parameter.PageIndex',
+            InputCheck: 'input[type="checkbox"].checkboxes',
+            btnDownload: 'DownloadSigFile',
+            btnCssDownload: 'a.btn-download',
+            btnCssDefault: 'a.btn-df',
+            TextYes: 'Có',
+            TextNo: 'Không',
+            TextAskMsg: 'Bạn có chắc chắn PHÊ DUYỆT biểu ghi này ?',
+            TextDelAskMsg: 'Bạn có chắc chắn XÓA biểu ghi này ?',
+            TextQLCVAskMsg: 'Bạn có chắc chắn muốn đồng bộ chữ ký qua quản lý văn công văn?',
+        };
+        var lacviet_lstpage = {
+            onClear: function () {
+                $("#body-content").empty();
+            },
+            onAddNavNode: function () {
+            //ShowLoading();
+            $.get('@Url.Action(Constant.Action.Insert, Constant.Controller.NavNode)')
+                .done(function (html) {
+                    $("#popupPageDetail").html(html);
+                    //HideLoading();
+                }, 'html')
+                .fail(function () {
+                    //HideLoading();
+                });
+            },
+            onSearch: function (_pageIndex) {
+                //ShowLoading();
+                lacviet_lstpage.onClear();
+                var _keyWord = $("#txt-um-keyword").val();
+                var _type = $('#selSignatureType').val();
+
+                var param = {
+                    pageIndex: _pageIndex,
+                    keyWord: _keyWord,
+                    type: _type
+                }
+                // Send the data using post
+                $.post(ctorPage.UrlPage, param)
+                    .done(function (data) {
+                        $("#body-content").html(data);
+                        //HideLoading();
+                    }, 'html')
+                    .fail(function () {
+                        //HideLoading();
+                    })
+                    .always(function () {
+                        //HideLoading();
+                    });;
+
+            },
+            onSearchKeyUp: function (_pageIndex, event) {
+                var key;
+                if (window.event)
+                    key = window.event.keyCode;
+                else
+                    key = event.which;
+                if (key == 13) {
+                    lacviet_lstpage.onSearch(_pageIndex);
+                }
+            },
+            onChangeActive: function (id,msg) {
+                bootbox.confirm({
+                    message: 'Bạn có muốn ' + msg + ' biểu ghi này ?',
+                    className: "medium",
+                    buttons: {
+                        confirm: {
+                            label: ctorPage.TextYes,
+                            className: 'btn-danger'
+                        },
+                        cancel: {
+                            label: ctorPage.TextNo,
+                            className: 'btn-success'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            //ShowLoading();
+                            var param = {
+                                id: id
+                            }
+                            // Send the data using post
+                            $.post(ctorPage.UrlChangeActive, param)
+                                .done(function (data) {
+                                    if (data) {
+                                        location.reload();
+                                        alertify.success('Cập nhật thành công');
+                                    }
+                                    else {
+                                        //HideLoading();
+                                        alertify.alert("Cập nhật không thành công").set({ title: "THÔNG BÁO LỖI" });
+                                    }
+                                })
+                                .fail(function () {
+                                    //HideLoading();
+                                });
+                        }
+                    }
+                });
+            },
+            onUpdate: function (id) {
+                //ShowLoading();
+                $.get(ctorPage.UrlUpdate + id)
+                    .done(function (html) {
+                        $("#popupPageDetail").html(html);
+                        //HideLoading();
+                    }, 'html')
+                    .fail(function () {
+                       // HideLoading();
+                    });
+            },
+            onDelete: function (id) {
+                bootbox.confirm({
+                    message: ctorPage.TextDelAskMsg,
+                    className: "medium",
+                    buttons: {
+                        confirm: {
+                            label: ctorPage.TextYes,
+                            className: 'btn-danger'
+                        },
+                        cancel: {
+                            label: ctorPage.TextNo,
+                            className: 'btn-success'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                           // ShowLoading();
+                            var param = {
+                                id: id
+                            }
+                            // Send the data using post
+                            $.post(ctorPage.UrlDelete, param)
+                                .done(function (data) {
+                                    if (data) {
+                                        window.location.href = '@Url.Action(Constant.Action.Index, Constant.Controller.NavNode)';
+                                    } else {
+                                        alertify.alert("Đồng bộ không thành công").set({ title: "THÔNG BÁO LỖI" });
+                                    }
+                                })
+                                .fail(function () {
+                                    // HideLoading();
+                                });
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+}
+
+

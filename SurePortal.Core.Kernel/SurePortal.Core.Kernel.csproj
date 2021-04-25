@@ -1,0 +1,493 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86_64.v8-xfa.props" Condition="Exists('..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86_64.v8-xfa.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ECD84EF0-B902-41A1-B8E6-2113D278BB8F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SurePortal.Core.Kernel</RootNamespace>
+    <AssemblyName>SurePortal.Core.Kernel</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>2</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AmbientScope\IAmbientDbContextLocator.cs" />
+    <Compile Include="AmbientScope\IDbContextCollection.cs" />
+    <Compile Include="AmbientScope\IDbContextFactory.cs" />
+    <Compile Include="AmbientScope\IDbContextReadOnlyScope.cs" />
+    <Compile Include="AmbientScope\IDbContextScope.cs" />
+    <Compile Include="AmbientScope\IDbContextScopeFactory.cs" />
+    <Compile Include="AmbientScope\AmbientContextSuppressor.cs" />
+    <Compile Include="AmbientScope\AmbientDbContextLocator.cs" />
+    <Compile Include="AmbientScope\DbContextCollection.cs" />
+    <Compile Include="AmbientScope\DbContextReadOnlyScope.cs" />
+    <Compile Include="AmbientScope\DbContextScope.cs" />
+    <Compile Include="AmbientScope\DbContextScopeFactory.cs" />
+    <Compile Include="AmbientScope\DbContextScopeOption.cs" />
+    <Compile Include="AmbientScope\DefaultDbContextFactory.cs" />
+    <Compile Include="AmbientScope\IncludingQuery.cs" />
+    <Compile Include="AmbientScope\IRepositoryBase.cs" />
+    <Compile Include="AmbientScope\IRepository.cs" />
+    <Compile Include="AmbientScope\OrderDirection.cs" />
+    <Compile Include="AmbientScope\OrderingQuery.cs" />
+    <Compile Include="AmbientScope\PagingQuery.cs" />
+    <Compile Include="AmbientScope\QueryableExtensions.cs" />
+    <Compile Include="AmbientScope\RepositoryBase.cs" />
+    <Compile Include="AmbientScope\Repository.cs" />
+    <Compile Include="AmbientScope\UnityDependencyResolver.cs" />
+    <Compile Include="Application\Utilities\CalculationDate.cs" />
+    <Compile Include="Application\Extensions\EnumExtensions.cs" />
+    <Compile Include="Application\Helpers\CamelCaseJsonResult.cs" />
+    <Compile Include="Application\Helpers\ExcelExportHelper.cs" />
+    <Compile Include="Application\AppSettings.cs" />
+    <Compile Include="Application\Helpers\StringHelper.cs" />
+    <Compile Include="Application\ServiceFactory.cs" />
+    <Compile Include="Application\Utilities\CommonUtility.cs" />
+    <Compile Include="Application\Utilities\DateUtility.cs" />
+    <Compile Include="Application\Utilities\ReplaceUtility.cs" />
+    <Compile Include="Application\Utilities\WebUtils.cs" />
+    <Compile Include="Application\ViewEngines\BuildManager.cs" />
+    <Compile Include="Application\ViewEngines\DynamicViewEngine.cs" />
+    <Compile Include="Application\ViewEngines\ThemeableBuildManagerViewEngine.cs" />
+    <Compile Include="Application\ViewEngines\ThemeableRazorViewEngine.cs" />
+    <Compile Include="Application\ViewEngines\ThemeableVirtualPathProviderViewEngine.cs" />
+    <Compile Include="Application\ViewEngines\ThemeableWebformViewEngine.cs" />
+    <Compile Include="Caches\Cache.cs" />
+    <Compile Include="Caches\ICache.cs" />
+    <Compile Include="Context\Context.cs" />
+    <Compile Include="Context\IContext.cs" />
+    <Compile Include="Controllers\ApiCoreController.cs" />
+    <Compile Include="Controllers\CoreController.cs" />
+    <Compile Include="Core\Resources\Resource.cs" />
+    <Compile Include="Domain\DomainEvents.cs" />
+    <Compile Include="Domain\Entities\BaseEntity.cs" />
+    <Compile Include="Domain\Entities\BaseMoreEntity.cs" />
+    <Compile Include="Domain\Entities\IBaseMoreEntity.cs" />
+    <Compile Include="Domain\Entity.cs" />
+    <Compile Include="Domain\IAggregateRoot.cs" />
+    <Compile Include="Domain\IEntity.cs" />
+    <Compile Include="Domain\ValueObjects\SurePortalLanguages.cs" />
+    <Compile Include="Domain\ValueObjects\SurePortalModules.cs" />
+    <Compile Include="Domain\ValueObjects\Enumeration.cs" />
+    <Compile Include="Domain\ValueObjects\ValueObject.cs" />
+    <Compile Include="ExternalServices\SmsGateway.cs" />
+    <Compile Include="ExternalServices\SmsVNPTBranchGateway.cs" />
+    <Compile Include="Filters\LocalizeAttribute.cs" />
+    <Compile Include="Filters\OutputProcessorActionFilterAttribute.cs" />
+    <Compile Include="Filters\OutputProcessorStream.cs" />
+    <Compile Include="AmbientScope\FullTextInterceptor.cs" />
+    <Compile Include="Firebase\Application\FirebaseServices.cs" />
+    <Compile Include="Firebase\Application\IFirebaseService.cs" />
+    <Compile Include="Firebase\Models\SendMessageData.cs" />
+    <Compile Include="Firebase\Models\SendMessageResponse.cs" />
+    <Compile Include="Helper\ReflectorUtility.cs" />
+    <Compile Include="Helper\ExcelUtility.cs" />
+    <Compile Include="Helper\AvatarHelper.cs" />
+    <Compile Include="Helper\ConvertToStringExtensions.cs" />
+    <Compile Include="Helper\EplusExtension.cs" />
+    <Compile Include="Helper\SecurityHelper.cs" />
+    <Compile Include="Helper\StringUtils.cs" />
+    <Compile Include="Interfaces\IUnityDependencyResolver.cs" />
+    <Compile Include="Ioc\UnityHelper.cs" />
+    <Compile Include="Ioc\UnityResolver.cs" />
+    <Compile Include="JavaScript\Aggregate.cs" />
+    <Compile Include="JavaScript\DataManager.cs" />
+    <Compile Include="JavaScript\DataSources\DataOperations.cs" />
+    <Compile Include="JavaScript\DataSources\QueryableDataOperations.cs" />
+    <Compile Include="JavaScript\Models\SortedColumn.cs" />
+    <Compile Include="JavaScript\SearchFilter.cs" />
+    <Compile Include="JavaScript\Sort.cs" />
+    <Compile Include="JavaScript\SortOrder.cs" />
+    <Compile Include="JavaScript\SummaryType.cs" />
+    <Compile Include="JavaScript\WhereFilter.cs" />
+    <Compile Include="Linq\AndAlsoModifier.cs" />
+    <Compile Include="Linq\ClassFactory.cs" />
+    <Compile Include="Linq\Data\DataSetExtensions.cs" />
+    <Compile Include="Linq\DynamicClass.cs" />
+    <Compile Include="Linq\DynamicProperty.cs" />
+    <Compile Include="Linq\EnumerableExtensions.cs" />
+    <Compile Include="Linq\ExpressionVisitor.cs" />
+    <Compile Include="Linq\FilterBehavior.cs" />
+    <Compile Include="Linq\FilterType.cs" />
+    <Compile Include="Linq\FunctionalExtensions.cs" />
+    <Compile Include="Linq\GroupContext.cs" />
+    <Compile Include="Linq\GroupResult.cs" />
+    <Compile Include="Linq\ListSortDirection.cs" />
+    <Compile Include="Linq\NullableHelperInternal.cs" />
+    <Compile Include="Linq\QueryableExtensions.cs" />
+    <Compile Include="Linq\QueryBase.cs" />
+    <Compile Include="Linq\QueryProviderBase.cs" />
+    <Compile Include="Linq\Signature.cs" />
+    <Compile Include="Linq\SortColumn.cs" />
+    <Compile Include="Linq\SortDescription.cs" />
+    <Compile Include="Linq\SortDescriptionIndex.cs" />
+    <Compile Include="Linq\StringExtensions.cs" />
+    <Compile Include="Linq\TypeSystem.cs" />
+    <Compile Include="Linq\ValueConvert.cs" />
+    <Compile Include="Core\Logger\Application\ILoggerServices.cs" />
+    <Compile Include="Core\Logger\Application\LoggerServices.cs" />
+    <Compile Include="Mapper\IComplexMapping.cs" />
+    <Compile Include="Mapper\IMapping.cs" />
+    <Compile Include="Models\EnumItemViewModel.cs" />
+    <Compile Include="Models\ListItemViewModel.cs" />
+    <Compile Include="Models\Pagination.cs" />
+    <Compile Include="Models\Requests\KtDataTableRequest.cs" />
+    <Compile Include="Models\Responses\MobileResponse.cs" />
+    <Compile Include="Models\Responses\KtDataTableResponse.cs" />
+    <Compile Include="Models\KtPaging.cs" />
+    <Compile Include="Models\Responses\SelectItemResponse.cs" />
+    <Compile Include="Core\Notifications\Application\Notifications\Dto\NotificationSettingDto.cs" />
+    <Compile Include="Core\Notifications\Application\Notifications\Dto\SendOtpInput.cs" />
+    <Compile Include="Core\Notifications\Application\NotificationTypes\NotificationTypeDto.cs" />
+    <Compile Include="Core\Notifications\Application\Notifications\Dto\NotificationDto.cs" />
+    <Compile Include="Core\Notifications\Application\Notifications\INotificationServices.cs" />
+    <Compile Include="Core\Notifications\Application\Notifications\NotificationServices.cs" />
+    <Compile Include="Core\Notifications\Application\NotificationTypes\INotificationTypeService.cs" />
+    <Compile Include="Core\Notifications\Application\NotificationTypes\NotificationTypeService.cs" />
+    <Compile Include="Core\Notifications\Controller\MobileNotificationController.cs" />
+    <Compile Include="Core\Notifications\Controller\NotificationController.cs" />
+    <Compile Include="Core\Notifications\Controller\NotificationTypeController.cs" />
+    <Compile Include="Core\Notifications\Migrations\202008241428131_InitialNotification.cs" />
+    <Compile Include="Core\Notifications\Migrations\202008241428131_InitialNotification.designer.cs">
+      <DependentUpon>202008241428131_InitialNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Notifications\Infrastruture\Config\NotificationSettingConfiguration.cs" />
+    <Compile Include="Core\Notifications\Infrastruture\Config\NotificationConfiguration.cs" />
+    <Compile Include="Core\Notifications\Migrations\Configuration.cs" />
+    <Compile Include="Core\Notifications\Domain\Entities\NotificationSetting.cs" />
+    <Compile Include="Core\Notifications\Domain\Entities\NotificationType.cs" />
+    <Compile Include="Core\Notifications\Domain\Entities\Notification.cs" />
+    <Compile Include="Core\Notifications\Domain\Repositories\INotificationSettingRepository.cs" />
+    <Compile Include="Core\Notifications\Domain\Repositories\INotificationRepository.cs" />
+    <Compile Include="Core\Notifications\Domain\Repositories\INotificationTypeRepository.cs" />
+    <Compile Include="Core\Notifications\Domain\ValueObjects\NotificationActionTypes.cs" />
+    <Compile Include="Core\Notifications\Infrastruture\Config\NotificationTypeConfiguration.cs" />
+    <Compile Include="Core\Notifications\Infrastruture\NotificationDbContext.cs" />
+    <Compile Include="Core\Notifications\Infrastruture\Repositories\NotificationRepository.cs" />
+    <Compile Include="Core\Notifications\Infrastruture\Repositories\NotificationSettingRepository.cs" />
+    <Compile Include="Core\Notifications\Infrastruture\Repositories\NotificationTypeRepository.cs" />
+    <Compile Include="Core\Notifications\Models\CrudNotificationTypeInput.cs" />
+    <Compile Include="Core\Notifications\Models\SearchNotificationInput.cs" />
+    <Compile Include="Core\Notifications\Models\UpdateNotificationInput.cs" />
+    <Compile Include="Core\Resources\Application\Resources\Dtos\ResourceDto.cs" />
+    <Compile Include="Core\Resources\Application\Resources\IResourceServices.cs" />
+    <Compile Include="Core\Resources\Application\Resources\ResourceServices.cs" />
+    <Compile Include="Core\Resources\Domain\Entities\Resources.cs" />
+    <Compile Include="Core\Resources\Domain\Repositories\IResourceRepository.cs" />
+    <Compile Include="Core\Resources\Infrastructure\ResourceDbContext.cs" />
+    <Compile Include="Core\Orgs\Application\Departments\Dtos\DepartmentDto.cs" />
+    <Compile Include="Core\Orgs\Application\Departments\Dtos\DepartmentInfo.cs" />
+    <Compile Include="Core\Orgs\Application\Departments\Dtos\DepartmentTypeDto.cs" />
+    <Compile Include="Core\Orgs\Application\Groups\Dtos\GroupDto.cs" />
+    <Compile Include="Core\Orgs\Application\Groups\IGroupServices.cs" />
+    <Compile Include="Core\Orgs\Application\Groups\GroupServices.cs" />
+    <Compile Include="Core\Orgs\Application\Signatures\SignatureServerDto.cs" />
+    <Compile Include="Core\Orgs\Application\SystemConfigs\SystemConfigDto.cs" />
+    <Compile Include="Core\Orgs\Application\Users\Dtos\UserDelegationDto.cs" />
+    <Compile Include="Core\Orgs\Application\Users\Dtos\UserDepartmentDto.cs" />
+    <Compile Include="Core\Orgs\Application\UserDevices\UserDeviceDto.cs" />
+    <Compile Include="Core\Orgs\Application\Users\Dtos\UserDto.cs" />
+    <Compile Include="Core\Orgs\Application\Departments\DepartmentServices.cs" />
+    <Compile Include="Core\Orgs\Application\Users\Dtos\UserHandOverDto.cs" />
+    <Compile Include="Core\Orgs\Application\Users\Dtos\UserInfo.cs" />
+    <Compile Include="Core\Orgs\Application\Users\Dtos\UserJobTitleDto.cs" />
+    <Compile Include="Core\Orgs\Application\Signatures\Dtos\UserSignatureDto.cs" />
+    <Compile Include="Core\Orgs\Application\Signatures\ValidateSignatureDto.cs" />
+    <Compile Include="Core\Orgs\Application\Departments\IDepartmentServices.cs" />
+    <Compile Include="Core\Orgs\Application\Orgs\IOrgService.cs" />
+    <Compile Include="Core\Orgs\Application\Signatures\ISignatureServices.cs" />
+    <Compile Include="Core\Orgs\Application\SystemConfigs\ISystemConfigServices.cs" />
+    <Compile Include="Core\Orgs\Application\Users\IUserDelegationServices.cs" />
+    <Compile Include="Core\Orgs\Application\Users\IUserDepartmentServices.cs" />
+    <Compile Include="Core\Orgs\Application\UserDevices\IUserDeviceServices.cs" />
+    <Compile Include="Core\Orgs\Application\Users\IUserHandOverServices.cs" />
+    <Compile Include="Core\Orgs\Application\Users\IUserServices.cs" />
+    <Compile Include="Core\Orgs\Application\Orgs\OrgService.cs" />
+    <Compile Include="Core\Orgs\Application\Signatures\SignatureServices.cs" />
+    <Compile Include="Core\Orgs\Application\SystemConfigs\SystemConfigServices.cs" />
+    <Compile Include="Core\Orgs\Application\Users\UserDelegationServices.cs" />
+    <Compile Include="Core\Orgs\Application\Users\UserDepartmentServices.cs" />
+    <Compile Include="Core\Orgs\Application\UserDevices\UserDeviceServices.cs" />
+    <Compile Include="Core\Orgs\Application\Users\UserHandOverServices.cs" />
+    <Compile Include="Core\Orgs\Application\Users\UserServices.cs" />
+    <Compile Include="Core\Orgs\Controllers\MobileOrgController.cs" />
+    <Compile Include="Core\Orgs\Controllers\MobileSignatureController.cs" />
+    <Compile Include="Core\Orgs\Controllers\OrgController.cs" />
+    <Compile Include="Core\Orgs\Controllers\SystemConfigController.cs" />
+    <Compile Include="Core\Orgs\Controllers\UserController.cs" />
+    <Compile Include="Core\Orgs\Domain\Entities\DepartmentType.cs" />
+    <Compile Include="Core\Orgs\Domain\Entities\ReadUserDepartment.cs" />
+    <Compile Include="Core\Orgs\Domain\Entities\SystemConfig.cs" />
+    <Compile Include="Core\Orgs\Domain\Entities\SignatureServer.cs" />
+    <Compile Include="Core\Orgs\Domain\Entities\Group.cs" />
+    <Compile Include="Core\Orgs\Domain\Entities\UserHandOver.cs" />
+    <Compile Include="Core\Orgs\Domain\Entities\UserDelegation.cs" />
+    <Compile Include="Core\Orgs\Domain\Entities\UserDevice.cs" />
+    <Compile Include="Core\Orgs\Domain\Entities\UserJobTitle.cs" />
+    <Compile Include="Core\Orgs\Domain\Entities\UserSignature.cs" />
+    <Compile Include="Core\Orgs\Domain\Repositories\IDepartmentTypeRepository.cs" />
+    <Compile Include="Core\Orgs\Domain\Repositories\ISignatureRepository.cs" />
+    <Compile Include="Core\Orgs\Domain\Repositories\ISystemConfigRepository.cs" />
+    <Compile Include="Core\Orgs\Domain\Repositories\IUserHandOverRepository.cs" />
+    <Compile Include="Core\Orgs\Domain\Repositories\IUserDelegationRepository.cs" />
+    <Compile Include="Core\Orgs\Domain\Repositories\IUserDeviceRepository.cs" />
+    <Compile Include="Core\Orgs\Domain\Repositories\IUserJobTitleRepository.cs" />
+    <Compile Include="Core\Orgs\Infrastructure\OrgDbContext.cs" />
+    <Compile Include="Core\Orgs\Domain\Entities\Department.cs" />
+    <Compile Include="Core\Orgs\Domain\Entities\BaseEntity.cs" />
+    <Compile Include="Core\Orgs\Domain\Entities\User.cs" />
+    <Compile Include="Core\Orgs\Domain\Entities\UserDepartment.cs" />
+    <Compile Include="Core\Orgs\Infrastructure\Repositories\DepartmentRepository.cs" />
+    <Compile Include="Core\Orgs\Domain\Repositories\IDepartmentRepository.cs" />
+    <Compile Include="Core\Orgs\Domain\Repositories\IUserDepartmentRepository.cs" />
+    <Compile Include="Core\Orgs\Domain\Repositories\IUserRepository.cs" />
+    <Compile Include="Core\Orgs\Infrastructure\Repositories\DepartmentTypeRepository.cs" />
+    <Compile Include="Core\Orgs\Domain\Repositories\IGroupRepository.cs" />
+    <Compile Include="Core\Orgs\Infrastructure\Repositories\SignatureRepository.cs" />
+    <Compile Include="Core\Orgs\Infrastructure\Repositories\SystemConfigRepository.cs" />
+    <Compile Include="Core\Orgs\Infrastructure\Repositories\GroupRepository.cs" />
+    <Compile Include="Core\Orgs\Infrastructure\Repositories\UserHandOverRepository.cs" />
+    <Compile Include="Core\Orgs\Infrastructure\Repositories\UserDelegationRepository.cs" />
+    <Compile Include="Core\Orgs\Infrastructure\Repositories\UserDepartmentRepository.cs" />
+    <Compile Include="Core\Orgs\Infrastructure\Repositories\UserDeviceRepository.cs" />
+    <Compile Include="Core\Orgs\Infrastructure\Repositories\UserJobTitleRepository.cs" />
+    <Compile Include="Core\Orgs\Infrastructure\Repositories\UserRepository.cs" />
+    <Compile Include="Core\Orgs\Models\JsTreeViewModel.cs" />
+    <Compile Include="Core\Orgs\Models\OrgInput.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Application\Security\" />
+    <Folder Include="Core\Resources\Infrastructure\Repositories\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.EF6, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.EF6.1.1.1\lib\net45\AutoMapper.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="DelegateDecompiler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
+      <HintPath>..\packages\DelegateDecompiler.0.23.0\lib\net40-client\DelegateDecompiler.dll</HintPath>
+    </Reference>
+    <Reference Include="DelegateDecompiler.EntityFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
+      <HintPath>..\packages\DelegateDecompiler.EntityFramework.0.23.0\lib\net45\DelegateDecompiler.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=5.2.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.5.2.1\lib\net45\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="FirebaseAdmin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=97c8d00c348326ed, processorArchitecture=MSIL">
+      <HintPath>..\packages\FirebaseAdmin.2.0.0\lib\net461\FirebaseAdmin.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Api.Gax, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Api.Gax.3.2.0\lib\net461\Google.Api.Gax.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Api.Gax.Rest, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Api.Gax.Rest.3.2.0\lib\net461\Google.Api.Gax.Rest.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis, Version=1.49.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.49.0\lib\net45\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth, Version=1.49.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.49.0\lib\net45\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.49.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.49.0\lib\net45\Google.Apis.Auth.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.49.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Core.1.49.0\lib\net45\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.PlatformServices, Version=1.49.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.49.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.32.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.32\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\Libraries\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Reflection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Reflection.1.1.0.0\lib\Mono.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfiumViewer, Version=2.13.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfiumViewer.2.13.0.0\lib\net20\PdfiumViewer.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="RefactorThis.GraphDiff, Version=3.1.2.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
+      <HintPath>..\packages\RefactorThis.GraphDiff.3.1.2\lib\net40\RefactorThis.GraphDiff.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Compression.Base, Version=18.2460.0.55, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Compression.Base.18.2.0.55\lib\net46\Syncfusion.Compression.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.7.1\lib\net461\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Interactive.Async, Version=3.2.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Interactive.Async.3.2.0\lib\net46\System.Interactive.Async.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks, Version=4.0.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Unity.Abstractions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Abstractions.3.3.0\lib\net45\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Configuration, Version=5.2.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.7.0\lib\net46\Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.8.6.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Container.5.8.6\lib\net46\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Interception, Version=5.5.0.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.7.0\lib\net46\Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RegistrationByConvention, Version=2.1.5.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.7.0\lib\net46\Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Core\Notifications\r5v0x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Core\Notifications\Migrations\202008241428131_InitialNotification.resx">
+      <DependentUpon>202008241428131_InitialNotification.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)\SurePortal.Core.Kernel.*" "$(SolutionDir)\Libraries"</PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86_64.v8-xfa.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86_64.v8-xfa.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>

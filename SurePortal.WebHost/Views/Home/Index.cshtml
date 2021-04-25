@@ -1,0 +1,483 @@
+﻿@using SurePortal.Core.Kernel
+<div class="content d-flex flex-column flex-column-fluid pb-0" id="kt_content">
+    <div class="subheader py-2 subheader-solid" id="kt_subheader">
+        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <div class="d-flex align-items-center flex-wrap mr-2">
+                <a href="#" class="bg-hover-white text-hover-primary text-dark font-size-h5 font-weight-bold mt-2 mb-2 mr-5"> @ResourceManagement.GetResourceText("WebHost.Home.Title", "SurePORTAL", "SurePORTAL")</a>
+                <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
+                <span class="text-muted font-weight-bold mr-4">@ResourceManagement.GetResourceText("WebHost.Home.HomePage", "Trang chủ", "Home page")</span>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8">
+                    <!--begin::Forms Widget 4-->
+                    <div class="card card-custom gutter-b mb-2">
+                        <div class="card-body">
+                            <div class="d-flex float-right">
+                                <div class="d-flex align-items-center">
+                                    <button type="button" class="btn btn-info font-weight-bolder font-size-md mr-2" data-toggle="modal" data-target="#modal-newEvent">@ResourceManagement.GetResourceText("WebHost.Home.Post", "Bài viết", "Post")</button>
+                                    <button type="button" class="btn btn-info font-weight-bolder font-size-md" data-toggle="modal" data-target="#modal-newEvent">Sự kiện sắp diễn ra</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Forms Widget 4-->
+                    <!--begin::Forms Widget 4-->
+                    <div class="card card-custom gutter-b">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="symbol symbol-40 symbol-light-success mr-5">
+                                    <span class="symbol-label">
+                                        <img src="~/Content/metronic/svg/047-girl-25.svg" class="h-75 align-self-end" alt="">
+                                    </span>
+                                </div>
+                                <div class="d-flex flex-column flex-grow-1">
+                                    <a href="#" class="text-dark-75 text-hover-primary mb-1 font-size-h5 font-weight-bolder">Nguyễn Thị Bích Vân</a>
+                                    <span class="text-muted">BSC, Designer</span>
+                                </div>
+                            </div>
+                            <!--begin::Bottom-->
+                            <div class="pt-4">
+                                <div class="row">
+                                    <div class="col-xl-7">
+                                        <div class="bgi-no-repeat bgi-size-cover bgi-position-x-center bgi-position-y-center rounded min-h-425px" style="background-image: url(@Url.Content("~/Content/metronic/img/media/img-9.jpg")"></div>
+                                    </div>
+                                    <div class="col-xl-5">
+                                        <div class="bgi-no-repeat bgi-size-cover bgi-position-x-center bgi-position-y-center rounded min-h-200px" style="background-image: url(@Url.Content("~/Content/metronic/img/media/img-10.jpg")"></div>
+                                        <div class="row mt-7">
+                                            <div class="col-xl-6">
+                                                <div class="bgi-no-repeat bgi-size-cover bgi-position-x-center bgi-position-y-center rounded min-h-200px" style="background-image: url(@Url.Content("~/Content/metronic/img/media/img-12.jpg")"></div>
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <div class="bgi-no-repeat bgi-size-cover bgi-position-x-center bgi-position-y-center rounded min-h-200px" style="background-image: url(@Url.Content("~/Content/metronic/img/media/img-18.jpg")"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-dark-75 font-size-lg font-weight-normal pt-5 mb-2">
+                                    Cùng với sự phát triển không ngừng của các công nghệ mới, Công ty CP Tin Học Lạc Việt với 25 năm kinh nghiệm trong lĩnh vực phát triển phần mềm cho thị trường trong nước và quốc tế đã luôn cập nhật...
+                                </p>
+                                <div class="d-flex align-items-center">
+                                    <a href="#" class="btn btn-hover-text-primary btn-hover-icon-primary btn-lg btn-text-dark-50 bg-hover-light-primary rounded font-weight-bolder font-size-md p-3">
+                                        <i class="far fa-comment-dots"></i> 24
+                                    </a>
+                                    <a href="#" class="btn btn-icon-danger btn-lg btn-text-dark-50 bg-hover-light-danger btn-hover-text-danger rounded font-weight-bolder font-size-md p-3">
+                                        <i class="far fa-heart"></i> 75
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="separator separator-solid mt-2 mb-4"></div>
+                            <form class="position-relative">
+                                <textarea id="kt_forms_widget_4_input" class="form-control border-0 p-0 pr-10 resize-none" rows="1" placeholder="Reply..." style="overflow: hidden; overflow-wrap: break-word; height: 19px;"></textarea>
+                                <div class="position-absolute top-0 right-0 mt-n1 mr-n2">
+                                    <span class="btn btn-icon btn-sm btn-hover-icon-primary">
+                                        <i class="far fa-grin"></i>
+                                    </span>
+                                    <span class="btn btn-icon btn-sm btn-hover-icon-primary">
+                                        <i class="far fa-image"></i>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Forms Widget 4-->
+                    <!--begin::Forms Widget 5-->
+                    <div class="card card-custom gutter-b">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="symbol symbol-40 symbol-light-success mr-5">
+                                    <span class="symbol-label">
+                                        <img src="~/Content/metronic/svg/047-girl-25.svg" class="h-75 align-self-end" alt="">
+                                    </span>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <div class="d-flex">
+                                        <a href="#" class="text-dark-75 text-hover-primary mb-1 font-size-h5 font-weight-bolder">Nguyễn Thị Bích Vân</a>
+                                        <div class="mx-5"><i class="fas fa-play text-dark-50 font-size-sm"></i></div>
+                                        <a href="#" class="text-primary text-hover-danger font-weight-bolder font-size-h5">Vebrary Team</a>
+                                    </div>
+                                    <span class="text-muted">BSC, Designer</span>
+                                </div>
+                            </div>
+                            <!--begin::Bottom-->
+                            <div class="pt-4">
+                                <p class="text-dark-75 font-size-lg font-weight-normal mb-4">
+                                    Cùng với sự phát triển không ngừng của các công nghệ mới, Công ty CP Tin Học Lạc Việt với 25 năm kinh nghiệm trong lĩnh vực phát triển phần mềm cho thị trường trong nước và quốc tế đã luôn cập nhật...
+                                </p>
+                                <div class="d-flex align-items-center">
+                                    <a href="#" class="btn btn-hover-text-primary btn-hover-icon-primary btn-lg btn-text-dark-50 bg-light-primary rounded font-weight-bolder font-size-md p-3 mr-2">
+                                        <i class="far fa-comment-dots"></i> 24
+                                    </a>
+                                    <a href="#" class="btn btn-hover-text-danger btn-hover-icon-danger btn-lg btn-text-dark-50 bg-hover-light-danger rounded font-weight-bolder font-size-md p-3">
+                                        <i class="far fa-heart"></i> 75
+                                    </a>
+                                </div>
+                            </div>
+                            <!--begin::Item-->
+                            <div class="d-flex py-5">
+                                <div class="symbol symbol-40 symbol-light-success mr-5 mt-1">
+                                    <span class="symbol-label">
+                                        <img src="~/Content/metronic/svg/009-boy-4.svg" class="h-75 align-self-end" alt="">
+                                    </span>
+                                </div>
+                                <div class="d-flex flex-column flex-row-fluid">
+                                    <div class="d-flex align-items-center flex-wrap">
+                                        <a href="#" class="text-dark-75 text-hover-primary font-size-lg font-weight-bolder pr-6">Văn Hiệu</a>
+                                        <span class="text-muted font-weight-normal flex-grow-1 font-size-sm">1 Ngày trước</span>
+                                        <span class="text-muted font-weight-normal font-size-md">Reply</span>
+                                    </div>
+                                    <span class="text-dark-75 font-size-md font-weight-normal pt-1">
+                                        Tích hợp trực tiếp với AccNetERP
+                                    </span>
+                                </div>
+                            </div>
+                            <!--end::Item-->
+                            <!--begin::Item-->
+                            <div class="d-flex">
+                                <div class="symbol symbol-40 symbol-light-success mr-5 mt-1">
+                                    <span class="symbol-label">
+                                        <img src="~/Content/metronic/svg/018-girl-9.svg" class="h-75 align-self-end" alt="">
+                                    </span>
+                                </div>
+                                <div class="d-flex flex-column flex-row-fluid">
+                                    <div class="d-flex align-items-center flex-wrap">
+                                        <a href="#" class="text-dark-75 text-hover-primary font-size-lg font-weight-bolder pr-6">Hoàng Vi</a>
+                                        <span class="text-muted font-weight-normal flex-grow-1 font-size-sm">2 Ngày trước</span>
+                                        <span class="text-muted font-weight-normal font-size-md">Reply</span>
+                                    </div>
+                                    <span class="text-dark-75 font-size-md font-weight-normal pt-1">Mở rộng tính năng tính giá thành sản phẩm đáp ứng nhiều phương án tính giá thành</span>
+                                </div>
+                            </div>
+                            <!--end::Item-->
+                            <div class="d-block mt-6"><a href="#" class="font-weight-bold">Xem thêm...</a></div>
+                            <div class="separator separator-solid mt-5 mb-4"></div>
+                            <form class="position-relative">
+                                <textarea id="kt_forms_widget_4_input" class="form-control border-0 p-0 pr-10 resize-none" rows="1" placeholder="Reply..." style="overflow: hidden; overflow-wrap: break-word; height: 19px;"></textarea>
+                                <div class="position-absolute top-0 right-0 mt-n1 mr-n2">
+                                    <span class="btn btn-icon btn-sm btn-hover-icon-primary">
+                                        <i class="far fa-grin"></i>
+                                    </span>
+                                    <span class="btn btn-icon btn-sm btn-hover-icon-primary">
+                                        <i class="far fa-image"></i>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Forms Widget 5-->
+                    <!--begin::Forms Widget 6-->
+                    <div class="card card-custom gutter-b">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="symbol symbol-40 symbol-light-success mr-5">
+                                    <span class="symbol-label">
+                                        <img src="~/Content/metronic/svg/047-girl-25.svg" class="h-75 align-self-end" alt="">
+                                    </span>
+                                </div>
+                                <div class="d-flex flex-column flex-grow-1">
+                                    <a href="#" class="text-dark-75 text-hover-primary mb-1 font-size-h5 font-weight-bolder">Nguyễn Thị Bích Vân</a>
+                                    <span class="text-muted">BSC, Designer</span>
+                                </div>
+                            </div>
+                            <!--begin::Bottom-->
+
+                            <div class="pt-4">
+                                <p class="text-dark-75 font-size-lg font-weight-normal mb-4">
+                                    Lạc Việt với 25 năm kinh nghiệm trong lĩnh vực phát triển phần mềm cho thị trường trong nước và quốc tế đã luôn cập nhật...
+                                </p>
+                                <div class="alert alert-custom symbol-light-primary alert-shadow" role="alert">
+                                    <div class="alert-icon">
+                                        <i class="fas fa-file-download"></i>
+                                    </div>
+                                    <div class="alert-text">
+                                        Tai-lieu-dac-ta.pdf
+                                        <a class="font-weight-bold ml-2" href="#" target="_blank">Xem online</a>.
+                                        <br>
+                                        <a href="#"><span class="label label-success label-inline font-weight-bold">Tải về</span></a>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <a href="#" class="btn btn-hover-text-primary btn-hover-icon-primary btn-lg btn-text-dark-50 bg-hover-light-primary rounded font-weight-bolder font-size-md p-3">
+                                        <i class="far fa-comment-dots"></i> 24
+                                    </a>
+                                    <a href="#" class="btn btn-icon-danger btn-lg btn-text-dark-50 bg-hover-light-danger btn-hover-text-danger rounded font-weight-bolder font-size-md p-3">
+                                        <i class="far fa-heart"></i> 75
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="separator separator-solid mt-5 mb-4"></div>
+                            <form class="position-relative">
+                                <textarea id="kt_forms_widget_4_input" class="form-control border-0 p-0 pr-10 resize-none" rows="1" placeholder="Reply..." style="overflow: hidden; overflow-wrap: break-word; height: 19px;"></textarea>
+                                <div class="position-absolute top-0 right-0 mt-n1 mr-n2">
+                                    <span class="btn btn-icon btn-sm btn-hover-icon-primary">
+                                        <i class="far fa-grin"></i>
+                                    </span>
+                                    <span class="btn btn-icon btn-sm btn-hover-icon-primary">
+                                        <i class="far fa-image"></i>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Forms Widget 6-->
+                </div>
+                <div class="col-xl-4">
+                    <div class="card card-custom gutter-b sp-my-task">
+                        <!--begin::Header-->
+                        <div class="card-header border-0 pt-5">
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="card-label font-weight-bolder text-dark">Công việc của tôi</span>
+                            </h3>
+                            <div class="card-toolbar">
+                                <div class="dropdown dropdown-inline" data-toggle="tooltip" title="" data-placement="left">
+                                    <a href="#" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+                                        <ul class="navi navi-hover py-5">
+                                            <li class="navi-item">
+                                                <a href="#" class="navi-link">
+                                                    <span class="navi-text">Đang thực hiện</span>
+                                                </a>
+                                            </li>
+                                            <li class="navi-item">
+                                                <a href="#" class="navi-link">
+                                                    <span class="navi-text">Sắp đến hạn</span>
+                                                </a>
+                                            </li>
+                                            <li class="navi-item">
+                                                <a href="#" class="navi-link">
+                                                    <span class="navi-text">Tất cả</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-2 pb-3">
+                            <div class="d-flex align-items-center flex-grow-1 mb-5">
+                                <div class="d-flex flex-wrap align-items-center justify-content-between w-100">
+                                    <div class="d-flex flex-column align-items-cente w-75">
+                                        <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">Trình ký điện tử</a>
+                                        <span class="text-dark-50 font-weight-normal">Thiết kế tài liệu đặc tả theo yêu cầu người dùng</span>
+                                    </div>
+                                    <span class="label label-lg label-light-primary label-inline font-weight-bold py-4">Mới</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center flex-grow-1 mb-5">
+                                <div class="d-flex flex-wrap align-items-center justify-content-between w-100">
+                                    <div class="d-flex flex-column align-items-cente w-75">
+                                        <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">Tài liệu số</a>
+                                        <span class="text-dark-50 font-weight-normal">Triển khai cài đặt hệ thống</span>
+                                    </div>
+                                    <span class="label label-lg label-light-warning label-inline font-weight-bold py-4">Đang thực hiện</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center flex-grow-1 mb-5">
+                                <div class="d-flex flex-wrap align-items-center justify-content-between w-100">
+                                    <div class="d-flex flex-column align-items-cente w-75">
+                                        <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">Thư viện Bình Phước</a>
+                                        <span class="text-dark-50 font-weight-normal">Cài đặt hệ thống</span>
+                                    </div>
+                                    <span class="label label-lg label-light-success label-inline font-weight-bold py-4">Hoàn tất</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center flex-grow-1 mb-5">
+                                <div class="d-flex flex-wrap align-items-center justify-content-between w-100">
+                                    <div class="d-flex flex-column align-items-cente w-75">
+                                        <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">Quản trị tài liệu PTSC</a>
+                                        <span class="text-dark-50 font-weight-normal">Thiết kế giao diện</span>
+                                    </div>
+                                    <span class="label label-lg label-light-danger label-inline font-weight-bold py-4">Quá hạn</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <div class="card card-custom gutter-b">
+                        <!--begin::Header-->
+                        <div class="card-header border-0">
+                            <h3 class="card-title font-weight-bolder text-dark">Nhóm thảo luận</h3>
+                            <div class="card-toolbar">
+                                <div class="dropdown dropdown-inline" data-toggle="tooltip" title="" data-placement="left">
+                                    <a href="#" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+                                        <ul class="navi navi-hover py-5">
+                                            <li class="navi-item">
+                                                <a href="#" class="navi-link">
+                                                    <span class="navi-text">Nhóm của tôi</span>
+                                                </a>
+                                            </li>
+                                            <li class="navi-item">
+                                                <a href="#" class="navi-link">
+                                                    <span class="navi-text">Tất cả</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Header-->
+                        <!--begin::Body-->
+                        <div class="card-body pt-2 pb-3">
+                            <div class="d-flex flex-wrap align-items-center mb-6">
+                                <div class="symbol symbol-40 symbol-circle mr-4">
+                                    <div class="symbol-label" style="background-image: url(@Url.Content("~/Content/metronic/img/media/img-12.jpg")"></div>
+                                </div>
+                                <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2">
+                                    <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">Vebrary - Thảo luận chung </a>
+                                    <span class="text-muted font-weight-bold font-size-md">2 giờ trước</span>
+                                    <span class="text-muted font-weight-bold font-size-md">
+                                        Nvky:
+                                        <span class="text-primary font-weight-bold">Đã triển khai</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-wrap align-items-center mb-6">
+                                <div class="symbol symbol-40 symbol-circle mr-4">
+                                    <div class="symbol-label" style="background-image: url(@Url.Content("~/Content/metronic/img/media/img-10.jpg")"></div>
+                                </div>
+                                <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2">
+                                    <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">Vebrary - Thảo luận chung </a>
+                                    <span class="text-muted font-weight-bold font-size-md">2 giờ trước</span>
+                                    <span class="text-muted font-weight-bold font-size-md">
+                                        Nvky:
+                                        <span class="text-primary font-weight-bold">Đã triển khai</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-wrap align-items-center mb-6">
+                                <div class="symbol symbol-40 symbol-circle mr-4">
+                                    <div class="symbol-label" style="background-image: url(@Url.Content("~/Content/metronic/img/media/img-17.jpg")"></div>
+                                </div>
+                                <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2">
+                                    <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">surePortal </a>
+                                    <span class="text-muted font-weight-bold font-size-md">2 giờ trước</span>
+                                    <span class="text-muted font-weight-bold font-size-md">
+                                        Nvky:
+                                        <span class="text-primary font-weight-bold">Đã triển khai</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-wrap align-items-center mb-6">
+                                <div class="symbol symbol-40 symbol-circle mr-4">
+                                    <div class="symbol-label" style="background-image: url(@Url.Content("~/Content/metronic/img/media/img-18.jpg")"></div>
+                                </div>
+                                <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2">
+                                    <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">Thư viện Bình Phước </a>
+                                    <span class="text-muted font-weight-bold font-size-md">2 giờ trước</span>
+                                    <span class="text-muted font-weight-bold font-size-md">
+                                        Nvky:
+                                        <span class="text-primary font-weight-bold">Đã triển khai</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-wrap align-items-center mb-6">
+                                <div class="symbol symbol-40 symbol-circle mr-4">
+                                    <div class="symbol-label" style="background-image: url(@Url.Content("~/Content/metronic/img/media/img-19.jpg")"></div>
+                                </div>
+                                <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2">
+                                    <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">BSC - Team designer </a>
+                                    <span class="text-muted font-weight-bold font-size-md">2 giờ trước</span>
+                                    <span class="text-muted font-weight-bold font-size-md">
+                                        Nvky:
+                                        <span class="text-primary font-weight-bold">Đã triển khai</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!-- lich lam viec -->
+                    <div class="card card-custom gutter-b sure-calendar">
+                        <div class="card-header border-0">
+                            <h3 class="card-title font-weight-bolder text-dark">Lịch làm việc</h3>
+                            <div class="card-toolbar">
+                                <div class="dropdown dropdown-inline">
+                                    <a href="#" class="btn btn-light-primary btn-sm font-weight-bolder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cá nhân <i class="fas fa-chevron-down font-size-xs pr-0"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="">
+                                        <ul class="navi navi-hover">
+                                            <li class="navi-item">
+                                                <a href="#" class="navi-link">
+                                                    <span class="navi-icon">
+                                                        <i class="fas fa-laptop-code"></i>
+                                                    </span>
+                                                    <span class="navi-text">Dự án</span>
+                                                </a>
+                                            </li>
+                                            <li class="navi-item">
+                                                <a href="#" class="navi-link">
+                                                    <span class="navi-icon">
+                                                        <i class="fas fa-laptop-house"></i>
+                                                    </span>
+                                                    <span class="navi-text">Nhóm phát triển</span>
+                                                </a>
+                                            </li>
+                                            <li class="navi-item">
+                                                <a href="#" class="navi-link">
+                                                    <span class="navi-icon">
+                                                        <i class="fas fa-atlas"></i>
+                                                    </span>
+                                                    <span class="navi-text">Đơn vị</span>
+                                                </a>
+                                            </li>
+                                            <li class="navi-item">
+                                                <a href="#" class="navi-link">
+                                                    <span class="navi-icon">
+                                                        <i class="fas fa-building"></i>
+                                                    </span>
+                                                    <span class="navi-text">Tất cả</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-2 pb-3">
+                            <div class="d-flex align-items-center mb-5 bg-light-primary rounded p-5">
+                                <a href="#">
+                                    <div class="d-flex flex-column flex-grow-1 mr-2">
+                                        <span class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg mb-1">9:00 - 12:00</span>
+                                        <span class="text-dark-50 font-size-lg">Họp thống nhất kế hoạch triển khai dự án surePortal</span>
+                                        <span class="font-weight-bold text-primary mt-2"><i class="fas fa-map-marker-alt pr-2 text-primary font-size-base"></i>Phòng họp 2.1</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="d-flex align-items-center mb-5 bg-light-primary rounded p-5">
+                                <a href="#">
+                                    <div class="d-flex flex-column flex-grow-1 mr-2">
+                                        <span class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg mb-1">9:00 - 12:00</span>
+                                        <span class="text-dark-50 font-size-lg">Họp thống nhất kế hoạch triển khai dự án surePortal</span>
+                                        <span class="font-weight-bold text-primary mt-2"><i class="fas fa-map-marker-alt pr-2 text-primary font-size-base"></i>Phòng họp 8.2</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="d-flex align-items-center mb-5 bg-light-warning rounded p-5">
+                                <a href="#">
+                                    <div class="d-flex flex-column flex-grow-1 mr-2">
+                                        <span class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg mb-1">9:00 - 12:00</span>
+                                        <span class="text-dark-50 font-size-lg">Họp thống nhất kế hoạch triển khai dự án surePortal</span>
+                                        <span class="font-weight-bold text-warning mt-2"><i class="fas fa-map-marker-alt pr-2 text-warning font-size-base"></i>Nhà hàng Hoàng Gia</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

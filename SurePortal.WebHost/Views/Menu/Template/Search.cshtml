@@ -1,0 +1,96 @@
+﻿<style>
+    .hidden {
+        display: none;
+    }
+    .search-box{
+        overflow-x:hidden;
+    }
+    div.input-search-single {
+        position:relative;
+    }
+    a.btn-search-text-single {
+        position: absolute;
+        top: 0;
+        right: 40px;
+    }
+    button.btn-search-text-single {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+    }
+</style>
+<div class="search-box">
+    <div class="row">
+        <div class="col-md-12 xs-mt-12">
+            <div class="input-search-single">
+                <input autofocus id="txt-um-keyword"
+                       onkeyup="lacviet_lstpage.onSearchKeyUp(1, event)"
+                       type="text"
+                       class="form-control"
+                       placeholder="Tìm kiếm theo tài khoản, họ tên, email, số điện thoại ...">
+                <a onclick="lacviet_lstpage.onSearch(1)" class="btn green mr0 btn-search-text-single">
+                    <i class="icon-magnifier"></i> Tìm kiếm
+                </a>
+                <button class="btn green mr0 btn-search-text-single " id="btnSearchMore" type="button">
+                    <i class="fa fa fa-ellipsis-v"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row moreSearchItem hidden">
+        <div class="col-md-3 xs-mt-12 mt-3">
+            <div class="form-group">
+                <label>Danh mục cấp cha</label>
+                <div class="input-group">
+                    <input id="departmentName" name="departmentName"
+                           class="form-control"
+                           readonly="readonly"
+                           data-toggle="modal"
+                           data-target="#stackPopup"
+                           onclick="lacviet_lstpage.onDepartment()"
+                           placeholder="Tất cả" />
+                    <span class="input-group-btn vertial-align-top">
+                        <a href="#" class="btn btn-default mr0" style="width: 45px; padding-right: 10px"
+                           data-toggle="modal"
+                           data-target="#stackPopup"
+                           onclick="lacviet_lstpage.onDepartment()">
+                            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" id="clearFilterDept"
+                           class="btn btn-default mr0 clear-filter hidden"
+                           onclick="lacviet_lstpage.onClearDepartment()">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </a>
+                    </span>
+                    <input id="departmentId" name="departmentId"
+                           class="hidden"
+                           style="display:none;opacity:0" />
+                    <input class="hidden" id="modalDeptId"
+                           style="display:none;opacity:0" />
+                    <input class="hidden" id="modalDeptName"
+                           style="display:none;opacity:0" />
+                </div>
+            </div>
+        </div>
+        @*<div class="col-md-3 xs-mt-12">
+                <div class="form-group">
+                    <label>Nhà cung cấp</label>
+                    @Html.DropDownList("selProviderId", Model.LstProvider, "Tất cả", new { @class = "form-control lacviet-dl-select2" })
+                    @Html.DropDownList("selSignatureType", Model.LstType, new { @class = "form-control hidden" })
+                </div>
+            </div>
+            <div class="col-md-3 xs-mt-12">
+                <div class="form-group">
+                    <label>Trạng thái</label>
+                    @Html.DropDownList("selSignatureStatus", Model.LstStatus, "Tất cả", new { @class = "form-control lacviet-dl-select2" })
+                </div>
+            </div>
+            <div class="col-md-3 xs-mt-12">
+                <div class="form-group">
+                    <label>Loại OTP</label>
+                    @Html.DropDownList("selSignatureOtpType", Model.LstOtpType, "Tất cả", new { @class = "form-control lacviet-dl-select2" })
+                </div>
+            </div>*@
+    </div>
+</div>
+
