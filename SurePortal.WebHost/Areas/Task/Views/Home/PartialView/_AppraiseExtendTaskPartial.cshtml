@@ -1,0 +1,69 @@
+﻿@using SurePortal.Module.Task.Entities;
+@using SurePortal.Core.Kernel;
+<div class="modal fade" id="AppraiseExtendTaskItem" tabindex="-1" aria-labelledby="exampleModalSizeLg" role="dialog" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" ng-bind="modalTitle"></h5>
+                <button type="button" ng-click="CloseTaskItemAssign()" class="close" data-dismiss="modal">
+                    <i aria-hidden="true" class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="label-header text-primary font-weight-bold"><span>THÔNG TIN GIA HẠN</span></div>
+                <div class="task-group">
+                    <div class="pb-1">
+                        <label class="text-dark-25 mr-1">@ResourceManagement.GetResourceText("Task.Home.TaskName", "Tên công việc", "Task name"): </label>
+                        <label class="text-dark font-weight-bold" ng-bind="TaskItemAssign.TaskItemModel.TaskName"></label>
+                    </div>
+                    <div class="pb-1">
+                        <label class="text-dark-25 mr-1">@ResourceManagement.GetResourceText("Task.Home.AssignTo", "Người xử lý", "Assign to"): </label>
+                        <label class="text-dark font-weight-bold" ng-bind="TaskItemAssign.AssignToFullName"></label>
+
+                    </div>
+                    <div class="pb-1">
+                        <label class="text-dark-25 mr-1">@ResourceManagement.GetResourceText("Task.Home.LastResult", "Nội dung xử lý", "LastResult"): </label>
+                        <label class="text-dark font-weight-bold" ng-bind="TaskItemAssign.LastResult"></label>
+                    </div>
+                    <div class="pb-1" ng-if="TaskItemAssign.IsExtend == true">
+                        <label class="text-dark-25 mr-1">@ResourceManagement.GetResourceText("Task.Home.RequestExtendDate", "Xin gia hạn đến ngày", "Request extend date"): </label>
+                        <label class="text-dark font-weight-bold" ng-bind="TaskItemAssign.ExtendDateText"></label>
+                        <label class="text-primary ml-5 mr-1">@ResourceManagement.GetResourceText("Task.Home.ExtendDateTotal", "Số ngày phát sinh", "extend date total"): </label>
+                        <label class="text-primary font-weight-bold" ng-bind="TaskItemAssign.ExtendDateTotal"></label>
+                    </div>
+                </div>
+                <div class="label-header text-primary font-weight-bold"><span>THÔNG TIN PHÊ DUYỆT</span></div>
+                <div class="row" ng-show="TaskItemAssign.IsExtend == 1">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>@ResourceManagement.GetResourceText("Task.Home.AllowedExtendDate", "Cho phép gia hạn đến ngày", "AllowedExtendDate")<span class="text-danger">*</span></label>
+                            <input ng-model="TaskItemAssign.AllowedExtendDateText" class="form-control" type="text" autocomplete="off" placeholder="dd/MM/yyyy" data-date-format="dd/mm/yyyy" id="AllowedExtendDateText" name="AllowedExtendDateText">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-9"> <label>@ResourceManagement.GetResourceText("Task.Home.Content", "Nội dung", "Content")<span class="text-danger">*</span></label></div>
+                                <div class="col-md-3 label-trangthai">
+                                    <label class="label label-primary label-inline font-weight-normal" ng-class="{'out-of-date': TaskItemAssign.TaskItemModel.IsLate == 1, 'in-due-date': TaskItemAssign.TaskItemModel.IsLate == 0}" ng-bind="TaskItemAssign.TaskItemStatus.Name"></label>
+                                </div>
+                            </div>
+                            <textarea ng-model="TaskItemAssign.Description" class="form-control form-control-lg" id="Description" rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-right">
+                    <button type="button" ng-if="action == 'Return'" ng-click="SaveTaskItemAssign('@ActionId.Return', 1)" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Disagree", "Không đồng ý", "Disagree")</button>
+                    <button type="button" ng-if="action == 'Return'" ng-click="SaveTaskItemAssign('@ActionId.Appraise', 1)" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Agree", "Đồng ý", "Agree")</button>
+                    <button type="button" ng-if="action == 'Extend'" ng-click="SaveTaskItemAssign('@ActionId.ReturnExtend', 1)" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Disagree", "Không đồng ý", "Disagree")</button>
+                    <button type="button" ng-if="action == 'Extend'" ng-click="SaveTaskItemAssign('@ActionId.AppraiseExtend', 1)" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Agree", "Đồng ý", "Agree")</button>
+                    <button type="button" ng-click="CloseTaskItemAssign()" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">@ResourceManagement.GetResourceText("Task.Home.Close", "Đóng", "Close")</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

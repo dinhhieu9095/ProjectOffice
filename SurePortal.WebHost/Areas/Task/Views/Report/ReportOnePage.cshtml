@@ -1,0 +1,37 @@
+﻿@{
+    //ViewBag.Title = "Báo cáo công việc theo dự án";
+}
+
+<div class="content d-flex flex-column flex-column-fluid report" id="UserReviewReportCtrl" ng-controller="ReportOnePageCtrl" ng-cloak>
+    <div class="d-flex flex-column-fluid">
+        <div class="container px-9px">
+            <div class="card card-custom card-stretch">
+                <div class="card-header">
+                    <h3 class="card-title font-weight-bolder text-dark">Báo cáo công việc One page</h3>
+                    <div class="card-toolbar">
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    @Html.Action("FormSearch")
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <iframe width="1250px" height="2000px" id="userReportTableOnePage" src=""></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+        });
+    </script>
+    <script src="~/Areas/Task/Content/angularjs/services/ReportService.js"></script>
+    <script src="~/Areas/Task/Content/angularjs/directives/tree-grid-directive.js"></script>
+    <script src="~/Areas/Task/Content/angularjs/controller/ReportCommonCtrl.js"></script>
+    <script src="~/Areas/Task/Content/angularjs/controller/ReportOnePageCtrl.js"></script>
+}

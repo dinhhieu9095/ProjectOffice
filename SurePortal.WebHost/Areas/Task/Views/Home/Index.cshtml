@@ -1,0 +1,522 @@
+﻿@model SurePortal.Module.Task.Web.TaskViewTypeModel
+@using SurePortal.Module.Task.Web;
+@using SurePortal.Module.Task.Entities
+@using SurePortal.Core.Kernel;
+<style type="text/css">
+    .sticky-toolbar {
+        position: absolute;
+        right: 0;
+        top: 50%;
+    }
+
+    .offcanvas-right.offcanvas-on {
+        left: -72%;
+        width: 72%;
+    }
+</style>
+<div id="MainCtrl" ng-controller="MainCtrl" ng-cloak>
+    <div class="card card-custom card-stretch" id="kt_todo_list">
+        <div class="card-header align-items-center flex-wrap py-3 px-4 border-bottom h-auto">
+            <h3 class="card-title m-0">
+
+                <div class="dropdown">
+                    <span class="btn btn-icon btn-light-primary btn-sm" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-exchange-alt"></i>
+                    </span>
+                    <div class="dropdown-menu dropdown-menu-left p-0 m-0 dropdown-menu-sm" style="">
+                        <ul class="navi py-3">
+                            <li class="navi-item">
+                                <a ng-click="ChangeView('table')" class="navi-link">
+                                    <span class="svg-icon svg-icon-primary mr-3">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <rect fill="#000000" x="4" y="4" width="7" height="7" rx="1.5" />
+                                                <path d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z" fill="#000000" opacity="0.3" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="navi-text">@ResourceManagement.GetResourceText("Task.Home.ViewTable", "Bảng", "Table") </span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a ng-click="ChangeView('grantt')" class="navi-link">
+                                    <span class="svg-icon svg-icon-primary mr-3">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <polygon points="0 0 24 0 24 24 0 24" />
+                                                <rect fill="#000000" opacity="0.3" x="2" y="5" width="20" height="2" rx="1" />
+                                                <rect fill="#000000" opacity="1" x="2" y="17" width="20" height="2" rx="1" />
+                                                <rect fill="#000000" opacity="0.3" x="2" y="9" width="5" height="2" rx="1" />
+                                                <rect fill="#000000" opacity="1" x="16" y="13" width="6" height="2" rx="1" />
+                                                <rect fill="#000000" opacity="0.3" x="9" y="9" width="13" height="2" rx="1" />
+                                                <rect fill="#000000" opacity="0.3" x="2" y="13" width="12" height="2" rx="1" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="navi-text">@ResourceManagement.GetResourceText("Task.Home.ViewGrantt", "Grantt", "Grantt")</span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a ng-click="ChangeView('kanban')" class="navi-link">
+                                    <span class="svg-icon svg-icon-primary mr-3">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <rect fill="#000000" x="2" y="4" width="19" height="4" rx="1" />
+                                                <path d="M3,10 L6,10 C6.55228475,10 7,10.4477153 7,11 L7,19 C7,19.5522847 6.55228475,20 6,20 L3,20 C2.44771525,20 2,19.5522847 2,19 L2,11 C2,10.4477153 2.44771525,10 3,10 Z M10,10 L13,10 C13.5522847,10 14,10.4477153 14,11 L14,19 C14,19.5522847 13.5522847,20 13,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M17,10 L20,10 C20.5522847,10 21,10.4477153 21,11 L21,19 C21,19.5522847 20.5522847,20 20,20 L17,20 C16.4477153,20 16,19.5522847 16,19 L16,11 C16,10.4477153 16.4477153,10 17,10 Z" fill="#000000" opacity="0.3" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="navi-text">@ResourceManagement.GetResourceText("Task.Home.ViewKanban", "Kanban", "Kanban")</span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a ng-click="ChangeView('calendar')" class="navi-link">
+                                    <span class="svg-icon svg-icon-primary mr-3">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <path d="M10.9630156,7.5 L11.0475062,7.5 C11.3043819,7.5 11.5194647,7.69464724 11.5450248,7.95024814 L12,12.5 L15.2480695,14.3560397 C15.403857,14.4450611 15.5,14.6107328 15.5,14.7901613 L15.5,15 C15.5,15.2109164 15.3290185,15.3818979 15.1181021,15.3818979 C15.0841582,15.3818979 15.0503659,15.3773725 15.0176181,15.3684413 L10.3986612,14.1087258 C10.1672824,14.0456225 10.0132986,13.8271186 10.0316926,13.5879956 L10.4644883,7.96165175 C10.4845267,7.70115317 10.7017474,7.5 10.9630156,7.5 Z" fill="#000000" />
+                                                <path d="M7.38979581,2.8349582 C8.65216735,2.29743306 10.0413491,2 11.5,2 C17.2989899,2 22,6.70101013 22,12.5 C22,18.2989899 17.2989899,23 11.5,23 C5.70101013,23 1,18.2989899 1,12.5 C1,11.5151324 1.13559454,10.5619345 1.38913364,9.65805651 L3.31481075,10.1982117 C3.10672013,10.940064 3,11.7119264 3,12.5 C3,17.1944204 6.80557963,21 11.5,21 C16.1944204,21 20,17.1944204 20,12.5 C20,7.80557963 16.1944204,4 11.5,4 C10.54876,4 9.62236069,4.15592757 8.74872191,4.45446326 L9.93948308,5.87355717 C10.0088058,5.95617272 10.0495583,6.05898805 10.05566,6.16666224 C10.0712834,6.4423623 9.86044965,6.67852665 9.5847496,6.69415008 L4.71777931,6.96995273 C4.66931162,6.97269931 4.62070229,6.96837279 4.57348157,6.95710938 C4.30487471,6.89303938 4.13906482,6.62335149 4.20313482,6.35474463 L5.33163823,1.62361064 C5.35654118,1.51920756 5.41437908,1.4255891 5.49660017,1.35659741 C5.7081375,1.17909652 6.0235153,1.2066885 6.2010162,1.41822583 L7.38979581,2.8349582 Z" fill="#000000" opacity="0.3" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="navi-text">Calendar</span>
+                                </a>
+                            </li>
+                            @*<li class="navi-item">
+                                    <a ng-click="ExportExcel()" class="navi-link active">
+                                        <span class="navi-text">@ResourceManagement.GetResourceText("Task.Home.ViewTable.ExportExcel", "Xuất excel", "Export excell") </span>
+                                    </a>
+                                </li>*@
+                        </ul>
+                    </div>
+                </div>
+                <span class="ml-3">Danh sách công việc</span>
+            </h3>
+            <div class="card-toolbar m-0 task-tool">
+
+                @*<a ng-click="ViewProject('New')" class="btn btn-text-dark-50 btn-icon-primary btn-hover-icon-warning font-weight-bold btn-hover-bg-light">
+                        <span class="svg-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"></rect>
+                                    <circle fill="#000000" cx="9" cy="15" r="6"></circle>
+                                    <path d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z" fill="#000000" opacity="0.3"></path>
+                                </g>
+                            </svg>
+                        </span>@ResourceManagement.GetResourceText("Task.Home.AddProject", "Tạo mới dự án", "Add project")
+                    </a>*@
+
+                <a ng-show="isAddTask" ng-click="ViewTaskItem('New')" class="btn btn-text-dark-50 btn-icon-primary btn-hover-icon-warning font-weight-bold btn-hover-bg-light">
+                    <span class="svg-icon svg-icon-primary">
+                        <svg width="28px" height="28px" viewBox="0 0 28 28">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect fill="#000000" x="2" y="9" width="18" height="4" rx="1"></rect>
+                                <rect fill="#000000" opacity="0.4" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) " x="2" y="11" width="19" height="4" rx="1"></rect>
+                            </g>
+                        </svg>
+                    </span>
+                    @ResourceManagement.GetResourceText("Task.Home.AddTask", "Giao việc", "Add task")
+                </a>
+
+                <a ng-show="isEditTask" ng-click="ViewTaskItem('Update')" class="btn btn-text-dark-50 btn-icon-primary btn-hover-icon-warning font-weight-bold btn-hover-bg-light">
+                    <span class="svg-icon svg-icon-primary">
+                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24"></rect>
+                                <path d="M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409)"></path>
+                                <rect fill="#000000" opacity="0.3" x="5" y="20" width="15" height="2" rx="1"></rect>
+                            </g>
+                        </svg>
+                    </span>
+                    @ResourceManagement.GetResourceText("Task.Home.EditTask", "Chỉnh sửa công việc", "Edit task")
+                </a>
+                <a ng-show="isProcessTask" ng-click="ViewTaskItemAssign('@ActionId.Process')" class="btn btn-text-dark-50 btn-icon-primary btn-hover-icon-warning font-weight-bold btn-hover-bg-light">
+                    <span class="svg-icon svg-icon-primary">
+                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24"></rect>
+                                <path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953)"></path>
+                                <path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                            </g>
+                        </svg>
+                    </span>
+                    @ResourceManagement.GetResourceText("Task.Home.Process", "Xử lý", "Processing work")
+                </a>
+                <a ng-show="isAppraiseTask" ng-click="ViewTaskItemAssign('@ActionId.Appraise')" class="btn btn-text-dark-50 btn-icon-primary btn-hover-icon-warning font-weight-bold btn-hover-bg-light">
+                    <span class="svg-icon svg-icon-primary">
+                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24"></rect>
+                                <path d="M16,15.6315789 L16,12 C16,10.3431458 14.6568542,9 13,9 L6.16183229,9 L6.16183229,5.52631579 C6.16183229,4.13107011 7.29290239,3 8.68814808,3 L20.4776218,3 C21.8728674,3 23.0039375,4.13107011 23.0039375,5.52631579 L23.0039375,13.1052632 L23.0206157,17.786793 C23.0215995,18.0629336 22.7985408,18.2875874 22.5224001,18.2885711 C22.3891754,18.2890457 22.2612702,18.2363324 22.1670655,18.1421277 L19.6565168,15.6315789 L16,15.6315789 Z" fill="#000000"></path>
+                                <path d="M1.98505595,18 L1.98505595,13 C1.98505595,11.8954305 2.88048645,11 3.98505595,11 L11.9850559,11 C13.0896254,11 13.9850559,11.8954305 13.9850559,13 L13.9850559,18 C13.9850559,19.1045695 13.0896254,20 11.9850559,20 L4.10078614,20 L2.85693427,21.1905292 C2.65744295,21.3814685 2.34093638,21.3745358 2.14999706,21.1750444 C2.06092565,21.0819836 2.01120804,20.958136 2.01120804,20.8293182 L2.01120804,18.32426 C1.99400175,18.2187196 1.98505595,18.1104045 1.98505595,18 Z M6.5,14 C6.22385763,14 6,14.2238576 6,14.5 C6,14.7761424 6.22385763,15 6.5,15 L11.5,15 C11.7761424,15 12,14.7761424 12,14.5 C12,14.2238576 11.7761424,14 11.5,14 L6.5,14 Z M9.5,16 C9.22385763,16 9,16.2238576 9,16.5 C9,16.7761424 9.22385763,17 9.5,17 L11.5,17 C11.7761424,17 12,16.7761424 12,16.5 C12,16.2238576 11.7761424,16 11.5,16 L9.5,16 Z" fill="#000000" opacity="0.3"></path>
+                            </g>
+                        </svg>
+                    </span>
+                    @ResourceManagement.GetResourceText("Task.Home.Appraise", "Đánh giá", "Appraise")
+                </a>
+                <a ng-show="isAppraiseExtendTask" ng-click="ViewTaskItemAssign('@ActionId.Extend')" class="btn btn-text-dark-50 btn-icon-primary btn-hover-icon-warning font-weight-bold btn-hover-bg-light">
+                    <span class="svg-icon svg-icon-primary">
+                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24"></rect>
+                                <path d="M16,15.6315789 L16,12 C16,10.3431458 14.6568542,9 13,9 L6.16183229,9 L6.16183229,5.52631579 C6.16183229,4.13107011 7.29290239,3 8.68814808,3 L20.4776218,3 C21.8728674,3 23.0039375,4.13107011 23.0039375,5.52631579 L23.0039375,13.1052632 L23.0206157,17.786793 C23.0215995,18.0629336 22.7985408,18.2875874 22.5224001,18.2885711 C22.3891754,18.2890457 22.2612702,18.2363324 22.1670655,18.1421277 L19.6565168,15.6315789 L16,15.6315789 Z" fill="#000000"></path>
+                                <path d="M1.98505595,18 L1.98505595,13 C1.98505595,11.8954305 2.88048645,11 3.98505595,11 L11.9850559,11 C13.0896254,11 13.9850559,11.8954305 13.9850559,13 L13.9850559,18 C13.9850559,19.1045695 13.0896254,20 11.9850559,20 L4.10078614,20 L2.85693427,21.1905292 C2.65744295,21.3814685 2.34093638,21.3745358 2.14999706,21.1750444 C2.06092565,21.0819836 2.01120804,20.958136 2.01120804,20.8293182 L2.01120804,18.32426 C1.99400175,18.2187196 1.98505595,18.1104045 1.98505595,18 Z M6.5,14 C6.22385763,14 6,14.2238576 6,14.5 C6,14.7761424 6.22385763,15 6.5,15 L11.5,15 C11.7761424,15 12,14.7761424 12,14.5 C12,14.2238576 11.7761424,14 11.5,14 L6.5,14 Z M9.5,16 C9.22385763,16 9,16.2238576 9,16.5 C9,16.7761424 9.22385763,17 9.5,17 L11.5,17 C11.7761424,17 12,16.7761424 12,16.5 C12,16.2238576 11.7761424,16 11.5,16 L9.5,16 Z" fill="#000000" opacity="0.3"></path>
+                            </g>
+                        </svg>
+                    </span>
+                    @ResourceManagement.GetResourceText("Task.Home.AppraiseExtend", "Duyệt gia hạn", "Appraise extend")
+                </a>
+                <button ng-click="my_tree.collapse_all()" class="btn btn-default btn-sm">@ResourceManagement.GetResourceText("Task.Home.CollapseAll", "Thu gọn", "Collapse All")</button>
+                <div class="dropdown ml-2" data-toggle="tooltip" title="" data-original-title="">
+                    <span class="btn btn-default btn-icon btn-sm" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </span>
+                    <div class="dropdown-menu p-0 m-0">
+                        <ul class="navi py-3">
+                            <li class="navi-item">
+                                <a ng-show="isEditProject" ng-click="ViewProject('Update')" class="navi-link">
+                                    <span class="svg-icon svg-icon-primary">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24"></rect>
+                                                <path d="M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409)"></path>
+                                                <rect fill="#000000" opacity="0.3" x="5" y="20" width="15" height="2" rx="1"></rect>
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    @ResourceManagement.GetResourceText("Task.Home.EditProject", "Chỉnh sửa dự án", "Edit project")
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a ng-show="isDeleteProject" ng-click="DeleteProject()" class="navi-link">
+                                    <span class="svg-icon svg-icon-primary">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
+                                                <path d="M12.0355339,10.6213203 L14.863961,7.79289322 C15.2544853,7.40236893 15.8876503,7.40236893 16.2781746,7.79289322 C16.6686989,8.18341751 16.6686989,8.81658249 16.2781746,9.20710678 L13.4497475,12.0355339 L16.2781746,14.863961 C16.6686989,15.2544853 16.6686989,15.8876503 16.2781746,16.2781746 C15.8876503,16.6686989 15.2544853,16.6686989 14.863961,16.2781746 L12.0355339,13.4497475 L9.20710678,16.2781746 C8.81658249,16.6686989 8.18341751,16.6686989 7.79289322,16.2781746 C7.40236893,15.8876503 7.40236893,15.2544853 7.79289322,14.863961 L10.6213203,12.0355339 L7.79289322,9.20710678 C7.40236893,8.81658249 7.40236893,8.18341751 7.79289322,7.79289322 C8.18341751,7.40236893 8.81658249,7.40236893 9.20710678,7.79289322 L12.0355339,10.6213203 Z" fill="#000000" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    @ResourceManagement.GetResourceText("Task.Home.DeleteProject", "Xóa dự án", "Delete project")
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a ng-show="isDeleteTask" ng-click="DeleteTaskItem()" class="navi-link">
+                                    <span class="svg-icon svg-icon-primary">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
+                                                <path d="M12.0355339,10.6213203 L14.863961,7.79289322 C15.2544853,7.40236893 15.8876503,7.40236893 16.2781746,7.79289322 C16.6686989,8.18341751 16.6686989,8.81658249 16.2781746,9.20710678 L13.4497475,12.0355339 L16.2781746,14.863961 C16.6686989,15.2544853 16.6686989,15.8876503 16.2781746,16.2781746 C15.8876503,16.6686989 15.2544853,16.6686989 14.863961,16.2781746 L12.0355339,13.4497475 L9.20710678,16.2781746 C8.81658249,16.6686989 8.18341751,16.6686989 7.79289322,16.2781746 C7.40236893,15.8876503 7.40236893,15.2544853 7.79289322,14.863961 L10.6213203,12.0355339 L7.79289322,9.20710678 C7.40236893,8.81658249 7.40236893,8.18341751 7.79289322,7.79289322 C8.18341751,7.40236893 8.81658249,7.40236893 9.20710678,7.79289322 L12.0355339,10.6213203 Z" fill="#000000" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    @ResourceManagement.GetResourceText("Task.Home.DeleteTask", "Xóa công việc", "Delete task")
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a ng-show="isProcessProject" ng-click="ViewProcessProject()" class="navi-link">
+                                    <span class="svg-icon svg-icon-primary">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <path d="M10.9630156,7.5 L11.0475062,7.5 C11.3043819,7.5 11.5194647,7.69464724 11.5450248,7.95024814 L12,12.5 L15.2480695,14.3560397 C15.403857,14.4450611 15.5,14.6107328 15.5,14.7901613 L15.5,15 C15.5,15.2109164 15.3290185,15.3818979 15.1181021,15.3818979 C15.0841582,15.3818979 15.0503659,15.3773725 15.0176181,15.3684413 L10.3986612,14.1087258 C10.1672824,14.0456225 10.0132986,13.8271186 10.0316926,13.5879956 L10.4644883,7.96165175 C10.4845267,7.70115317 10.7017474,7.5 10.9630156,7.5 Z" fill="#000000" />
+                                                <path d="M7.38979581,2.8349582 C8.65216735,2.29743306 10.0413491,2 11.5,2 C17.2989899,2 22,6.70101013 22,12.5 C22,18.2989899 17.2989899,23 11.5,23 C5.70101013,23 1,18.2989899 1,12.5 C1,11.5151324 1.13559454,10.5619345 1.38913364,9.65805651 L3.31481075,10.1982117 C3.10672013,10.940064 3,11.7119264 3,12.5 C3,17.1944204 6.80557963,21 11.5,21 C16.1944204,21 20,17.1944204 20,12.5 C20,7.80557963 16.1944204,4 11.5,4 C10.54876,4 9.62236069,4.15592757 8.74872191,4.45446326 L9.93948308,5.87355717 C10.0088058,5.95617272 10.0495583,6.05898805 10.05566,6.16666224 C10.0712834,6.4423623 9.86044965,6.67852665 9.5847496,6.69415008 L4.71777931,6.96995273 C4.66931162,6.97269931 4.62070229,6.96837279 4.57348157,6.95710938 C4.30487471,6.89303938 4.13906482,6.62335149 4.20313482,6.35474463 L5.33163823,1.62361064 C5.35654118,1.51920756 5.41437908,1.4255891 5.49660017,1.35659741 C5.7081375,1.17909652 6.0235153,1.2066885 6.2010162,1.41822583 L7.38979581,2.8349582 Z" fill="#000000" opacity="0.3" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    @ResourceManagement.GetResourceText("Task.Home.UpdateProcess", "Cập nhật tiến đó", "Update project")
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a ng-show="isEditTask" ng-click="EvictFinishTaskItem('@ActionId.Finish')" class="navi-link">
+                                    <span class="svg-icon svg-icon-primary">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <path d="M12,22 C6.4771525,22 2,17.5228475 2,12 C2,6.4771525 6.4771525,2 12,2 C17.5228475,2 22,6.4771525 22,12 C22,17.5228475 17.5228475,22 12,22 Z M12,20 C16.418278,20 20,16.418278 20,12 C20,7.581722 16.418278,4 12,4 C7.581722,4 4,7.581722 4,12 C4,16.418278 7.581722,20 12,20 Z M19.0710678,4.92893219 L19.0710678,4.92893219 C19.4615921,5.31945648 19.4615921,5.95262146 19.0710678,6.34314575 L6.34314575,19.0710678 C5.95262146,19.4615921 5.31945648,19.4615921 4.92893219,19.0710678 L4.92893219,19.0710678 C4.5384079,18.6805435 4.5384079,18.0473785 4.92893219,17.6568542 L17.6568542,4.92893219 C18.0473785,4.5384079 18.6805435,4.5384079 19.0710678,4.92893219 Z" fill="#000000" fill-rule="nonzero" opacity="0.7" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    @ResourceManagement.GetResourceText("Task.Home.Finish", "Kết thúc", "Finish")
+                                </a>
+                            </li>
+                            <li class="navi-separator mt-3 opacity-70"></li>
+                            <li class="navi-item">
+                                <a ng-click="ExportExcel()" class="navi-link">
+                                    <span class="svg-icon svg-icon-primary svg-icon-2x">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <polygon points="0 0 24 0 24 24 0 24" />
+                                                <path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                                <rect fill="#000000" x="6" y="11" width="9" height="2" rx="1" />
+                                                <rect fill="#000000" x="6" y="15" width="5" height="2" rx="1" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="navi-text">@ResourceManagement.GetResourceText("Task.Home.ViewTable.ExportExcel", "Xuất excel", "Export excel") </span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a ng-click="ExportMSProject()" class="navi-link">
+                                    <span class="svg-icon svg-icon-primary svg-icon-2x">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <polygon points="0 0 24 0 24 24 0 24" />
+                                                <path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                                <rect fill="#000000" opacity="0.3" transform="translate(8.984240, 12.127098) rotate(-45.000000) translate(-8.984240, -12.127098) " x="7.41281179" y="10.5556689" width="3.14285714" height="3.14285714" rx="0.75" />
+                                                <rect fill="#000000" opacity="0.3" transform="translate(15.269955, 12.127098) rotate(-45.000000) translate(-15.269955, -12.127098) " x="13.6985261" y="10.5556689" width="3.14285714" height="3.14285714" rx="0.75" />
+                                                <rect fill="#000000" transform="translate(12.127098, 15.269955) rotate(-45.000000) translate(-12.127098, -15.269955) " x="10.5556689" y="13.6985261" width="3.14285714" height="3.14285714" rx="0.75" />
+                                                <rect fill="#000000" transform="translate(12.127098, 8.984240) rotate(-45.000000) translate(-12.127098, -8.984240) " x="10.5556689" y="7.41281179" width="3.14285714" height="3.14285714" rx="0.75" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="navi-text">@ResourceManagement.GetResourceText("Task.Home.ViewTable.ExportMSProject", "Xuất ms project", "Export ms project") </span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <label class="form-control-static attachment navi-link">
+                                    <span class="svg-icon svg-icon-primary svg-icon-2x">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <path d="M3.5,21 L20.5,21 C21.3284271,21 22,20.3284271 22,19.5 L22,8.5 C22,7.67157288 21.3284271,7 20.5,7 L10,7 L7.43933983,4.43933983 C7.15803526,4.15803526 6.77650439,4 6.37867966,4 L3.5,4 C2.67157288,4 2,4.67157288 2,5.5 L2,19.5 C2,20.3284271 2.67157288,21 3.5,21 Z" fill="#000000" opacity="0.3" />
+                                                <path d="M8.54301601,14.4923287 L10.6661,14.4923287 L10.6661,16.5 C10.6661,16.7761424 10.8899576,17 11.1661,17 L12.33392,17 C12.6100624,17 12.83392,16.7761424 12.83392,16.5 L12.83392,14.4923287 L14.9570039,14.4923287 C15.2331463,14.4923287 15.4570039,14.2684711 15.4570039,13.9923287 C15.4570039,13.8681299 15.41078,13.7483766 15.3273331,13.6563877 L12.1203391,10.1211145 C11.934804,9.91658739 11.6185961,9.90119131 11.414069,10.0867264 C11.4020553,10.0976245 11.390579,10.1091008 11.3796809,10.1211145 L8.1726869,13.6563877 C7.98715181,13.8609148 8.00254789,14.1771227 8.20707501,14.3626578 C8.29906387,14.4461047 8.41881721,14.4923287 8.54301601,14.4923287 Z" fill="#000000" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="navi-text">
+                                        @ResourceManagement.GetResourceText("Task.Home.ImportExcel", "Import Excel", "Import Excel")
+                                        <input type="file" style="display: none" name="file" accept=".xlsx" id="datafile" ngf-select="ImportExcel($files)" class="file" data-show-preview="false" data-show-upload="false" data-show-caption="true" />
+                                    </span>
+                                </label>
+                            </li>
+                            <li class="navi-item">
+                                <label class="form-control-static attachment navi-link">
+                                    <span class="svg-icon svg-icon-primary svg-icon-2x">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <polygon points="0 0 24 0 24 24 0 24" />
+                                                <path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                                <path d="M11,14 L9,14 C8.44771525,14 8,13.5522847 8,13 C8,12.4477153 8.44771525,12 9,12 L11,12 L11,10 C11,9.44771525 11.4477153,9 12,9 C12.5522847,9 13,9.44771525 13,10 L13,12 L15,12 C15.5522847,12 16,12.4477153 16,13 C16,13.5522847 15.5522847,14 15,14 L13,14 L13,16 C13,16.5522847 12.5522847,17 12,17 C11.4477153,17 11,16.5522847 11,16 L11,14 Z" fill="#000000" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="navi-text">
+                                        @ResourceManagement.GetResourceText("Task.Home.ImportMSProject", "Import MS Project", "Import MS Project")
+                                        <input type="file" style="display: none" name="file" accept=".mpp, .xml" id="datafileMS" ngf-select="ImportMSProject($files)" class="file" data-show-preview="false" data-show-upload="false" data-show-caption="true" />
+                                    </span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--begin::Body-->
+        <div class="card-body p-0">
+
+            <div class="task-content">
+
+                @{
+                    @Html.Partial(HomeController.PartialViewTaskInMain, Model)
+                }
+            </div>
+            <!--begin::chi tiet du an-->
+            <div id="kt_demo_panel" class="offcanvas offcanvas-right">
+                <div class="offcanvas-header d-flex align-items-center justify-content-between pb-0 px-5 pt-5" kt-hidden-height="46" style="">
+                    <h4 class="font-weight-bold m-0"></h4>
+                    <a href="#" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_demo_panel_close" ng-click="CloseProjectDetail();">
+                        <i class="ki ki-close icon-xs text-muted"></i>
+                    </a>
+                </div>
+                <div class="offcanvas-content">
+                    @Html.Partial("~/Areas/Task/Views/Home/PartialView/_ProjectDetail.cshtml")
+                    @Html.Partial("~/Areas/Task/Views/Home/PartialView/_TaskItemDetail.cshtml")
+                </div>
+            </div>
+            <!--end::chi tiet du an-->
+        </div>
+        <!--end::Body-->
+
+    </div>
+    <div class="dropdown sticky">
+        <button type="button" class="btn btn-danger btn-circle btn-icon" ng-click="ViewProject('New')"><i class="fas fa-plus"></i></button>
+    </div>
+
+
+
+    @Html.Partial("PartialView/_AddEditProjectPartial")
+    @Html.Partial("PartialView/_AddEditTaskPartial")
+    @Html.Partial("PartialView/_ProcessTaskPartial")
+    @Html.Partial("PartialView/_ProcessProjectPartial")
+    @Html.Partial("PartialView/_AppraiseTaskPartial")
+    @Html.Partial("PartialView/_AppraiseExtendTaskPartial")
+    @Html.Partial("PartialView/_EvictFinishTaskPartial")
+
+    <!--begin::Sticky Toolbar-->
+    <ul class="sticky-toolbar nav flex-column pl-2 pr-2 pt-3 pb-3 mt-4">
+        <li class="nav-item mb-2" id="kt_demo_panel_toggle" data-toggle="tooltip" title="" data-placement="right" data-original-title="Xem chi tiết dự án">
+            @*<a class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-success" href="#">
+                    <i class="flaticon2-drop"></i>
+                </a>*@
+        </li>
+    </ul>
+    <!--end::Sticky Toolbar-->
+    <!-- Report Project -->
+    <div class="modal fade" id="detail-report-project" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@ResourceManagement.GetResourceText("Task.ProjectDetail.Tasks", "Công việc", "Tasks")</h5>
+                    <button type="button" ng-click="CloseTaskItem()" class="close" data-dismiss="modal">
+                        <i aria-hidden="true" class="fas fa-times"></i>
+                    </button>                  
+                </div>
+                <div class="modal-body">
+                    <div class="list-detail-task">
+                        <table class="table table-vertical-center">
+                            <thead>
+                                <tr>
+                                    <th style="width:50px">STT</th>
+                                    <th>@ResourceManagement.GetResourceText("Task.ProjectDetail.TaskName", "Tên công việc", "Task name")</th>
+                                    <th style="width:120px">@ResourceManagement.GetResourceText("Task.ProjectDetail.Tag", "Nhãn", "Tag")</th>
+                                    <th style="width:120px">@ResourceManagement.GetResourceText("Task.ProjectDetail.Status", "Trạng thái", "Status")</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in projectDetail.table">
+                                    <td class="task-num" style="text-align:center">
+                                        <span ng-bind-html="item.Index"></span>
+                                    </td>
+                                    <td class="task-name">
+                                        <a class="task-link" target="_blank" href="#" ng-bind-html="item.TaskName">
+                                        </a>
+                                        <span class="item-info">
+                                            <span class="item-time">{{ item.FromDateFormat }} - {{ item.ToDateFormat }}</span>
+                                            <span class="item-owner">
+                                                <img title="" class="img-circle" src="/module/Account/Avartar/{{item.AssingBy}}">{{item.AssignByFullName}} - {{item.JobTitleName}}
+                                            </span>
+                                        </span>
+                                    </td>
+                                    <td style="width:120px" class="task-tags">
+                                        <span ng-if="item.TaskItemCategories.length > 0" class="item-tags">
+                                            <a ng-repeat="cate in item.TaskItemCategories" href="#"><span>{{ cate }}</span></a>
+                                        </span>
+                                    </td>
+                                    <td style="width:120px" class="task-status">
+                                        <label class="label label-inline label-status progress-task {{item.Process}}">
+                                            {{item.StatusName}}
+                                            <span ng-if="item.PercentFinish != null && item.PercentFinish > 0" class="label-process"> ({{item.PercentFinish}}%)</span>
+                                        </label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal">
+                        @ResourceManagement.GetResourceText("Task.ProjectDetail.Close", "Đóng", "Close")
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Report Task -->
+    <div class="modal fade" id="detail-report-task" role="dialog" data-backdrop="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Báo cáo công việc</h5>
+                    <button type="button" ng-click="CloseTaskItem()" class="close" data-dismiss="modal">
+                        <i aria-hidden="true" class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="list-detail-task">
+                        <table class="table table-vertical-center">
+                            <thead>
+                                <tr>
+                                    <th style="width:50px">STT</th>
+                                    <th>@ResourceManagement.GetResourceText("Task.TaskDetail.TaskName", "Tên công việc", "Task name")</th>
+                                    <th style="width:120px">@ResourceManagement.GetResourceText("Task.TaskDetail.Tag", "Nhãn", "Tag")</th>
+                                    <th style="width:120px">@ResourceManagement.GetResourceText("Task.TaskDetail.Status", "Trạng thái", "Status")</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in taskItem.table">
+                                    <td class="task-num" style="text-align:center">
+                                        <span>{{ item.Index }}</span>
+                                    </td>
+                                    <td class="task-name">
+                                        <a class="task-link" target="_blank" href="#">
+                                            {{ item.TaskName }}
+                                        </a>
+                                        <span class="item-info">
+                                            <span class="item-time">{{ item.FromDateFormat }} - {{ item.ToDateFormat }}</span>
+                                            <span class="item-owner">
+                                                <img title="" class="img-circle" src="/module/Account/Avartar/{{item.AssingBy}}">{{item.AssignByFullName}} - {{item.JobTitleName}}
+                                            </span>
+                                        </span>
+                                    </td>
+                                    <td style="width:120px" class="task-tags">
+                                        <span ng-if="item.TaskItemCategories.length > 0" class="item-tags">
+                                            <a ng-repeat="cate in item.TaskItemCategories" href="#"><span>{{ cate }}</span></a>
+                                        </span>
+                                    </td>
+                                    <td style="width:120px" class="task-status">
+                                        <label class="label label-inline label-status progress-task {{item.Process}}">
+                                            {{item.StatusName}}
+                                            <span ng-if="item.PercentFinish != null && item.PercentFinish > 0" class="label-process"> ({{item.PercentFinish}}%)</span>
+                                        </label>
+                                        @*<span class="status-btn-circle status-value {{ item.BgColor }}">{{ item.StatusName }} {{ (item.PercentFinish == null || item.PercentFinish <= 0) ? '' : '(' + item.PercentFinish + '%)' }}</span>*@
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal">
+                        @ResourceManagement.GetResourceText("Task.TaskDetail.Close", "Đóng", "Close")
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script type="text/javascript">
+    var ColumnHeader =JSON.parse( @Html.Raw(Json.Encode(ViewBag.col_defs)));
+</script>
+
+<!-- Modal-->
+@section scripts {
+    <script src="~/Areas/Task/Content/angularjs/controller/MainCtrl.js"></script>
+    <script src="~/Areas/Task/Content/angularjs/controller/CalendarCtrl.js"></script>
+    <script src="~/Areas/Task/Content/angularjs/services/MainService.js"></script>
+}
+@*@switch (Model.Name)
+    {
+        case "ViewTaskInTable":
+            @section scripts {
+                <script src="~/Areas/Task/Content/angularjs/controller/MainCtrl.js"></script>
+                <script src="~/Areas/Task/Content/angularjs/services/MainService.js"></script>
+            }
+            break;
+        case "ViewTaskInGrantt":
+            @section scripts {
+                <script src="~/Areas/Task/Content/angularjs/controller/GranttCtrl.js"></script>
+                <script src="~/Areas/Task/Content/angularjs/services/MainService.js"></script>
+            }
+            break;
+        default:
+            break;
+    }*@

@@ -1,0 +1,60 @@
+﻿<div id="AddEditFolderGroup" class="modal fade" role="dialog" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" ng-bind="modalTitle"></h4>
+                <button type="button" ng-click="CloseAdvanceFilter()" class="close" data-dismiss="modal"><i aria-hidden="true" class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                @*<div class="row" ng-show="FolderGroup.Id== undefined">
+                    <div class="col-xl-12">
+                        <div class="form-group">
+                            <label>Bạn cần tạo mới</label>
+                            <select class="form-control" id="AddCommonGroup" name="AddCommonGroup" ng-options="option.Id as option.Name for option in options" ng-change="AddCommon()" ng-model="optionValueId"></select>
+                        </div>
+                    </div>
+                    </div>*@
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="form-group">
+                            <label>Tên thư mục <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" ng-model="AdvanceFilter.Name" id="FolderName" name="FolderName" placeholder="Nhập tên thư mục">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="form-group">
+                            <div class="checkbox-inline">
+                                <label class="checkbox checkbox-lg">
+                                    <input ng-model="AdvanceFilter.IsSelected"
+                                           type="checkbox"
+                                           id="IsRoot"
+                                           name="IsRoot" />
+                                    <span></span>
+                                    <label class="mt-2" for="IsRoot">
+                                        Thư mục gốc
+                                    </label>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="AdvanceFilter.Id!= undefined">
+                    <div class="col-xl-12">
+                        <div class="mb-1">
+                            <label class="text-muted">Ngày tạo:</label> <span class="font-weight-bold text-dark-75 mr-5" ng-bind="AdvanceFilter.CreatedDateText"></span>
+                            <label class="text-muted"> Bởi:</label> <span class="font-weight-bold text-dark-75" ng-bind="AdvanceFilter.CreatedByName"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="SaveAdvanceFilter()">Lưu</button>
+                <button type="button" class="btn btn-light-primary" data-dismiss="modal" ng-click="CloseAdvanceFilter()">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Cấu hình hệ thống";
+}
+<div class="content d-flex flex-column flex-column-fluid pb-0" ng-app="sureportalapp" ng-controller="SettingsCtrl">
+    <div class="subheader py-1 subheader-solid" id="kt_subheader">
+        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <div class="d-flex align-items-center flex-wrap mr-2">
+                <a href="~/contract/home/index" class="bg-hover-white text-hover-primary text-dark font-size-h6 font-weight-bold mr-5">QUẢN LÝ CÔNG VIỆC</a>
+                <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
+                <span class="text-dark-50 font-weight-bold mr-4">Cấu hình hệ thống</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-custom card-stretch gutter-b mx-9px">
+        <div class="card-header">
+            <h3 class="card-title font-weight-bolder text-dark">Cấu hình hệ thống</h3>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6" ng-repeat="item in settings.list">
+                        <div class="form-group">
+                            <label>{{ item.Name }}</label>
+                            <input type="text" class="form-control" ng-model="item.Value">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="btn btn-primary" ng-click="settings.saveSettings()">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="~/Areas/Task/Content/angularjs/services/SettingsService.js"></script>
+    <script src="~/Areas/Task/Content/angularjs/controller/BaseCtrl.js"></script>
+    <script src="~/Areas/Task/Content/angularjs/controller/SettingsCtrl.js"></script>
+}
+
+
+

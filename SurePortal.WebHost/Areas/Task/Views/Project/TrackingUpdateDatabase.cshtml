@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Trang chủ";
+}
+<style type="text/css">
+</style>
+
+<div class="card card-custom card-stretch" id="kt_todo_list" ng-controller="UpdateDBCtrl" ng-cloak>
+    <div class="card-header align-items-center flex-wrap py-3 px-4 border-bottom h-auto">
+        <h3 class="card-title m-0">
+        </h3>
+    </div>
+    <div class="card-body p-0">
+        <div class="task-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-sm btn-primary" ng-click="PostTrackingUpdateDB()">Cập nhật</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+    
+    @section scripts {
+        <script src="~/Areas/Task/Content/angularjs/controller/UpdateDB.js"></script>
+    }

@@ -1,0 +1,479 @@
+
+.tree-grid-animate-enter,
+.tree-grid-row.ng-enter {
+    transition: 200ms linear all;
+    position: relative;
+    display: block;
+    opacity: 0;
+    max-height: 0px;
+}
+
+    .tree-grid-animate-enter.tree-grid-animate-enter-active,
+    .tree-grid-row.ng-enter-active {
+        opacity: 1;
+        max-height: 30px;
+    }
+
+.tree-grid-animate-leave,
+.tree-grid-row.ng-leave {
+    transition: 200ms linear all;
+    position: relative;
+    display: block;
+    height: 30px;
+    max-height: 30px;
+    opacity: 1;
+}
+
+    .tree-grid-animate-leave.tree-grid-animate-leave-active,
+    .tree-grid-row.ng-leave-active {
+        height: 0px;
+        max-height: 0px;
+        opacity: 0;
+    }
+
+
+
+.tree-grid .tree-grid-row {
+    padding: 0px;
+    margin: 0px;
+}
+
+    .tree-grid .tree-grid-row a {
+        /*padding: 3px 5px 3px 0px;*/
+    }
+
+.tree-grid i.indented {
+    padding: 2px;
+}
+
+#MainCtrl .fa-minus:before, #MainCtrl .fa-plus:before {
+    color: #636b76;
+    font-size: 13px;
+}
+
+/*** custom for sure Task ***/
+.tree-grid {
+    cursor: pointer;
+}
+
+.tree-grid .level-1 .indented {
+    position: relative;
+    left: 0px;
+}
+
+.tree-grid .level-2 .indented {
+    position: relative;
+    left: 25px;
+}
+
+.tree-grid .level-3 .indented {
+    position: relative;
+    left: 50px;
+}
+
+.tree-grid .level-4 .indented {
+    position: relative;
+    left: 75px;
+}
+
+.tree-grid .level-5 .indented {
+    position: relative;
+    left: 100px;
+}
+
+.tree-grid .level-6 .indented {
+    position: relative;
+    left: 125px;
+}
+
+.tree-grid .level-7 .indented {
+    position: relative;
+    left: 150px;
+}
+
+.tree-grid .level-8 .indented {
+    position: relative;
+    left: 175px;
+}
+
+.tree-grid .level-9 .indented {
+    position: relative;
+    left: 200px;
+}
+
+thead.text-primary {
+    color: #3a3a3a !important;
+    line-height: 22px;
+}
+    .tree-grid .indented.tree-icon:not(.fa) {
+    background-color: transparent;
+}
+/*
+.tree-grid .level-1 .indented.tree-icon:not(.fa) {
+    
+    border-right: 3px cadetblue solid;
+}
+
+    .tree-grid .level-2 .indented.tree-icon:not(.fa) {
+        border-right: 3px darkorchid solid;
+    }
+
+    .tree-grid .level-3 .indented.tree-icon:not(.fa) {
+        border-right: 3px cornflowerblue solid;
+    }
+
+    .tree-grid .level-4 .indented.tree-icon:not(.fa) {
+        border-right: 3px palevioletred solid;
+    }
+
+    .tree-grid .level-5 .indented.tree-icon:not(.fa) {
+        border-right: 3px cornflowerblue solid;
+    }
+
+    .tree-grid .level-6 .indented.tree-icon:not(.fa) {
+        border-right: 3px crimson solid;
+    }
+
+    .tree-grid .level-7 .indented.tree-icon:not(.fa) {
+        border-right: 3px darkkhaki solid;
+    }
+
+    .tree-grid .level-8 .indented.tree-icon:not(.fa) {
+        border-right: 3px goldenrod solid;
+    }
+
+    .tree-grid .level-9 .indented.tree-icon:not(.fa) {
+        border-right: 3px lightseagreen solid;
+    }
+*/
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: transparent;
+}
+
+.task-content .table-bordered th, .task-content .table-bordered td {
+    border: 0 !important;
+}
+tr.tree-grid-row.haspagination td {
+    border: 0 !important;
+    padding: 0 !important;
+    font-size: 12px;
+}
+tr.tree-grid-row.haspagination {
+    background-color: #fcffcb !important;
+    height: 12px !important;
+    overflow: hidden;
+    width: 100%;
+    padding: 0 !important;
+    position: relative;
+}
+
+    tr.tree-grid-row.haspagination:after {
+        content: "\f078";
+        display: block;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 0px;
+        left: 50%;
+        font-family: 'Font Awesome 5 Free';
+    }
+
+    tr.tree-grid-row.haspagination td span {
+        color: #0094ff;
+    }
+
+    tr.tree-grid-row.haspagination:hover {
+        background-color: #fffed9f5 !important;
+    }
+
+.tree-grid-row.active {
+    background-color: #fffcf0 !important;
+}
+
+#dragtable td {
+    padding: 7px 10px;
+    vertical-align: middle;
+}
+/*****/
+.L0, .L00 {
+    left: 0% !important;
+}
+.L5 {
+    left: 5% !important;
+}
+.L10 {
+    left: 10% !important;
+}
+.L15 {
+    left: 15% !important;
+}
+.L20 {
+    left: 20% !important;
+}
+.L25 {
+    left: 25% !important;
+}
+.L30 {
+    left: 30% !important;
+}
+.L35 {
+    left: 35% !important;
+}
+.L40 {
+    left: 40% !important;
+}
+.L45 {
+    left: 45% !important;
+}
+.L50 {
+    left: 50% !important;
+}
+.L55 {
+    left: 55% !important;
+}
+.L60 {
+    left: 60% !important;
+}
+.L65 {
+    left: 65% !important;
+}
+.L70 {
+    left: 70% !important;
+}
+
+.L75 {
+    left: 75% !important;
+}
+.L80 {
+    left: 80% !important;
+}
+
+.L85 {
+    left: 85% !important;
+}
+.L90 {
+    left: 90% !important;
+}
+.L95 {
+    left: 95% !important;
+}
+/***/
+.R0, .R00 {
+    right: 0% !important;
+}
+.R5 {
+    right: 5% !important;
+}
+.R10 {
+    right: 10% !important;
+}
+.R15 {
+    right: 15% !important;
+}
+.R20 {
+    right: 20% !important;
+}
+.R25 {
+    right: 25% !important;
+}
+.R30 {
+    right: 30% !important;
+}
+.R35 {
+    right: 35% !important;
+}
+.R40 {
+    right: 40% !important;
+}
+.R45 {
+    right: 45% !important;
+}
+.R50 {
+    right: 50% !important;
+}
+.R55 {
+    right: 55% !important;
+}
+.R60 {
+    right: 60% !important;
+}
+.R65 {
+    right: 65% !important;
+}
+.R70 {
+    right: 70% !important;
+}
+.R75 {
+    right: 75% !important;
+}
+.R80 {
+    right: 80% !important;
+}
+.R85 {
+    right: 85% !important;
+}
+.R90 {
+    right: 90% !important;
+}
+.R95 {
+    right: 95% !important;
+}
+/***/
+.tree-grid tr td .ng-binding ng-scope {
+    width: 400px !important;
+}
+.table thead th {
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+#dragtable {
+    border: 0;
+    background-color: white;
+}
+
+/*
+
+*//**/
+.tree-grid-row {
+    border-top: 1px #eee solid;
+}
+    .tree-grid-row .text-primary {
+        color: #515f6d !important;
+    }
+.tree-grid-row.level-1 {
+    border-top: 1px #dadada solid;
+}
+.tree-grid-row .indented.tree-label {
+    height: 20px;
+    line-height: 20px;
+    display: inline-block;
+}
+
+.tree-grid-row.project .indented.tree-label {
+    /* padding-left: 10px;*/
+    font-weight: 500;
+    color: #3e414a;
+    text-transform: uppercase;
+    height: 20px;
+    line-height: 22px;
+    white-space: nowrap;
+    font-size: 1.1rem;
+}
+.tree-grid-row.group .indented.tree-label {
+    color:#444;
+}
+
+.tree-grid-row.project .indented.tree-label::before,
+.tree-grid-row.group .indented.tree-label::before {
+    font-weight: 900;
+    font-family: "Font Awesome 5 Free";
+    font-size: 16px;
+    display: inline-block;
+    content: "\f02d";
+    padding: 0 4px;
+    height: 20px;
+    line-height: 20px;
+    margin-right: 5px;
+    color: var(--blue);
+}
+    .tree-grid-row.group .indented.tree-label::before {
+        content: "\f0ae";
+    }
+.out-of-date.tree-grid-row .indented.tree-label::before {
+    color: var(--danger);
+}
+.near-of-date.tree-grid-row .indented.tree-label::before {
+    color: var(--yellow);
+}
+/*.tree-grid-row.tasks .indented.tree-label::before {
+    width: 3px;
+    display: inline-block;
+    background-color: #fdd836;
+    content: "";
+    height: 100%;
+    float: left;
+    margin-left: -8px;
+}*/
+#iconexpanded {
+    width: 22px;
+    display: inline-block;
+}
+
+.task-content .table thead th {
+    padding: 15px 10px 2px;
+}
+/*** grantt ***/
+.grantt-ProcessHtml > .ng-binding.ng-scope {
+    position: relative;
+    width: 100%;
+    display: block;
+    height: 13px;
+}
+.grantt-ProcessHtml > .ng-binding.ng-scope .progress {
+    position:absolute;
+    height:13px;
+    border-radius:0!important;
+    left:0;
+    right:0;
+}
+/**/
+.timeline {
+    position: relative;
+    /*font-size: 13px;*/
+}
+.timeline-day {
+    position: absolute;
+    left: -8px;
+    display: block;
+    text-align: center;
+    top: -35px;
+    height: 28px;
+    line-height: 28px;
+    width: auto;
+    color: #fff;
+    font-size: 12px;
+    z-index: 9999;
+    padding: 0 10px;
+    white-space: nowrap;
+    background-color: var(--blue);
+    border-radius: 3px;
+    visibility:hidden;
+}
+.timeline-day::before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid var(--blue);
+    position: absolute;
+    left: 13px;
+    bottom: -6px;
+}
+.timeline:hover .timeline-day {
+    visibility: visible;
+}
+.timeline-day .far{
+    color:#fff;
+    font-size:12px;
+}
+
+/***/
+.task-content #dragtable td.text-primary {
+    width: 450px;
+    display: flex;
+    align-items: center !important;
+    height: 43px;
+}
+.tree-grid-row .indented.tree-label {
+    max-width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  /*  display: flex;*/
+}
+
+.tree-grid .tree-grid-row a {
+    display: flex;
+}

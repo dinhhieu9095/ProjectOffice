@@ -11,6 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurePortal.WebHost", "SureP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurePortal.Core.Kernel", "SurePortal.Core.Kernel\SurePortal.Core.Kernel.csproj", "{ECD84EF0-B902-41A1-B8E6-2113D278BB8F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{AF804E70-E0D1-4B66-80BC-B9B82DC15E01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurePortal.Module.Task.Entities", "SurePortal.Module.Task.Entities\SurePortal.Module.Task.Entities.csproj", "{4AD66525-86D3-47D9-BF8B-152B1A5C9B1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurePortal.Module.Task.Services", "SurePortal.Module.Task.Services\SurePortal.Module.Task.Services.csproj", "{58A0C014-4242-484B-93D9-6CAD81719258}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurePortal.Module.Task.Web", "SurePortal.WebHost\Areas\Task\SurePortal.Module.Task.Web.csproj", "{BBACC4EE-4DF4-4C8A-AB64-652F328B5078}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +33,18 @@ Global
 		{ECD84EF0-B902-41A1-B8E6-2113D278BB8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECD84EF0-B902-41A1-B8E6-2113D278BB8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECD84EF0-B902-41A1-B8E6-2113D278BB8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AD66525-86D3-47D9-BF8B-152B1A5C9B1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AD66525-86D3-47D9-BF8B-152B1A5C9B1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AD66525-86D3-47D9-BF8B-152B1A5C9B1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AD66525-86D3-47D9-BF8B-152B1A5C9B1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58A0C014-4242-484B-93D9-6CAD81719258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58A0C014-4242-484B-93D9-6CAD81719258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58A0C014-4242-484B-93D9-6CAD81719258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58A0C014-4242-484B-93D9-6CAD81719258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBACC4EE-4DF4-4C8A-AB64-652F328B5078}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBACC4EE-4DF4-4C8A-AB64-652F328B5078}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBACC4EE-4DF4-4C8A-AB64-652F328B5078}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBACC4EE-4DF4-4C8A-AB64-652F328B5078}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +52,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F1D75719-46B5-4198-B164-DFBF437E4DC7} = {E5E9C9C6-3D0A-4BA8-9BEF-C8306CE10D85}
 		{ECD84EF0-B902-41A1-B8E6-2113D278BB8F} = {C26EF288-17AB-4421-8EF4-AB6CFE8B5C71}
+		{4AD66525-86D3-47D9-BF8B-152B1A5C9B1B} = {AF804E70-E0D1-4B66-80BC-B9B82DC15E01}
+		{58A0C014-4242-484B-93D9-6CAD81719258} = {AF804E70-E0D1-4B66-80BC-B9B82DC15E01}
+		{BBACC4EE-4DF4-4C8A-AB64-652F328B5078} = {AF804E70-E0D1-4B66-80BC-B9B82DC15E01}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B0E10C00-7F6B-43A0-B366-7CE11A502CFD}

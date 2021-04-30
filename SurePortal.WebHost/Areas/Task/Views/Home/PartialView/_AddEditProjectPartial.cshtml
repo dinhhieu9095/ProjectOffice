@@ -1,0 +1,147 @@
+﻿@using SurePortal.Core.Kernel;
+<div class="modal fade" id="AddEditProject" tabindex="-1" aria-labelledby="exampleModalSizeLg" role="dialog" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" ng-bind="modalTitle"></h5>
+                <button type="button" ng-click="CloseProject()" class="close" data-dismiss="modal">
+                    <i aria-hidden="true" class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label>@ResourceManagement.GetResourceText("Task.Home.ProjectSummary", "Tên dự án", "Summary")<span class="text-danger"> *</span></label>
+                            <input type="text" class="form-control" autocomplete="off" id="ProjectSummary" name="ProjectSummary" placeholder="@ResourceManagement.GetResourceText("Task.Home.ProjectSummary", "Tên dự án", "Summary")" ng-model="Project.Summary">
+                        </div>
+                    </div>
+                    <div class="col-md-2 pr-0 pl-0">
+                        <div class="form-group">
+                            <label>@ResourceManagement.GetResourceText("Task.Home.ProjectFromDate", "Từ ngày", "From date")<span class="text-danger"> *</span></label>
+                            <input ng-model="Project.FromDateText" class="form-control" type="text" autocomplete="off" placeholder="dd/MM/yyyy" data-date-format="dd/mm/yyyy" id="FromDateText" name="FromDateText">
+                        </div>
+
+                    </div>
+                    <div class="col-md-2 pl-0 ml-n1">
+                        <div class="form-group">
+                            <label>@ResourceManagement.GetResourceText("Task.Home.ProjectToDate", "Đến ngày", "To date")<span class="text-danger"> *</span></label>
+                            <input ng-model="Project.ToDateText" class="form-control" type="text" autocomplete="off" placeholder="dd/MM/yyyy" data-date-format="dd/mm/yyyy" id="ToDateText" name="ToDateText">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group validated">
+                            <label>@ResourceManagement.GetResourceText("Task.Home.ProjectMember", "Người tham gia", "Project member")<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <select ng-model="Project.ProjectMembers" class="form-control" id="ProjectMember" name="ProjectMember" multiple ng-options="option as option.FullName for option in Project.ProjectMembers">
+                                </select>
+                                <div class="input-group-append"><span class="input-group-text" ng-click="ChooseUser()"><i class="fa fa-user"></i></span></div>
+                            </div>
+                            <div class="mt-2">
+                                <span class="text-primary font-size-sm mr-6"><i class="fas fa-circle text-primary icon-xs mr-2"></i>@ResourceManagement.GetResourceText("Task.Home.Manager", "Người quản lý", "Manager")</span>
+                                <span class="text-warning font-size-sm"><i class="fas fa-circle text-warning icon-xs mr-2"></i>@ResourceManagement.GetResourceText("Task.Home.Member", "Thành viên", "Member")</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion accordion-solid accordion-toggle-plus mt-4" id="accordionProject">
+                    <div class="more-btn" id="headingOne3">
+                        <button type="button" class="btn btn-primary btn-xs" data-toggle="collapse" data-target="#collapseProject">@ResourceManagement.GetResourceText("Task.Home.Expand", "Mở rộng", "Expand")</button>
+                    </div>
+                    <div id="collapseProject" class="more-content collapse" data-parent="#accordionProject">
+                        <div class="row">
+                            @*<div class="col-md-5 pr-0">
+                                    <div class="form-group">
+                                        <label>@ResourceManagement.GetResourceText("Task.Home.ProjectType", "Loại công việc", "Project type")<span class="text-danger"> *</span></label>
+                                        <select class="form-control select2" ng-model="Project.ProjectTypeId" id="ProjectTypeId" ng-options="option.Id as option.Name for option in ProjectTypes">
+                                        </select>
+                                    </div>
+                                </div>*@
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label>@ResourceManagement.GetResourceText("Task.Home.ProjectCategory", "Phân loại", "Project categories")</label>
+                                    <select class="form-control" id="ProjectCategory" name="ProjectCategory" multiple>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 pl-0">
+                                <div class="form-group">
+                                    <label>@ResourceManagement.GetResourceText("Task.Home.ProjectPriority", "Mức độ quan trọng", "Project priority")<span class="text-danger"> *</span></label>
+                                    <select class="form-control select2" id="ProjectPriorityId" ng-model="Project.ProjectPriorityId" ng-options="option.Id as option.Name for option in ProjectPriorities"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>@ResourceManagement.GetResourceText("Task.Home.Schedule", "Lập kế hoạch", "schedule")</label>
+                                    <div class="radio-inline mt-2">
+                                        <label class="radio">
+                                            <input type="radio" name='autoSchedule' id='autoSchedule' ng-value="1" ng-checked="Project.IsAuto == 1"
+                                                   ng-click="Project.IsAuto = true" />
+                                            <span></span>
+                                            @ResourceManagement.GetResourceText("Task.Home.Planning", "Đang lập kế hoạch", "Planning")
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name='notSchedule' id='notSchedule' ng-value="0" ng-checked="Project.IsAuto == 0"
+                                                   ng-click="Project.IsAuto = false" />
+                                            <span></span>
+                                            @ResourceManagement.GetResourceText("Task.Home.FinalizePlan", "Chốt kế hoạch", "Finalize the plan")
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                    <label>@ResourceManagement.GetResourceText("Task.Home.Content", "Nội dung", "Content")</label>
+                                    <textarea ng-model="Project.ProjectContent" class="form-control form-control-lg" id="ProjectContent" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box-attachment">
+                    <div id="file{{$index}}" ng-repeat="file in Project.Attachments track by $index" class="d-flex justify-content-between my-2 p-2 border align-items-center">
+                        <div class="d-flex align-items-center">
+                            <a href="~/Task/Project/DownloadFileTrackingWorkflowDocument?fileTrackingWorkflowDocumentID={{file.Id}}" class="file-name" title="{{file.FileName}}" target="_blank">{{file.FileName}} </a>
+                        </div>
+                        <div class="d-flex">
+                            <button type="button" class="btn btn-icon btn-xs btn-light-danger" ng-click="DeleteFile($index)"><i class="far fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                    <div id="fileNew{{$index}}" ng-repeat="file in fileTemps track by $index" class="d-flex justify-content-between my-2 p-2 border align-items-center">
+                        <div class="d-flex align-items-center">
+                            <a href="" class="file-name" title="{{file.name}}" target="_blank">{{file.name}} </a>
+                        </div>
+                        <div class="d-flex">
+                            <button type="button" class="btn btn-icon btn-xs btn-light-danger" ng-click="DeletePendingFile($index)"><i class="far fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer display-block">
+                <div class="pull-left">
+                    <label class="form-control-static attachment">
+                        <i class="fa fa-paperclip"></i> @ResourceManagement.GetResourceText("Task.Home.FileAttach", "Đính kèm file", "File acttach")
+                        <input type="file" style="display: none" name="file" accept=".xlsx, .xls, .doc, .docx, .ppt, .pptx, .txt, .pdf, image/*" id="datafile" ngf-select="ParsingFile($files)" multiple class="file" data-show-preview="false" data-show-upload="false" data-show-caption="true" />
+                    </label>
+
+                </div>
+                <div class="pull-right">
+                    <button type="button" ng-click="SaveProject()" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Save", "Lưu", "Save")</button>
+                    <button type="button" ng-click="CloseProject()" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">@ResourceManagement.GetResourceText("Task.Home.Close", "Đóng", "Close")</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

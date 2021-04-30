@@ -1,0 +1,26 @@
+﻿
+<div class="task-header">
+    <div id="kt_header" class="header">
+        <!--begin::Container-->
+        <div class="container-fluid d-flex align-items-stretch justify-content-between">
+            <!--begin::Header Menu Wrapper-->
+
+            @Html.Action("TopMenu", "Menu", new { Area = "" })
+
+            @*@Html.Partial("_TopMenuPartial")*@
+
+            <!--end::Header Menu Wrapper-->
+            <!--begin::Topbar-->
+            <div class="topbar">
+                <!--begin::Notifications-->
+                @Html.Partial("_NotificationPartial")
+                @* @Html.Partial("_LanguagePartial")*@
+                <!--end::Languages-->
+
+                @Html.Action("UserInfoHeader", "Home", new { @Areas = "Task" })
+            </div>
+                    <!--end::Topbar-->
+                </div>
+                <!--end::Container-->
+            </div>
+        </div>

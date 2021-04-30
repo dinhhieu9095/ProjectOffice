@@ -1,0 +1,141 @@
+﻿@using SurePortal.Core.Kernel;
+@using SurePortal.Module.Task.Web;
+@model SurePortal.Module.Task.Web.TaskViewTypeModel
+@*<button ng-click="my_tree.expand_all()" class="btn btn-default btn-sm">Expand All</button>*@
+@if (Model.Name.Equals(HomeController.ViewTable)
+    || Model.Name.Equals(HomeController.ViewGrantt))
+{
+    <tree-grid tree-data="tree_data" tree-control="my_tree" col-defs="col_defs" expand-on="expanding_property" my-dbl-click-callback="callbackDblFunctionInController(branch)" my-click-callback="callbackFunctionInController(branch)" my-drag-drop-callback="callbackFunctionDragDropInController(branchS,branchD, branchChildrenD,indexS,indexD)" on-select="onSelectItem(branch)" icon-leaf="glyphicon glyphicon-globe"></tree-grid>
+}
+else if (Model.Name.Equals(HomeController.ViewKanban))
+{
+    <div class="kanban-main">
+        <div class="kanban-header">
+            <div id="my-task-form-node">
+                <ul id="breadcrumb-view-parent" class="breadcrumb breadcrumb-transparent mb-0">
+                    <li class="breadcrumb-item"><a class="text-dark-75" ng-click="selectViewBreadCrumbWithParent('');">Tất cả</a></li>
+                    <li class="breadcrumb-item" ng-repeat="col in ViewBreadCrumb">
+                        <a class="text-dark" ng-click="selectViewBreadCrumbWithParent(col.Id);" ng-bind="col.Name"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row kanban-title">
+            <div class="col-3" id="{{sta.statusId}}" ng-repeat="sta in col_defs">
+                <div class="panel-header">{{sta.displayName}}</div>
+            </div>
+        </div>
+        <div class="row-kanban" ng-repeat="col in ProjectTaskItem | unique: 'FullName'">
+            <div class="panel-title">{{col.FullName}}</div>
+            <div class="task-list row">
+                <div ng-if="col.HasPagination==false" class="col-lg-3 panel panel-primary colStyle" id="{{sta.statusId}}" kanban-board-drop="over" ng-repeat="sta in col_defs">
+                    <div class="thumbnail" ng-class="task.Id==selectedRow.Id ? 'active':''" draggable="true" kanban-board-dragg="task" ng-dblclick="dblGetDataKanbanByItem(task)" ng-click="selectGetDataKanbanByItem(task)"
+                         ng-repeat="task in ProjectTaskItem|filter:{StatusId:sta.statusId} | filter:{FullName:col.FullName} | filter:{HasPagination: false}">
+                        <div class="caption">
+                            <div class="task-title">{{task.Name}} {{task.PercentFinish !==null ? (' '+task.PercentFinish +'%'):''}}</div>
+                            <div class="task-name">{{task.Name}}</div>
+                            <div class="task-date">{{task.DateFormat}}</div>
+                            <a class="btn btn-primary btn-xs" role="button" ng-click="selectViewDetailKanbanByItem(task)"><i class="fas fa-ellipsis-h"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="col.HasPagination==true" ng-click="selectViewMoreKanbanByItem(col)">@ResourceManagement.GetResourceText("Task.Home.TableMore", "Xem thêm", "More")</div>
+        </div>
+    </div>
+}
+else if (Model.Name.Equals(HomeController.ViewCalendar))
+{
+    <div class="calender-main">
+        <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center mr-3 col-md-6">
+                <div class="btn-group btn-group-solid btn-group-justified user-report-range-type">
+                    <a class="btn btn-primary previous" ng-click="calendar.previousTime()"><i class="fa fa-chevron-left"></i></a>
+                    <a class="btn btn-primary day {{ calendar.filter.type == 'day' ? 'active' : '' }}" ng-click="calendar.changeType('day')">@ResourceManagement.GetResourceText("Task.MainCalendar.Day", "Ngày", "Day")</a>
+                    <a class="btn btn-primary week {{ calendar.filter.type == 'week' ? 'active' : '' }}" ng-click="calendar.changeType('week')">@ResourceManagement.GetResourceText("Task.MainCalendar.Week", "Tuần", "Week")</a>
+                    <a class="btn btn-primary month {{ calendar.filter.type == 'month' ? 'active' : '' }}" ng-click="calendar.changeType('month')">@ResourceManagement.GetResourceText("Task.MainCalendar.Month", "Tháng", "Month")</a>
+                    <a class="btn btn-primary next" ng-click="calendar.nextTime()"><i class="fa fa-chevron-right"></i></a>
+                </div>
+            </div>
+            <div class="row-title col-md-6" ng-if="calendar.filter.type == 'month'">
+                <select class="form-control" ng-model="calendar.filter.user" ng-change="calendar.changeUser()">
+                    <option value="">Chọn user</option>
+                    <option ng-repeat="user in calendar.users" value="{{user}}">{{user}}</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="kanban-header">
+            <div id="my-task-form-node">
+                <ul id="breadcrumb-view-parent" class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold py-2 font-size-h5">
+                    <li class="breadcrumb-item"><a class="text-muted" ng-click="calendar.selectBreadCrumb('');">Tất cả</a></li>
+                    <li class="breadcrumb-item" ng-repeat="col in calendar.breadCrumb">
+                        <a class="text-muted" ng-click="calendar.selectBreadCrumb(col.Id);" ng-bind="col.Name"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row-title row" ng-if="calendar.filter.type == 'week'">
+            <div style="width: {{100/(calendar.header.length + 1)}}%">
+                <div class="panel-header"></div>
+            </div>
+            <div style="width: {{100/(calendar.header.length + 1)}}%" id="{{sta.statusId}}" ng-repeat="sta in calendar.header">
+                <div class="panel-header" ng-bind-html="sta.text"></div>
+            </div>
+        </div>
+        <div class="row-kanban row" ng-if="calendar.filter.type == 'week'" ng-repeat="(key, value) in calendar.data | groupBy: 'FullName'">
+            <div style="width: {{100/(calendar.header.length + 1)}}%"><h3 class="panel-title">{{key}}</h3></div>
+            <div class="panel panel-primary colStyle" style="width: {{100/(calendar.header.length + 1)}}%" ng-repeat="sta in calendar.header">
+                <div class="thumbnail" ng-repeat="item in value | filter : {Day : sta.value}" style="margin-bottom: 10px; width: 100%;min-height: 60px;" ng-dblclick="calendar.getData(item)" ng-click="selectGetDataKanbanByItem(item)" ng-class="item.Id==selectedRow.Id ? 'active':'' ? 'active':''">
+                    <div class="caption">
+                        <div class="task-title">{{item.Name}} {{item.PercentFinish !==null ? (' '+item.PercentFinish +'%'):''}}</div>
+                        <div class="task-date">{{item.DateFormat}}</div>
+                        <a class="btn btn-primary btn-xs" role="button" ng-click="selectViewDetailKanbanByItem(item)">...</a>
+                    </div>
+                </div>
+            </div>
+            @*<div ng-if="col.HasPagination==true" ng-click="selectViewMoreKanbanByItem(col)">@ResourceManagement.GetResourceText("Task.Home.TableMore", "Xem thêm", "More")</div>*@
+        </div>
+        <div class="row-title row" ng-if="calendar.filter.type == 'day'">
+            <div style="width: 200px">
+                <div class="panel-header"></div>
+            </div>
+            <div style="width: calc(98% - 200px)" id="{{sta.statusId}}" ng-repeat="sta in calendar.header">
+                <div class="panel-header" ng-bind-html="sta.text"></div>
+            </div>
+        </div>
+        <div class="row-kanban row" ng-if="calendar.filter.type == 'day'" ng-repeat="(key, value) in calendar.data | groupBy: 'FullName'">
+            <div style="width: 200px"><h3 class="panel-title">{{key}}</h3></div>
+            <div class="panel panel-primary colStyle" style="width: calc(98% - 200px)" ng-repeat="sta in calendar.header">
+                <div class="thumbnail" ng-repeat="item in value" style="margin-bottom: 10px; width: 100%;min-height: 60px;" ng-dblclick="calendar.getData(item)" ng-click="selectGetDataKanbanByItem(item)" ng-class="item.Id==selectedRow.Id ? 'active':'' ? 'active':''">
+                    <div class="caption">
+                        <div class="task-title">{{item.Name}} {{item.PercentFinish !==null ? (' '+item.PercentFinish +'%'):''}}</div>
+                        <div class="task-date">{{item.DateFormat}}</div>
+                        <a class="btn btn-primary btn-xs" role="button" ng-click="selectViewDetailKanbanByItem(item)">...</a>
+                    </div>
+                </div>
+            </div>
+            @*<div ng-if="col.HasPagination==true" ng-click="selectViewMoreKanbanByItem(col)">@ResourceManagement.GetResourceText("Task.Home.TableMore", "Xem thêm", "More")</div>*@
+        </div>
+        <div class="row-title row" ng-if="calendar.filter.type == 'month'">
+            <div style="width: {{100/(calendar.header.length)}}%" id="{{sta.statusId}}" ng-repeat="sta in calendar.header">
+                <div class="panel-header" ng-bind-html="sta.text"></div>
+            </div>
+        </div>
+        <div class="row-kanban row" ng-if="calendar.filter.type == 'month'" ng-repeat="(key, value) in calendar.data | groupBy: 'Week'">
+            <div class="panel panel-primary colStyle" style="width: {{100/(calendar.header.length)}}%" ng-repeat="sta in calendar.header">
+                <div class="thumbnail" ng-repeat="item in value | filter : {Day : sta.value}" style="margin-bottom: 10px; width: 100%;min-height: 60px;" ng-dblclick="calendar.getData(item)" ng-click="selectGetDataKanbanByItem(item)" ng-class="item.Id==selectedRow.Id ? 'active':'' ? 'active':''">
+                    <div class="caption">
+                        <div class="task-title">{{item.Name}} {{item.PercentFinish !==null ? (' '+item.PercentFinish +'%'):''}}</div>
+                        <span class="float-right">{{item.Date}}</span>
+                        <div class="task-date">{{item.DateFormat}}</div>
+                        <div class="task-date">{{item.FullName}}</div>
+                        <a class="btn btn-primary btn-xs" role="button" ng-click="selectViewDetailKanbanByItem(item)">...</a>
+                    </div>
+                </div>
+            </div>
+            @*<div ng-if="col.HasPagination==true" ng-click="selectViewMoreKanbanByItem(col)">@ResourceManagement.GetResourceText("Task.Home.TableMore", "Xem thêm", "More")</div>*@
+        </div>
+    </div>
+}
+

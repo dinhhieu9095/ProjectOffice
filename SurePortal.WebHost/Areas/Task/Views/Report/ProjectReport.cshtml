@@ -1,0 +1,52 @@
+﻿@{
+    //ViewBag.Title = "Báo cáo công việc theo dự án";
+}
+
+<div class="content d-flex flex-column flex-column-fluid report" id="UserReviewReportCtrl" ng-controller="ReportProjectCtrl" ng-cloak>
+    <div class="d-flex flex-column-fluid">
+        <div class="container px-9px">
+            <div class="card card-custom card-stretch">
+                <div class="card-header">
+                    <h3 class="card-title font-weight-bolder text-dark">@ViewBag.Title</h3>
+                    <div class="card-toolbar">
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    @Html.Action("FormSearch")
+                    <div class="col-md-12 report-project-task">
+                        <h3 class="show-hide-report">
+                            @ViewBag.Title
+                            @*<i class="fa fa-eye show-report"></i>
+                            <i class="fa fa-eye-slash hidden-report"></i>*@
+                        </h3>
+                        <div class="report-project-task-content">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr style=" background-color: #f2f2f2;" id="tbHeadSumaryTask">
+                                    </tr>
+                                </thead>
+                                <tbody id="tbSumaryTask">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <tree-grid tree-data="reportCommon.data" col-defs="reportCommon.collumns" expand-on="reportCommon.collumnExpand" icon-leaf="glyphicon glyphicon-globe"></tree-grid>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+        });
+    </script>
+    <script src="~/Areas/Task/Content/angularjs/services/ReportService.js"></script>
+    <script src="~/Areas/Task/Content/angularjs/directives/tree-grid-diẻctive.js"></script>
+    <script src="~/Areas/Task/Content/angularjs/controller/ReportCommonCtrl.js"></script>
+    <script src="~/Areas/Task/Content/angularjs/controller/ReportProjectCtrl.js"></script>
+}

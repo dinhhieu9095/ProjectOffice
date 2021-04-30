@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Báo cáo bình quân";
+}
+
+<div class="content d-flex flex-column flex-column-fluid" id="UserReviewReportCtrl" ng-app="sureportalapp" ng-controller="ReportCtrl" ng-cloak>
+    <div class="d-flex flex-column-fluid">
+        <div class="container px-9px">
+            <div class="card card-custom card-stretch">
+                <div class="card-header">
+                    <h3 class="card-title font-weight-bolder text-dark">Báo cáo bình quân</h3>
+                    <div class="card-toolbar">
+                        
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-xl-12">
+                            <div class="form-group">
+                                <label>Phòng ban hoặc user <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" ng-model="filter.UserDepartmentText" id="UserDepartmentText" name="UserDepartmentText" placeholder="Chọn user phòng ban">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn blue open-organization-chart-modal-button">
+                                            <i class="fa fa-folder-open-o"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-6 xs-mb-15">
+                                        <label>Từ ngày <span class="required" aria-required="true"> * </span></label>
+                                        <div class="input-group date from-date-group">
+                                            <input type="text" class="form-control" ng-model="filter.FromDate" id="FromDate" name="FromDate">
+                                            <span class="input-group-btn">
+                                                <button class="btn default date-set" type="button">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="md-pl-0 col-xs-6 sm-pl-0 md-ml-sub1 sm-ml-sub1">
+                                        <label>Đến ngày <span class="required" aria-required="true"> * </span></label>
+                                        <div class="input-group date to-date-group">
+                                            <input type="text" class="form-control" ng-model="filter.ToDate" id="ToDate" name="ToDate">
+                                            <span class="input-group-btn">
+                                                <button class="btn default date-set" type="button">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="user-review-report">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+        });
+    </script>
+    <script src="~/Areas/Contract/Content/angularjs/services/ConfigTableService.js"></script>
+    <script src="~/Areas/Contract/Content/angularjs/controller/BaseCtrl.js"></script>
+    <script src="~/Areas/Contract/Content/angularjs/controller/ConfigTableCtrl.js"></script>
+}

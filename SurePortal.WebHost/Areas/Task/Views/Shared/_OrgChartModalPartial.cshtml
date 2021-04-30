@@ -1,0 +1,35 @@
+﻿@using SurePortal.Core.Kernel;
+<div id="org-chart-modal" class="modal fade" role="dialog" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Sơ đồ tổ chức</h4>
+                <button type="button" class="close org-chart-close-id" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex d-filter mb-6">
+                    <div class="d-flex align-items-center mr-3">
+                        <label>Tìm theo:</label>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <input class="form-control" type="text" autocomplete="off" id="org-chart-modal-search" placeholder="@ResourceManagement.GetResourceText("Org.Search", "Tên phòng ban/ người dùng", "Department/User")" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12" id="org-chart-modal-body">
+                        <div id="org-user-chart-modal">
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="org-chart-submit-id">Chọn</button>
+                <button type="button" class="btn btn-light-primary org-chart-close-id" id="org-chart-close-id" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+

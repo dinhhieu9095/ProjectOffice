@@ -1,0 +1,96 @@
+﻿@using SurePortal.Core.Kernel;
+<div id="AddEditModal" class="modal fade" role="dialog" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" ng-bind="titleModal"></h4>
+                <button type="button" ng-click="ctrl.closePopUp()" class="close" data-dismiss="modal"><i aria-hidden="true" class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control" ng-model="report.item.Name" placeholder="@ResourceManagement.GetResourceText("Task.Report.InputName", "Tên", "Name")">
+                        </div>
+                    </div>
+                </div>
+                @*<div class="row">
+                        <div class="col-xl-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="report.item.LinkDesktop" placeholder="Nhập link web">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="report.item.Link" placeholder="Nhập link mobile">
+                            </div>
+                        </div>
+                    </div>*@
+                @*<div class="row">
+                        <div class="col-xl-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="report.item.Icon" placeholder="Nhập Icon">
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="report.item.CssClass" placeholder="Nhập CssClass">
+                            </div>
+                        </div>
+                    </div>*@
+                <div class="row">
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <select class="form-control" ng-model="report.item.Type">
+                                <option value="ReportUser">@ResourceManagement.GetResourceText("Task.Report.ReportUser", "Báo cáo cá nhân", "Report user")</option>
+                                <option value="ReportDepartment">@ResourceManagement.GetResourceText("Task.Report.ReportDepartment", "Báo cáo phòng ban", "Report department")</option>
+                                <option value="ReportOnePage">@ResourceManagement.GetResourceText("Task.Report.ReportOnePage", "Báo cáo one page", "Report one pae")e</option>
+                                <option value="ReportWeekly">@ResourceManagement.GetResourceText("Task.Report.ReportWeekly", "Báo cáo tuần", "Report weekly")</option>
+                                <option value="ReportIframe">@ResourceManagement.GetResourceText("Task.Report.ReportIframe", "Báo cáo nhúng", "Report iframe")</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <span class="form-group col-xl-6">
+                            <label>@ResourceManagement.GetResourceText("Task.Report.Active", "Kích hoạt", "Active")</label>
+                            <input type="checkbox" class="is-active" placeholder="@ResourceManagement.GetResourceText("Task.Report.Active", "Kích hoạt", "Active")">
+                        </span>
+                        <span class="form-groupcol-xl-6">
+                            <label>@ResourceManagement.GetResourceText("Task.Report.Myself", "Cá nhân", "My self")</label>
+                            <input type="checkbox" class="is-user" placeholder="@ResourceManagement.GetResourceText("Task.Report.Active", "Kích hoạt", "Active")">
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="form-group">
+                            <select class="form-control select-user" multiple></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="form-group">
+                            <label>@ResourceManagement.GetResourceText("Task.Report.Template", "Biểu mẫu", "Template")</label>
+                            <input type="file" class="form-control-file" id="file-upload">
+                        </div>
+                        <div ng-if="report.item.FileName != null && report.item.FileName.length > 0">
+                            <a href="/Task/Report/Download?Id={{report.item.Id}}">{{ report.item.FileName }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="report.save()">@ResourceManagement.GetResourceText("Task.Report.Save", "Lưu", "Save")</button>
+                <button type="button" class="btn btn-light-primary" data-dismiss="modal" ng-click="ctrl.closePopUp()">@ResourceManagement.GetResourceText("Task.Report.Close", "Đóng", "Close")</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .select2-container, .select2-search__field {
+        width: 100% !important;
+    }
+</style>

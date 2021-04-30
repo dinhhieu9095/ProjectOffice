@@ -1,0 +1,106 @@
+﻿@using SurePortal.Module.Task.Entities;
+@using SurePortal.Core.Kernel;
+<div class="modal fade" id="AppraiseTaskItem" tabindex="-1" aria-labelledby="exampleModalSizeLg" role="dialog" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" ng-bind="modalTitle"></h5>
+                <button type="button" ng-click="CloseTaskItemAssign()" class="close" data-dismiss="modal">
+                    <i aria-hidden="true" class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="task-group">
+                    <div class="pb-1">
+                        <label class="text-dark-25 mr-1">@ResourceManagement.GetResourceText("Task.Home.TaskName", "Tên công việc", "Task name"): </label>
+                        <label class="text-dark font-weight-bold" ng-bind="TaskItemAssign.TaskItemModel.TaskName"></label>
+                    </div>
+                    <div class="pb-1">
+                        <label class="text-dark-25 mr-1">@ResourceManagement.GetResourceText("Task.Home.AssignTo", "Người xử lý", "Assign to"): </label>
+                        <label class="text-dark font-weight-bold" ng-bind="TaskItemAssign.AssignToFullName"></label>
+
+                    </div>
+                    <div class="pb-1">
+                        <label class="text-dark-25 mr-1">@ResourceManagement.GetResourceText("Task.Home.LastResult", "Nội dung xử lý", "LastResult"): </label>
+                        <label class="text-dark font-weight-bold" ng-bind="TaskItemAssign.LastResult"></label>
+                    </div>
+                    <div class="pb-1">
+                        <label class="text-dark-25 mr-1">@ResourceManagement.GetResourceText("Task.Home.PercentFinish", "Điểm chất lượng", "Percent finish"):</label>
+                        <label class="label label-xl label-primary font-weight-bold" ng-bind="TaskItemAssign.PercentFinishText" ng-show="ConfigType ==='combobox'"></label>
+                    </div>
+                    @*<div class="pb-1" ng-if="TaskItemAssign.IsExtend == true">
+                        <label>@ResourceManagement.GetResourceText("Task.Home.RequestExtendDate", "Xin gia hạn đến ngày", "Request extend date"): </label>
+                        <label ng-bind="TaskItemAssign.ExtendDateText"></label>
+                        <label>@ResourceManagement.GetResourceText("Task.Home.ExtendDateTotal", "Số ngày phát sinh", "extend date total"): </label>
+                        <label ng-bind="TaskItemAssign.ExtendDateTotal"></label>
+                    </div>*@
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-9"> <label>@ResourceManagement.GetResourceText("Task.Home.Content", "Nội dung", "Content")<span class="text-danger">*</span></label></div>
+                                <div class="col-md-3 label-trangthai">
+                                    <span class="btn-circle status-value" ng-class="{'red': TaskItemAssign.TaskItemModel.IsLate == 1, 'blue': TaskItemAssign.TaskItemModel.IsLate == 0}" ng-bind="TaskItemAssign.TaskItemStatus.Name"></span>
+                                </div>
+                            </div>
+                            <textarea ng-model="TaskItemAssign.Description" class="form-control form-control-lg" id="Description" rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="row" ng-if="TaskItemAssign.IsExtend == true">
+                    <div class="col-md-6">
+                        <label>@ResourceManagement.GetResourceText("Task.Home.AllowedExtendDate", "Cho phép gia hạn đến ngày", "AllowedExtendDate"): </label>
+                        <input ng-model="TaskItemAssign.AllowedExtendDateText" class="form-control" type="text" autocomplete="off" placeholder="dd/MM/yyyy" data-date-format="dd/mm/yyyy" id="AllowedExtendDateText" name="AllowedExtendDateText">
+                    </div>
+                </div>*@
+                <div class="row">
+
+                    <div class="col-md-6" ng-show="ConfigType ==='combobox'">
+                        <div class="form-group">
+                            <label>@ResourceManagement.GetResourceText("Task.Home.AppraisePercentFinish", "Điểm đánh giá", "Appraise percent finish")<span class="text-danger">*</span></label>
+                            <div class="radio-inline mt-2">
+                                <label class="radio" ng-repeat="config in ConfigValue track by $index">
+                                    <input type="radio" name='ConfigValue{{$index}}' id='ConfigValue{{$index}}' ng-value="config.text" ng-checked="config.value == TaskItemAssign.AppraisePercentFinish"
+                                           ng-click="TaskItemAssign.AppraisePercentFinish = config.value" />
+                                    <span></span>
+                                    {{config.text}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="list-scroll">
+                    <table class="table table-bordered table-hover table-input-auto">
+                        <tboby>
+                            <tr id="file{{$index}}" ng-repeat="file in TaskItemAssign.Attachments track by $index">
+                                <td>
+                                    <label>
+                                        <a href="" title="{{file.FileName}}" target="_blank">{{file.FileName}} </a>
+                                    </label>
+                                </td>
+                                <td> <button type="button" class="btn btn-light-primary" ng-click="DeleteFileTaskAssign($index)">@ResourceManagement.GetResourceText("Task.Home.Delete", "Xóa", "Delete")</button></td>
+                            </tr>
+                            <tr id="fileNew{{$index}}" ng-repeat="file in fileTemps track by $index">
+                                <td>
+                                    <label>
+                                        <a href="" title="{{file.name}}" target="_blank">{{file.name}} </a>
+                                    </label>
+                                </td>
+                                <td> <button type="button" class="btn btn-light-primary" ng-click="DeletePendingFile($index)">@ResourceManagement.GetResourceText("Task.Home.Delete", "Xóa", "Delete")</button></td>
+                            </tr>
+                        </tboby>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-right">
+                    <button type="button" ng-click="SaveTaskItemAssign('@ActionId.Appraise', 1)" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Approve", "Duyệt", "Approve")</button>
+                    <button type="button" ng-click="SaveTaskItemAssign('@ActionId.Return', 1)" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Return", "Trả lại", "Return")</button>
+                    <button type="button" ng-click="CloseTaskItemAssign()" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">@ResourceManagement.GetResourceText("Task.Home.Close", "Đóng", "Close")</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

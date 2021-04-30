@@ -1,0 +1,1564 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BBACC4EE-4DF4-4C8A-AB64-652F328B5078}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SurePortal.Module.Task.Web</RootNamespace>
+    <AssemblyName>SurePortal.Module.Task.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44391</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="commons-collections4-4.4, Version=8.1.4.0, Culture=neutral, PublicKeyToken=8783d630753e2b3f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-common.8.1.4\lib\commons-collections4-4.4.dll</HintPath>
+    </Reference>
+    <Reference Include="commons-math3-3.6.1, Version=8.1.4.0, Culture=neutral, PublicKeyToken=8783d630753e2b3f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-common.8.1.4\lib\commons-math3-3.6.1.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=5.2.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\EPPlus.5.2.1\lib\net45\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.AWT.WinForms, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.AWT.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Beans, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Beans.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Charsets, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Charsets.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Cldrdata, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Cldrdata.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Corba, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Corba.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Core, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Jdbc, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Jdbc.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Localedata, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Localedata.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Management, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Management.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Media, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Media.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Misc, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Misc.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Naming, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Naming.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Nashorn, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Nashorn.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Remoting, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Remoting.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Security, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.SwingAWT, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.SwingAWT.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Text, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Tools, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Tools.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Util, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.API, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.XML.API.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.Bind, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.XML.Bind.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.Crypto, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.XML.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.Parse, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.XML.Parse.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.Transform, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.XML.Transform.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.WebServices, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.XML.WebServices.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.XPath, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.OpenJDK.XML.XPath.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.Reflection, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.Runtime, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.Runtime.JNI, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.Runtime.JNI.dll</HintPath>
+    </Reference>
+    <Reference Include="LacViet.SurePortal.Infrastructure, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Libraries\LacViet.SurePortal.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="mpxj, Version=8.1.4.0, Culture=neutral, PublicKeyToken=8783d630753e2b3f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj.8.1.4\lib\mpxj.dll</HintPath>
+    </Reference>
+    <Reference Include="MpxjUtilities, Version=8.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-common.8.1.4\lib\MpxjUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="poi-4.1.2, Version=8.1.4.0, Culture=neutral, PublicKeyToken=8783d630753e2b3f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-common.8.1.4\lib\poi-4.1.2.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="rtfparserkit-1.15.0, Version=8.1.4.0, Culture=neutral, PublicKeyToken=8783d630753e2b3f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-common.8.1.4\lib\rtfparserkit-1.15.0.dll</HintPath>
+    </Reference>
+    <Reference Include="sqlite-jdbc-3.30.1, Version=8.1.4.0, Culture=neutral, PublicKeyToken=8783d630753e2b3f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\net.sf.mpxj-common.8.1.4\lib\sqlite-jdbc-3.30.1.dll</HintPath>
+    </Reference>
+    <Reference Include="SurePortal.Core.Kernel, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Libraries\SurePortal.Core.Kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Common\Enums.cs" />
+    <Compile Include="Common\Utility.cs" />
+    <Compile Include="Controllers\ApisController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\ProjectV1Controller.cs" />
+    <Compile Include="Controllers\SystemManagementController.cs" />
+    <Compile Include="Controllers\ProjectFilterParamController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\TaskItemAssignController.cs" />
+    <Compile Include="Controllers\TaskItemController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QueryCommonModel.cs" />
+    <Compile Include="Models\ProjectCategoryModel.cs" />
+    <Compile Include="Models\ProjectDetailModel.cs" />
+    <Compile Include="Models\ReportResultModel.cs" />
+    <Compile Include="Models\ReportFilterModel.cs" />
+    <Compile Include="Models\TaskItemDetailModel.cs" />
+    <Compile Include="Models\UserExcelModel.cs" />
+    <Compile Include="Models\UserReportInProjectModel.cs" />
+    <Compile Include="Models\ReportProjectModel.cs" />
+    <Compile Include="Models\SettingsModel.cs" />
+    <Compile Include="Models\ResponseProjectFilterParamModel.cs" />
+    <Compile Include="Models\TaskItemCategoryModel.cs" />
+    <Compile Include="Models\NatureTaskModel.cs" />
+    <Compile Include="Models\ReportModel.cs" />
+    <Compile Include="Models\TreeFilterDocumentModel.cs" />
+    <Compile Include="Models\ActionModel.cs" />
+    <Compile Include="Models\AdvanceFilterModel.cs" />
+    <Compile Include="Models\AttachmentModel.cs" />
+    <Compile Include="Models\BaseFilterModel.cs" />
+    <Compile Include="Models\ProjectModel.cs" />
+    <Compile Include="Models\ProjectFilterParamModel.cs" />
+    <Compile Include="Models\ProjectFollowModel.cs" />
+    <Compile Include="Models\ProjectHistoryModel.cs" />
+    <Compile Include="Models\ProjectPriorityModel.cs" />
+    <Compile Include="Models\ProjectScopeModel.cs" />
+    <Compile Include="Models\ProjectSecretModel.cs" />
+    <Compile Include="Models\ProjectStatusModel.cs" />
+    <Compile Include="Models\ProjectTypeModel.cs" />
+    <Compile Include="Models\ProjectUserModel.cs" />
+    <Compile Include="Models\TaskItemAppraiseHistoryModel.cs" />
+    <Compile Include="Models\TaskItemAssignModel.cs" />
+    <Compile Include="Models\TaskItemModel.cs" />
+    <Compile Include="Models\TaskItemKpiModel.cs" />
+    <Compile Include="Models\TaskItemPriorityModel.cs" />
+    <Compile Include="Models\TaskItemProcessHistoryModel.cs" />
+    <Compile Include="Models\TaskItemStatusModel.cs" />
+    <Compile Include="Models\TaskViewTypeModel.cs" />
+    <Compile Include="Models\ViewGranttModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\DateUtils.cs" />
+    <Compile Include="Utils\ExportExcelUtils.cs" />
+    <Compile Include="Utils\FileUtils.cs" />
+    <Compile Include="Utils\NumberUtils.cs" />
+    <Compile Include="Utils\StringUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\angularjs\angular-chosen.min.js" />
+    <Content Include="Content\angularjs\angular-sanitize.min.js" />
+    <Content Include="Content\angularjs\angular.min.js" />
+    <Content Include="Content\angularjs\app\SurePortalApp.js" />
+    <Content Include="Content\angularjs\controller\BaseCtrl.js" />
+    <Content Include="Content\angularjs\controller\CalendarCtrl.js" />
+    <Content Include="Content\angularjs\controller\ReportProjectCtrl.js" />
+    <Content Include="Content\angularjs\controller\ReportOnePageCtrl.js" />
+    <Content Include="Content\angularjs\controller\ReportWeeklyCtrl.js" />
+    <Content Include="Content\angularjs\controller\ReportCommonCtrl.js" />
+    <Content Include="Content\angularjs\controller\TaskItemDetailCtrl.js" />
+    <Content Include="Content\angularjs\controller\ProjectDetailCtrl.js" />
+    <Content Include="Content\angularjs\controller\SettingsCtrl.js" />
+    <Content Include="Content\angularjs\controller\ReportManagementCtrl.js" />
+    <Content Include="Content\angularjs\controller\GranttCtrl.js" />
+    <Content Include="Content\angularjs\controller\HomeCtrl.js" />
+    <Content Include="Content\angularjs\controller\LeftMenuCtrl.js" />
+    <Content Include="Content\angularjs\controller\MainCtrl.js" />
+    <Content Include="Content\angularjs\controller\UpdateDB.js" />
+    <Content Include="Content\angularjs\date.js" />
+    <Content Include="Content\angularjs\directives\icheck.js" />
+    <Content Include="Content\angularjs\directives\select2.js" />
+    <Content Include="Content\angularjs\directives\mask.js" />
+    <Content Include="Content\angularjs\directives\pagination.js" />
+    <Content Include="Content\angularjs\directives\rw-money-mask.js" />
+    <Content Include="Content\angularjs\directives\tree-grid-directive.js" />
+    <Content Include="Content\angularjs\directives\validate.js" />
+    <Content Include="Content\angularjs\exporting.js" />
+    <Content Include="Content\angularjs\global.js" />
+    <Content Include="Content\angularjs\highcharts.js" />
+    <Content Include="Content\angularjs\highstock.js" />
+    <Content Include="Content\angularjs\libs\bootstrap-toastr\toastr.css" />
+    <Content Include="Content\angularjs\libs\bootstrap-toastr\toastr.js" />
+    <Content Include="Content\angularjs\libs\bootstrap-toastr\toastr.min.css" />
+    <Content Include="Content\angularjs\libs\bootstrap-toastr\toastr.min.js" />
+    <Content Include="Content\angularjs\libs\css\angular-toastr.min.css" />
+    <Content Include="Content\angularjs\libs\css\select2.min.css" />
+    <Content Include="Content\angularjs\libs\css\treeGrid.css" />
+    <Content Include="Content\angularjs\libs\js\aes.js" />
+    <Content Include="Content\angularjs\libs\js\angular-chosen.min.js" />
+    <Content Include="Content\angularjs\libs\js\angular-ckeditor.js" />
+    <Content Include="Content\angularjs\libs\js\angular-filter.js" />
+    <Content Include="Content\angularjs\libs\js\angular-filter.min.js" />
+    <Content Include="Content\angularjs\libs\js\angular-sanitize.min.js" />
+    <Content Include="Content\angularjs\libs\js\angular-toastr.tpls.min.js" />
+    <Content Include="Content\angularjs\libs\js\angular-translate-loader-static-files.min.js" />
+    <Content Include="Content\angularjs\libs\js\angular-translate.min.js" />
+    <Content Include="Content\angularjs\libs\js\angular-validation.min.js" />
+    <Content Include="Content\angularjs\libs\js\angular.dcb-img-fallback.min.js" />
+    <Content Include="Content\angularjs\libs\js\bootbox.min.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\adapters\jquery.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\build-config.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\ckeditor.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\config.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\contents.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\af.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\ar.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\az.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\bg.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\bn.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\bs.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\ca.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\cs.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\cy.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\da.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\de-ch.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\de.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\el.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\en-au.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\en-ca.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\en-gb.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\en.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\eo.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\es-mx.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\es.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\et.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\eu.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\fa.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\fi.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\fo.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\fr-ca.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\fr.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\gl.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\gu.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\he.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\hi.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\hr.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\hu.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\id.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\is.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\it.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\ja.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\ka.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\km.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\ko.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\ku.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\lt.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\lv.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\mk.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\mn.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\ms.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\nb.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\nl.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\no.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\oc.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\pl.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\pt-br.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\pt.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\ro.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\ru.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\si.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\sk.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\sl.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\sq.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\sr-latn.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\sr.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\sv.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\th.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\tr.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\tt.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\ug.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\uk.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\vi.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\zh-cn.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\lang\zh.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\af.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\az.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\bg.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\ca.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\cs.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\cy.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\da.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\de-ch.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\de.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\el.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\en-au.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\en-gb.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\en.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\eo.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\es-mx.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\es.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\et.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\eu.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\fa.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\fi.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\fo.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\fr-ca.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\fr.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\gl.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\gu.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\he.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\hi.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\hr.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\hu.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\id.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\it.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\ja.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\km.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\ko.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\ku.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\lt.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\lv.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\mk.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\mn.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\nb.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\nl.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\no.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\oc.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\pl.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\pt-br.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\pt.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\ro.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\ru.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\si.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\sk.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\sl.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\sq.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\sr-latn.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\sr.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\sv.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\th.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\tr.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\tt.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\ug.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\uk.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\vi.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\zh-cn.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\zh.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\a11yhelp\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\about\dialogs\about.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\clipboard\dialogs\paste.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\dialog\dialogDefinition.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\dialog\styles\dialog.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\icons.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\icons_hidpi.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\image\dialogs\image.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\image\images\noimage.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\link\dialogs\anchor.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\link\dialogs\link.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\link\images\anchor.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\link\images\hidpi\anchor.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\magicline\images\hidpi\icon-rtl.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\magicline\images\hidpi\icon.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\magicline\images\icon-rtl.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\magicline\images\icon.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\pastefromgdocs\filter\default.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\pastefromword\filter\default.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\pastetools\filter\common.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\pastetools\filter\image.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\scayt\dialogs\dialog.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\scayt\dialogs\options.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\scayt\dialogs\toolbar.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\scayt\skins\moono-lisa\scayt.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\af.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\ar.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\az.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\bg.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\ca.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\cs.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\cy.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\da.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\de-ch.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\de.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\el.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\en-au.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\en-ca.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\en-gb.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\en.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\eo.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\es-mx.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\es.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\et.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\eu.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\fa.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\fi.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\fr-ca.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\fr.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\gl.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\he.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\hr.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\hu.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\id.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\it.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\ja.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\km.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\ko.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\ku.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\lt.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\lv.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\nb.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\nl.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\no.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\oc.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\pl.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\pt-br.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\pt.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\ro.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\ru.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\si.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\sk.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\sl.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\sq.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\sr-latn.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\sr.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\sv.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\th.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\tr.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\tt.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\ug.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\uk.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\vi.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\zh-cn.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\zh.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\tableselection\styles\tableselection.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\table\dialogs\table.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\widget\images\handle.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\wsc\dialogs\ciframe.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\wsc\dialogs\wsc.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\wsc\dialogs\wsc.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\wsc\skins\moono-lisa\wsc.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\css\samples.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\img\github-top.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\img\header-bg.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\img\header-separator.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\img\logo.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\img\logo.svg" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\img\navigation-tip.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\index.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\js\sample.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\js\sf.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\ajax.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\api.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\appendto.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\assets\inlineall\logo.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\assets\outputxhtml\outputxhtml.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\assets\posteddata.php" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\assets\sample.jpg" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\assets\uilanguages\languages.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\datafiltering.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\dialog\assets\my_dialog.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\dialog\dialog.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\divreplace.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\enterkey\enterkey.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\htmlwriter\assets\outputforflash\outputforflash.swf" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\htmlwriter\assets\outputforflash\swfobject.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\htmlwriter\outputforflash.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\htmlwriter\outputhtml.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\index.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\inlineall.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\inlinebycode.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\inlinetextarea.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\jquery.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\magicline\magicline.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\readonly.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\replacebyclass.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\replacebycode.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\sample.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\sample.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\sample_posteddata.php" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\tabindex.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\toolbar\toolbar.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\uicolor.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\uilanguages.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\wysiwygarea\fullpage.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\xhtmlstyle.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\css\fontello.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\font\fontello.svg" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\font\LICENSE.txt" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\index.html" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\js\abstracttoolbarmodifier.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\js\fulltoolbareditor.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\js\toolbarmodifier.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\js\toolbartextmodifier.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\lib\codemirror\codemirror.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\lib\codemirror\codemirror.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\lib\codemirror\javascript.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\lib\codemirror\neo.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\lib\codemirror\show-hint.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\lib\codemirror\show-hint.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\dialog.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\dialog_ie.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\dialog_ie8.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\dialog_iequirks.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\editor.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\editor_gecko.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\editor_ie.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\editor_ie8.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\editor_iequirks.css" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\icons.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\icons_hidpi.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\images\arrow.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\images\close.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\images\hidpi\close.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\images\hidpi\lock-open.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\images\hidpi\lock.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\images\hidpi\refresh.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\images\lock-open.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\images\lock.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\images\refresh.png" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\images\spinner.gif" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\styles.js" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\vendor\promise.js" />
+    <Content Include="Content\angularjs\libs\js\date.js" />
+    <Content Include="Content\angularjs\libs\js\document-folder-category.js" />
+    <Content Include="Content\angularjs\libs\js\file.factory.js" />
+    <None Include="Content\angularjs\libs\js\jquery-1.10.2.intellisense.js" />
+    <Content Include="Content\angularjs\libs\js\jquery-1.10.2.js" />
+    <Content Include="Content\angularjs\libs\js\jquery-1.10.2.min.js" />
+    <Content Include="Content\angularjs\libs\js\jquery-ui.js" />
+    <Content Include="Content\angularjs\libs\js\jquery.ui.datepicker.js" />
+    <Content Include="Content\angularjs\libs\js\ng-file-upload-shim.min.js" />
+    <Content Include="Content\angularjs\libs\js\ng-file-upload.min.js" />
+    <Content Include="Content\angularjs\libs\js\object-to-form-data.js" />
+    <Content Include="Content\angularjs\libs\js\pbkdf2.js" />
+    <Content Include="Content\angularjs\libs\js\select2.min.js" />
+    <Content Include="Content\angularjs\libs\js\ui-bootstrap-tpls-2.5.0.min.js" />
+    <Content Include="Content\angularjs\libs\js\ui-select2.js" />
+    <Content Include="Content\angularjs\orgchartapp.js" />
+    <Content Include="Content\angularjs\paging.js" />
+    <Content Include="Content\angularjs\services\ReportService.js" />
+    <Content Include="Content\angularjs\services\TaskItemDetailService.js" />
+    <Content Include="Content\angularjs\services\ProjectDetailService.js" />
+    <Content Include="Content\angularjs\services\SettingsService.js" />
+    <Content Include="Content\angularjs\services\ReportManagementService.js" />
+    <Content Include="Content\angularjs\services\LeftMenuService.js" />
+    <Content Include="Content\angularjs\services\HomeService.js" />
+    <Content Include="Content\angularjs\services\MainService.js" />
+    <Content Include="Content\angularjs\Tables\angular-scrollable-table.js" />
+    <Content Include="Content\angularjs\Tables\angular-scrollable-table.min.js" />
+    <Content Include="Content\angularjs\Tables\fixedColumnTable.directive.js" />
+    <Content Include="Content\angularjs\template\datepicker-popup.html" />
+    <Content Include="Content\angularjs\template\filter_template.html" />
+    <Content Include="Content\angularjs\template\tree-grid-template.html" />
+    <Content Include="Content\Highcharts\css\annotations\popup.css" />
+    <Content Include="Content\Highcharts\css\highcharts.css" />
+    <Content Include="Content\Highcharts\css\stocktools\gui.css" />
+    <Content Include="Content\Highcharts\css\themes\dark-unica.css" />
+    <Content Include="Content\Highcharts\css\themes\grid-light.css" />
+    <Content Include="Content\Highcharts\css\themes\sand-signika.css" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\A11yI18n.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Accessibility.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\AccessibilityComponent.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Components\AnnotationsA11y.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Components\ContainerComponent.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Components\InfoRegionsComponent.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Components\LegendComponent.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Components\MenuComponent.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Components\RangeSelectorComponent.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Components\SeriesComponent\ForcedMarkers.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Components\SeriesComponent\NewDataAnnouncer.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Components\SeriesComponent\SeriesComponent.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Components\SeriesComponent\SeriesDescriber.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Components\SeriesComponent\SeriesKeyboardNavigation.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Components\ZoomComponent.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\FocusBorder.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\HighContrastMode.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\HighContrastTheme.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\KeyboardNavigation.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\KeyboardNavigationHandler.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Options\DeprecatedOptions.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Options\LangOptions.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Options\Options.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Utils\Announcer.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Utils\ChartUtilities.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Utils\DOMElementProvider.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Utils\EventProvider.js" />
+    <Content Include="Content\Highcharts\es-modules\Accessibility\Utils\HTMLUtilities.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Animation\AnimationUtilities.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Animation\Fx.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\Axis.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\Axis3D.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\BrokenAxis.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\ColorAxis.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\DateTimeAxis.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\GridAxis.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\HiddenAxis.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\LogarithmicAxis.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\MapAxis.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\NavigatorAxis.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\OrdinalAxis.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\PlotLineOrBand.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\RadialAxis.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\ScrollbarAxis.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\SolidGaugeAxis.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\StackingAxis.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\Tick.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\Tick3D.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\TreeGridAxis.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\TreeGridTick.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\WaterfallAxis.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Axis\ZAxis.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Chart\Chart.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Chart\Chart3D.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Chart\GanttChart.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Chart\StockChart.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Color\Color.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Color\Palette.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Globals.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Legend.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\MSPointer.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Navigator.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Options.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Pointer.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Renderer\DOMElementType.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Renderer\HTML\AST.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Renderer\HTML\HTMLElement.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Renderer\HTML\HTMLRenderer.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Renderer\SVG\SVGElement.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Renderer\SVG\SVGElement3D.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Renderer\SVG\SVGLabel.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Renderer\SVG\SVGRenderer.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Renderer\SVG\SVGRenderer3D.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Renderer\SVG\TextBuilder.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Responsive.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Scrollbar.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Series\DataLabels.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Series\Point.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Series\Series.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Series\Series3D.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Series\SeriesRegistry.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Time.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Tooltip.js" />
+    <Content Include="Content\Highcharts\es-modules\Core\Utilities.js" />
+    <Content Include="Content\Highcharts\es-modules\error-messages.js" />
+    <Content Include="Content\Highcharts\es-modules\error.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Ajax.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Annotations.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Controllables\ControllableCircle.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Controllables\ControllableImage.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Controllables\ControllableLabel.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Controllables\ControllablePath.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Controllables\ControllableRect.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\ControlPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Mixins\ControllableMixin.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Mixins\EventEmitterMixin.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Mixins\MarkerMixin.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\MockPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\NavigationBindings.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Popup.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Types\BasicAnnotation.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Types\CrookedLine.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Types\ElliottWave.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Types\Fibonacci.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Types\InfinityLine.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Types\Measure.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Types\Pitchfork.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Types\Tunnel.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Annotations\Types\VerticalLine.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\ArrowSymbols.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\BoostCanvas.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Boost\Boost.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Boost\BoostableMap.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Boost\Boostables.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Boost\BoostAttach.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Boost\BoostInit.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Boost\BoostOptions.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Boost\BoostOverrides.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Boost\BoostUtils.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Boost\NamedColors.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Boost\WGLRenderer.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Boost\WGLShader.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Boost\WGLVBuffer.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\CurrentDateIndication.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Data.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\DataGrouping.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Debugger.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\DownloadURL.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\DraggablePoints.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\DragPanes.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Drilldown.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\ExportData.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Exporting.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\FullScreen.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\GeoJSON.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\MarkerClusters.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Math3D.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\NoDataToDisplay.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\OfflineExporting.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\OldiePolyfills.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Oldie\Oldie.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Oldie\VMLAxis3D.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Oldie\VMLRenderer3D.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\OverlappingDataLabels.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Pane.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\ParallelCoordinates.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\PatternFill.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Polar.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\PriceIndication.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\RangeSelector.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\ScrollablePlotArea.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\SeriesLabel.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Sonification\ChartSonify.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Sonification\Earcon.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Sonification\Instrument.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Sonification\InstrumentDefinitions.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Sonification\MusicalFrequencies.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Sonification\Options.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Sonification\PointSonify.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Sonification\Sonification.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Sonification\Timeline.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Sonification\Utilities.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Stacking.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\StaticScale.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Themes\Avocado.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Themes\DarkBlue.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Themes\DarkGreen.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Themes\DarkUnica.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Themes\Gray.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Themes\Grid.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Themes\GridLight.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Themes\HighContrastDark.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Themes\HighContrastLight.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Themes\SandSignika.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Themes\Skies.js" />
+    <Content Include="Content\Highcharts\es-modules\Extensions\Themes\Sunset.js" />
+    <Content Include="Content\Highcharts\es-modules\Gantt\Connection.js" />
+    <Content Include="Content\Highcharts\es-modules\Gantt\Pathfinder.js" />
+    <Content Include="Content\Highcharts\es-modules\Gantt\PathfinderAlgorithms.js" />
+    <Content Include="Content\Highcharts\es-modules\Gantt\Tree.js" />
+    <Content Include="Content\Highcharts\es-modules\highcharts.src.js" />
+    <Content Include="Content\Highcharts\es-modules\Maps\Map.js" />
+    <Content Include="Content\Highcharts\es-modules\Maps\MapNavigation.js" />
+    <Content Include="Content\Highcharts\es-modules\Maps\MapNavigationOptionsDefault.js" />
+    <Content Include="Content\Highcharts\es-modules\Maps\MapPointer.js" />
+    <Content Include="Content\Highcharts\es-modules\Maps\MapSymbols.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\highcharts-3d.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\highcharts-more.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\highcharts.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\accessibility.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\annotations-advanced.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\annotations.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\arrow-symbols.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\boost-canvas.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\boost.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\broken-axis.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\bullet.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\coloraxis.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\current-date-indicator.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\cylinder.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\data.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\datagrouping.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\debugger.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\dependency-wheel.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\dotplot.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\drag-panes.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\draggable-points.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\drilldown.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\dumbbell.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\export-data.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\exporting.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\full-screen.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\funnel.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\funnel3d.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\gantt.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\grid-axis.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\heatmap.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\histogram-bellcurve.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\item-series.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\lollipop.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\marker-clusters.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\networkgraph.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\no-data-to-display.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\offline-exporting.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\oldie-polyfills.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\oldie.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\organization.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\overlapping-datalabels.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\parallel-coordinates.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\pareto.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\pathfinder.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\pattern-fill.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\price-indicator.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\pyramid3d.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\sankey.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\series-label.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\solid-gauge.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\sonification.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\static-scale.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\stock-tools.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\stock.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\streamgraph.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\sunburst.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\tilemap.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\timeline.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\treegrid.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\treemap.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\variable-pie.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\variwide.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\vector.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\venn.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\windbarb.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\wordcloud.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\modules\xrange.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\themes\avocado.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\themes\dark-blue.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\themes\dark-green.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\themes\dark-unica.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\themes\gray.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\themes\grid-light.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\themes\grid.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\themes\high-contrast-dark.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\themes\high-contrast-light.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\themes\sand-signika.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\themes\skies.src.js" />
+    <Content Include="Content\Highcharts\es-modules\masters\themes\sunset.src.js" />
+    <Content Include="Content\Highcharts\es-modules\Mixins\CenteredSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Mixins\ColorMapSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Mixins\ColorSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Mixins\DerivedSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Mixins\DrawPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Mixins\Geometry.js" />
+    <Content Include="Content\Highcharts\es-modules\Mixins\GeometryCircles.js" />
+    <Content Include="Content\Highcharts\es-modules\Mixins\IndicatorRequired.js" />
+    <Content Include="Content\Highcharts\es-modules\Mixins\LegendSymbol.js" />
+    <Content Include="Content\Highcharts\es-modules\Mixins\MultipleLines.js" />
+    <Content Include="Content\Highcharts\es-modules\Mixins\Navigation.js" />
+    <Content Include="Content\Highcharts\es-modules\Mixins\NelderMead.js" />
+    <Content Include="Content\Highcharts\es-modules\Mixins\Nodes.js" />
+    <Content Include="Content\Highcharts\es-modules\Mixins\OnSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Mixins\Polygon.js" />
+    <Content Include="Content\Highcharts\es-modules\Mixins\ReduceArray.js" />
+    <Content Include="Content\Highcharts\es-modules\Mixins\TreeSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\parts.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Area3DSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\AreaRange\AreaRangePoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\AreaRange\AreaRangeSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\AreaSplineRange\AreaSplineRangeSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\AreaSpline\AreaSplineSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Area\AreaSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Bar\BarSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Bellcurve\BellcurveSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\BoxPlot\BoxPlotSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Bubble\BubbleLegend.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Bubble\BubblePoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Bubble\BubbleSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Bullet\BulletPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Bullet\BulletSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Candlestick\CandlestickSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Column3D\Column3DComposition.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\ColumnPyramid\ColumnPyramidSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\ColumnRange\ColumnRangePoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\ColumnRange\ColumnRangeSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Column\ColumnSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Cylinder\CylinderComposition.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Cylinder\CylinderPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Cylinder\CylinderSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\DependencyWheel\DependencyWheelPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\DependencyWheel\DependencyWheelSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\DotPlot\DotPlotSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\DotPlot\DotPlotSymbols.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Dumbbell\DumbbellPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Dumbbell\DumbbellSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\ErrorBar\ErrorBarSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Flags\FlagsPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Flags\FlagsSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Flags\FlagsSymbols.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Funnel3D\Funnel3DComposition.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Funnel3D\Funnel3DPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Funnel3D\Funnel3DSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Funnel\FunnelSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Gantt\GanttPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Gantt\GanttSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Gauge\GaugePoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Gauge\GaugeSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Heatmap\HeatmapPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Heatmap\HeatmapSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Histogram\HistogramSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Item\ItemPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Item\ItemSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Line\LineSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Lollipop\LollipopPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Lollipop\LollipopSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\MapBubble\MapBubblePoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\MapBubble\MapBubbleSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\MapLine\MapLineSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\MapPoint\MapPointPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\MapPoint\MapPointSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Map\MapPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Map\MapSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Networkgraph\DraggableNodes.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Networkgraph\Integrations.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Networkgraph\Layouts.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Networkgraph\Networkgraph.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Networkgraph\QuadTree.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\OHLC\OHLCPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\OHLC\OHLCSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Organization\OrganizationPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Organization\OrganizationSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\PackedBubble\PackedBubbleComposition.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\PackedBubble\PackedBubblePoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\PackedBubble\PackedBubbleSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\ParetoSeries\ParetoSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Pie3D\Pie3DComposition.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Pie3D\Pie3DPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Pie3D\Pie3DSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Pie\PiePoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Pie\PieSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Polygon\PolygonSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Pyramid3D\Pyramid3DSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Pyramid\PyramidSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Sankey\SankeyPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Sankey\SankeySeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Scatter3D\Scatter3DPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Scatter3D\Scatter3DSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Scatter\ScatterSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\SolidGauge\SolidGaugeComposition.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\SolidGauge\SolidGaugeSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Spline\SplineSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Streamgraph\StreamgraphSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Sunburst\SunburstPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Sunburst\SunburstSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Sunburst\SunburstUtilities.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Tilemap\TilemapComposition.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Tilemap\TilemapPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Tilemap\TilemapSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Tilemap\TilemapShapes.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Timeline\TimelinePoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Timeline\TimelineSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Treemap\TreemapAlgorithmGroup.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Treemap\TreemapComposition.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Treemap\TreemapPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Treemap\TreemapSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Treemap\TreemapUtilities.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\VariablePie\VariablePieSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Variwide\VariwideComposition.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Variwide\VariwidePoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Variwide\VariwideSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Vector\VectorSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Venn\VennPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Venn\VennSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Venn\VennUtils.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Waterfall\WaterfallPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Waterfall\WaterfallSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Windbarb\WindbarbPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Windbarb\WindbarbSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Wordcloud\WordcloudPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Wordcloud\WordcloudSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\Wordcloud\WordcloudUtils.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\XRange\XRangeComposition.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\XRange\XRangePoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Series\XRange\XRangeSeries.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\ABands\ABandsIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\AD\ADIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\AO\AOIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\APO\APOIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\AroonOscillator\AroonOscillatorIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\Aroon\AroonIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\ATR\ATRIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\BB\BBIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\CCI\CCIIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\Chaikin\ChaikinIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\CMF\CMFIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\DEMA\DEMAIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\DPO\DPOIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\EMA\EMAIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\IKH\IKHIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\KeltnerChannels\KeltnerChannelsIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\LinearRegressionAngle\LinearRegressionAngle.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\LinearRegressionIntercept\LinearRegressionIntercept.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\LinearRegressionSlopes\LinearRegressionSlopes.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\LinearRegression\LinearRegression.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\MACD\MACDIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\MFI\MFIIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\Momentum\MomentumIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\NATR\NATRIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\PC\PCIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\PivotPoints\PivotPointsIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\PivotPoints\PivotPointsPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\PPO\PPOIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\PriceEnvelopes\PriceEnvelopesIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\PSAR\PSARIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\ROC\ROCIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\RSI\RSIIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\SlowStochastic\SlowStochasticIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\SMA\SMAComposition.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\SMA\SMAIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\Stochastic\StochasticIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\Supertrend\SupertrendIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\TEMA\TEMAIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\TrendLine\TrendLineIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\TRIX\TRIXIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\VBP\VBPIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\VBP\VBPPoint.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\VWAP\VWAPIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\WilliamsR\WilliamsRIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\WMA\WMAIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\Indicators\Zigzag\ZigzagIndicator.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\StockToolsBindings.js" />
+    <Content Include="Content\Highcharts\es-modules\Stock\StockToolsGui.js" />
+    <Content Include="Content\Highcharts\highcharts-3d.js" />
+    <Content Include="Content\Highcharts\highcharts-3d.src.js" />
+    <Content Include="Content\Highcharts\highcharts-more.js" />
+    <Content Include="Content\Highcharts\highcharts-more.src.js" />
+    <Content Include="Content\Highcharts\highcharts.js" />
+    <Content Include="Content\Highcharts\highcharts.src.js" />
+    <Content Include="Content\Highcharts\lib\canvg.js" />
+    <Content Include="Content\Highcharts\lib\canvg.src.js" />
+    <Content Include="Content\Highcharts\lib\jspdf.js" />
+    <Content Include="Content\Highcharts\lib\jspdf.src.js" />
+    <Content Include="Content\Highcharts\lib\rgbcolor.js" />
+    <Content Include="Content\Highcharts\lib\rgbcolor.src.js" />
+    <Content Include="Content\Highcharts\lib\svg2pdf.js" />
+    <Content Include="Content\Highcharts\lib\svg2pdf.src.js" />
+    <Content Include="Content\Highcharts\modules\accessibility.js" />
+    <Content Include="Content\Highcharts\modules\accessibility.src.js" />
+    <Content Include="Content\Highcharts\modules\annotations-advanced.js" />
+    <Content Include="Content\Highcharts\modules\annotations-advanced.src.js" />
+    <Content Include="Content\Highcharts\modules\annotations.js" />
+    <Content Include="Content\Highcharts\modules\annotations.src.js" />
+    <Content Include="Content\Highcharts\modules\arrow-symbols.js" />
+    <Content Include="Content\Highcharts\modules\arrow-symbols.src.js" />
+    <Content Include="Content\Highcharts\modules\boost-canvas.js" />
+    <Content Include="Content\Highcharts\modules\boost-canvas.src.js" />
+    <Content Include="Content\Highcharts\modules\boost.js" />
+    <Content Include="Content\Highcharts\modules\boost.src.js" />
+    <Content Include="Content\Highcharts\modules\broken-axis.js" />
+    <Content Include="Content\Highcharts\modules\broken-axis.src.js" />
+    <Content Include="Content\Highcharts\modules\bullet.js" />
+    <Content Include="Content\Highcharts\modules\bullet.src.js" />
+    <Content Include="Content\Highcharts\modules\coloraxis.js" />
+    <Content Include="Content\Highcharts\modules\coloraxis.src.js" />
+    <Content Include="Content\Highcharts\modules\current-date-indicator.js" />
+    <Content Include="Content\Highcharts\modules\current-date-indicator.src.js" />
+    <Content Include="Content\Highcharts\modules\cylinder.js" />
+    <Content Include="Content\Highcharts\modules\cylinder.src.js" />
+    <Content Include="Content\Highcharts\modules\data.js" />
+    <Content Include="Content\Highcharts\modules\data.src.js" />
+    <Content Include="Content\Highcharts\modules\datagrouping.js" />
+    <Content Include="Content\Highcharts\modules\datagrouping.src.js" />
+    <Content Include="Content\Highcharts\modules\debugger.js" />
+    <Content Include="Content\Highcharts\modules\debugger.src.js" />
+    <Content Include="Content\Highcharts\modules\dependency-wheel.js" />
+    <Content Include="Content\Highcharts\modules\dependency-wheel.src.js" />
+    <Content Include="Content\Highcharts\modules\dotplot.js" />
+    <Content Include="Content\Highcharts\modules\dotplot.src.js" />
+    <Content Include="Content\Highcharts\modules\drag-panes.js" />
+    <Content Include="Content\Highcharts\modules\drag-panes.src.js" />
+    <Content Include="Content\Highcharts\modules\draggable-points.js" />
+    <Content Include="Content\Highcharts\modules\draggable-points.src.js" />
+    <Content Include="Content\Highcharts\modules\drilldown.js" />
+    <Content Include="Content\Highcharts\modules\drilldown.src.js" />
+    <Content Include="Content\Highcharts\modules\dumbbell.js" />
+    <Content Include="Content\Highcharts\modules\dumbbell.src.js" />
+    <Content Include="Content\Highcharts\modules\export-data.js" />
+    <Content Include="Content\Highcharts\modules\export-data.src.js" />
+    <Content Include="Content\Highcharts\modules\exporting.js" />
+    <Content Include="Content\Highcharts\modules\exporting.src.js" />
+    <Content Include="Content\Highcharts\modules\full-screen.js" />
+    <Content Include="Content\Highcharts\modules\full-screen.src.js" />
+    <Content Include="Content\Highcharts\modules\funnel.js" />
+    <Content Include="Content\Highcharts\modules\funnel.src.js" />
+    <Content Include="Content\Highcharts\modules\funnel3d.js" />
+    <Content Include="Content\Highcharts\modules\funnel3d.src.js" />
+    <Content Include="Content\Highcharts\modules\gantt.js" />
+    <Content Include="Content\Highcharts\modules\gantt.src.js" />
+    <Content Include="Content\Highcharts\modules\grid-axis.js" />
+    <Content Include="Content\Highcharts\modules\grid-axis.src.js" />
+    <Content Include="Content\Highcharts\modules\heatmap.js" />
+    <Content Include="Content\Highcharts\modules\heatmap.src.js" />
+    <Content Include="Content\Highcharts\modules\histogram-bellcurve.js" />
+    <Content Include="Content\Highcharts\modules\histogram-bellcurve.src.js" />
+    <Content Include="Content\Highcharts\modules\item-series.js" />
+    <Content Include="Content\Highcharts\modules\item-series.src.js" />
+    <Content Include="Content\Highcharts\modules\lollipop.js" />
+    <Content Include="Content\Highcharts\modules\lollipop.src.js" />
+    <Content Include="Content\Highcharts\modules\marker-clusters.js" />
+    <Content Include="Content\Highcharts\modules\marker-clusters.src.js" />
+    <Content Include="Content\Highcharts\modules\networkgraph.js" />
+    <Content Include="Content\Highcharts\modules\networkgraph.src.js" />
+    <Content Include="Content\Highcharts\modules\no-data-to-display.js" />
+    <Content Include="Content\Highcharts\modules\no-data-to-display.src.js" />
+    <Content Include="Content\Highcharts\modules\offline-exporting.js" />
+    <Content Include="Content\Highcharts\modules\offline-exporting.src.js" />
+    <Content Include="Content\Highcharts\modules\oldie-polyfills.js" />
+    <Content Include="Content\Highcharts\modules\oldie-polyfills.src.js" />
+    <Content Include="Content\Highcharts\modules\oldie.js" />
+    <Content Include="Content\Highcharts\modules\oldie.src.js" />
+    <Content Include="Content\Highcharts\modules\organization.js" />
+    <Content Include="Content\Highcharts\modules\organization.src.js" />
+    <Content Include="Content\Highcharts\modules\overlapping-datalabels.js" />
+    <Content Include="Content\Highcharts\modules\overlapping-datalabels.src.js" />
+    <Content Include="Content\Highcharts\modules\parallel-coordinates.js" />
+    <Content Include="Content\Highcharts\modules\parallel-coordinates.src.js" />
+    <Content Include="Content\Highcharts\modules\pareto.js" />
+    <Content Include="Content\Highcharts\modules\pareto.src.js" />
+    <Content Include="Content\Highcharts\modules\pathfinder.js" />
+    <Content Include="Content\Highcharts\modules\pathfinder.src.js" />
+    <Content Include="Content\Highcharts\modules\pattern-fill.js" />
+    <Content Include="Content\Highcharts\modules\pattern-fill.src.js" />
+    <Content Include="Content\Highcharts\modules\price-indicator.js" />
+    <Content Include="Content\Highcharts\modules\price-indicator.src.js" />
+    <Content Include="Content\Highcharts\modules\pyramid3d.js" />
+    <Content Include="Content\Highcharts\modules\pyramid3d.src.js" />
+    <Content Include="Content\Highcharts\modules\sankey.js" />
+    <Content Include="Content\Highcharts\modules\sankey.src.js" />
+    <Content Include="Content\Highcharts\modules\series-label.js" />
+    <Content Include="Content\Highcharts\modules\series-label.src.js" />
+    <Content Include="Content\Highcharts\modules\solid-gauge.js" />
+    <Content Include="Content\Highcharts\modules\solid-gauge.src.js" />
+    <Content Include="Content\Highcharts\modules\sonification.js" />
+    <Content Include="Content\Highcharts\modules\sonification.src.js" />
+    <Content Include="Content\Highcharts\modules\static-scale.js" />
+    <Content Include="Content\Highcharts\modules\static-scale.src.js" />
+    <Content Include="Content\Highcharts\modules\stock-tools.js" />
+    <Content Include="Content\Highcharts\modules\stock-tools.src.js" />
+    <Content Include="Content\Highcharts\modules\stock.js" />
+    <Content Include="Content\Highcharts\modules\stock.src.js" />
+    <Content Include="Content\Highcharts\modules\streamgraph.js" />
+    <Content Include="Content\Highcharts\modules\streamgraph.src.js" />
+    <Content Include="Content\Highcharts\modules\sunburst.js" />
+    <Content Include="Content\Highcharts\modules\sunburst.src.js" />
+    <Content Include="Content\Highcharts\modules\tilemap.js" />
+    <Content Include="Content\Highcharts\modules\tilemap.src.js" />
+    <Content Include="Content\Highcharts\modules\timeline.js" />
+    <Content Include="Content\Highcharts\modules\timeline.src.js" />
+    <Content Include="Content\Highcharts\modules\treegrid.js" />
+    <Content Include="Content\Highcharts\modules\treegrid.src.js" />
+    <Content Include="Content\Highcharts\modules\treemap.js" />
+    <Content Include="Content\Highcharts\modules\treemap.src.js" />
+    <Content Include="Content\Highcharts\modules\variable-pie.js" />
+    <Content Include="Content\Highcharts\modules\variable-pie.src.js" />
+    <Content Include="Content\Highcharts\modules\variwide.js" />
+    <Content Include="Content\Highcharts\modules\variwide.src.js" />
+    <Content Include="Content\Highcharts\modules\vector.js" />
+    <Content Include="Content\Highcharts\modules\vector.src.js" />
+    <Content Include="Content\Highcharts\modules\venn.js" />
+    <Content Include="Content\Highcharts\modules\venn.src.js" />
+    <Content Include="Content\Highcharts\modules\windbarb.js" />
+    <Content Include="Content\Highcharts\modules\windbarb.src.js" />
+    <Content Include="Content\Highcharts\modules\wordcloud.js" />
+    <Content Include="Content\Highcharts\modules\wordcloud.src.js" />
+    <Content Include="Content\Highcharts\modules\xrange.js" />
+    <Content Include="Content\Highcharts\modules\xrange.src.js" />
+    <Content Include="Content\Highcharts\themes\avocado.js" />
+    <Content Include="Content\Highcharts\themes\avocado.src.js" />
+    <Content Include="Content\Highcharts\themes\dark-blue.js" />
+    <Content Include="Content\Highcharts\themes\dark-blue.src.js" />
+    <Content Include="Content\Highcharts\themes\dark-green.js" />
+    <Content Include="Content\Highcharts\themes\dark-green.src.js" />
+    <Content Include="Content\Highcharts\themes\dark-unica.js" />
+    <Content Include="Content\Highcharts\themes\dark-unica.src.js" />
+    <Content Include="Content\Highcharts\themes\gray.js" />
+    <Content Include="Content\Highcharts\themes\gray.src.js" />
+    <Content Include="Content\Highcharts\themes\grid-light.js" />
+    <Content Include="Content\Highcharts\themes\grid-light.src.js" />
+    <Content Include="Content\Highcharts\themes\grid.js" />
+    <Content Include="Content\Highcharts\themes\grid.src.js" />
+    <Content Include="Content\Highcharts\themes\high-contrast-dark.js" />
+    <Content Include="Content\Highcharts\themes\high-contrast-dark.src.js" />
+    <Content Include="Content\Highcharts\themes\high-contrast-light.js" />
+    <Content Include="Content\Highcharts\themes\high-contrast-light.src.js" />
+    <Content Include="Content\Highcharts\themes\sand-signika.js" />
+    <Content Include="Content\Highcharts\themes\sand-signika.src.js" />
+    <Content Include="Content\Highcharts\themes\skies.js" />
+    <Content Include="Content\Highcharts\themes\skies.src.js" />
+    <Content Include="Content\Highcharts\themes\sunset.js" />
+    <Content Include="Content\Highcharts\themes\sunset.src.js" />
+    <Content Include="Global.asax" />
+    <Content Include="StoreProcedure\SP_Select_Projects_With_Filter.sql" />
+    <Content Include="StoreProcedure\SP_Select_Projects_With_Filter_By_Folder.sql" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Report\PartialView\_Edit.cshtml" />
+    <Content Include="Views\SystemManagement\Index.cshtml" />
+    <Content Include="Views\Home\PartialView\_ProjectDetail.cshtml" />
+    <Content Include="Content\Templates\TemplateExportTaskV2Excel.xlsx" />
+    <Content Include="Content\Templates\TemplateProjectReport.xlsx" />
+    <Content Include="Content\Templates\TemplateProjectReportWeekly.xlsx" />
+    <Content Include="Content\Templates\TemplateReportOnePage.xlsx" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Views\Home\AccessDenied.cshtml" />
+    <Content Include="Views\Project\TrackingUpdateDatabase.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Home\DemoForm.cshtml" />
+    <Content Include="Views\Home\PartialView\_TaskItemDetail.cshtml" />
+    <Content Include="Views\Home\PartialView\_ProcessTaskPartial.cshtml" />
+    <Content Include="Views\Report\PartialView\_FormSearch.cshtml" />
+    <Content Include="Views\Home\PartialView\_AppraiseTaskPartial.cshtml" />
+    <Content Include="Views\Home\PartialView\_AppraiseExtendTaskPartial.cshtml" />
+    <Content Include="Views\Report\ProjectReport.cshtml" />
+    <Content Include="Views\Home\PartialView\_EvictFinishTaskPartial.cshtml" />
+    <Content Include="Views\Home\PartialView\_ProcessProjectPartial.cshtml" />
+    <Content Include="Views\Report\ReportWeekly.cshtml" />
+    <Content Include="Views\Report\ReportOnePage.cshtml" />
+    <Content Include="Views\Report\ReportIframe.cshtml" />
+    <Content Include="Views\Home\_ViewTaskInMain.cshtml" />
+    <Content Include="Views\Home\NotFound.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Apis\" />
+    <Folder Include="Views\Main\" />
+    <Folder Include="Views\TaskItemAssign\" />
+    <Folder Include="Views\Task\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\angularjs\libs\bootstrap-toastr\README.md" />
+    <Content Include="Content\angularjs\libs\bootstrap-toastr\toastr.min.js.map" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\CHANGES.md" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\LICENSE.md" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\scayt\CHANGELOG.md" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\scayt\README.md" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\wsc\LICENSE.md" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\README.md" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\htmlwriter\assets\outputforflash\outputforflash.fla" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\font\config.json" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\font\fontello.eot" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\font\fontello.ttf" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\readme.md" />
+    <Content Include="Content\angularjs\locales\validation\en.json" />
+    <Content Include="Content\angularjs\libs\js\jquery-1.10.2.min.map" />
+    <Content Include="Content\Highcharts\css\annotations\popup.scss" />
+    <Content Include="Content\Highcharts\css\highcharts.scss" />
+    <Content Include="Content\Highcharts\css\stocktools\gui.scss" />
+    <Content Include="Content\Highcharts\css\themes\dark-unica.scss" />
+    <Content Include="Content\Highcharts\css\themes\grid-light.scss" />
+    <Content Include="Content\Highcharts\css\themes\sand-signika.scss" />
+    <Content Include="Content\Highcharts\highcharts-3d.js.map" />
+    <Content Include="Content\Highcharts\highcharts-more.js.map" />
+    <Content Include="Content\Highcharts\highcharts.js.map" />
+    <Content Include="Content\Highcharts\modules\accessibility.js.map" />
+    <Content Include="Content\Highcharts\modules\annotations-advanced.js.map" />
+    <Content Include="Content\Highcharts\modules\annotations.js.map" />
+    <Content Include="Content\Highcharts\modules\arrow-symbols.js.map" />
+    <Content Include="Content\Highcharts\modules\boost-canvas.js.map" />
+    <Content Include="Content\Highcharts\modules\boost.js.map" />
+    <Content Include="Content\Highcharts\modules\broken-axis.js.map" />
+    <Content Include="Content\Highcharts\modules\bullet.js.map" />
+    <Content Include="Content\Highcharts\modules\coloraxis.js.map" />
+    <Content Include="Content\Highcharts\modules\current-date-indicator.js.map" />
+    <Content Include="Content\Highcharts\modules\cylinder.js.map" />
+    <Content Include="Content\Highcharts\modules\data.js.map" />
+    <Content Include="Content\Highcharts\modules\datagrouping.js.map" />
+    <Content Include="Content\Highcharts\modules\debugger.js.map" />
+    <Content Include="Content\Highcharts\modules\dependency-wheel.js.map" />
+    <Content Include="Content\Highcharts\modules\dotplot.js.map" />
+    <Content Include="Content\Highcharts\modules\drag-panes.js.map" />
+    <Content Include="Content\Highcharts\modules\draggable-points.js.map" />
+    <Content Include="Content\Highcharts\modules\drilldown.js.map" />
+    <Content Include="Content\Highcharts\modules\dumbbell.js.map" />
+    <Content Include="Content\Highcharts\modules\export-data.js.map" />
+    <Content Include="Content\Highcharts\modules\exporting.js.map" />
+    <Content Include="Content\Highcharts\modules\full-screen.js.map" />
+    <Content Include="Content\Highcharts\modules\funnel.js.map" />
+    <Content Include="Content\Highcharts\modules\funnel3d.js.map" />
+    <Content Include="Content\Highcharts\modules\gantt.js.map" />
+    <Content Include="Content\Highcharts\modules\grid-axis.js.map" />
+    <Content Include="Content\Highcharts\modules\heatmap.js.map" />
+    <Content Include="Content\Highcharts\modules\histogram-bellcurve.js.map" />
+    <Content Include="Content\Highcharts\modules\item-series.js.map" />
+    <Content Include="Content\Highcharts\modules\lollipop.js.map" />
+    <Content Include="Content\Highcharts\modules\marker-clusters.js.map" />
+    <Content Include="Content\Highcharts\modules\networkgraph.js.map" />
+    <Content Include="Content\Highcharts\modules\no-data-to-display.js.map" />
+    <Content Include="Content\Highcharts\modules\offline-exporting.js.map" />
+    <Content Include="Content\Highcharts\modules\oldie-polyfills.js.map" />
+    <Content Include="Content\Highcharts\modules\oldie.js.map" />
+    <Content Include="Content\Highcharts\modules\organization.js.map" />
+    <Content Include="Content\Highcharts\modules\overlapping-datalabels.js.map" />
+    <Content Include="Content\Highcharts\modules\parallel-coordinates.js.map" />
+    <Content Include="Content\Highcharts\modules\pareto.js.map" />
+    <Content Include="Content\Highcharts\modules\pathfinder.js.map" />
+    <Content Include="Content\Highcharts\modules\pattern-fill.js.map" />
+    <Content Include="Content\Highcharts\modules\price-indicator.js.map" />
+    <Content Include="Content\Highcharts\modules\pyramid3d.js.map" />
+    <Content Include="Content\Highcharts\modules\sankey.js.map" />
+    <Content Include="Content\Highcharts\modules\series-label.js.map" />
+    <Content Include="Content\Highcharts\modules\solid-gauge.js.map" />
+    <Content Include="Content\Highcharts\modules\sonification.js.map" />
+    <Content Include="Content\Highcharts\modules\static-scale.js.map" />
+    <Content Include="Content\Highcharts\modules\stock-tools.js.map" />
+    <Content Include="Content\Highcharts\modules\stock.js.map" />
+    <Content Include="Content\Highcharts\modules\streamgraph.js.map" />
+    <Content Include="Content\Highcharts\modules\sunburst.js.map" />
+    <Content Include="Content\Highcharts\modules\tilemap.js.map" />
+    <Content Include="Content\Highcharts\modules\timeline.js.map" />
+    <Content Include="Content\Highcharts\modules\treegrid.js.map" />
+    <Content Include="Content\Highcharts\modules\treemap.js.map" />
+    <Content Include="Content\Highcharts\modules\variable-pie.js.map" />
+    <Content Include="Content\Highcharts\modules\variwide.js.map" />
+    <Content Include="Content\Highcharts\modules\vector.js.map" />
+    <Content Include="Content\Highcharts\modules\venn.js.map" />
+    <Content Include="Content\Highcharts\modules\windbarb.js.map" />
+    <Content Include="Content\Highcharts\modules\wordcloud.js.map" />
+    <Content Include="Content\Highcharts\modules\xrange.js.map" />
+    <Content Include="Content\Highcharts\themes\avocado.js.map" />
+    <Content Include="Content\Highcharts\themes\dark-blue.js.map" />
+    <Content Include="Content\Highcharts\themes\dark-green.js.map" />
+    <Content Include="Content\Highcharts\themes\dark-unica.js.map" />
+    <Content Include="Content\Highcharts\themes\gray.js.map" />
+    <Content Include="Content\Highcharts\themes\grid-light.js.map" />
+    <Content Include="Content\Highcharts\themes\grid.js.map" />
+    <Content Include="Content\Highcharts\themes\high-contrast-dark.js.map" />
+    <Content Include="Content\Highcharts\themes\high-contrast-light.js.map" />
+    <Content Include="Content\Highcharts\themes\sand-signika.js.map" />
+    <Content Include="Content\Highcharts\themes\skies.js.map" />
+    <Content Include="Content\Highcharts\themes\sunset.js.map" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\Report\UserReviewReport.cshtml" />
+    <Content Include="Views\Shared\_LayoutTask.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\PartialView\_AddViewAdvanceFilter.cshtml" />
+    <Content Include="Views\Shared\_HeaderPartial.cshtml" />
+    <Content Include="Views\Shared\_LeftMenuPartial.cshtml" />
+    <Content Include="Views\Shared\_OrgChartModalPartial.cshtml" />
+    <Content Include="Views\Shared\_UserProfilePartial.cshtml" />
+    <Content Include="Views\Home\UserInfoHeader.cshtml" />
+    <Content Include="Views\Shared\_LeftMenuTaskPartial.cshtml" />
+    <Content Include="Views\Home\PartialView\_AddEditProjectPartial.cshtml" />
+    <Content Include="Views\Home\PartialView\_AddEditTaskPartial.cshtml" />
+    <Content Include="Views\ProjectFilterParam\_ProjectFilterParamPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\SurePortal.Module.Task.Entities\SurePortal.Module.Task.Entities.csproj">
+      <Project>{4ad66525-86d3-47d9-bf8b-152b1a5c9b1b}</Project>
+      <Name>SurePortal.Module.Task.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\SurePortal.Module.Task.Services\SurePortal.Module.Task.Services.csproj">
+      <Project>{58a0c014-4242-484b-93d9-6cad81719258}</Project>
+      <Name>SurePortal.Module.Task.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>54689</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44391/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\build\net.sf.mpxj-ikvm.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\build\net.sf.mpxj-ikvm.targets'))" />
+  </Target>
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)\SurePortal.Module.Task.*" "$(SolutionDir)\SurePortal.WebHost\bin"</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\build\net.sf.mpxj-ikvm.targets" Condition="Exists('..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\build\net.sf.mpxj-ikvm.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

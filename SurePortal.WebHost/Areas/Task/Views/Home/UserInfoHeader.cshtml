@@ -1,0 +1,78 @@
+﻿@using SurePortal.Core.Kernel.Orgs.Application.Dto
+@using SurePortal.Core.Kernel;
+@model UserDto
+<div class="top-menu">
+    <ul class="nav navbar-nav pull-right">
+
+
+        <!-- BEGIN NOTIFICATION DROPDOWN -->
+        <li class="dropdown dropdown-extended dropdown-inbox lv-notification-box" id="header_inbox_bar">
+
+        </li>
+        <!-- END NOTIFICATION DROPDOWN -->
+
+        <li class="dropdown dropdown-user">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <span class="symbol symbol-circle symbol-lg-30">
+                    <img class="img-circle" src="/module/account/Avartar/@Model.AccountName">
+                </span>
+                <span class="username username-hide-on-mobile">
+                    @Model.FullName
+                </span>
+                <!--<i class="fa fa-angle-down"></i>-->
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-default">
+                <li>
+                    <a href="/Module/Home/UserProfile">
+                        <i class="fas fa-user-cog"></i> Cấu hình cá nhân
+                    </a>
+                </li>
+                <li>
+                    <a href="/sso/ChangePassword.aspx">
+                        <i class="fas fa-user-lock"></i> Đổi mật khẩu
+                    </a>
+                </li>
+                <li>
+                    <a href="/module/Account/Logout">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+</div>
+<div class="topbar-item" style="display:none">
+    <ul>
+        <li class="dropdown dropdown-user">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <span class="username username-hide-on-mobile">
+                    @Model.FullName
+                </span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-default">
+                <li>
+                    <a href="@Url.Action("UserProfile", "Home", new {Area = ""})">
+                        <i class="icon-lock"></i> @ResourceManagement.GetResourceText("Task.Home.HoSoCaNhan", " Cấu hình cá nhân", "HoSoCaNhan")
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ChangePassword", "Account", new {Area = ""})">
+                        <i class="icon-lock"></i> @ResourceManagement.GetResourceText("Task.Home.DoiMatKhau", "Đổi mật khẩu", "Change Pass")
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Logout", "Account", new {Area = "", ReturnUrl = Url.Encode(Request.Url.ToString())})">
+                        <i class="icon-lock-open"></i>  @ResourceManagement.GetResourceText("Task.Home.DangXuat", "Đăng xuất", "Logout")
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+
+
+
+

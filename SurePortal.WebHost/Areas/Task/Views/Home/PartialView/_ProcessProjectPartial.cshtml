@@ -1,0 +1,89 @@
+﻿@using SurePortal.Core.Kernel;
+<div class="modal fade" id="ProcessProject" tabindex="-1" aria-labelledby="exampleModalSizeLg" role="dialog" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" ng-bind="modalTitle"></h5>
+                <button type="button" ng-click="CloseProcessProject()" class="close" data-dismiss="modal">
+                    <i aria-hidden="true" class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <label>@ResourceManagement.GetResourceText("Task.Home.ProjectSummary", "Tên dự án", "Summary"): </label>
+                        <label class="text-dark font-weight-bold" ng-bind="Project.Summary"></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6" ng-show="ConfigType ==='combobox'">
+                        <div class="form-group">
+                            <label>@ResourceManagement.GetResourceText("Task.Home.PercentFinish", "Điểm chất lượng", "Percent finish")</label>
+                            <div class="radio-inline mt-2">
+                                <label class="radio" ng-repeat="config in ConfigValue track by $index">
+                                    <input type="radio" name='ConfigValue{{$index}}' id='ConfigValue{{$index}}' ng-value="config.text" ng-checked="config.value == Project.PercentFinish"
+                                           ng-click="Project.PercentFinish = config.value" />
+                                    <span></span>
+                                    {{config.text}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 pl-0 ml-n1">
+                        <div class="form-group">
+                            <label>@ResourceManagement.GetResourceText("Task.Home.ProjectStatus", "Tình trạng", "Project status")</label>
+                            <select class="form-control" ng-model="Project.ProjectStatusId" id="ProjectStatusId" name="ProjectStatusId" ng-options="option.Id as option.Name for option in ProjectStatuses">
+                            </select>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-6" ng-show="Project.ProjectStatusId == 4">
+                        <div class="form-group">
+                            <label>@ResourceManagement.GetResourceText("Task.Home.ProjectFinishDate", "Ngày kết thúc", "Finish date")<span class="text-danger"> *</span></label>
+                            <input ng-model="Project.FinishDateText" class="form-control" type="text" autocomplete="off" placeholder="dd/MM/yyyy" data-date-format="dd/mm/yyyy" id="FinishDateText" name="FinishDateText">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-9"> <label>@ResourceManagement.GetResourceText("Task.Home.Content", "Nội dung", "Content")<span class="text-danger">*</span></label></div>
+
+                            </div>
+                            <textarea ng-model="Project.AppraiseResult" class="form-control form-control-lg" id="ProjectAppraiseResult" rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box-attachment">
+                    <div id="fileNew{{$index}}" ng-repeat="file in fileTemps track by $index" class="d-flex justify-content-between my-2 p-2 border align-items-center">
+                        <div class="d-flex align-items-center">
+                            <a href="" class="file-name" title="{{file.name}}" target="_blank">{{file.name}} </a>
+                        </div>
+                        <div class="d-flex">
+                            <button type="button" class="btn btn-icon btn-xs btn-light-danger" ng-click="DeletePendingFile($index)"><i class="far fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+            <div class="modal-footer d-block">
+                <div class="pull-left">
+                    <label class="form-control-static attachment">
+                        <i class="fa fa-paperclip"></i> @ResourceManagement.GetResourceText("Task.Home.FileAttach", "Đính kèm file", "File acttach")
+                        <input type="file" style="display: none" name="file" accept=".xlsx, .xls, .doc, .docx, .ppt, .pptx, .txt, .pdf, image/*" id="datafile" ngf-select="ParsingFile($files)" multiple class="file" data-show-preview="false" data-show-upload="false" data-show-caption="true" />
+                    </label>
+                </div>
+                <div class="pull-right">
+                    <button type="button" ng-click="UpdateStatusProject()" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Update", "Cập nhật", "Update")</button>
+                    <button type="button" ng-click="CloseProcessProject()" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">@ResourceManagement.GetResourceText("Task.Home.Close", "Đóng", "Close")</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

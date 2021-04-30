@@ -1,0 +1,122 @@
+﻿@using SurePortal.Core.Kernel;
+<div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper" ng-app="sureportalapp" ng-controller="LeftMenuCtrl">
+    <div id="kt_aside_menu" class="aside-menu scroll ps ps--active-y" data-menu-vertical="1" data-menu-scroll="1" data-menu-dropdown-timeout="500" style="height: 509px; overflow: hidden;">
+
+        <div class="menuLeft">
+            <div ng-repeat="item in leftMenu.data" class="menu-item" id="menu-item-{{ item.Code }}" aria-haspopup="true" ng-click="leftMenu.loadMenu(item.ID, item.Code)" data-treeleftid="{{ item.ID }}">
+                @*<a href="javascript:;" class="menu-link menu-toggle">
+                    <h4 class="menu-text menu-heading text-uppercase mb-0" ng-bind-html="item.Name"></h4>
+                    <i class="fas fa-chevron-right"></i>
+                </a>*@
+                <div class="menu-nav">
+                    <div class="menu-sticky-zoon">
+                        <div class="d-block float-right">
+                            <a href="javascript:;" ng-show="leftMenu.control.addTask == true && item.Code == 'TASK'" ng-click="leftMenu.addTask()" class="btn btn-sm btn-icon btn-bg-light btn-icon-primary btn-hover-primary"><i class="fas fa-plus"></i></a>
+                            <a href="javascript:;" ng-show="leftMenu.control.editTask == true && item.Code == 'TASK'" ng-click="leftMenu.editTask()" class="btn btn-sm btn-icon btn-bg-light btn-icon-primary btn-hover-primary"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="javascript:;" ng-show="leftMenu.control.deleteTask == true && item.Code == 'TASK'" ng-click="leftMenu.deleteTask()" class="btn btn-sm btn-icon btn-bg-light btn-icon-danger btn-hover-danger"><i class="fas fa-trash-alt"></i></a>
+                        </div>
+                    </div>
+                    <div id="tree-nav-{{ item.Code }}" class="left-doc-jstree" data-code="{{ item.Code }}" data-isget="false"></div>
+                </div>
+            </div>
+            <div class="menu-item px-1 py-5">
+                <a href="~/Task/Report/Index" class="menu-link">
+                    <span class="menu-icon menu-link-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </span>
+                    <span class="menu-text">Báo cáo thống kê</span>
+                </a>
+            </div>
+
+        </div>
+        @*<div class="menu-left">
+            <ul class="menu-nav">
+                <li class="menu-item menu-item-submenu menu-item-open" aria-haspopup="true" data-menu-toggle="hover">
+                    <a href="javascript:;" class="menu-link menu-toggle">
+                        <span class="menu-icon menu-expand">
+                            <i class="far fa-plus-square"></i>
+                        </span>
+                        <span class="menu-icon">
+                            <i class="far fa-folder"></i>
+                        </span>
+                        <span class="menu-text">Công việc của tôi</span>
+                        <span class="doc-left-span-no">21</span>
+                    </a>
+                    <div class="menu-submenu">
+                        <ul class="menu-subnav">
+                            <li class="menu-item" aria-haspopup="true">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <span class="menu-icon menu-link-icon">
+                                        <i class="fas fa-none"></i>
+                                    </span>
+                                    <span class="menu-text">Mới</span>
+                                    <span class="doc-left-span-no">14</span>
+                                </a>
+                            </li>
+                            <li class="menu-item" aria-haspopup="true">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <span class="menu-icon menu-link-icon">
+                                        <i class="fas fa-none"></i>
+                                    </span>
+                                    <span class="menu-text">Đang xử lý</span>
+                                    <span class="doc-left-span-no">2</span>
+                                </a>
+                            </li>
+                            <li class="menu-item" aria-haspopup="true">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <span class="menu-icon menu-link-icon">
+                                        <i class="fas fa-none"></i>
+                                    </span>
+                                    <span class="menu-text">Đến hạn</span>
+                                </a>
+                            </li>
+                            <li class="menu-item" aria-haspopup="true">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <span class="menu-icon menu-link-icon">
+                                        <i class="fas fa-none"></i>
+                                    </span>
+                                    <span class="menu-text">Quá hạn</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item" aria-haspopup="true">
+                    <a href="#" class="menu-link">
+                        <span class="menu-icon menu-link-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </span>
+                        <span class="menu-text">Báo cáo thống kê</span>
+                    </a>
+                </li>
+            </ul>
+        </div>*@
+
+    </div>
+
+    @Html.Partial("~/Areas/Task/Views/ProjectFilterParam/_ProjectFilterParamPartial.cshtml")
+
+
+    <div id="modal-folder" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Thêm mới folder cá nhân</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/Areas/Task/Content/angularjs/services/LeftMenuService.js"></script>
+<script src="~/Areas/Task/Content/angularjs/controller/BaseCtrl.js"></script>
+<script src="~/Areas/Task/Content/angularjs/controller/LeftMenuCtrl.js"></script>

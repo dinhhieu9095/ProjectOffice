@@ -1,0 +1,79 @@
+﻿@using SurePortal.Core.Kernel;
+@{
+    ViewBag.Title = "Quản trị danh sách báo cáo";
+}
+<div class="content d-flex flex-column flex-column-fluid pb-0" ng-app="sureportalapp" ng-controller="ReportManagementCtrl">
+    <div class="subheader py-1 subheader-solid" id="kt_subheader">
+        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <div class="d-flex align-items-center flex-wrap mr-2">
+                <a href="~/contract/home/index" class="bg-hover-white text-hover-primary text-dark font-size-h6 font-weight-bold mr-5">@ResourceManagement.GetResourceText("Task.Report.TASKMANAGEMENT", "QUẢN LÝ CÔNG VIỆC", "TASK MANAGEMENT")</a>
+                <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
+                <span class="text-dark-50 font-weight-bold mr-4">Quản lý báo cáo</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-custom card-stretch gutter-b mx-9px">
+        <div class="card-header">
+            <h3 class="card-title font-weight-bolder text-dark">@ResourceManagement.GetResourceText("Task.Report.ListReport", "Danh sách báo cáo", "List report")</h3>
+            <div class="card-toolbar min-w-350px">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-keyup="$event.keyCode == 13 ? report.getPaging() : null" ng-model="filter.Keyword" placeholder="@ResourceManagement.GetResourceText("Task.Report.InputKeyword", "Nhập từ khóa...", "Input keyword...")" />
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" ng-click="report.getPaging()" type="button"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-body">
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">@ResourceManagement.GetResourceText("Task.Report.Name", "Tên", "Name")</th>
+                        <th scope="col">@ResourceManagement.GetResourceText("Task.Report.Template", "Biểu mẫu", "template")</th>
+                        @if (ViewBag.IsAdmin == true)
+                        {
+                    <th scope="col">@ResourceManagement.GetResourceText("Task.Report.Action", "Thao tác", "Action")</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in report.list">
+                        <td><a href="~/Task/Report/ReportCommon?Id={{ item.Id }}" ng-bind-html="item.Name"></a></td>
+                        <td><a href="~/Task/Report/Download?Id={{ item.Id }}" ng-bind-html="item.FileName"></a></td>
+                        @if (ViewBag.IsAdmin == true)
+                        {
+                            <td>
+                                <a title="Sửa" class="btn btn-sm btn-icon btn-light-primary mr-1" ng-click="report.getById(item.Id)"><i class="far fa-edit"></i></a>
+                                <a title="Xóa" class="btn btn-sm btn-icon btn-light-danger" ng-click="report.deleteItem(item.Id)"><i class="far fa-trash-alt"></i></a>
+                            </td>
+                        }
+
+                    </tr>
+                    @if (ViewBag.IsAdmin == true)
+                    {
+                        <tr>
+                            <td colspan="3">
+                                <a class="link-more" ng-click="report.getById(0)"><i class="fas fa-plus mr-2"></i><span>@ResourceManagement.GetResourceText("Task.Report.Add", "Thêm mới", "Add")</span></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            @Html.Partial("PartialView/_Edit")
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="~/Areas/Task/Content/angularjs/services/ReportManagementService.js"></script>
+    <script src="~/Areas/Task/Content/angularjs/controller/BaseCtrl.js"></script>
+    <script src="~/Areas/Task/Content/angularjs/controller/ReportManagementCtrl.js"></script>
+}
+
+
+

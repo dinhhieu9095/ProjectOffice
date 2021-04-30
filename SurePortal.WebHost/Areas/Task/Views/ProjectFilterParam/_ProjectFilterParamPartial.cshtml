@@ -1,0 +1,310 @@
+﻿@using SurePortal.Core.Kernel;
+<div id="modal-advance-task" class="modal fade" role="dialog" data-backdrop="false">
+    <div class="modal-dialog form modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@ResourceManagement.GetResourceText("Task.ProjectFilter.SettingFilter", "Cấu hình bộ lọc", "Setting filter")</h5>
+                <button type="button" ng-click="CloseProject()" class="close" data-dismiss="modal">
+                    <i aria-hidden="true" class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="manage-menu-info">
+                    <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center mr-3">
+                            <label class="font-weight-bolder">@ResourceManagement.GetResourceText("Task.ProjectFilter.SettingFor", "Cấu hình cho", "Setting for"):</label>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="radio-inline">
+                                <label class="radio">
+                                    <input type="radio" ng-click="leftMenu.onCheckedChangeLabel(0)" class="is-lable-custom-filter" value="0" name="radios2" />
+                                    <span></span>
+                                    @ResourceManagement.GetResourceText("Task.ProjectFilter.IsFilter", "Bộ lọc", "Filter")
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" ng-click="leftMenu.onCheckedChangeLabel(1)" class="is-lable-custom-filter" value="1" name="radios2" />
+                                    <span></span>
+                                    @ResourceManagement.GetResourceText("Task.ProjectFilter.IsLable", "Danh mục", "Lable")
+                                </label>
+                            </div>
+
+                        </div>
+
+
+                        <div class="d-flex align-items-center ml-20 mr-3">
+                            <label class="font-weight-bolder">@ResourceManagement.GetResourceText("Task.ProjectFilter.Type", "Loại", "Status")</label>
+                        </div>
+                        @*<label>@ResourceManagement.GetResourceText("Task.ProjectFilter.Type", "Loại", "Status")</label>*@
+                        @*<select class="form-control is-private-custom-filter" ng-model="private">
+                                <option value="1">@ResourceManagement.GetResourceText("Task.ProjectFilter.Private", "Cá nhân", "Private")</option>
+                                <option ng-if="leftMenu.item.IsAdmin" value="0">@ResourceManagement.GetResourceText("Task.ProjectFilter.Public", "Công khai", "Public")</option>
+                            </select>*@
+                        <div class="d-flex align-items-center">
+                            <div class="radio-inline">
+                                <label class="radio">
+                                    <input type="radio" class="is-private-custom-filter" checked value="1" name="radios3" />
+                                    <span></span>
+                                    @ResourceManagement.GetResourceText("Task.ProjectFilter.Private", "Cá nhân", "Private")
+                                </label>
+                                <label class="radio" ng-show="leftMenu.item.IsAdmin">
+                                    <input type="radio" class="is-private-custom-filter" value="0" name="radios3" />
+                                    <span></span>
+                                    @ResourceManagement.GetResourceText("Task.ProjectFilter.Public", "Công khai", "Public")
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<select class="form-control is-lable-custom-filter" ng-model="lable" ng-change="leftMenu.onChangeIsLabel()">
+                            <option value="0">@ResourceManagement.GetResourceText("Task.ProjectFilter.IsFilter", "Bộ lọc", "Filter")</option>
+                            <option value="1">@ResourceManagement.GetResourceText("Task.ProjectFilter.IsLable", "Danh mục", "Lable")</option>
+                        </select>*@
+
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-4 pr-0">
+                            <div class="form-group">
+                                <label>@ResourceManagement.GetResourceText("Task.ProjectFilter.NameFilter", "Tên bộ lọc", "Name filter")</label>
+                                <input class="form-control name-custom-filter" ng-model="leftMenu.item.ProjectFilterParam.Name" type="text" placeholder="Nhập tiêu đề" />
+                            </div>
+                        </div>
+                        <div class="col-md-2 pl-0 ml-n1">
+                            <div class="form-group">
+                                <label>@ResourceManagement.GetResourceText("Task.ProjectFilter.Sort", "Vị trí", "Sort")</label>
+                                <input class="form-control no-order-custom-filter" type="number" min="1" ng-model="leftMenu.item.ProjectFilterParam.NoOrder" placeholder="" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>@ResourceManagement.GetResourceText("Task.ProjectFilter.CreateOf", "Tạo trong", "Create of")</label>
+                                <select class="form-control folder-custom-filter" name="assignTo" tabindex="1"></select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div ng-show="lable == '0'" class="manage-menu-filter">
+
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label>@ResourceManagement.GetResourceText("Task.ProjectFilter.ChooseProject", "Chọn dự án", "Choose project")</label>
+                                <select class="form-control project-select"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-3 ml-0 mt-10">
+                            <div class="form-group">
+                                @*<label></label>*@
+                                <label class="checkbox">
+                                    <input type="checkbox" class="is-count-custom-filter" value="1" />
+                                    <span></span>
+                                    @ResourceManagement.GetResourceText("Task.ProjectFilter.IsCount", "Đếm số lượng", "Is count")
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@ResourceManagement.GetResourceText("Task.ProjectFilter.AssignBy", "Người giao việc", "Assign by")</label>
+                                <select class="form-control assign-by-select"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-3 pl-0">
+                            <div class="form-group">
+                                <label>@ResourceManagement.GetResourceText("Task.ProjectFilter.AssignTo", "Người nhận việc", "Assign to")</label>
+                                <select class="form-control assign-to-select"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@ResourceManagement.GetResourceText("Task.ProjectFilter.TaskType", "Phân loại công việc", "Task type")</label>
+                                <select class="form-control hashtag-project-select" name="" tabindex="1"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-3 pl-0">
+                            <div class="form-group">
+                                <label>@ResourceManagement.GetResourceText("Task.ProjectFilter.ProjectType", "Phân loại dự án", "Project type")</label>
+                                <select class="form-control hashtag-task-select" name="" tabindex="1"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>@ResourceManagement.GetResourceText("Task.ProjectFilter.StatusTask", "Trạng thái công việc", "Status task")</label>
+                                <select class="form-control task-status-select" multiple name="" tabindex="1"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>@ResourceManagement.GetResourceText("Task.ProjectFilter.Mission", "Nhiệm vụ", "Mission")</label>
+                                <select class="form-control tracking-type-select" multiple name="" tabindex="1">
+                                    <option value="1">@ResourceManagement.GetResourceText("Task.ProjectFilter.Main", "Chủ trì", "Main")</option>
+                                    <option value="2">@ResourceManagement.GetResourceText("Task.ProjectFilter.Combination", "Phối hợp", "Combination")</option>
+                                    <option value="3">@ResourceManagement.GetResourceText("Task.ProjectFilter.Follow", "Theo dõi", "Follow")</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Chọn tình trạng</label>
+                                <div class="radio-inline">
+                                    <label class="radio">
+                                        <input type="radio" name="status-time" value="0" checked="checked" />
+                                        <span></span>
+                                        @ResourceManagement.GetResourceText("Task.ProjectFilter.Default", "Mặc định", "Default")
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" name="status-time" value="1" />
+                                        <span></span>
+                                        @ResourceManagement.GetResourceText("Task.ProjectFilter.ComingSoonDue", "Sắp đến hạn", "Coming soon due")
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" name="status-time" value="2" />
+                                        <span></span>
+                                        @ResourceManagement.GetResourceText("Task.ProjectFilter.OutOfDue", "Hết hạn", "Out of due")
+                                    </label>
+                                    <label class="checkbox">
+                                        <input type="checkbox" class="is-extend" />
+                                        <span></span>
+                                        @ResourceManagement.GetResourceText("Task.ProjectFilter.IsExtend", "Gia hạn", "Is extend")
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-3 pr-0">
+                                    <div class="form-group">
+                                        <label>@ResourceManagement.GetResourceText("Task.ProjectFilter.StartDate", "Ngày bắt đầu", "Start date")</label>
+                                        <div class="input-group date datetime-picker" id='datetimepickerTaskFromDateOfFrom'>
+                                            <input class="form-control from-date-of-from-date-text" date-picker autocomplete="off" type="text" name="FromDate" placeholder="dd/MM/yyyy">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 pl-0 ml-n1">
+                                    <div class="form-group">
+                                        <label>@ResourceManagement.GetResourceText("Task.ProjectFilter.To", "Đến", "To")</label>
+                                        <div class="input-group date datetime-picker" id='datetimepickerTaskFromDateOfTo'>
+                                            <input class="form-control from-date-of-to-date-text" date-picker autocomplete="off" name="ToDate" placeholder="dd/MM/yyyy">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 pl-0 pr-0">
+                                    <div class="form-group">
+                                        <label>@ResourceManagement.GetResourceText("Task.ProjectFilter.EndDate", "Ngày kết thúc", "End date")</label>
+                                        <div class="input-group date datetime-picker" id='datetimepickerTaskToDateOfFrom'>
+                                            <input class="form-control to-date-of-from-date-text" date-picker autocomplete="off" type="text" name="FromDate" placeholder="dd/MM/yyyy">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 pl-0 ml-n1">
+                                    <div class="form-group">
+                                        <label>@ResourceManagement.GetResourceText("Task.ProjectFilter.To", "Đến", "To")</label>
+                                        <div class="input-group date datetime-picker" id='datetimepickerTaskToDateOfTo'>
+                                            <input class="form-control to-date-of-to-date-text" date-picker autocomplete="off" type="text" name="ToDate" placeholder="dd/MM/yyyy">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 hidden" style="display:none">
+                            <div class="form-group">
+                                <div class="input-group date datetime-picker" id='datetimepickerFrom'>
+                                    <input class="form-control from-date-text" date-picker type="text" autocomplete="off" name="FromDate" placeholder="Từ ngày">
+                                    <span class="input-group-btn">
+                                        <span class="btn default date-set" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="display:none">
+                            <div class="form-group">
+                                <div class="input-group date datetime-picker" id='datetimepickerTo'>
+                                    <input class="form-control to-date-text" date-picker type="text" autocomplete="off" name="ToDate" placeholder="Đến ngày">
+                                    <span class="input-group-btn">
+                                        <span class="btn default date-set" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-0">
+                                <label>@ResourceManagement.GetResourceText("Task.ProjectFilter.PriorityProject", "Mức độ quan trọng", "Priority project")</label>
+                                <select class="form-control priority-project-select" multiple name="" tabindex="1">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-0">
+                                <label>@ResourceManagement.GetResourceText("Task.ProjectFilter.Priority", "Độ ưu tiên", "Priority")</label>
+                                <select class="form-control nature-task-select" multiple name="" tabindex="1">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 hidden" style="display:none">
+                            <div class="form-group">
+                                <label>@ResourceManagement.GetResourceText("Task.ProjectFilter.IsReport", "Yêu cầu báo cáo", "Is report")</label>
+                                <select class="form-control is-report-select" name="" tabindex="1">
+                                    <option value="-1">@ResourceManagement.GetResourceText("Task.ProjectFilter.Report", "Báo cáo", "Report")</option>
+                                    <option value="0">@ResourceManagement.GetResourceText("Task.ProjectFilter.NoReport", "Không Báo cáo", "No report")</option>
+                                    <option value="1">@ResourceManagement.GetResourceText("Task.ProjectFilter.HaveReport", "Có báo cáo", "Have report")</option>
+                                </select>
+                            </div>
+
+                            @*<div class="form-group">
+                                    <input type="checkbox" class="is-report-checkbox" value="1">
+                                    Báo cáo
+                                </div>*@
+                        </div>
+                        <div class="col-md-6 hidden" style="display:none">
+                            <div class="form-group">
+                                <label>@ResourceManagement.GetResourceText("Task.ProjectFilter.IsPlan", "Tình trạng", "Is plan")</label>
+                                <select class="form-control is-weirdo-select" name="" tabindex="1">
+                                    <option value="-1">@ResourceManagement.GetResourceText("Task.ProjectFilter.IsPlan", "Tình trạng", "Is plan")</option>
+                                    <option value="0">Không có bất thường</option>
+                                    <option value="1">Có bất thường</option>
+                                </select>
+                            </div>
+
+                            @*<div class="form-group">
+                                    <input type="checkbox" class="is-weirdo-checkbox" value="1">
+                                    Bất thường
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary save" ng-click="leftMenu.saveTask()">@ResourceManagement.GetResourceText("Task.ProjectFilter.Save", "Lưu", "Save")</button>
+                <button type="button" ng-click="CloseProject()" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">@ResourceManagement.GetResourceText("Task.ProjectFilter.Close", "Đóng", "Close")</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>

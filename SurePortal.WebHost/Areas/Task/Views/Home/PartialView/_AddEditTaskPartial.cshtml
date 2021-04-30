@@ -1,0 +1,162 @@
+﻿@using SurePortal.Core.Kernel;
+<div class="modal fade" id="AddEditTaskItem" tabindex="-1" aria-labelledby="exampleModalSizeLg" role="dialog" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" ng-bind="modalTitle"></h5>
+                <button type="button" ng-click="CloseTaskItem()" class="close" data-dismiss="modal">
+                    <i aria-hidden="true" class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row mt-4">
+                    <div class="col-md-8 pr-0">
+                        <label>@ResourceManagement.GetResourceText("Task.Home.TaskName", "Tên công việc", "Task name")<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="TaskName" autocomplete="off" placeholder="Tên công việc" ng-model="TaskItem.TaskName">
+                    </div>
+                    <div class="col-md-4 pl-0 ml-n1">
+                        <label>@ResourceManagement.GetResourceText("Task.Home.GroupType", "Loại", "Task type")</label>
+                        <select class="form-control select2" id="TaskGroupType" name="TaskGroupType">
+                            <option value="0">@ResourceManagement.GetResourceText("Task.Home.Task", "Công việc", "Task")</option>
+                            <option value="1">@ResourceManagement.GetResourceText("Task.Home.Report", "Báo cáo", "Report")</option>
+                            <option value="2">@ResourceManagement.GetResourceText("Task.Home.IsGroupLabel", "Nhóm", "Group")</option>
+
+                        </select>
+                        @*<div class="d-flex">
+            <div class="pr-5" >
+                <label>@ResourceManagement.GetResourceText("Task.Home.IsGroupLabel", "Nhóm", "Group")</label>
+                <span class="switch switch-icon">
+                    <label>
+                        <input type="checkbox" ng-model="TaskItem.IsGroupLabel" id="IsGroupLabel" name="IsGroupLabel">
+                        <span></span>
+                    </label>
+                </span>
+            </div>
+            <div ng-show="TaskItem.IsGroupLabel != 1">
+                <label>@ResourceManagement.GetResourceText("Task.Home.Report", "Báo cáo", "Report")</label>
+                <span class="switch switch-icon">
+                    <label>
+                        <input type="checkbox" ng-model="TaskItem.IsReport" id="IsReport" name="IsReport">
+                        <span></span>
+                    </label>
+                </span>
+            </div>
+        </div>*@
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 pr-0" style="display:none">
+                        <div class="form-group">
+                            <label>@ResourceManagement.GetResourceText("Task.Home.AssignBy", "Người giao", "Assign by")<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <input ng-model="TaskItem.AssignByFullName" readonly class="form-control" id="AssignBy" name="AssignBy">
+                                <div class="input-group-append"><span class="input-group-text" ng-click="ChooseUser('AssignBy')"><i class="fa fa-user"></i></span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group validated">
+                            <label>@ResourceManagement.GetResourceText("Task.Home.Assignee", "Người thực hiện", "Assignee")<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <select ng-model="TaskItem.TaskItemAssigns" class="form-control" id="TaskItemAssign" name="TaskItemAssign" multiple ng-options="option as option.AssignToFullName for option in TaskItem.TaskItemAssigns">
+                                    @*<option ng-repeat="option in TaskItemAssignTemps track by $index" value="{{option}}">{{option.AssignToFullName}}</option>*@
+
+                                </select>
+                                <div class="input-group-append"><span class="input-group-text" ng-click="ChooseUser('TaskItem')"><i class="fa fa-user"></i></span></div>
+                            </div>
+                            <div class="mt-2">
+                                <span class="text-primary font-size-sm mr-6"><i class="fas fa-circle text-primary icon-xs mr-2"></i>Xử lý chính</span>
+                                <span class="text-warning font-size-sm"><i class="fas fa-circle text-warning icon-xs mr-2"></i>Hỗ trợ</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 pr-0">
+                        <label>@ResourceManagement.GetResourceText("Task.Home.FromDate", "Từ ngày", "From date")<span class="text-danger">*</span></label>
+                        <input ng-model="TaskItem.FromDateText" class="form-control" type="text" autocomplete="off" placeholder="dd/MM/yyyy" data-date-format="dd/mm/yyyy" id="TaskFromDateText" name="TaskFromDateText">
+                    </div>
+                    <div class="col-md-3 pl-0 ml-n1">
+                        <label>@ResourceManagement.GetResourceText("Task.Home.ToDate", "Đến ngày", "To date")<span class="text-danger">*</span></label>
+                        <input ng-model="TaskItem.ToDateText" class="form-control" type="text" autocomplete="off" placeholder="dd/MM/yyyy" data-date-format="dd/mm/yyyy" id="TaskToDateText" name="TaskToDateText">
+                    </div>
+                </div>
+
+                <div class="accordion accordion-solid accordion-toggle-plus" id="accordionTask">
+                    <div class="more-btn" id="headingOne3">
+                        <button type="button" class="btn btn-primary btn-xs" data-toggle="collapse" data-target="#collapseTask">@ResourceManagement.GetResourceText("Task.Home.Expand", "Mở rộng", "Expand")</button>
+                    </div>
+                    <div id="collapseTask" class="more-content collapse" data-parent="#accordionTask">
+
+                        <div class="row mt-4" ng-show="TaskItem.IsGroupLabel != 1">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>@ResourceManagement.GetResourceText("Task.Home.Priority", "Mức độ quan trọng", "Priority")</label>
+                                    <div class="radio-inline mt-2">
+                                        <label class="radio" ng-repeat="priority in TaskItemPriorities">
+                                            <input type="radio" name='PriorityID{{priority.Id}}' id='PriorityID{{priority.Id}}' ng-value="priority.Id" ng-checked="priority.Id == TaskItem.TaskItemPriorityId"
+                                                   ng-click="TaskItem.TaskItemPriorityId = priority.Id" />
+                                            <span></span>
+                                            {{priority.Name}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>@ResourceManagement.GetResourceText("Task.Home.Content", "Nội dung", "Content")</label>
+                                    <textarea ng-model="TaskItem.Conclusion" class="form-control form-control-lg" id="Conclusion" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="TaskItem.IsGroupLabel != 1">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>@ResourceManagement.GetResourceText("Task.Home.Category", "Phân loại", "Categories")</label>
+                                    <select class="form-control" ng-model="TaskItem.TaskItemCategories" id="TaskCategory" name="TaskCategory" multiple>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                    <div class="box-attachment">
+                        <div id="file{{$index}}" ng-repeat="file in TaskItem.Attachments track by $index" class="d-flex justify-content-between my-2 p-2 border align-items-center">
+                            <div class="d-flex align-items-center">
+                                <a href="~/Task/Project/DownloadFileTrackingWorkflowDocument?fileTrackingWorkflowDocumentID={{file.Id}}" class="file-name" title="{{file.FileName}}" target="_blank">{{file.FileName}} </a>
+                            </div>
+                            <div class="d-flex">
+                                <button type="button" class="btn btn-icon btn-xs btn-light-danger" ng-click="DeleteFileTask($index)"><i class="far fa-trash-alt"></i></button>
+                            </div>
+                        </div>
+                        <div id="fileNew{{$index}}" ng-repeat="file in fileTemps track by $index" class="d-flex justify-content-between my-2 p-2 border align-items-center">
+                            <div class="d-flex align-items-center">
+                                <a href="" class="file-name" title="{{file.name}}" target="_blank">{{file.name}} </a>
+                            </div>
+                            <div class="d-flex">
+                                <button type="button" class="btn btn-icon btn-xs btn-light-danger" ng-click="DeletePendingFile($index)"><i class="far fa-trash-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+                <div class="modal-footer d-block">
+                    <div class="pull-left">
+                        <label class="form-control-static attachment">
+                            <i class="fa fa-paperclip"></i> @ResourceManagement.GetResourceText("Task.Home.FileAttach", "Đính kèm file", "File acttach")
+                            <input type="file" style="display: none" name="file" accept=".xlsx, .xls, .doc, .docx, .ppt, .pptx, .txt, .pdf, image/*" id="datafile" ngf-select="ParsingFile($files)" multiple class="file" data-show-preview="false" data-show-upload="false" data-show-caption="true" />
+                        </label>
+                    </div>
+                    <div class="pull-right">
+
+                        <button type="button" ng-click="SaveTaskItem()" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Save", "Lưu", "Save")</button>
+                        <button type="button" ng-click="CloseTaskItem()" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">@ResourceManagement.GetResourceText("Task.Home.Close", "Đóng", "Close")</button>
+                    </div>
+
+                </div>
+            </div>
+    </div>
+</div>

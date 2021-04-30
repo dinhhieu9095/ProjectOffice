@@ -1,0 +1,228 @@
+﻿@using SurePortal.Core.Kernel;
+@using SurePortal.Module.Task.Web
+@model SurePortal.Module.Task.Web.ReportFilterModel
+@{
+    var projects = Model.Projects;
+}
+<div class="form-search-report mb-2">
+    <div class="box-filter px-0">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <div class="d-flex align-items-center mr-1">
+                    <label>@ResourceManagement.GetResourceText("Task.FilterReport.DepartmentOrUser", "Báo cáo cho:", "Report for:") <span class="text-danger">*</span></label>
+                </div>
+                <div class="d-flex align-items-center mr-3">
+                    <div class="form-group">
+                        @Html.HiddenFor(model => model.UserOfDepartmentId, new { @class = "user-of-department-id-hidden" })
+                        @Html.HiddenFor(model => model.DepartmentId, new { @class = "department-id-hidden" })
+                        <div class="input-group">
+                            <input type="text" class="form-control department-name-text" name="UserDepartmentText" readonly value="@Model.UserDepartmentText" />
+                            <input type="hidden" class="input-is-user" name="UserDepartmentText" readonly value="@ViewBag.Type" />
+                            @if (ViewBag.Type != "user")
+                            {
+                                <span ng-click="reportCommon.initOrgUser()">
+                                    <span class="svg-icon svg-icon-primary svg-icon-2x">
+                                        <svg width="30px" height="30px" viewBox="0 0 30 30">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <polygon points="0 0 24 0 24 24 0 24" />
+                                                <path d="M18,8 L16,8 C15.4477153,8 15,7.55228475 15,7 C15,6.44771525 15.4477153,6 16,6 L18,6 L18,4 C18,3.44771525 18.4477153,3 19,3 C19.5522847,3 20,3.44771525 20,4 L20,6 L22,6 C22.5522847,6 23,6.44771525 23,7 C23,7.55228475 22.5522847,8 22,8 L20,8 L20,10 C20,10.5522847 19.5522847,11 19,11 C18.4477153,11 18,10.5522847 18,10 L18,8 Z M9,11 C6.790861,11 5,9.209139 5,7 C5,4.790861 6.790861,3 9,3 C11.209139,3 13,4.790861 13,7 C13,9.209139 11.209139,11 9,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                                <path d="M0.00065168429,20.1992055 C0.388258525,15.4265159 4.26191235,13 8.98334134,13 C13.7712164,13 17.7048837,15.2931929 17.9979143,20.2 C18.0095879,20.3954741 17.9979143,21 17.2466999,21 C13.541124,21 8.03472472,21 0.727502227,21 C0.476712155,21 -0.0204617505,20.45918 0.00065168429,20.1992055 Z" fill="#000000" fill-rule="nonzero" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="d-flex align-items-center">
+                    <label>@ResourceManagement.GetResourceText("Task.FilterReport.Project", "Chọn dự án:", "Project:") <span class="text-danger">*</span></label>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="input-group">
+                        @Html.DropDownListFor(n => n.ProjectId, new SelectList(projects, "ProjectId", "Name"), new { @class = "form-control report-project-id" })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <div class="d-flex align-items-center">
+                    <label>@ResourceManagement.GetResourceText("Task.FilterReport.FromDate", "Từ ngày:", "From date:") <span class="text-danger">*</span></label>
+                </div>
+                <div class="d-flex align-items-center mr-5">
+                    <input class="form-control from-date-text" date-picker readonly value="@Model.FromDate.Value.ToString("dd/MM/yyyyy")" />
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <label>@ResourceManagement.GetResourceText("Task.FilterReport.ToDate", "đến:", "to:") <span class="text-danger">*</span></label>
+                </div>
+                <div class="d-flex align-items-center mr-3">
+                    <input class="form-control to-date-text" date-picker readonly value="@Model.ToDate.Value.ToString("dd/MM/yyyyy")" />
+                </div>
+                
+            </div>
+            <div class="d-flex">
+                <div class="d-flex align-items-center">
+                    <div class="btn-action">
+                        <a class="report-button btn btn-primary" ng-click="reportCommon.getData('report')">@ResourceManagement.GetResourceText("Task.FilterReport.Report", "Báo cáo", "Report")</a>
+                        <a class="export-excel-button btn btn-primary" style="width:50px" ng-click="reportCommon.getData('exportexcel')"><i class="fa fa-print"></i>@*@Html.Localize("XuatExcel", "Xuất excel")*@</a>
+                        <a class="more-button btn btn-primary" style="width:40px" ng-click="reportCommon.expandFormsearch()"><i class="fa fa-ellipsis-v"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="more-content {{ reportCommon.expandClass }}">
+            <div class="d-flex">
+                <div class="d-flex align-items-center">
+                    @ResourceManagement.GetResourceText("Task.FilterReport.Progress", "Tiến độ", "Progress") <span class="text-danger"> * </span>
+                </div>
+                <div class="d-flex align-items-center mr-10">
+                    <select class="form-control tracking-progress-select" name="TrackingProgress">
+                        <option selected="selected" value="-1">@ResourceManagement.GetResourceText("Task.FilterReport.All", "Tất cả", "All")</option>
+                        <option value="0">@ResourceManagement.GetResourceText("Task.FilterReport.InDue", "Trong hạn", "In due")</option>
+                        <option value="1">@ResourceManagement.GetResourceText("Task.FilterReport.OutOfDue", "Quá hạn", "Out of due")</option>
+                    </select>
+                </div>
+                <div class="d-flex align-items-center">
+                    <label>@ResourceManagement.GetResourceText("Task.FilterReport.Status", "Tình trạng", "Status") <span class="text-danger"> * </span></label>
+                </div>
+                <div class="d-flex align-items-center mr-10">
+                    <select class="form-control tracking-status-select" id="TrackingStatus" name="TrackingStatus">
+                        <option selected="selected" value="-1">@ResourceManagement.GetResourceText("Task.FilterReport.All", "Tất cả", "All")</option>
+                        <option value="0">@ResourceManagement.GetResourceText("Task.FilterReport.New", "Mới", "New")</option>
+                        <option value="1">@ResourceManagement.GetResourceText("Task.FilterReport.Processing", "Đang xử lý", "Processing")</option>
+                        <option value="2">@ResourceManagement.GetResourceText("Task.FilterReport.Report", "Báo cáo", "Report")</option>
+                        <option value="3">@ResourceManagement.GetResourceText("Task.FilterReport.Return", "Trả lại", "Return")</option>
+                        <option value="4">@ResourceManagement.GetResourceText("Task.FilterReport.End", "Kết thúc", "End")</option>
+                        <option value="5">@ResourceManagement.GetResourceText("Task.FilterReport.Extend", "Gia hạn", "Extend")</option>
+                        <option value="6">@ResourceManagement.GetResourceText("Task.FilterReport.ReturnReport", "Báo cáo trả lại", "Return report")</option>
+                        <option value="8">@ResourceManagement.GetResourceText("Task.FilterReport.Seen", "Đã xem", "Seen")</option>
+                    </select>
+                </div>
+                <div class="d-flex align-items-center">
+                    <label>@ResourceManagement.GetResourceText("Task.FilterReport.CriticalLevel", "Mức độ quan trọng", "Critical level") <span class="text-danger"> * </span></label>
+                </div>
+                <div class="d-flex align-items-center mr-10">
+                    <select class="form-control tracking-crucial-select" id="TrackingCrucial" name="TrackingCrucial">
+                        <option selected="selected" value="-1">@ResourceManagement.GetResourceText("Task.FilterReport.All", "Tất cả", "All")</option>
+                        <option value="0">@ResourceManagement.GetResourceText("Task.FilterReport.Normal", "Bình thường", "Normal")</option>
+                        <option value="1">@ResourceManagement.GetResourceText("Task.FilterReport.Important", "Quan trọng", "Important")</option>
+                        <option value="2">@ResourceManagement.GetResourceText("Task.FilterReport.VeryImportant", "Rất quan trọng", "Very important")</option>
+                    </select>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div class="d-flex align-items-center">
+                    <div class="checkbox-inline is-assign-checkbox">
+                        <label class="checkbox checkbox-outline">
+                            @Html.CheckBoxFor(model => model.IsReport, new { @class = "is-report-checkbox" })
+                            <span></span>
+                            @ResourceManagement.GetResourceText("Task.FilterReport.HaveReport", "Có báo cáo", "Have report")
+                        </label>
+                        <label class="checkbox checkbox-outline">
+                            @Html.CheckBoxFor(model => model.IsAssignTo, new { @class = "is-assign-to-checkbox" })
+                            <span></span>
+                            @ResourceManagement.GetResourceText("Task.FilterReport.TaskAssignByMine", "CViệc phụ trách", "Task assign by mine")
+                        </label>
+                        <label class="checkbox checkbox-outline">
+                            @Html.CheckBoxFor(model => model.IsAssignBy, new { @class = "is-assign-by-checkbox" })
+                            <span></span>
+                            @ResourceManagement.GetResourceText("Task.FilterReport.TaskAssignTo", "CViệc giao", "Task assign to")
+                        </label>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center" style="display: @(ViewBag.ReportCode != EnumReportType.ReportOnePage ? "none!important" : "") ">
+                    <div class="d-flex align-items-center mr-2">
+                        <label>@ResourceManagement.GetResourceText("Task.FilterReport.Time", "Thời điểm", "Time") <span class="text-danger"> * </span></label>
+                    </div>
+                    <div class="d-flex align-items-center mr-3">
+                        <div class="btn-group btn-group-solid btn-group-justified user-report-range-type">
+                            <a class="btn btn-primary previous" ng-click="reportCommon.previousTime()"><i class="fa fa-chevron-left"></i></a>
+                            <a class="btn btn-primary week {{ reportCommon.filter.ReportType == 'week' ? 'active' : '' }}" ng-click="reportCommon.changeTime('week')">@ResourceManagement.GetResourceText("Task.FilterReport.Week", "Tuần", "Week")</a>
+                            <a class="btn btn-primary month {{ reportCommon.filter.ReportType == 'month' ? 'active' : '' }}" ng-click="reportCommon.changeTime('month')">@ResourceManagement.GetResourceText("Task.FilterReport.Month", "Tháng", "Month")</a>
+                            <a class="btn btn-primary quarter {{ reportCommon.filter.ReportType == 'quarter' ? 'active' : '' }}" ng-click="reportCommon.changeTime('quarter')">@ResourceManagement.GetResourceText("Task.FilterReport.Quarter", "Quý", "Quarter")</a>
+                            <a class="btn btn-primary year {{ reportCommon.filter.ReportType == 'year' ? 'active' : '' }}" ng-click="reportCommon.changeTime('year')">@ResourceManagement.GetResourceText("Task.FilterReport.Year", "Năm", "Year")</a>
+                            <a class="btn btn-primary next" ng-click="reportCommon.nextTime()"><i class="fa fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center" style="display: @(ViewBag.ReportCode != EnumReportType.ReportWeekly ? "none!important" : "") ">
+                    <select class="form-control select-week" ng-change="reportCommon.changeWeek()" ng-model="reportCommon.filter.week">
+                        <option value="-1">@ResourceManagement.GetResourceText("Task.FilterReport.ChooseWeek", "Chọn tuần", "Choose week")</option>
+                        @for (int i = 1; i <= 53; i++)
+                        {
+                            if (ViewBag.CurrentWeek == i)
+                            {
+                                <option selected value="@i">@i</option>
+                            }
+                            else
+                            {
+                                <option value="@i">@i</option>
+                            }
+                        }
+                    </select>
+                    <select class="form-control select-year" ng-change="reportCommon.changeYear()" ng-model="reportCommon.filter.year">
+                        <option value="-1">@ResourceManagement.GetResourceText("Task.FilterReport.ChooseYear", "Chọn năm", "Choose year")</option>
+                        @for (int i = (DateTime.Now.Year - 10); i <= (DateTime.Now.Year + 2); i++)
+                        {
+                            if (i == DateTime.Now.Year)
+                            {
+                                <option selected value="@i">@i</option>
+                            }
+                            else
+                            {
+                                <option value="@i">@i</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div>
+            
+            
+            
+        </div>
+    </div>
+
+
+
+
+   
+
+    <div class="portlet light" style=" display: none;">
+        <div class="portlet-title" style="border-bottom: 0; display: none;">
+            <div class="caption">
+                <i class="icon fa fa-filter"></i>
+                <span class="caption-subject uppercase">@ResourceManagement.GetResourceText("Task.FilterReport.Advanced", "Nâng cao", "Advanced")</span>
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="expand" style="margin-right: 5px;"></a>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("~/Areas/Task/Views/Shared/_OrgChartModalPartial.cshtml")
+</div>
+
+<style>
+    .report .card-body table thead th {
+        min-width: 100px;
+    }
+
+    .report .hidden {
+        display: none;
+    }
+
+    .form-search-report {
+        overflow: hidden;
+    }
+</style>

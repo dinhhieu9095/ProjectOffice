@@ -1,0 +1,43 @@
+﻿@using SurePortal.Module.Task.Entities;
+@using SurePortal.Core.Kernel;
+<div class="modal fade" id="EvictFinishTaskItem" tabindex="-1" aria-labelledby="exampleModalSizeLg" role="dialog" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" ng-bind="modalTitle"></h5>
+                <button type="button" ng-click="CloseTaskItemEvict()" class="close" data-dismiss="modal">
+                    <i aria-hidden="true" class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="task-group">
+                    <div class="pb-1">
+                        <label class="text-dark-25 mr-1">
+                            @ResourceManagement.GetResourceText("Task.Home.TaskName", "Tên công việc", "Task name"):
+                        </label>
+                        <label class="text-dark font-weight-bold" ng-bind="TaskItem.TaskName"></label>
+                    </div>
+                    <div class="pb-1">
+                        <label class="text-dark-25 mr-1">
+                            @ResourceManagement.GetResourceText("Task.Home.AssignBy", "Người giao việc", "Assign by"):
+                        </label>
+                        <label class="text-dark font-weight-bold" ng-bind="TaskItem.AssignByFullName"></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>@ResourceManagement.GetResourceText("Task.Home.Reason", "Lý do", "Reason"): <span class="text-danger"> *</span></label>
+                        <textarea type="text" class="form-control form-control-lg" rows="3" id="Description" placeholder="@ResourceManagement.GetResourceText("Task.Home.Reason", "Lý do", "Reason")" ng-model="TaskItem.Description"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-right">
+                    <button type="button" ng-click="UpdateStatusTaskItem('@ActionId.Evict')" ng-if="IsEvict === true" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Evict", "Thu hồi", "Evict")</button>
+                    <button type="button" ng-click="UpdateStatusTaskItem('@ActionId.Finish')" ng-if="IsEvict === false" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Finish", "Kết thúc", "Finish")</button>
+                    <button type="button" ng-click="CloseTaskItemEvict()" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">@ResourceManagement.GetResourceText("Task.Home.Close", "Đóng", "Close")</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

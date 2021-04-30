@@ -1,0 +1,245 @@
+﻿@using SurePortal.Core.Kernel;
+<script src="~/Areas/Task/Content/angularjs/services/ProjectDetailService.js"></script>
+<script src="~/Areas/Task/Content/angularjs/controller/ProjectDetailCtrl.js"></script>
+
+<div id="modal-project-detail" style="display: none">
+    <div class="documentDetail p-5">
+        <div class="form-horizontal" id="MainDocumentDetails">
+            <h3 class="modal-title">@ResourceManagement.GetResourceText("Task.ProjectDetail.ProjectDetail", "Chi tiết dự án", "Project detail")</h3>
+            <div class="lv-detailCont dl-tracking-detail lv-detail-project" id="documentdetail-detailCont">
+                <h2 class="lv-detailTitle text-uppercase">
+                    {{ projectDetail.item.Summary }}
+                </h2>
+
+                <input type="hidden" id="projectId" value="{{ projectDetail.Id }}" />
+                <div class="lv-detailInfo">
+                    <div class="d-block">
+                        <div class="text-black text-bold pr-2 pull-left dl-label-color">@ResourceManagement.GetResourceText("Task.ProjectDetail.ExecutionTime", "Thời gian thực hiện", "Execution time"): <span class="dl-label">{{ projectDetail.item.DateTimeString }} </span> </div>
+                        <div class="pull-right">
+                            <label class="label label-inline label-status progress-task {{projectDetail.item.Process}}">
+                                {{projectDetail.item.ProjectStatusName}}
+                                <span ng-if="projectDetail.item.PercentFinish != null && projectDetail.item.PercentFinish > 0" class="label-process"> ({{projectDetail.item.PercentFinish}}%)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div ng-if="projectDetail.item.ProjectCategories.length > 0" class="text-black text-bold pr-2 dl-label-color" style="clear:both">@ResourceManagement.GetResourceText("Task.ProjectDetail.TagProject", "Nhãn danh mục", "Tag project"): <span ng-repeat="category in projectDetail.item.ProjectCategories" class="label label-inline status-value">{{category}}</span></div>
+
+                    <div ng-if="projectDetail.item.DepartmentName != null && projectDetail.item.DepartmentName.length > 0" class="dl-label-color float-left pr-2" style="clear: both">@ResourceManagement.GetResourceText("Task.ProjectDetail.Department", "Phòng ban", "Department"):</div>
+                    <div class="dl-label float-left">
+                        {{ projectDetail.item.DepartmentName }}
+                    </div>
+                    <div ng-if="projectDetail.item.ProjectContent != null && projectDetail.item.ProjectContent.length > 0" class="dl-label-color dl-p-r-5 lv-project-content-all">
+                        @ResourceManagement.GetResourceText("Task.ProjectDetail.Content", "Nội dung", "Content"):
+                        <span class="dl-label lv-project-content" ng-bind-html="projectDetail.item.ProjectContent"></span>
+                    </div>
+                    <div class="table-responsive" ng-if="projectDetail.item.Attachments != null && projectDetail.item.Attachments.length > 0">
+                        <div class="text-black text-bold pr-2 pull-left dl-label-color">
+                            @ResourceManagement.GetResourceText("Task.ProjectDetail.Documents", "Tài liệu", "Documents"): 
+                            <span ng-repeat="item in projectDetail.item.Attachments" class="mr-5">
+                                <a class="file-name" target="_blank" href="~/Task/Project/DownloadFileTrackingWorkflowDocument?fileTrackingWorkflowDocumentID={{item.Id}}&deptID=00000000-0000-0000-0000-000000000000" ng-click="projectDetail.openPreviewFileTrackingModel(item.Id)" title="{{item.FileName}}"><i class="{{item.Icon}} file-icon"></i> {{item.FileName}}</a>
+                            </span>
+                        </div>
+                        @*<table class="table table-striped table-attachment">
+                            <thead>
+                                    <tr>
+                                        <th style="width:280px">@ResourceManagement.GetResourceText("Task.ProjectDetail.Name", "Tên", "Name")</th>
+                                        <th style="text-align:center">@ResourceManagement.GetResourceText("Task.ProjectDetail.SaveFile", "Lưu file", "Save file")</th>
+                                        <th>@ResourceManagement.GetResourceText("Task.ProjectDetail.Type", "Loại", "Type")</th>
+                                        <th>@ResourceManagement.GetResourceText("Task.ProjectDetail.CreateBy", "Người tạo", "CreateBy")</th>
+                                        <th>@ResourceManagement.GetResourceText("Task.ProjectDetail.Time", "Thời gian", "Time")</th>
+                                    </tr>
+                                </thead>
+                            <tbody>
+                                <tr ng-repeat="item in projectDetail.item.Attachments">
+                                    <td>
+                                        <a class="file-name" target="_blank" href="~/Task/Project/DownloadFileTrackingWorkflowDocument?fileTrackingWorkflowDocumentID={{item.Id}}&deptID=00000000-0000-0000-0000-000000000000" ng-click="projectDetail.openPreviewFileTrackingModel(item.Id)" title="{{item.FileName}}"><i class="{{item.Icon}} file-icon"></i> {{item.FileName}}</a>
+                                    </td>
+                                    <td class="file-infor file-infor-down">
+                                            <a class="file-download" target="_blank" href="~/Task/Project/DownloadFileTrackingWorkflowDocument?fileTrackingWorkflowDocumentID={{item.Id}}&deptID=00000000-0000-0000-0000-000000000000">
+                                                <i class="fa fa-download"></i>
+                                            </a>
+                                        </td>
+                                        <td class="file-infor">{{tem.FileExt}}</td>
+                                        <td class="file-infor">{{item.CreateByFullName}}</td>
+                                        <td class="file-infor file-infor-date">{{item.DateFormat}}</td>
+                                </tr>
+                            </tbody>
+                        </table>*@
+                    </div>
+                    <div class="lv-more show-project-content" style="display:none">
+                        <span>@ResourceManagement.GetResourceText("Task.ProjectDetail.ViewMore", "Xem thêm", "View more")</span>
+                    </div>
+                    <div class="lv-more hidden-project-content" style="display:none">
+                        <span>@ResourceManagement.GetResourceText("Task.ProjectDetail.Collapse", "Thu gọn", "Collapse")</span>
+                    </div>
+                </div>
+            </div>
+            @*Report*@
+            <div class="project-report">
+                <div class="tabbable-line">
+
+                    <ul class="nav nav-tabs nav-tabs-line mb-5">
+                        <li class="nav-item" id="tabli_projectStatus">
+                            <a class="nav-link active" data-toggle="tab" href="#tab_projectStatus">
+                                <span class="nav-icon"><i class="flaticon2-chat-1"></i></span>
+                                <span class="nav-text">@ResourceManagement.GetResourceText("Task.ProjectDetail.Status", "Tình trạng", "Status")</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="tabli_projectTaskRoot">
+                            <a class="nav-link" data-toggle="tab" href="#tab_projectTaskRoot">
+                                <span class="nav-icon"><i class="flaticon2-chat-1"></i></span>
+                                <span class="nav-text"> @ResourceManagement.GetResourceText("Task.ProjectDetail.Task", "Công việc", "Tasks")</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="tabli_projectReport" ng-click="projectDetail.getReportProject()">
+                            <a class="nav-link" data-toggle="tab" href="#tab_projectReport">
+                                <span class="nav-icon"><i class="flaticon2-graphic"></i></span>
+                                <span class="nav-text">@ResourceManagement.GetResourceText("Task.ProjectDetail.Report", "Thống kê", "Report")</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_projectStatus">
+                            <div class="dl-tracking-detail" id="viewProjectStatus">
+                                <div class="lv-detailHis">
+                                    <div class="timeline white-bg lv-detailHis">
+                                        <div ng-repeat="history in projectDetail.item.ProjectHistories" class="lv-hisItem {{ $index == 0 ? '':'hidden is-not-first-history' }}">
+                                            <div class="lv-hisDate">
+                                                <span>{{history.DateFormat}}</span>
+                                            </div>
+                                            <div class="lv-hisCont">
+                                                <div class="timeline-item">
+                                                    <div class="timeline-badge">
+                                                        <span class="timeline-badge-userpic"> {{history.PercentFinish}}%</span>
+                                                    </div>
+                                                    <div class="timeline-body">
+                                                        <div class="timeline-body-head">
+                                                            <div class="timeline-body-head-caption">
+                                                                <span class="timeline-body-title">{{history.CreatedByFullName}}</span>
+                                                                <span class="timeline-body-time font-grey-cascade">{{history.CreatedByJobTitleName}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="timeline-body-content">{{history.Summary}}</div>
+                                                        <div class="attachment-zone">
+                                                            <div class="attachment-zone">
+                                                                <div ng-repeat="item in history.AttachmentDto" class="attachment-row">
+                                                                    <div class="attachment-icon">
+                                                                        <i class="{{item.Icon}} font-red"></i>
+                                                                    </div>
+                                                                    <div class="attachment-file">
+                                                                        <div class="desc">
+                                                                            <span>
+                                                                                <a target="_blank" ng-click="projectDetail.openPreviewFileTrackingModel(item.Id)">{{item.FileName}}</a>
+                                                                            </span>
+                                                                            <a target="_blank" href="~/Task/Project/DownloadFileTrackingWorkflowDocument?fileTrackingWorkflowDocumentID={{item.Id}}">
+                                                                                <i class="fa fa-download"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div ng-if="projectDetail.item.ProjectHistories == null || projectDetail.item.ProjectHistories.length == 0">
+                                            @ResourceManagement.GetResourceText("Task.ProjectDetail.NoProgressUpdateYet", "Chưa có cập nhật tiến độ", "No progress update yet")
+                                        </div>
+
+                                        <div ng-if="projectDetail.item.ProjectHistories.length > 1" class="text-center show-history-project" id="extend-history-ptoject">
+                                            <span class="show-history-project">
+                                                @ResourceManagement.GetResourceText("Task.ProjectDetail.ViewMore", "Xem thêm", "View more")
+                                            </span>
+                                            <span class="hidden-history-project hidden">
+                                                @ResourceManagement.GetResourceText("Task.ProjectDetail.Collapse", "Thu gọn", "Collapse")
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane" id="tab_projectTaskRoot">
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                @*Công việc dự án*@
+                                <div class="panel panel-default">
+                                    <div id="collapseFour" class="" role="tabpanel" aria-labelledby="headingFour">
+                                        <div class="panel-body">
+                                            <div ng-repeat="task in projectDetail.item.TaskItemRoots" class="task-child pb-4">
+                                                <a class="jstree-anchor jstree-clicked task-item-child-anchor" href="javascript:;" ng-click="taskItem.init(task.Id)"
+                                                   data-task-item-child-id="{{task.Id}}">
+                                                    <span class="item-name">{{task.TaskName}}</span>
+                                                    <span class="item-info">
+                                                        <span class="item-time">{{task.DateFormat}}</span>
+                                                        <span class="item-owner">
+                                                            <img title="" class="img-circle" style="object-fit: cover; object-position: center; width: 16px; height: 16px;" src="/module/Account/Avartar/{{task.UserId}}">
+                                                            {{task.UserFullName}} - {{task.JobTitleName}}
+                                                        </span>
+                                                        <label ng-if="task.IsGroupLabel != true" class="label label-inline  pull-right label-status progress-task {{task.Process}}">
+                                                            {{task.StatusName}}
+                                                            <span ng-if="task.PercentFinish != null && task.PercentFinish > 0" class="label-process"> ({{task.PercentFinish}}%)</span>
+                                                        </label>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab_projectReport">
+                            <div class="row">
+                                <div class="col-md-6" id="pie-chart-status"></div>
+                                <div class="col-md-6" id="pie-chart-proccess"></div>
+                                <div class="col-md-12" id="bar-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(function () {
+        $('#projectMember').on('show.bs.collapse', function () {
+            $(this).parent().addClass('active');
+        })
+        $('#projectMember').on('hide.bs.collapse', function () {
+            $(this).parent().removeClass('active');
+        })
+
+        //extend history
+        $('#extend-history-ptoject').on('click', '.show-history-project', function (e) {
+            $(e.target).addClass('hidden');
+            $('#extend-history-ptoject .hidden-history-project').removeClass('hidden');
+            $('#tab_projectStatus').find('.is-not-first-history').removeClass('hidden');
+        });
+        $('#extend-history-ptoject').on('click', '.hidden-history-project', function (e) {
+            $(e.target).addClass('hidden');
+            $('#extend-history-ptoject .show-history-project').removeClass('hidden');
+            $('#viewProjectStatus').find('.is-not-first-history').addClass('hidden');
+        });
+        //show more
+        var lvProjectContentHeight = $('.lv-project-content-all').height();
+        if (lvProjectContentHeight > 60) {
+            $('.lv-project-content-all').css('height', '60');
+            $('.show-project-content').css('display', 'block');
+        }
+        $('.show-project-content').on('click', function () {
+            $('.lv-project-content-all').css('height', '100%');
+            $('.show-project-content').toggle();
+            $('.hidden-project-content').toggle();
+        })
+        $('.hidden-project-content').on('click', function () {
+            $('.lv-project-content-all').css('height', '60');
+            $('.show-project-content').toggle();
+            $('.hidden-project-content').toggle();
+        })
+    });
+</script>

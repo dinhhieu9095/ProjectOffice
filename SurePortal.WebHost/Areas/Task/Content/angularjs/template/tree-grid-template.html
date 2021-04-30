@@ -1,0 +1,56 @@
+﻿<!--<script type="text/ng-template" id="tree-grid-template.html">
+    <div>
+        <table class="table table-bordered table-striped tree-grid">
+    <thead class="text-primary">
+        <tr>
+            <th>{{expandOn}}</th>
+            <th ng-repeat="col in colDefs">{{col.displayName || col.field}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="row in tree_rows | filter:{visible:true} track by row.branch.uid" ng-class="(row.HasPagination ? ' pagination ':'nopagination ')+ 'level-' + {{ row.level }} + (row.branch.selected ? ' active':'')" class="tree-grid-row">
+            <td class="text-primary">
+            <a ng-click="user_clicks_branch(row.branch)">
+                <i ng-class="row.tree_icon" ng-click="row.branch.expanded = !row.branch.expanded" class="indented tree-icon">
+                </i>
+            </a><span class="indented tree-label">{{row.branch[expandOn]}}</span>
+            </td>
+            <td ng-repeat="col in colDefs  | filter: { field:"Name"}">{{row.branch[col.field]}}</td>
+        </tr>
+    </tbody>
+    <table>
+    </div>
+</script>-->
+<div>
+    <table id="dragtable" class="table table-bordered table-striped tree-grid">
+        <thead class="text-primary">
+            <tr>
+                <!--<th>Nội dung</th>-->
+                <th ng-repeat="col in colDefinitions" class="{{ col.className }}">
+                    {{col.displayName || col.field}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in tree_rows | filter:{visible:true} track by row.branch.uid" draggable drag="handleDrag" dragImage="{{dragImageId}}" dragData="{{ row.branch }}" droppable drop="handleDrop" style="cursor: point" ng-class="(row.branch.HasPagination? ' haspagination ' :'')+'level-' + {{ row.level }} +(row.branch.Type!='undefined' ? (' '+row.branch.Type) :'' )+((row.branch.Type==='task' &&  row.branch.HasChildren)? (' tasks') :'' )+(row.branch.Process!='undefined' ? (' '+row.branch.Process ): '')+ (row.branch.selected ? ' active' :'')" class="tree-grid-row" ng-dblclick="user_double_clicks_branch(row.branch)" ng-click="user_clicks_branch2(row.branch)">
+                <td class="text-primary">
+                    <a ng-click="user_clicks_branch(row.branch)">
+                        <i id="iconexpanded" ng-class=" (row.branch.HasLoading) ? 'glyphicon fa icon-minus glyphicon-minus spinner' : row.tree_icon" ng-click="row.branch.expanded =!row.branch.expanded" class="indented tree-icon {{row.branch.Process}}">
+                        </i>
+                    </a>
+                    <span class="indented tree-label">{{row.branch[expandingProperty]}}</span>
+                </td>
+                <!--<td ng-repeat="col in colDefinitions | filter:{visible:true}">{{row.branch[col.field]}}</td>-->
+            <td ng-repeat="col in colDefinitions | filter:{visible:true} " ng-class="col.viewName +'-'+col.field">
+                <div ng-if="col.typeHtml" ng-bind-html="row.branch[col.field] | htmlSafe"></div>
+                <div ng-if="!col.typeHtml">{{row.branch[col.field]}}</div>
+
+
+               
+            </td>
+
+            </tr>
+
+        </tbody>
+        </table>
+</div>

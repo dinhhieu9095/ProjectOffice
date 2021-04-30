@@ -50,7 +50,7 @@ namespace SurePortal.Core.Kernel.Orgs.Application
         #region Methods
         public IReadOnlyList<UserDto> GetUsers(bool clearCache = false)
         {
-            if (_allUserDtos == null || clearCache)
+            if (_allUserDtos == null || !_allUserDtos.Any() || clearCache)
             {
                 // lock for updating caching
                 //lock (_allUserDtos)
