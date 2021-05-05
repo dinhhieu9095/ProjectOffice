@@ -8,8 +8,8 @@
     <ProjectGuid>{4AD66525-86D3-47D9-BF8B-152B1A5C9B1B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SurePortal.Module.Task.Entities</RootNamespace>
-    <AssemblyName>SurePortal.Module.Task.Entities</AssemblyName>
+    <RootNamespace>DaiPhatDat.Module.Task.Entities</RootNamespace>
+    <AssemblyName>DaiPhatDat.Module.Task.Entities</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -127,7 +127,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SurePortal.Core.Kernel\DaiPhatDat.Core.Kernel.csproj">
+    <ProjectReference Include="..\DaiPhatDat.Core.Kernel\DaiPhatDat.Core.Kernel.csproj">
       <Project>{ecd84ef0-b902-41a1-b8e6-2113d278bb8f}</Project>
       <Name>DaiPhatDat.Core.Kernel</Name>
     </ProjectReference>

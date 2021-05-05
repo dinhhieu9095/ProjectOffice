@@ -24,7 +24,7 @@ namespace DaiPhatDat.Core.Kernel.Application
                 }
                 if (string.IsNullOrEmpty(_rootFolderPath))
                 {
-                    _rootFolderPath = $"C:\\SurePortal";
+                    _rootFolderPath = $"C:\\DaiPhatDat";
                 }
                 if (!Directory.Exists(_rootFolderPath))
                 {

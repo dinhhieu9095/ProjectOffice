@@ -14,8 +14,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SurePortal.WebHost</RootNamespace>
-    <AssemblyName>SurePortal.WebHost</AssemblyName>
+    <RootNamespace>DaiPhatDat.WebHost</RootNamespace>
+    <AssemblyName>DaiPhatDat.WebHost</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -689,7 +689,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SurePortal.Core.Kernel\DaiPhatDat.Core.Kernel.csproj">
+    <ProjectReference Include="..\DaiPhatDat.Core.Kernel\DaiPhatDat.Core.Kernel.csproj">
       <Project>{ecd84ef0-b902-41a1-b8e6-2113d278bb8f}</Project>
       <Name>DaiPhatDat.Core.Kernel</Name>
     </ProjectReference>

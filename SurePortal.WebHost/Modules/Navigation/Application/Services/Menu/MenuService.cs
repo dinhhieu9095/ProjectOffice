@@ -315,7 +315,7 @@ namespace DaiPhatDat.WebHost.Navigation.Application
                                   ,[Name]
                                   ,[Description]
                                   ,[ModuleId]
-                              FROM[SurePortal].[dbo].[Roles]";
+                              FROM [dbo].[Roles]";
                 #endregion
                 using (_dbContextScopeFactory.CreateReadOnly())
                 {

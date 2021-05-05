@@ -12,8 +12,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SurePortal.Module.Task.Web</RootNamespace>
-    <AssemblyName>SurePortal.Module.Task.Web</AssemblyName>
+    <RootNamespace>DaiPhatDat.Module.Task.Web</RootNamespace>
+    <AssemblyName>DaiPhatDat.Module.Task.Web</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -1503,7 +1503,7 @@
     <Content Include="Views\ProjectFilterParam\_ProjectFilterParamPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\SurePortal.Core.Kernel\DaiPhatDat.Core.Kernel.csproj">
+    <ProjectReference Include="..\..\..\DaiPhatDat.Core.Kernel\DaiPhatDat.Core.Kernel.csproj">
       <Project>{ecd84ef0-b902-41a1-b8e6-2113d278bb8f}</Project>
       <Name>DaiPhatDat.Core.Kernel</Name>
     </ProjectReference>
@@ -1552,7 +1552,7 @@
     <Error Condition="!Exists('..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\build\net.sf.mpxj-ikvm.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\build\net.sf.mpxj-ikvm.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetDir)\SurePortal.Module.Task.*" "$(SolutionDir)\SurePortal.WebHost\bin"</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetDir)\DaiPhatDat.Module.Task.*" "$(SolutionDir)\DaiPhatDat.WebHost\bin"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\build\net.sf.mpxj-ikvm.targets" Condition="Exists('..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\build\net.sf.mpxj-ikvm.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

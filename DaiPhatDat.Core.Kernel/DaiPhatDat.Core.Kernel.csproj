@@ -9,8 +9,8 @@
     <ProjectGuid>{ECD84EF0-B902-41A1-B8E6-2113D278BB8F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SurePortal.Core.Kernel</RootNamespace>
-    <AssemblyName>SurePortal.Core.Kernel</AssemblyName>
+    <RootNamespace>DaiPhatDat.Core.Kernel</RootNamespace>
+    <AssemblyName>DaiPhatDat.Core.Kernel</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -479,7 +479,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetDir)\SurePortal.Core.Kernel.*" "$(SolutionDir)\Libraries"</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetDir)\DaiPhatDat.Core.Kernel.*" "$(SolutionDir)\Libraries"</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

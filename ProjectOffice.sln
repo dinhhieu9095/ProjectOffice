@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{C26EF288-1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaiPhatDat.WebHost", "SurePortal.WebHost\DaiPhatDat.WebHost.csproj", "{F1D75719-46B5-4198-B164-DFBF437E4DC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaiPhatDat.Core.Kernel", "SurePortal.Core.Kernel\DaiPhatDat.Core.Kernel.csproj", "{ECD84EF0-B902-41A1-B8E6-2113D278BB8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaiPhatDat.Core.Kernel", "DaiPhatDat.Core.Kernel\DaiPhatDat.Core.Kernel.csproj", "{ECD84EF0-B902-41A1-B8E6-2113D278BB8F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{AF804E70-E0D1-4B66-80BC-B9B82DC15E01}"
 EndProject

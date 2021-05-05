@@ -7,10 +7,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("DaiPhatDat.Core.Kernel")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("LacViet")]
+[assembly: AssemblyCompany("DaiPhatDat")]
 [assembly: AssemblyProduct("DaiPhatDat.Core.Kernel")]
 [assembly: AssemblyCopyright("Copyright © 2020")]
-[assembly: AssemblyTrademark("LacViet")]
+[assembly: AssemblyTrademark("DaiPhatDat")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible

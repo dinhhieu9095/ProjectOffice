@@ -261,12 +261,7 @@
         },
         onChangeProvider: function (elm) {
             var type = $(elm).find(':selected').data('type');
-            @*if ('@(LacViet.SurePortal.Infrastructures.CommonLib.CommonValues.SignServerType.Server)' == type) {
-                $('div.cer-file').addClass('active');
-                 $('.cer-file').prop('disabled', true);
-            } else {
-                $('div.cer-file').removeClass('active');
-            }*@
+           
         },
         onUpdateSuccess: function (result) {
             if (result.status) {

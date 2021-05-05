@@ -29,7 +29,7 @@ namespace DaiPhatDat.Core.Kernel.Ioc
             var types = AllClasses
                 .FromLoadedAssemblies()
                 .Where(predicate => predicate.Namespace != null
-                                    && predicate.Namespace.StartsWith("SurePortal")
+                                    && predicate.Namespace.StartsWith("DaiPhatDat")
                                     && !string.IsNullOrEmpty(predicate.AssemblyQualifiedName)
                                     && !typeof(Controller).IsAssignableFrom(predicate)
                                     && !predicate.IsAbstract

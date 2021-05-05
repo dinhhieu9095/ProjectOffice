@@ -59,7 +59,9 @@ namespace DaiPhatDat.WebHost.Controllers
             }
             else
             {
-                ViewBag.AuthenticatedUserDepartment = authenticatedUserDepartments.FirstOrDefault();
+                if (authenticatedUserDepartments != null)
+                    ViewBag.AuthenticatedUserDepartment = authenticatedUserDepartments.FirstOrDefault();
+                else ViewBag.AuthenticatedUserDepartment = null;
             }
 
 

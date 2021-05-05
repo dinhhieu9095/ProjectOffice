@@ -8,12 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-//using LacViet.DaiPhatDat.Core.Paging;
-//using LacViet.SurePortal.DataAccess.Models;
-//using LacViet.SurePortal.Services.DTOs;
-//using LacViet.SurePortal.Task.Business.TaskItems;
-//using LacViet.SurePortal.Task.Models;
-//using LacViet.SurePortal.Task.Persistence;
 using SystemTask = System.Threading.Tasks.Task;
 
 namespace DaiPhatDat.Module.Task.Services
