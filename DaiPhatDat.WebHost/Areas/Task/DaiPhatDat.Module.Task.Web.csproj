@@ -1507,11 +1507,11 @@
       <Project>{ecd84ef0-b902-41a1-b8e6-2113d278bb8f}</Project>
       <Name>DaiPhatDat.Core.Kernel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\SurePortal.Module.Task.Entities\DaiPhatDat.Module.Task.Entities.csproj">
+    <ProjectReference Include="..\..\..\DaiPhatDat.Module.Task.Entities\DaiPhatDat.Module.Task.Entities.csproj">
       <Project>{4ad66525-86d3-47d9-bf8b-152b1a5c9b1b}</Project>
       <Name>DaiPhatDat.Module.Task.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\SurePortal.Module.Task.Services\DaiPhatDat.Module.Task.Services.csproj">
+    <ProjectReference Include="..\..\..\DaiPhatDat.Module.Task.Services\DaiPhatDat.Module.Task.Services.csproj">
       <Project>{58a0c014-4242-484b-93d9-6cad81719258}</Project>
       <Name>DaiPhatDat.Module.Task.Services</Name>
     </ProjectReference>
