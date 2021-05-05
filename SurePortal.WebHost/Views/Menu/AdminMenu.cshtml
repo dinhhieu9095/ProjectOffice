@@ -1,6 +1,6 @@
 ﻿
-@using SurePortal.WebHost.Common
-@model List<SurePortal.WebHost.Modules.Navigation.Application.Dto.MenuPagingDto>
+@using DaiPhatDat.WebHost.Common
+@model List<DaiPhatDat.WebHost.Modules.Navigation.Application.Dto.MenuPagingDto>
 
 @{
     var menuLevl1 = Model.Where(e => e.ParentId == null).OrderBy(e => e.Order).ToList();

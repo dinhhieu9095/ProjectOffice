@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
-namespace SurePortal.Module.Task.Web
+namespace DaiPhatDat.Module.Task.Web
 {
     public class ProjectScopeModel
     {

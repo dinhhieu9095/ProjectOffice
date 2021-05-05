@@ -1,5 +1,5 @@
-﻿using SurePortal.Core.Kernel.Mapper;
-using SurePortal.Module.Task.Services;
+﻿using DaiPhatDat.Core.Kernel.Mapper;
+using DaiPhatDat.Module.Task.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SurePortal.Module.Task.Web
+namespace DaiPhatDat.Module.Task.Web
 {
     public class QueryCommonModel : IMapping<QueryCommonDto>
     {

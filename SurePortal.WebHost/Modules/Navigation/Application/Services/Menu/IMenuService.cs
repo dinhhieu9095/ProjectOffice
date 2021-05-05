@@ -1,12 +1,12 @@
-﻿using SurePortal.Core.Kernel.Domain.ValueObjects;
-using SurePortal.WebHost.Modules.Navigation.Application.Dto;
-using SurePortal.WebHost.Modules.Navigation.Domain.POCO;
+﻿using DaiPhatDat.Core.Kernel.Domain.ValueObjects;
+using DaiPhatDat.WebHost.Modules.Navigation.Application.Dto;
+using DaiPhatDat.WebHost.Modules.Navigation.Domain.POCO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SurePortal.WebHost.Modules.Navigation.Application.Services
+namespace DaiPhatDat.WebHost.Modules.Navigation.Application.Services
 {
     public interface IMenuService
     {
@@ -19,6 +19,6 @@ namespace SurePortal.WebHost.Modules.Navigation.Application.Services
         Task<bool> UpdateAsync(MenuDto dto);
         Task<bool> DeleteAsync(Guid id);
         List<MenuTreeDto> GetAllRecursive();
-        List<SurePortal.Core.Kernel.Orgs.Domain.Role> GetAllRole();
+        List<DaiPhatDat.Core.Kernel.Orgs.Domain.Role> GetAllRole();
     }
 }

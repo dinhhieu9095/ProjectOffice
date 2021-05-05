@@ -6,7 +6,7 @@
 //using System.Linq;
 //using System.Text.RegularExpressions;
 
-//namespace SurePortal.Core.Kernel.AmbientScope
+//namespace DaiPhatDat.Core.Kernel.AmbientScope
 //{
 //    public class FullTextInterceptor : IDbCommandInterceptor
 //    {

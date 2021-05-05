@@ -1,12 +1,12 @@
-﻿using SurePortal.Core.Kernel.Mapper;
-using SurePortal.Module.Task.Entities;
+﻿using DaiPhatDat.Core.Kernel.Mapper;
+using DaiPhatDat.Module.Task.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
 
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public class ProjectDto : IMapping<Project>
     {

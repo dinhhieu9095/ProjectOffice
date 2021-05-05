@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 
-namespace SurePortal.Core.Kernel.ExternalServices
+namespace DaiPhatDat.Core.Kernel.ExternalServices
 {
     /// <summary>
     /// Cổng kết nối của VNPT Directs

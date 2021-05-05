@@ -1,10 +1,10 @@
-﻿using SurePortal.Core.Kernel.Controllers;
-using SurePortal.Core.Kernel.Domain.ValueObjects;
-using SurePortal.Core.Kernel.Models.Responses;
+﻿using DaiPhatDat.Core.Kernel.Controllers;
+using DaiPhatDat.Core.Kernel.Domain.ValueObjects;
+using DaiPhatDat.Core.Kernel.Models.Responses;
 using System.Collections.Generic;
 using System.Web.Http;
 
-namespace SurePortal.WebHost.Controllers
+namespace DaiPhatDat.WebHost.Controllers
 {
     [RoutePrefix("_apis/module")]
     public class ModuleController : ApiCoreController

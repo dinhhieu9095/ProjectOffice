@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
-namespace SurePortal.Module.Task.Entities
+namespace DaiPhatDat.Module.Task.Entities
 {
     [Table("Task.TaskItemAssign")]
     public class TaskItemAssign

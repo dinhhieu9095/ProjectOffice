@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public class ProjectUserDto
     {

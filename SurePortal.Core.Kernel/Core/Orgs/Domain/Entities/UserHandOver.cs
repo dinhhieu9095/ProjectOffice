@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SurePortal.Core.Kernel.Orgs.Domain.Entities
+namespace DaiPhatDat.Core.Kernel.Orgs.Domain.Entities
 {
     //[Table("UserHandOvers", Schema = "Core")]
     public class UserHandOver

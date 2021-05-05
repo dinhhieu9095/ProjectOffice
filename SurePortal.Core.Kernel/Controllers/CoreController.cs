@@ -1,12 +1,12 @@
-﻿using SurePortal.Core.Kernel.Application.Helpers;
-using SurePortal.Core.Kernel.Application.Utilities;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Orgs.Application;
-using SurePortal.Core.Kernel.Orgs.Application.Dto;
+﻿using DaiPhatDat.Core.Kernel.Application.Helpers;
+using DaiPhatDat.Core.Kernel.Application.Utilities;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace SurePortal.Core.Kernel.Controllers
+namespace DaiPhatDat.Core.Kernel.Controllers
 {
     [Authorize]
     [SessionState(System.Web.SessionState.SessionStateBehavior.ReadOnly)]

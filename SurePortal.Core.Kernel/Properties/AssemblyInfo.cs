@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SurePortal.Core.Kernel")]
+[assembly: AssemblyTitle("DaiPhatDat.Core.Kernel")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("LacViet")]
-[assembly: AssemblyProduct("SurePortal.Core.Kernel")]
+[assembly: AssemblyProduct("DaiPhatDat.Core.Kernel")]
 [assembly: AssemblyCopyright("Copyright © 2020")]
 [assembly: AssemblyTrademark("LacViet")]
 [assembly: AssemblyCulture("")]

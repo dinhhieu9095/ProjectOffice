@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace SurePortal.Core.Kernel.Domain.ValueObjects
+namespace DaiPhatDat.Core.Kernel.Domain.ValueObjects
 {
     public abstract class ValueObject<T> : IEquatable<T>
         where T : ValueObject<T>

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Text;
 
-namespace SurePortal.Core.Kernel.Linq.Data
+namespace DaiPhatDat.Core.Kernel.Linq.Data
 {
     public static class DataSetExtensions
     {

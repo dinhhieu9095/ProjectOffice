@@ -1,7 +1,7 @@
-﻿using SurePortal.Core.Kernel.Controllers;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Orgs.Application;
-using SurePortal.Core.Kernel.Orgs.Models;
+﻿using DaiPhatDat.Core.Kernel.Controllers;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SurePortal.WebHost.Controllers
+namespace DaiPhatDat.WebHost.Controllers
 {
     [Authorize]
     public class OrgController : CoreController

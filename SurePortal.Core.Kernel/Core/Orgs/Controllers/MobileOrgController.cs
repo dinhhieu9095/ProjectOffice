@@ -1,14 +1,14 @@
-﻿using SurePortal.Core.Kernel.Controllers;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Models.Responses;
-using SurePortal.Core.Kernel.Orgs.Application;
-using SurePortal.Core.Kernel.Orgs.Application.Dto;
+﻿using DaiPhatDat.Core.Kernel.Controllers;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Models.Responses;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace SurePortal.Core.Kernel.Orgs.Controllers
+namespace DaiPhatDat.Core.Kernel.Orgs.Controllers
 {
     [RoutePrefix("_apis/m/org")]
     public class MobileOrgController : ApiCoreController

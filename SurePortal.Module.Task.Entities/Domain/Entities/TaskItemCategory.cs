@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
-namespace SurePortal.Module.Task.Entities
+namespace DaiPhatDat.Module.Task.Entities
 {
     [Table("Task.TaskItemCategory")]
     public class TaskItemCategory

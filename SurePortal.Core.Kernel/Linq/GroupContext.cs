@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SurePortal.Core.Kernel.Linq
+namespace DaiPhatDat.Core.Kernel.Linq
 {
     public class GroupContext
     {

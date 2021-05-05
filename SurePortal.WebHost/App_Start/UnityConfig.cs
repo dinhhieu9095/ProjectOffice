@@ -1,10 +1,10 @@
-using SurePortal.Core.Kernel.Interfaces;
-using SurePortal.Core.Kernel.Ioc;
-using SurePortal.Core.Kernel.Orgs.Application;
+using DaiPhatDat.Core.Kernel.Interfaces;
+using DaiPhatDat.Core.Kernel.Ioc;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
 using System;
 using Unity;
 
-namespace SurePortal.WebHost
+namespace DaiPhatDat.WebHost
 {
     /// <summary>
     ///     Specifies the Unity configuration for the main container.

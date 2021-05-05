@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 
-namespace SurePortal.Core.Kernel.AmbientScope
+namespace DaiPhatDat.Core.Kernel.AmbientScope
 {
     /// <summary>
     ///     Convenience methods to retrieve ambient DbContext instances.

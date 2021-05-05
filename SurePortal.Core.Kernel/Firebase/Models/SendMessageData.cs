@@ -1,8 +1,8 @@
-﻿using SurePortal.Core.Kernel.Domain.ValueObjects;
+﻿using DaiPhatDat.Core.Kernel.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 
-namespace SurePortal.Core.Kernel.Firebase.Models
+namespace DaiPhatDat.Core.Kernel.Firebase.Models
 {
     public class SendMessageData
     {

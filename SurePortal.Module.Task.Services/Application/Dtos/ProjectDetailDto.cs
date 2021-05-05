@@ -1,13 +1,13 @@
-﻿using SurePortal.Core.Kernel.Mapper;
-using SurePortal.Core.Kernel.Orgs.Application.Dto;
-using SurePortal.Module.Task.Entities;
-using SurePortal.Module.Task.Services;
+﻿using DaiPhatDat.Core.Kernel.Mapper;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
+using DaiPhatDat.Module.Task.Entities;
+using DaiPhatDat.Module.Task.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public class ProjectDetailDto
     {

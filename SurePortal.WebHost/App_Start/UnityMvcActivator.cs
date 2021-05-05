@@ -2,10 +2,10 @@ using System.Linq;
 using System.Web.Mvc;
 using Unity.AspNet.Mvc;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SurePortal.WebHost.UnityMvcActivator), nameof(SurePortal.WebHost.UnityMvcActivator.Start))]
-[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(SurePortal.WebHost.UnityMvcActivator), nameof(SurePortal.WebHost.UnityMvcActivator.Shutdown))]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DaiPhatDat.WebHost.UnityMvcActivator), nameof(DaiPhatDat.WebHost.UnityMvcActivator.Start))]
+[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(DaiPhatDat.WebHost.UnityMvcActivator), nameof(DaiPhatDat.WebHost.UnityMvcActivator.Shutdown))]
 
-namespace SurePortal.WebHost
+namespace DaiPhatDat.WebHost
 {
     /// <summary>
     /// Provides the bootstrapping for integrating Unity with ASP.NET MVC.

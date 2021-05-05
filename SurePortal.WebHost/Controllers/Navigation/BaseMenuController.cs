@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using SurePortal.Core.Kernel.Orgs.Application;
-using SurePortal.WebHost.Modules.Navigation.Application.Services;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
+using DaiPhatDat.WebHost.Modules.Navigation.Application.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SurePortal.WebHost.Controllers
+namespace DaiPhatDat.WebHost.Controllers
 {
     public class BaseMenuController : Controller
     {

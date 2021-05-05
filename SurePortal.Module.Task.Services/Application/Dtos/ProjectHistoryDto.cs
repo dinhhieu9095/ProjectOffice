@@ -1,9 +1,9 @@
-using SurePortal.Module.Task.Entities;
+using DaiPhatDat.Module.Task.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public class ProjectHistoryDto
     {

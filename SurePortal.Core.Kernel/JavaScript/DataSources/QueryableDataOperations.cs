@@ -1,12 +1,12 @@
-﻿using SurePortal.Core.Kernel.JavaScript.Models;
-using SurePortal.Core.Kernel.Linq;
+﻿using DaiPhatDat.Core.Kernel.JavaScript.Models;
+using DaiPhatDat.Core.Kernel.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace SurePortal.Core.Kernel.JavaScript.DataSources
+namespace DaiPhatDat.Core.Kernel.JavaScript.DataSources
 {
     public static class QueryableDataOperations
     {

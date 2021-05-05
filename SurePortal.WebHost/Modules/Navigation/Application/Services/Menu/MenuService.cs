@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using SurePortal.Core.Kernel;
-using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Domain.ValueObjects;
-using SurePortal.WebHost.Common;
-using SurePortal.WebHost.Modules.Navigation.Application.Dto;
-using SurePortal.WebHost.Modules.Navigation.Application.Services;
-using SurePortal.WebHost.Modules.Navigation.Domain.POCO;
-using SurePortal.WebHost.Modules.Navigation.Domain.Repositories;
+using DaiPhatDat.Core.Kernel;
+using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Domain.ValueObjects;
+using DaiPhatDat.WebHost.Common;
+using DaiPhatDat.WebHost.Modules.Navigation.Application.Dto;
+using DaiPhatDat.WebHost.Modules.Navigation.Application.Services;
+using DaiPhatDat.WebHost.Modules.Navigation.Domain.POCO;
+using DaiPhatDat.WebHost.Modules.Navigation.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -15,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace SurePortal.WebHost.Navigation.Application
+namespace DaiPhatDat.WebHost.Navigation.Application
 {
     public class MenuService : BaseService, IMenuService
     {
@@ -306,7 +306,7 @@ namespace SurePortal.WebHost.Navigation.Application
             return new List<MenuTreeDto>();
         }
 
-        public List<SurePortal.Core.Kernel.Orgs.Domain.Role> GetAllRole()
+        public List<DaiPhatDat.Core.Kernel.Orgs.Domain.Role> GetAllRole()
         {
             try
             {
@@ -319,11 +319,11 @@ namespace SurePortal.WebHost.Navigation.Application
                 #endregion
                 using (_dbContextScopeFactory.CreateReadOnly())
                 {
-                    return _menuRepository.SqlQuery<SurePortal.Core.Kernel.Orgs.Domain.Role>(sqlData).ToList();
+                    return _menuRepository.SqlQuery<DaiPhatDat.Core.Kernel.Orgs.Domain.Role>(sqlData).ToList();
                 }
             }
             catch (Exception ex) { }
-            return new List<SurePortal.Core.Kernel.Orgs.Domain.Role>();
+            return new List<DaiPhatDat.Core.Kernel.Orgs.Domain.Role>();
         }
     }
 }

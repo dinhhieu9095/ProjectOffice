@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SurePortal.Core.Kernel.Notifications.Models
+namespace DaiPhatDat.Core.Kernel.Notifications.Models
 {
     public class UpdateNotificationInput
     {

@@ -7,17 +7,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebHost", "WebHost", "{E5E9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{C26EF288-17AB-4421-8EF4-AB6CFE8B5C71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurePortal.WebHost", "SurePortal.WebHost\SurePortal.WebHost.csproj", "{F1D75719-46B5-4198-B164-DFBF437E4DC7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaiPhatDat.WebHost", "SurePortal.WebHost\DaiPhatDat.WebHost.csproj", "{F1D75719-46B5-4198-B164-DFBF437E4DC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurePortal.Core.Kernel", "SurePortal.Core.Kernel\SurePortal.Core.Kernel.csproj", "{ECD84EF0-B902-41A1-B8E6-2113D278BB8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaiPhatDat.Core.Kernel", "SurePortal.Core.Kernel\DaiPhatDat.Core.Kernel.csproj", "{ECD84EF0-B902-41A1-B8E6-2113D278BB8F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{AF804E70-E0D1-4B66-80BC-B9B82DC15E01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurePortal.Module.Task.Entities", "SurePortal.Module.Task.Entities\SurePortal.Module.Task.Entities.csproj", "{4AD66525-86D3-47D9-BF8B-152B1A5C9B1B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaiPhatDat.Module.Task.Entities", "SurePortal.Module.Task.Entities\DaiPhatDat.Module.Task.Entities.csproj", "{4AD66525-86D3-47D9-BF8B-152B1A5C9B1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurePortal.Module.Task.Services", "SurePortal.Module.Task.Services\SurePortal.Module.Task.Services.csproj", "{58A0C014-4242-484B-93D9-6CAD81719258}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaiPhatDat.Module.Task.Services", "SurePortal.Module.Task.Services\DaiPhatDat.Module.Task.Services.csproj", "{58A0C014-4242-484B-93D9-6CAD81719258}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurePortal.Module.Task.Web", "SurePortal.WebHost\Areas\Task\SurePortal.Module.Task.Web.csproj", "{BBACC4EE-4DF4-4C8A-AB64-652F328B5078}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaiPhatDat.Module.Task.Web", "SurePortal.WebHost\Areas\Task\DaiPhatDat.Module.Task.Web.csproj", "{BBACC4EE-4DF4-4C8A-AB64-652F328B5078}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{EEB2A4C0-0DA2-4683-9C6B-EE4DE6E559A4}"
+	ProjectSection(SolutionItems) = preProject
+		TASK_Sql.sql = TASK_Sql.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

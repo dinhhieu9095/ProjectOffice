@@ -1,6 +1,6 @@
-﻿using SurePortal.Core.Kernel.Notifications.Domain.ValueObjects;
+﻿using DaiPhatDat.Core.Kernel.Notifications.Domain.ValueObjects;
 
-namespace SurePortal.Core.Kernel.Notifications.Models
+namespace DaiPhatDat.Core.Kernel.Notifications.Models
 {
     public class SearchNotificationInput
     {

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace SurePortal.WebHost.Controllers
+namespace DaiPhatDat.WebHost.Controllers
 {
     public class ErrorController : Controller
     {

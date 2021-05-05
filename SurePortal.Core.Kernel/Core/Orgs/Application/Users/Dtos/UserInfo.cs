@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using SurePortal.Core.Kernel.Application.Helpers;
-using SurePortal.Core.Kernel.Mapper;
-using SurePortal.Core.Kernel.Orgs.Application.Contract;
+using DaiPhatDat.Core.Kernel.Application.Helpers;
+using DaiPhatDat.Core.Kernel.Mapper;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Contract;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace SurePortal.Core.Kernel.Orgs.Application.Dto
+namespace DaiPhatDat.Core.Kernel.Orgs.Application.Dto
 {
     public class UserInfo : IMapping<UserDepartmentDto>, IComplexMapping
     {

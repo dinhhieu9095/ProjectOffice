@@ -1,24 +1,24 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Application.Utilities;
-using SurePortal.Core.Kernel.ExternalServices;
-using SurePortal.Core.Kernel.Linq;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Notifications.Application.Dto;
-using SurePortal.Core.Kernel.Notifications.Application.Notifications.Dto;
-using SurePortal.Core.Kernel.Notifications.Application.NotificationTypes;
-using SurePortal.Core.Kernel.Notifications.Domain.Entities;
-using SurePortal.Core.Kernel.Notifications.Domain.Repositories;
-using SurePortal.Core.Kernel.Notifications.Domain.ValueObjects;
-using SurePortal.Core.Kernel.Orgs.Application;
+using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Application.Utilities;
+using DaiPhatDat.Core.Kernel.ExternalServices;
+using DaiPhatDat.Core.Kernel.Linq;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Notifications.Application.Dto;
+using DaiPhatDat.Core.Kernel.Notifications.Application.Notifications.Dto;
+using DaiPhatDat.Core.Kernel.Notifications.Application.NotificationTypes;
+using DaiPhatDat.Core.Kernel.Notifications.Domain.Entities;
+using DaiPhatDat.Core.Kernel.Notifications.Domain.Repositories;
+using DaiPhatDat.Core.Kernel.Notifications.Domain.ValueObjects;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.Notifications.Application
+namespace DaiPhatDat.Core.Kernel.Notifications.Application
 {
     /// <summary>
     /// Lớp dịch vụ cung cấp thông tin user

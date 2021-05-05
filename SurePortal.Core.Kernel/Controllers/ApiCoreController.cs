@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using SurePortal.Core.Kernel.Application.Utilities;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Orgs.Application;
-using SurePortal.Core.Kernel.Orgs.Application.Dto;
+using DaiPhatDat.Core.Kernel.Application.Utilities;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -13,7 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace SurePortal.Core.Kernel.Controllers
+namespace DaiPhatDat.Core.Kernel.Controllers
 {
     [System.Web.Http.Authorize]
     public class ApiCoreController : ApiController

@@ -1,5 +1,5 @@
 ﻿
-namespace SurePortal.Core.Kernel.AmbientScope
+namespace DaiPhatDat.Core.Kernel.AmbientScope
 {
     public class PagingQuery
     {

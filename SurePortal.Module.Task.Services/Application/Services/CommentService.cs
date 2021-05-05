@@ -1,21 +1,21 @@
 ﻿using AutoMapper;
-using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Orgs.Models;
-using SurePortal.Module.Task.Entities;
+using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Models;
+using DaiPhatDat.Module.Task.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
-using SurePortal.Core.Kernel.Orgs.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
 using System.Globalization;
 using SystemTask = System.Threading.Tasks.Task;
-using SurePortal.Core.Kernel.Orgs.Domain.Entities;
-using SurePortal.Core.Kernel.Helper;
+using DaiPhatDat.Core.Kernel.Orgs.Domain.Entities;
+using DaiPhatDat.Core.Kernel.Helper;
 
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public class CommentService : ICommentService
     {

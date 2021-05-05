@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 
-namespace SurePortal.Core.Kernel.Application.Extensions
+namespace DaiPhatDat.Core.Kernel.Application.Extensions
 {
     public static class EnumExtensions
     {

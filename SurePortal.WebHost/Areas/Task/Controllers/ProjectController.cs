@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
-using SurePortal.Core.Kernel.Application.Utilities;
-using SurePortal.Core.Kernel.Controllers;
-using SurePortal.Core.Kernel.Firebase.Models;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Orgs.Application;
-using SurePortal.Module.Task.Entities;
-using SurePortal.Module.Task.Services;
+using DaiPhatDat.Core.Kernel.Application.Utilities;
+using DaiPhatDat.Core.Kernel.Controllers;
+using DaiPhatDat.Core.Kernel.Firebase.Models;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
+using DaiPhatDat.Module.Task.Entities;
+using DaiPhatDat.Module.Task.Services;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SurePortal.Module.Task.Web
+namespace DaiPhatDat.Module.Task.Web
 {
     [Authorize]
     [RouteArea("Task")]

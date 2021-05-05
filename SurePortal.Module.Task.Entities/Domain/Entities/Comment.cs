@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SurePortal.Module.Task.Entities
+namespace DaiPhatDat.Module.Task.Entities
 {
     public class Comment
     {

@@ -1,11 +1,11 @@
-﻿using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Linq;
-using SurePortal.Core.Kernel.Orgs.Domain;
+﻿using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Linq;
+using DaiPhatDat.Core.Kernel.Orgs.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SurePortal.Core.Kernel.Orgs.Infrastructure
+namespace DaiPhatDat.Core.Kernel.Orgs.Infrastructure
 {
     public class UserRepository : Repository<OrgDbContext, User>, IUserRepository
     {

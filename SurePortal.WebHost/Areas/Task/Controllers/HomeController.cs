@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
-using SurePortal.Core.Kernel;
-using SurePortal.Core.Kernel.Controllers;
-using SurePortal.Core.Kernel.Helper;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Models;
-using SurePortal.Core.Kernel.Orgs.Application;
-using SurePortal.Core.Kernel.Orgs.Application.Contract;
-using SurePortal.Module.Task.Services;
+using DaiPhatDat.Core.Kernel;
+using DaiPhatDat.Core.Kernel.Controllers;
+using DaiPhatDat.Core.Kernel.Helper;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Models;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Contract;
+using DaiPhatDat.Module.Task.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SurePortal.Module.Task.Web
+namespace DaiPhatDat.Module.Task.Web
 {
     [Authorize]
     [RouteArea("Task")]

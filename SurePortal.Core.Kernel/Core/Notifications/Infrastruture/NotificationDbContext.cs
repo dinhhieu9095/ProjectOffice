@@ -1,8 +1,8 @@
-﻿using SurePortal.Core.Kernel.Notifications.Infrastructure.Config;
+﻿using DaiPhatDat.Core.Kernel.Notifications.Infrastructure.Config;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-namespace SurePortal.Core.Kernel.Notifications.Infrastruture
+namespace DaiPhatDat.Core.Kernel.Notifications.Infrastruture
 {
     public class NotificationDbContext : Context, IContext
     {

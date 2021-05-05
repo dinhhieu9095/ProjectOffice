@@ -1,11 +1,11 @@
-﻿using SurePortal.Core.Kernel.Mapper;
-using SurePortal.Core.Kernel.Notifications.Application.Dto;
-using SurePortal.Core.Kernel.Orgs.Domain;
+﻿using DaiPhatDat.Core.Kernel.Mapper;
+using DaiPhatDat.Core.Kernel.Notifications.Application.Dto;
+using DaiPhatDat.Core.Kernel.Orgs.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SurePortal.Core.Kernel.Orgs.Application.Dto
+namespace DaiPhatDat.Core.Kernel.Orgs.Application.Dto
 {
     public class UserDto : IMapping<User>
     {

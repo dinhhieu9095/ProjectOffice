@@ -3,7 +3,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace SurePortal.Core.Kernel.Linq
+namespace DaiPhatDat.Core.Kernel.Linq
 {
     /// <summary>
     ///     A framework independent utility class for the new Nullable type in .NET Framework 2.0

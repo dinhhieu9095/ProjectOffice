@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SurePortal.Module.Task.Entities
+namespace DaiPhatDat.Module.Task.Entities
 {
     public enum TaskType
     {

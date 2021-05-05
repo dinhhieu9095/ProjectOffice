@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Web.Mvc;
 
-namespace SurePortal.Core.Kernel.Filters
+namespace DaiPhatDat.Core.Kernel.Filters
 {
     /// <summary>Processes the output of an action before it is transmitted to the client.</summary>
     public abstract class OutputProcessorActionFilterAttribute : ActionFilterAttribute

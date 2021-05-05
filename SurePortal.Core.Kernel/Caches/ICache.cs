@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SurePortal.Core.Kernel.Caches
+namespace DaiPhatDat.Core.Kernel.Caches
 {
     public interface ICache
     {

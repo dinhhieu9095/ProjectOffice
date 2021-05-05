@@ -1,7 +1,7 @@
 using System;
 using System.Web.Compilation;
 
-namespace SurePortal.Core.Kernel.Application.ViewEngines
+namespace DaiPhatDat.Core.Kernel.Application.ViewEngines
 {
     public interface IBuildManager
     {

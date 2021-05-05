@@ -1,5 +1,5 @@
 ﻿using RefactorThis.GraphDiff;
-using SurePortal.Core.Kernel.Mapper;
+using DaiPhatDat.Core.Kernel.Mapper;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.AmbientScope
+namespace DaiPhatDat.Core.Kernel.AmbientScope
 {
     public interface IRepository<TEntity> where TEntity : class, new()
     {

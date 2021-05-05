@@ -1,6 +1,6 @@
-﻿using SurePortal.Core.Kernel.Application;
-using SurePortal.Core.Kernel.Application.ViewEngines;
-using SurePortal.Core.Kernel.Logger.Application;
+﻿using DaiPhatDat.Core.Kernel.Application;
+using DaiPhatDat.Core.Kernel.Application.ViewEngines;
+using DaiPhatDat.Core.Kernel.Logger.Application;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -9,10 +9,10 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web;
-using SurePortal.Core.Kernel.Resources.Application.Dto;
+using DaiPhatDat.Core.Kernel.Resources.Application.Dto;
 using System.Collections.Generic;
 
-namespace SurePortal.WebHost
+namespace DaiPhatDat.WebHost
 {
     public class App : HttpApplication
     {

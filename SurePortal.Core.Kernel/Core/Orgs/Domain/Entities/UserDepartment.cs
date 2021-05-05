@@ -1,9 +1,9 @@
-﻿using SurePortal.Core.Kernel.Orgs.Domain.Entities;
+﻿using DaiPhatDat.Core.Kernel.Orgs.Domain.Entities;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SurePortal.Core.Kernel.Orgs.Domain
+namespace DaiPhatDat.Core.Kernel.Orgs.Domain
 {
     public class UserDepartment
     {

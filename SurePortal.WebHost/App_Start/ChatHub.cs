@@ -7,7 +7,7 @@
 //using System.Threading.Tasks;
 //using System.Web;
 
-//namespace SurePortal.WebHost
+//namespace DaiPhatDat.WebHost
 //{
 //    [HubName("chat")]
 //    public class ChatHub : Hub

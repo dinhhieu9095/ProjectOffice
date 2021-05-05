@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 
-namespace SurePortal.Core.Kernel.AmbientScope
+namespace DaiPhatDat.Core.Kernel.AmbientScope
 {
     /// <summary>
     ///     Factory for DbContext-derived classes that don't expose

@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Firebase.Models;
-using SurePortal.Core.Kernel.Helper;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Orgs.Application;
-using SurePortal.Module.Task.Entities;
+using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Firebase.Models;
+using DaiPhatDat.Core.Kernel.Helper;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
+using DaiPhatDat.Module.Task.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,11 +17,11 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using System.Threading;
-using SurePortal.Core.Kernel.Orgs.Application.Dto;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
 using RefactorThis.GraphDiff;
 using System.Configuration;
 
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public class TaskItemService : ITaskItemService
     {

@@ -1,12 +1,12 @@
-﻿using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Orgs.Domain.Entities;
+﻿using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Orgs.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SurePortal.Module.Task.Entities
+namespace DaiPhatDat.Module.Task.Entities
 {
     public class UserDelegationRepository : Repository<TaskContext, UserDelegation>, IUserDelegationRepository
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace SurePortal.Core.Kernel.Filters
+namespace DaiPhatDat.Core.Kernel.Filters
 {
     public class LocalizeAttribute : OutputProcessorActionFilterAttribute
     {

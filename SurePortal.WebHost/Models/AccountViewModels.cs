@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SurePortal.WebHost.Models
+namespace DaiPhatDat.WebHost.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

@@ -1,10 +1,10 @@
-﻿using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Notifications.Domain.Entities;
+﻿using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Notifications.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.Notifications.Domain.Repositories
+namespace DaiPhatDat.Core.Kernel.Notifications.Domain.Repositories
 {
     public interface INotificationSettingRepository : IRepository<NotificationSetting>
     {

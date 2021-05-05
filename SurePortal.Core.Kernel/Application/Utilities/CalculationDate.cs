@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.Application.Utilities
+namespace DaiPhatDat.Core.Kernel.Application.Utilities
 {
     public class OpenHours
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace SurePortal.Core.Kernel.Linq
+namespace DaiPhatDat.Core.Kernel.Linq
 {
     /// <summary>Specifies the FilterType to be used in LINQ methods.</summary>
     public enum FilterType

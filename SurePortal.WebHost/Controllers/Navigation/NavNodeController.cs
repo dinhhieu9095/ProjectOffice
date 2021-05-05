@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using SurePortal.WebHost.Common;
-using SurePortal.WebHost.Models.Navigation;
-using SurePortal.WebHost.Modules.Navigation.Application.Dto;
-using SurePortal.WebHost.Modules.Navigation.Application.Services;
-using SurePortal.WebHost.Modules.Navigation.Domain.POCO;
+using DaiPhatDat.WebHost.Common;
+using DaiPhatDat.WebHost.Models.Navigation;
+using DaiPhatDat.WebHost.Modules.Navigation.Application.Dto;
+using DaiPhatDat.WebHost.Modules.Navigation.Application.Services;
+using DaiPhatDat.WebHost.Modules.Navigation.Domain.POCO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SurePortal.WebHost.Controllers
+namespace DaiPhatDat.WebHost.Controllers
 {
     public class NavNodeController : BaseMenuController
     {

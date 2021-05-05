@@ -1,12 +1,12 @@
-﻿using SurePortal.Core.Kernel.Controllers;
-using SurePortal.Core.Kernel.JavaScript;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Orgs.Application;
-using SurePortal.Core.Kernel.Orgs.Models;
+﻿using DaiPhatDat.Core.Kernel.Controllers;
+using DaiPhatDat.Core.Kernel.JavaScript;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Models;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace SurePortal.Core.Kernel.Orgs.Controllers
+namespace DaiPhatDat.Core.Kernel.Orgs.Controllers
 {
     [RoutePrefix("_apis/system-configs")]
     public class SystemConfigController : ApiCoreController

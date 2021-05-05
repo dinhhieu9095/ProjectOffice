@@ -1,12 +1,12 @@
-using SurePortal.Core.Kernel.Mapper;
-using SurePortal.Core.Kernel.Orgs.Application.Contract;
-using SurePortal.Core.Kernel.Orgs.Application.Dto;
-using SurePortal.Core.Kernel.Orgs.Domain;
-using SurePortal.Module.Task.Entities;
+using DaiPhatDat.Core.Kernel.Mapper;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Contract;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
+using DaiPhatDat.Core.Kernel.Orgs.Domain;
+using DaiPhatDat.Module.Task.Entities;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public class ReportDto : IMapping<Report>
     {

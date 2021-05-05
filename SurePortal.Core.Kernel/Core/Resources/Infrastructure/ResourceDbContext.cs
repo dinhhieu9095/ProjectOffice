@@ -1,8 +1,8 @@
-﻿using SurePortal.Core.Kernel.Resources.Application.Dto;
-using SurePortal.Core.Kernel.Resources.Domain.Entities;
+﻿using DaiPhatDat.Core.Kernel.Resources.Application.Dto;
+using DaiPhatDat.Core.Kernel.Resources.Domain.Entities;
 using System.Data.Entity;
 
-namespace SurePortal.Core.Kernel.Resources.Infrastructure
+namespace DaiPhatDat.Core.Kernel.Resources.Infrastructure
 {
     public class ResourceDbContext : Context, IContext
     {

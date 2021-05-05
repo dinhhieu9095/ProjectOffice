@@ -7,7 +7,7 @@ using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.AmbientScope
+namespace DaiPhatDat.Core.Kernel.AmbientScope
 {
     /// <inheritdoc />
     /// <summary>

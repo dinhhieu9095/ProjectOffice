@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SurePortal.Core.Kernel.Orgs.Domain.Entities
+namespace DaiPhatDat.Core.Kernel.Orgs.Domain.Entities
 {
     public class ReadUserDepartment
     {

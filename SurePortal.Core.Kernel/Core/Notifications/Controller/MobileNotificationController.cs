@@ -1,20 +1,20 @@
-﻿using SurePortal.Core.Kernel.Controllers;
-using SurePortal.Core.Kernel.Domain.ValueObjects;
-using SurePortal.Core.Kernel.Firebase.Application;
-using SurePortal.Core.Kernel.Firebase.Models;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Models.Responses;
-using SurePortal.Core.Kernel.Notifications.Application;
-using SurePortal.Core.Kernel.Notifications.Application.Dto;
-using SurePortal.Core.Kernel.Notifications.Domain.ValueObjects;
-using SurePortal.Core.Kernel.Notifications.Models;
-using SurePortal.Core.Kernel.Orgs.Application;
+﻿using DaiPhatDat.Core.Kernel.Controllers;
+using DaiPhatDat.Core.Kernel.Domain.ValueObjects;
+using DaiPhatDat.Core.Kernel.Firebase.Application;
+using DaiPhatDat.Core.Kernel.Firebase.Models;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Models.Responses;
+using DaiPhatDat.Core.Kernel.Notifications.Application;
+using DaiPhatDat.Core.Kernel.Notifications.Application.Dto;
+using DaiPhatDat.Core.Kernel.Notifications.Domain.ValueObjects;
+using DaiPhatDat.Core.Kernel.Notifications.Models;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace SurePortal.Core.Kernel.Notifications.Controller
+namespace DaiPhatDat.Core.Kernel.Notifications.Controller
 {
     [RoutePrefix("_apis/m/notification")]
     public class MobileNotificationController : ApiCoreController

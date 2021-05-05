@@ -1,7 +1,7 @@
-﻿using SurePortal.Core.Kernel.Domain.ValueObjects;
-using SurePortal.Core.Kernel.Mapper;
-using SurePortal.WebHost.Common;
-using SurePortal.WebHost.Modules.Navigation.Application.Dto;
+﻿using DaiPhatDat.Core.Kernel.Domain.ValueObjects;
+using DaiPhatDat.Core.Kernel.Mapper;
+using DaiPhatDat.WebHost.Common;
+using DaiPhatDat.WebHost.Modules.Navigation.Application.Dto;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 
-namespace SurePortal.WebHost.Models.Navigation
+namespace DaiPhatDat.WebHost.Models.Navigation
 {
     #region List
 

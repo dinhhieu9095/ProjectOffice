@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Orgs.Application.Dto;
-using SurePortal.Core.Kernel.Orgs.Domain.Entities;
-using SurePortal.Core.Kernel.Orgs.Domain.Repositories;
+using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
+using DaiPhatDat.Core.Kernel.Orgs.Domain.Entities;
+using DaiPhatDat.Core.Kernel.Orgs.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.Orgs.Application
+namespace DaiPhatDat.Core.Kernel.Orgs.Application
 {
     public class UserDeviceServices : IUserDeviceServices
     {

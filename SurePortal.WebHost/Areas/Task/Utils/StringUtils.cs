@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
-namespace SurePortal.Module.Task.Web.Utils
+namespace DaiPhatDat.Module.Task.Web.Utils
 {
     public class StringUtils
     {

@@ -165,10 +165,6 @@
     <Reference Include="sqlite-jdbc-3.30.1, Version=8.1.4.0, Culture=neutral, PublicKeyToken=8783d630753e2b3f, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\net.sf.mpxj-common.8.1.4\lib\sqlite-jdbc-3.30.1.dll</HintPath>
     </Reference>
-    <Reference Include="SurePortal.Core.Kernel, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Libraries\SurePortal.Core.Kernel.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -1507,13 +1503,17 @@
     <Content Include="Views\ProjectFilterParam\_ProjectFilterParamPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\SurePortal.Module.Task.Entities\SurePortal.Module.Task.Entities.csproj">
-      <Project>{4ad66525-86d3-47d9-bf8b-152b1a5c9b1b}</Project>
-      <Name>SurePortal.Module.Task.Entities</Name>
+    <ProjectReference Include="..\..\..\SurePortal.Core.Kernel\DaiPhatDat.Core.Kernel.csproj">
+      <Project>{ecd84ef0-b902-41a1-b8e6-2113d278bb8f}</Project>
+      <Name>DaiPhatDat.Core.Kernel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\SurePortal.Module.Task.Services\SurePortal.Module.Task.Services.csproj">
+    <ProjectReference Include="..\..\..\SurePortal.Module.Task.Entities\DaiPhatDat.Module.Task.Entities.csproj">
+      <Project>{4ad66525-86d3-47d9-bf8b-152b1a5c9b1b}</Project>
+      <Name>DaiPhatDat.Module.Task.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\SurePortal.Module.Task.Services\DaiPhatDat.Module.Task.Services.csproj">
       <Project>{58a0c014-4242-484b-93d9-6cad81719258}</Project>
-      <Name>SurePortal.Module.Task.Services</Name>
+      <Name>DaiPhatDat.Module.Task.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

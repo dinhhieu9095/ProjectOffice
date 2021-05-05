@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace SurePortal.Core.Kernel.Filters
+namespace DaiPhatDat.Core.Kernel.Filters
 {
     internal class OutputProcessorStream : Stream
     {

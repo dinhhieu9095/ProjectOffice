@@ -1,7 +1,7 @@
-﻿using SurePortal.Core.Kernel.Orgs.Domain.Entities;
+﻿using DaiPhatDat.Core.Kernel.Orgs.Domain.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SurePortal.Core.Kernel.Orgs.Application.Dto
+namespace DaiPhatDat.Core.Kernel.Orgs.Application.Dto
 {
     [Table("SignServer", Schema = "Core")]
     public class SignatureServer : BaseEntity

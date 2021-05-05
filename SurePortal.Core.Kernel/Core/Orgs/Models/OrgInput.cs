@@ -1,8 +1,8 @@
-﻿using SurePortal.Core.Kernel.Models;
-using SurePortal.Core.Kernel.Orgs.Application.Dto;
+﻿using DaiPhatDat.Core.Kernel.Models;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
 using System;
 
-namespace SurePortal.Core.Kernel.Orgs.Models
+namespace DaiPhatDat.Core.Kernel.Orgs.Models
 {
     public class CrudSystemConfigInput
     {

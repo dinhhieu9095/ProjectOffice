@@ -1,7 +1,7 @@
-﻿using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Orgs.Domain.Entities;
+﻿using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Orgs.Domain.Entities;
 
-namespace SurePortal.Module.Task.Entities
+namespace DaiPhatDat.Module.Task.Entities
 {
     public interface IUserDelegationRepository : IRepository<UserDelegation>
     {

@@ -1,6 +1,6 @@
 ﻿using Unity;
 
-namespace SurePortal.Core.Kernel.Interfaces
+namespace DaiPhatDat.Core.Kernel.Interfaces
 {
     public interface IUnityDependencyResolver
     {

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using SurePortal.Core.Kernel;
-using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.WebHost.Common;
-using SurePortal.WebHost.Modules.Navigation.Application.Dto;
-using SurePortal.WebHost.Modules.Navigation.Application.Services;
-using SurePortal.WebHost.Modules.Navigation.Domain.POCO;
-using SurePortal.WebHost.Modules.Navigation.Domain.Repositories;
+using DaiPhatDat.Core.Kernel;
+using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.WebHost.Common;
+using DaiPhatDat.WebHost.Modules.Navigation.Application.Dto;
+using DaiPhatDat.WebHost.Modules.Navigation.Application.Services;
+using DaiPhatDat.WebHost.Modules.Navigation.Domain.POCO;
+using DaiPhatDat.WebHost.Modules.Navigation.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace SurePortal.WebHost.Navigation.Application
+namespace DaiPhatDat.WebHost.Navigation.Application
 {
     public class NavNodeService : BaseService, INavNodeService
     {

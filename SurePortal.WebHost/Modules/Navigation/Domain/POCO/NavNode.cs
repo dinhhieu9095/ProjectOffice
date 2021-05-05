@@ -1,6 +1,6 @@
-﻿using SurePortal.Core.Kernel;
-using SurePortal.WebHost.Modules.Navigation.Application.Dto;
-using SurePortal.WebHost.Modules.Navigation.Domain.Entities;
+﻿using DaiPhatDat.Core.Kernel;
+using DaiPhatDat.WebHost.Modules.Navigation.Application.Dto;
+using DaiPhatDat.WebHost.Modules.Navigation.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace SurePortal.WebHost.Modules.Navigation.Domain.POCO
+namespace DaiPhatDat.WebHost.Modules.Navigation.Domain.POCO
 {
     [Table("NavNode")]
     public class NavNode : NavNodeEntity

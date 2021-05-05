@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.Notifications.Application.Notifications.Dto
+namespace DaiPhatDat.Core.Kernel.Notifications.Application.Notifications.Dto
 {
     public class SendOtpInput
     {

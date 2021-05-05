@@ -1,5 +1,5 @@
-﻿using SurePortal.Core.Kernel.JavaScript.Models;
-using SurePortal.Core.Kernel.Linq;
+﻿using DaiPhatDat.Core.Kernel.JavaScript.Models;
+using DaiPhatDat.Core.Kernel.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
-namespace SurePortal.Core.Kernel.JavaScript.DataSources
+namespace DaiPhatDat.Core.Kernel.JavaScript.DataSources
 {
     public class DataOperations
     {

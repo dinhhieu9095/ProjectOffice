@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace SurePortal.Core.Kernel.Linq
+namespace DaiPhatDat.Core.Kernel.Linq
 {
     public class QueryBase<T> : IQueryable<T>, IEnumerable<T>, IEnumerable, IQueryable
     {

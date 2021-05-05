@@ -4,7 +4,7 @@ using System.Data.Entity.Migrations;
 using System.Data.Entity.Migrations.Infrastructure;
 using System.Resources;
 
-namespace SurePortal.Core.Kernel.Notifications.Migrations
+namespace DaiPhatDat.Core.Kernel.Notifications.Migrations
 {
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
     public sealed partial class InitialNotification : IMigrationMetadata

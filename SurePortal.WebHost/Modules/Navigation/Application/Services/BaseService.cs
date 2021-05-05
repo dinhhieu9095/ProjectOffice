@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using SurePortal.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.AmbientScope;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SurePortal.WebHost.Modules.Navigation.Application.Services
+namespace DaiPhatDat.WebHost.Modules.Navigation.Application.Services
 {
     public class BaseService
     {

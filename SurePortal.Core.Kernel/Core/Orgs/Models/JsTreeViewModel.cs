@@ -1,5 +1,5 @@
 ﻿
-namespace SurePortal.Core.Kernel.Orgs.Models
+namespace DaiPhatDat.Core.Kernel.Orgs.Models
 {
     public class JsTreeViewModel
     {

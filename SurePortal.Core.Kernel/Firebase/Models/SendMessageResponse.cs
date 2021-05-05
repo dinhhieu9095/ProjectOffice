@@ -1,5 +1,5 @@
 ﻿
-namespace SurePortal.Core.Kernel.Firebase.Models
+namespace DaiPhatDat.Core.Kernel.Firebase.Models
 {
     public class SendMessageResponse
     {

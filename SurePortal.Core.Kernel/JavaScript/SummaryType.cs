@@ -1,5 +1,5 @@
 ﻿
-namespace SurePortal.Core.Kernel.JavaScript
+namespace DaiPhatDat.Core.Kernel.JavaScript
 {
     /// <summary>
     ///     Gets or sets a value that indicates the type of calculations to be performed for the corresponding summary column.

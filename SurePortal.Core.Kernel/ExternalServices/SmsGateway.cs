@@ -2,7 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.ExternalServices
+namespace DaiPhatDat.Core.Kernel.ExternalServices
 {
     public static class SmsGateway
     {

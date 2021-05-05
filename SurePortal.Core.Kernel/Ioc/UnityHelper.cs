@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Mapper;
+using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Mapper;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +14,7 @@ using Unity.Injection;
 using Unity.Lifetime;
 using Unity.RegistrationByConvention;
 
-namespace SurePortal.Core.Kernel.Ioc
+namespace DaiPhatDat.Core.Kernel.Ioc
 {
     public static class UnityHelper
     {

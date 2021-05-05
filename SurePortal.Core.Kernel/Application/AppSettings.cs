@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using System.IO;
 
-namespace SurePortal.Core.Kernel.Application
+namespace DaiPhatDat.Core.Kernel.Application
 {
     public class AppSettings
     {

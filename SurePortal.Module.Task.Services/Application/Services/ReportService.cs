@@ -2,14 +2,14 @@
 using LacViet.SurePortal.Infrastructure.Specifications;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
-using SurePortal.Core.Kernel;
-using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Helper;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Models;
-using SurePortal.Core.Kernel.Orgs.Application;
-using SurePortal.Core.Kernel.Orgs.Application.Contract;
-using SurePortal.Module.Task.Entities;
+using DaiPhatDat.Core.Kernel;
+using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Helper;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Models;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Contract;
+using DaiPhatDat.Module.Task.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -19,7 +19,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public class ReportService : IReportService
     {

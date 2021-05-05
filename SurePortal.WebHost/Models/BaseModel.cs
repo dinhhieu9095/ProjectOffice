@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using static SurePortal.WebHost.Constant;
+using static DaiPhatDat.WebHost.Constant;
 
-namespace SurePortal.WebHost.Models
+namespace DaiPhatDat.WebHost.Models
 {
     public class BaseGetPaging
     {

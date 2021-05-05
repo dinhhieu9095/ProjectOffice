@@ -1,5 +1,5 @@
 ﻿
-namespace SurePortal.Core.Kernel.AmbientScope
+namespace DaiPhatDat.Core.Kernel.AmbientScope
 {
     /// <summary>
     ///     Indicates whether or not a new DbContextScope will join the ambient scope.

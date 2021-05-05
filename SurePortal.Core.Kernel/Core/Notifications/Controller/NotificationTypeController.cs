@@ -1,14 +1,14 @@
-﻿using SurePortal.Core.Kernel.Controllers;
-using SurePortal.Core.Kernel.JavaScript;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Notifications.Application.NotificationTypes;
-using SurePortal.Core.Kernel.Notifications.Models;
-using SurePortal.Core.Kernel.Orgs.Application;
+﻿using DaiPhatDat.Core.Kernel.Controllers;
+using DaiPhatDat.Core.Kernel.JavaScript;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Notifications.Application.NotificationTypes;
+using DaiPhatDat.Core.Kernel.Notifications.Models;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
 using System;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace SurePortal.Core.Kernel.Notifications.Controller
+namespace DaiPhatDat.Core.Kernel.Notifications.Controller
 {
     [RoutePrefix("_apis/notification-types")]
     public class NotificationTypeController : ApiCoreController

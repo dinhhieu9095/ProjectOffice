@@ -1,11 +1,11 @@
-﻿using SurePortal.Core.Kernel.Domain.Entities;
-using SurePortal.Core.Kernel.Domain.ValueObjects;
-using SurePortal.WebHost.Common;
-using SurePortal.WebHost.Modules.Navigation.Application.Dto;
-using SurePortal.WebHost.Modules.Navigation.Domain.POCO;
+﻿using DaiPhatDat.Core.Kernel.Domain.Entities;
+using DaiPhatDat.Core.Kernel.Domain.ValueObjects;
+using DaiPhatDat.WebHost.Common;
+using DaiPhatDat.WebHost.Modules.Navigation.Application.Dto;
+using DaiPhatDat.WebHost.Modules.Navigation.Domain.POCO;
 using System;
 
-namespace SurePortal.WebHost.Modules.Navigation.Domain.Entities
+namespace DaiPhatDat.WebHost.Modules.Navigation.Domain.Entities
 {
     public class MenuEntity : BaseMoreEntity
     {

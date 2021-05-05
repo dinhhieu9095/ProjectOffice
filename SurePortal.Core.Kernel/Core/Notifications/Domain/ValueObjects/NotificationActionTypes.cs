@@ -1,5 +1,5 @@
 ﻿
-namespace SurePortal.Core.Kernel.Notifications.Domain.ValueObjects
+namespace DaiPhatDat.Core.Kernel.Notifications.Domain.ValueObjects
 {
     /// <summary>
     /// Các loại thông báo

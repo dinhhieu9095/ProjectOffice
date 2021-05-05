@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
-using SurePortal.Core.Kernel.Controllers;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Models;
-using SurePortal.Core.Kernel.Orgs.Application;
-using SurePortal.Module.Task.Services;
+using DaiPhatDat.Core.Kernel.Controllers;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Models;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
+using DaiPhatDat.Module.Task.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SurePortal.Module.Task.Web.Controllers
+namespace DaiPhatDat.Module.Task.Web.Controllers
 {
     public class ApisController : CoreController
     {

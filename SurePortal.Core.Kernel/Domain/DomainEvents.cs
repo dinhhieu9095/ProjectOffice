@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SurePortal.Core.Kernel.Domain
+namespace DaiPhatDat.Core.Kernel.Domain
 {
     /// <summary>
     /// http://msdn.microsoft.com/en-gb/magazine/ee236415.aspx#id0400046

@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
-namespace SurePortal.Core.Kernel.Linq
+namespace DaiPhatDat.Core.Kernel.Linq
 {
     /// <summary>
     /// Provides extension methods for Queryable source.

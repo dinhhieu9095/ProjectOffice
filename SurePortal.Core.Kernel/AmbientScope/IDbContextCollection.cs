@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 
-namespace SurePortal.Core.Kernel.AmbientScope
+namespace DaiPhatDat.Core.Kernel.AmbientScope
 {
     /// <inheritdoc />
     /// <summary>

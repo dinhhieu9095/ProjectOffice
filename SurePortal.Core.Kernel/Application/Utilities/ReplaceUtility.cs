@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace SurePortal.Core.Kernel.Application.Utilities
+namespace DaiPhatDat.Core.Kernel.Application.Utilities
 {
     public class ReplaceUtility
     {

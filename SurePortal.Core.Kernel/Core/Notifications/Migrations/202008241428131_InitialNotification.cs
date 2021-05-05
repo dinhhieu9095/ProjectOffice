@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity.Migrations;
 
-namespace SurePortal.Core.Kernel.Notifications.Migrations
+namespace DaiPhatDat.Core.Kernel.Notifications.Migrations
 {
     public partial class InitialNotification : DbMigration
     {

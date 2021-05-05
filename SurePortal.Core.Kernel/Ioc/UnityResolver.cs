@@ -4,7 +4,7 @@ using System.Web.Http.Dependencies;
 using Unity;
 using Unity.Exceptions;
 
-namespace SurePortal.Core.Kernel.Ioc
+namespace DaiPhatDat.Core.Kernel.Ioc
 {
     public class UnityResolver : IDependencyResolver
     {

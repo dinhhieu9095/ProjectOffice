@@ -1,5 +1,5 @@
 ﻿
-namespace SurePortal.Core.Kernel.Models.Requests
+namespace DaiPhatDat.Core.Kernel.Models.Requests
 {
     public class KtDataTableRequest
     {

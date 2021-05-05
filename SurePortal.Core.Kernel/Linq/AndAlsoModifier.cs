@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace SurePortal.Core.Kernel.Linq
+namespace DaiPhatDat.Core.Kernel.Linq
 {
     public class AndAlsoModifier : ExpressionVisitor
     {

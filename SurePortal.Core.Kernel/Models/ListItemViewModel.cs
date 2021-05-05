@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.Models
+namespace DaiPhatDat.Core.Kernel.Models
 {
     public class ListItemViewModel
     {

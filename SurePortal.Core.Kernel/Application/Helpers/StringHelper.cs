@@ -2,7 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace SurePortal.Core.Kernel.Application.Helpers
+namespace DaiPhatDat.Core.Kernel.Application.Helpers
 {
     public class StringHelper
     {

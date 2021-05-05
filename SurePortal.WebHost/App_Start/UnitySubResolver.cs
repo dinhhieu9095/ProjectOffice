@@ -4,7 +4,7 @@ using Castle.MicroKernel.Context;
 using System.Linq;
 using Unity;
 
-namespace SurePortal.WebHost
+namespace DaiPhatDat.WebHost
 {
     public class UnitySubResolver : ISubDependencyResolver
     {

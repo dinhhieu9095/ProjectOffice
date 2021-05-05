@@ -1,11 +1,11 @@
-﻿using SurePortal.Core.Kernel.Domain.Entities;
-using SurePortal.WebHost.Common;
+﻿using DaiPhatDat.Core.Kernel.Domain.Entities;
+using DaiPhatDat.WebHost.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SurePortal.WebHost.Modules.Navigation.Domain.Entities
+namespace DaiPhatDat.WebHost.Modules.Navigation.Domain.Entities
 {
     public class NavNodeEntity : BaseMoreEntity
     {

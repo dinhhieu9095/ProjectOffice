@@ -1,4 +1,4 @@
-using SurePortal.WebHost;
+using DaiPhatDat.WebHost;
 using Swashbuckle.Application;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -6,7 +6,7 @@ using WebActivatorEx;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
-namespace SurePortal.WebHost
+namespace DaiPhatDat.WebHost
 {
     public class SwaggerConfig
     {
@@ -33,7 +33,7 @@ namespace SurePortal.WebHost
                     // hold additional metadata for an API. Version and title are required but you can also provide
                     // additional fields by chaining methods off SingleApiVersion.
                     //
-                    c.SingleApiVersion("v1", "SurePortal.WebHost");
+                    c.SingleApiVersion("v1", "DaiPhatDat.WebHost");
 
                     // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                     //

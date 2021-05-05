@@ -3,9 +3,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
 
-[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(SurePortal.WebHost.RazorGeneratorMvcStart), "Start")]
+[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(DaiPhatDat.WebHost.RazorGeneratorMvcStart), "Start")]
 
-namespace SurePortal.WebHost
+namespace DaiPhatDat.WebHost
 {
     public static class RazorGeneratorMvcStart
     {

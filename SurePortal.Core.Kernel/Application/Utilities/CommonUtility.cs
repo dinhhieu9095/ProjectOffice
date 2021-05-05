@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel
+namespace DaiPhatDat.Core.Kernel
 {
     public sealed class CommonUtility
     {

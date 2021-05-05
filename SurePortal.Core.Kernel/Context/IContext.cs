@@ -4,7 +4,7 @@ using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
 
 
-namespace SurePortal.Core.Kernel
+namespace DaiPhatDat.Core.Kernel
 {
     public interface IContext : IDisposable
     {

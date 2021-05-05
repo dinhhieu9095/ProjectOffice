@@ -1,10 +1,10 @@
-﻿using SurePortal.Core.Kernel.JavaScript;
-using SurePortal.Core.Kernel.Models;
-using SurePortal.Core.Kernel.Orgs.Application.Dto;
+﻿using DaiPhatDat.Core.Kernel.JavaScript;
+using DaiPhatDat.Core.Kernel.Models;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.Orgs.Application
+namespace DaiPhatDat.Core.Kernel.Orgs.Application
 {
     public interface ISystemConfigServices
     {

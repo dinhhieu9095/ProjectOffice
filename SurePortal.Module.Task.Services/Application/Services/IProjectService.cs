@@ -1,14 +1,14 @@
-﻿using SurePortal.Core.Kernel.Firebase.Models;
-using SurePortal.Core.Kernel.Models;
-using SurePortal.Core.Kernel.Orgs.Application.Contract;
-using SurePortal.Core.Kernel.Orgs.Application.Dto;
-using SurePortal.Module.Task.Entities;
+﻿using DaiPhatDat.Core.Kernel.Firebase.Models;
+using DaiPhatDat.Core.Kernel.Models;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Contract;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
+using DaiPhatDat.Module.Task.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-//using LacViet.SurePortal.Core.Paging;
+//using LacViet.DaiPhatDat.Core.Paging;
 //using LacViet.SurePortal.DataAccess.Models;
 //using LacViet.SurePortal.Services.DTOs;
 //using LacViet.SurePortal.Task.Business.TaskItems;
@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 //using LacViet.SurePortal.Task.Persistence;
 using SystemTask = System.Threading.Tasks.Task;
 
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public interface IProjectService
     {

@@ -1,4 +1,4 @@
-﻿using SurePortal.Core.Kernel.Application.Utilities;
+﻿using DaiPhatDat.Core.Kernel.Application.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace SurePortal.WebHost.Common
+namespace DaiPhatDat.WebHost.Common
 {
     public sealed class CommonValues
     {

@@ -1,8 +1,8 @@
-﻿using SurePortal.Core.Kernel;
-using SurePortal.WebHost.Modules.Navigation.Domain.POCO;
+﻿using DaiPhatDat.Core.Kernel;
+using DaiPhatDat.WebHost.Modules.Navigation.Domain.POCO;
 using System.Data.Entity;
 
-namespace SurePortal.WebHost.Modules.Navigation
+namespace DaiPhatDat.WebHost.Modules.Navigation
 {
     public class NavigationContext : Context, IContext
     {

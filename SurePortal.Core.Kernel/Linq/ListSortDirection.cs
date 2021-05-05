@@ -1,5 +1,5 @@
 ﻿
-namespace SurePortal.Core.Kernel.Linq
+namespace DaiPhatDat.Core.Kernel.Linq
 {
     public enum ListSortDirection
     {

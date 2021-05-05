@@ -1,13 +1,13 @@
-﻿using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Notifications.Domain.Entities;
-using SurePortal.Core.Kernel.Notifications.Domain.ValueObjects;
-using SurePortal.Core.Kernel.Notifications.Infrastruture;
+﻿using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Notifications.Domain.Entities;
+using DaiPhatDat.Core.Kernel.Notifications.Domain.ValueObjects;
+using DaiPhatDat.Core.Kernel.Notifications.Infrastruture;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.Notifications.Domain.Repositories
+namespace DaiPhatDat.Core.Kernel.Notifications.Domain.Repositories
 {
     public class NotificationTypeRepository : Repository<NotificationDbContext, NotificationType>, INotificationTypeRepository
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SurePortal.Core.Kernel.Models
+namespace DaiPhatDat.Core.Kernel.Models
 {
     public class KtDataTableResponse
     {

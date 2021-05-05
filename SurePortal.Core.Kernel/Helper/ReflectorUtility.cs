@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace SurePortal.Core.Kernel.Helper
+namespace DaiPhatDat.Core.Kernel.Helper
 {
     public class ReflectorUtility
     {

@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
-using SurePortal.Core.Kernel;
-using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Models;
-using SurePortal.Module.Task.Entities;
+using DaiPhatDat.Core.Kernel;
+using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Models;
+using DaiPhatDat.Module.Task.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public class SettingsService : ISettingsService
     {

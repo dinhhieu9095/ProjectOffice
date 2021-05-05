@@ -1,4 +1,4 @@
-﻿namespace SurePortal.Module.Task.Entities
+﻿namespace DaiPhatDat.Module.Task.Entities
 {
     public enum ProjectStatusId
     {

@@ -1,7 +1,7 @@
-﻿using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.WebHost.Modules.Navigation.Domain.POCO;
+﻿using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.WebHost.Modules.Navigation.Domain.POCO;
 
-namespace SurePortal.WebHost.Modules.Navigation.Domain.Repositories
+namespace DaiPhatDat.WebHost.Modules.Navigation.Domain.Repositories
 {
     public interface INavNodeRepository : IRepository<NavNode>
     {

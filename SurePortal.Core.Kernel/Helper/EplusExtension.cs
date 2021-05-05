@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
-namespace SurePortal.Core.Kernel.Helper
+namespace DaiPhatDat.Core.Kernel.Helper
 {
     public class EplusExtension
     {

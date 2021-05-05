@@ -11,7 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace SurePortal.Core.Kernel.Helper
+namespace DaiPhatDat.Core.Kernel.Helper
 {
     public static class StringUtils
     {

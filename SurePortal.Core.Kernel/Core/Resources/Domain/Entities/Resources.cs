@@ -1,10 +1,10 @@
-﻿using SurePortal.Core.Kernel.Application;
-using SurePortal.Core.Kernel.Helper;
-using SurePortal.Core.Kernel.Orgs.Domain.Entities;
+﻿using DaiPhatDat.Core.Kernel.Application;
+using DaiPhatDat.Core.Kernel.Helper;
+using DaiPhatDat.Core.Kernel.Orgs.Domain.Entities;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SurePortal.Core.Kernel.Resources.Domain.Entities
+namespace DaiPhatDat.Core.Kernel.Resources.Domain.Entities
 {
     [Table("Resources", Schema = "Core")]
     public class Resources

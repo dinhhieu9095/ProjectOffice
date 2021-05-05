@@ -1,9 +1,9 @@
-﻿using SurePortal.Core.Kernel.Firebase.Models;
+﻿using DaiPhatDat.Core.Kernel.Firebase.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.Firebase.Application
+namespace DaiPhatDat.Core.Kernel.Firebase.Application
 {
     public interface IFirebaseService
     {

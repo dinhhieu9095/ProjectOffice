@@ -1,13 +1,13 @@
-﻿using SurePortal.Core.Kernel.Controllers;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Notifications.Application;
-using SurePortal.Core.Kernel.Notifications.Domain.ValueObjects;
-using SurePortal.Core.Kernel.Notifications.Models;
-using SurePortal.Core.Kernel.Orgs.Application;
+﻿using DaiPhatDat.Core.Kernel.Controllers;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Notifications.Application;
+using DaiPhatDat.Core.Kernel.Notifications.Domain.ValueObjects;
+using DaiPhatDat.Core.Kernel.Notifications.Models;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace SurePortal.Core.Kernel.Orgs.Controllers
+namespace DaiPhatDat.Core.Kernel.Orgs.Controllers
 {
     [RoutePrefix("api/notification")]
     public class NotificationController : CoreController

@@ -1,5 +1,5 @@
 ﻿
-namespace SurePortal.Core.Kernel.Domain.ValueObjects
+namespace DaiPhatDat.Core.Kernel.Domain.ValueObjects
 {
     public enum SurePortalLanguages
     {

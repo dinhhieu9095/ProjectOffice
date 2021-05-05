@@ -1,9 +1,9 @@
-﻿using SurePortal.Core.Kernel.Domain.Entities;
-using SurePortal.Core.Kernel.Notifications.Domain.ValueObjects;
+﻿using DaiPhatDat.Core.Kernel.Domain.Entities;
+using DaiPhatDat.Core.Kernel.Notifications.Domain.ValueObjects;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SurePortal.Core.Kernel.Notifications.Domain.Entities
+namespace DaiPhatDat.Core.Kernel.Notifications.Domain.Entities
 {
     [Table("NotificationTypes", Schema = "Core")]
     public class NotificationType : BaseEntity

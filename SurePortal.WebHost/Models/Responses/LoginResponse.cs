@@ -1,6 +1,6 @@
-﻿using SurePortal.Core.Kernel.Orgs.Application.Dto;
+﻿using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
 
-namespace SurePortal.WebHost.Models.Responses
+namespace DaiPhatDat.WebHost.Models.Responses
 {
     public class LoginResponse
     {

@@ -1,12 +1,12 @@
-﻿using SurePortal.Core.Kernel.Application.Utilities;
-using SurePortal.Core.Kernel.Domain.Entities;
+﻿using DaiPhatDat.Core.Kernel.Application.Utilities;
+using DaiPhatDat.Core.Kernel.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace SurePortal.Core.Kernel.Domain.Entities
+namespace DaiPhatDat.Core.Kernel.Domain.Entities
 {
     public class BaseMoreEntity : BaseEntity, IBaseMoreEntity
     {

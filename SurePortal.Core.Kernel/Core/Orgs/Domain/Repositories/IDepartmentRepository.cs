@@ -1,11 +1,11 @@
-﻿using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Orgs.Application.Dto;
-using SurePortal.Core.Kernel.Orgs.Domain;
+﻿using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
+using DaiPhatDat.Core.Kernel.Orgs.Domain;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.Orgs.Infrastructure
+namespace DaiPhatDat.Core.Kernel.Orgs.Infrastructure
 {
     public interface IDepartmentRepository : IRepository<Department>
     {

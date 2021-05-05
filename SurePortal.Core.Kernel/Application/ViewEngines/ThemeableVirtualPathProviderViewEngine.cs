@@ -7,7 +7,7 @@ using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace SurePortal.Core.Kernel.Application.ViewEngines
+namespace DaiPhatDat.Core.Kernel.Application.ViewEngines
 {
     public abstract class ThemeableVirtualPathProviderViewEngine : IViewEngine
     {

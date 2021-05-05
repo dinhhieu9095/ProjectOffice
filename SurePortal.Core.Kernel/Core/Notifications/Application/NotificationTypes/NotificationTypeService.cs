@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.JavaScript;
-using SurePortal.Core.Kernel.JavaScript.DataSources;
-using SurePortal.Core.Kernel.Models;
-using SurePortal.Core.Kernel.Notifications.Domain.Entities;
-using SurePortal.Core.Kernel.Notifications.Domain.Repositories;
+using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.JavaScript;
+using DaiPhatDat.Core.Kernel.JavaScript.DataSources;
+using DaiPhatDat.Core.Kernel.Models;
+using DaiPhatDat.Core.Kernel.Notifications.Domain.Entities;
+using DaiPhatDat.Core.Kernel.Notifications.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -13,7 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SystemTask = System.Threading.Tasks.Task;
 
-namespace SurePortal.Core.Kernel.Notifications.Application.NotificationTypes
+namespace DaiPhatDat.Core.Kernel.Notifications.Application.NotificationTypes
 {
     public class NotificationTypeService : INotificationTypeService
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SurePortal.Core.Kernel.Domain
+namespace DaiPhatDat.Core.Kernel.Domain
 {
     public abstract class Entity<TId> : IEquatable<Entity<TId>>
     {

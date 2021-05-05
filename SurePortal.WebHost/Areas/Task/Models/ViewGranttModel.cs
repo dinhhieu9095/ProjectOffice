@@ -1,10 +1,10 @@
-﻿using SurePortal.Module.Task.Services;
+﻿using DaiPhatDat.Module.Task.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SurePortal.Module.Task.Web
+namespace DaiPhatDat.Module.Task.Web
 {
     public class ViewGranttModel : ViewGranttQuaterlyModel
     {

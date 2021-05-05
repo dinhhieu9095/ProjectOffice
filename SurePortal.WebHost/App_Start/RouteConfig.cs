@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace SurePortal.WebHost
+namespace DaiPhatDat.WebHost
 {
     public class RouteConfig
     {
@@ -15,7 +15,7 @@ namespace SurePortal.WebHost
                 name: "Default",
                 url: "{controller}/{action}/{id}/{id1}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, id1 = UrlParameter.Optional },  
-                new string[] { "SurePortal.WebHost.Controllers" }
+                new string[] { "DaiPhatDat.WebHost.Controllers" }
             );
         }
     }

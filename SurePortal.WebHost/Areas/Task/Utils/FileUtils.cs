@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SurePortal.Module.Task.Web.Utils
+namespace DaiPhatDat.Module.Task.Web.Utils
 {
     public class FileUtils
     {

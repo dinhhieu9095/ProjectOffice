@@ -1,9 +1,9 @@
-﻿using SurePortal.Core.Kernel.Mapper;
-using SurePortal.Core.Kernel.Notifications.Application.NotificationTypes;
-using SurePortal.Core.Kernel.Notifications.Domain.Entities;
+﻿using DaiPhatDat.Core.Kernel.Mapper;
+using DaiPhatDat.Core.Kernel.Notifications.Application.NotificationTypes;
+using DaiPhatDat.Core.Kernel.Notifications.Domain.Entities;
 using System;
 
-namespace SurePortal.Core.Kernel.Notifications.Application.Dto
+namespace DaiPhatDat.Core.Kernel.Notifications.Application.Dto
 {
     public class NotificationSettingDto : IMapping<NotificationSetting>
     {

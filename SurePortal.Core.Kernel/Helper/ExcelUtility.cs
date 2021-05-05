@@ -9,7 +9,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 
-namespace SurePortal.Core.Kernel.Helper
+namespace DaiPhatDat.Core.Kernel.Helper
 {
     public class ExcelUtility
     {

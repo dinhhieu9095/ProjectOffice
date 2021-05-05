@@ -1,5 +1,5 @@
-﻿using SurePortal.Core.Kernel.Helper;
-using SurePortal.Module.Task.Entities;
+﻿using DaiPhatDat.Core.Kernel.Helper;
+using DaiPhatDat.Module.Task.Entities;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public class FetchProjectsTasksResult
     {

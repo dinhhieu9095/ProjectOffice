@@ -1,11 +1,11 @@
-﻿using SurePortal.Core.Kernel.Application.Utilities;
+﻿using DaiPhatDat.Core.Kernel.Application.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.Domain.Entities
+namespace DaiPhatDat.Core.Kernel.Domain.Entities
 {
    public interface IBaseMoreEntity
     {

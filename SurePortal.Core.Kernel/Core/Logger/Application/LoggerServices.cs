@@ -1,6 +1,6 @@
 ﻿using log4net;
 
-namespace SurePortal.Core.Kernel.Logger.Application
+namespace DaiPhatDat.Core.Kernel.Logger.Application
 {
     /// <summary>
     /// tmquan

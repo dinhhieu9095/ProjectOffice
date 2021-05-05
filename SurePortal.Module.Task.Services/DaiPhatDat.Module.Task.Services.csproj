@@ -58,10 +58,6 @@
     <Reference Include="RefactorThis.GraphDiff, Version=3.1.2.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
       <HintPath>..\packages\RefactorThis.GraphDiff.3.1.2\lib\net40\RefactorThis.GraphDiff.dll</HintPath>
     </Reference>
-    <Reference Include="SurePortal.Core.Kernel, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Libraries\SurePortal.Core.Kernel.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
@@ -145,9 +141,13 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\SurePortal.Module.Task.Entities\SurePortal.Module.Task.Entities.csproj">
+    <ProjectReference Include="..\SurePortal.Core.Kernel\DaiPhatDat.Core.Kernel.csproj">
+      <Project>{ecd84ef0-b902-41a1-b8e6-2113d278bb8f}</Project>
+      <Name>DaiPhatDat.Core.Kernel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SurePortal.Module.Task.Entities\DaiPhatDat.Module.Task.Entities.csproj">
       <Project>{4ad66525-86d3-47d9-bf8b-152b1a5c9b1b}</Project>
-      <Name>SurePortal.Module.Task.Entities</Name>
+      <Name>DaiPhatDat.Module.Task.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

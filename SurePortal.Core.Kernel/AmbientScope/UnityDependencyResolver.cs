@@ -1,7 +1,7 @@
 ﻿using Unity;
 using Unity.Lifetime;
 
-namespace SurePortal.Core.Kernel.AmbientScope
+namespace DaiPhatDat.Core.Kernel.AmbientScope
 {
     public static class UnityDependencyResolver
     {

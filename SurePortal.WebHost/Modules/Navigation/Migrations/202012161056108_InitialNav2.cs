@@ -1,4 +1,4 @@
-﻿namespace SurePortal.WebHost.Modules.Navigation.Migrations
+﻿namespace DaiPhatDat.WebHost.Modules.Navigation.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

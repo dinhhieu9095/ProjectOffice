@@ -1,10 +1,10 @@
-﻿using SurePortal.Core.Kernel.Controllers;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Models;
-using SurePortal.Core.Kernel.Models.Responses;
-using SurePortal.Core.Kernel.Orgs.Application;
-using SurePortal.Core.Kernel.Orgs.Application.Dto;
-using SurePortal.Core.Kernel.Orgs.Models;
+﻿using DaiPhatDat.Core.Kernel.Controllers;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Models;
+using DaiPhatDat.Core.Kernel.Models.Responses;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
+using DaiPhatDat.Core.Kernel.Orgs.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,9 +16,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using AppSettings = SurePortal.Core.Kernel.Application.AppSettings;
+using AppSettings = DaiPhatDat.Core.Kernel.Application.AppSettings;
 
-namespace SurePortal.Core.Kernel.Orgs.Controllers
+namespace DaiPhatDat.Core.Kernel.Orgs.Controllers
 {
     [RoutePrefix("_apis/org")]
     public class OrgController : ApiCoreController

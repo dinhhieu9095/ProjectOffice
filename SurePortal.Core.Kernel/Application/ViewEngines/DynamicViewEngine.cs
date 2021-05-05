@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 
-namespace SurePortal.Core.Kernel.Application.ViewEngines
+namespace DaiPhatDat.Core.Kernel.Application.ViewEngines
 {
     public class DynamicViewEngine : IViewEngine
     {

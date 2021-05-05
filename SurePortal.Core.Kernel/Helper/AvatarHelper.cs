@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace SurePortal.Core.Kernel.Helper
+namespace DaiPhatDat.Core.Kernel.Helper
 {
     public static class AvatarHelper
     {

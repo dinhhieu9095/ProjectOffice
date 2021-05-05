@@ -1,5 +1,5 @@
 ﻿
-namespace SurePortal.WebHost.App_Start
+namespace DaiPhatDat.WebHost.App_Start
 {
     public static class MapperConfig
     {

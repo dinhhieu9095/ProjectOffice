@@ -1,11 +1,11 @@
-﻿using SurePortal.WebHost.Modules.Navigation.Application.Dto;
-using SurePortal.WebHost.Modules.Navigation.Domain.POCO;
+﻿using DaiPhatDat.WebHost.Modules.Navigation.Application.Dto;
+using DaiPhatDat.WebHost.Modules.Navigation.Domain.POCO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SurePortal.WebHost.Modules.Navigation.Application.Services
+namespace DaiPhatDat.WebHost.Modules.Navigation.Application.Services
 {
     public interface INavNodeService
     {

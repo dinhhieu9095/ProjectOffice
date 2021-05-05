@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace SurePortal.Core.Kernel.Domain.ValueObjects
+namespace DaiPhatDat.Core.Kernel.Domain.ValueObjects
 {
     public abstract class Enumeration : IComparable
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace SurePortal.Core.Kernel.Models.Responses
+namespace DaiPhatDat.Core.Kernel.Models.Responses
 {
     public class MobileResponse<T>
     {

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using RefactorThis.GraphDiff;
-using SurePortal.Core.Kernel.Mapper;
+using DaiPhatDat.Core.Kernel.Mapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,7 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Unity.Attributes;
 
-namespace SurePortal.Core.Kernel.AmbientScope
+namespace DaiPhatDat.Core.Kernel.AmbientScope
 {
     public abstract class Repository<TDbContext, TEntity> : IRepository<TEntity>
         where TDbContext : DbContext

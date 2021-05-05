@@ -1,6 +1,6 @@
-﻿using SurePortal.Core.Kernel.AmbientScope;
+﻿using DaiPhatDat.Core.Kernel.AmbientScope;
 
-namespace SurePortal.Module.Task.Entities
+namespace DaiPhatDat.Module.Task.Entities
 {
     public class ReportRepository : Repository<TaskContext, Report>, IReportRepository
     {

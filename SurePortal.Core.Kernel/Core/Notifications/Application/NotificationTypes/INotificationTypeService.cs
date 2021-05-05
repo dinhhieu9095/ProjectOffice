@@ -1,10 +1,10 @@
-﻿using SurePortal.Core.Kernel.JavaScript;
-using SurePortal.Core.Kernel.Models;
+﻿using DaiPhatDat.Core.Kernel.JavaScript;
+using DaiPhatDat.Core.Kernel.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.Notifications.Application.NotificationTypes
+namespace DaiPhatDat.Core.Kernel.Notifications.Application.NotificationTypes
 {
     public interface INotificationTypeService
     {

@@ -1,10 +1,10 @@
-﻿using SurePortal.Core.Kernel.Controllers;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Orgs.Application;
+﻿using DaiPhatDat.Core.Kernel.Controllers;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
 using System;
 using System.Web.Http;
 
-namespace SurePortal.Core.Kernel.Orgs.Controllers
+namespace DaiPhatDat.Core.Kernel.Orgs.Controllers
 {
     [RoutePrefix("_apis/user")]
     public class UserController : ApiCoreController

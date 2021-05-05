@@ -1,8 +1,8 @@
-﻿using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.WebHost.Modules.Navigation.Domain.POCO;
-using SurePortal.WebHost.Modules.Navigation.Domain.Repositories;
+﻿using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.WebHost.Modules.Navigation.Domain.POCO;
+using DaiPhatDat.WebHost.Modules.Navigation.Domain.Repositories;
 
-namespace SurePortal.WebHost.Modules.Navigation.Infrastructure.Repositories
+namespace DaiPhatDat.WebHost.Modules.Navigation.Infrastructure.Repositories
 {
     public class MenuRepository : Repository<NavigationContext, Menu>, IMenuRepository
     {

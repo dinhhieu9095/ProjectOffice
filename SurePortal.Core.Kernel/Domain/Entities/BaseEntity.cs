@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace SurePortal.Core.Kernel.Domain.Entities
+namespace DaiPhatDat.Core.Kernel.Domain.Entities
 {
     public abstract class BaseEntity
     {

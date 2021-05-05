@@ -1,7 +1,7 @@
-﻿using SurePortal.Core.Kernel.Application.Utilities;
+﻿using DaiPhatDat.Core.Kernel.Application.Utilities;
 using System.Data.Entity;
 
-namespace SurePortal.Core.Kernel
+namespace DaiPhatDat.Core.Kernel
 {
     public class Context : DbContext, IContext
     {

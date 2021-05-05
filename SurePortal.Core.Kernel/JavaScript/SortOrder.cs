@@ -1,5 +1,5 @@
 ﻿
-namespace SurePortal.Core.Kernel.JavaScript
+namespace DaiPhatDat.Core.Kernel.JavaScript
 {
     public enum SortOrder
     {

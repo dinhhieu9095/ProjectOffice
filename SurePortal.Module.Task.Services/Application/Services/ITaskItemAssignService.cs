@@ -1,11 +1,11 @@
-﻿using SurePortal.Core.Kernel.Firebase.Models;
+﻿using DaiPhatDat.Core.Kernel.Firebase.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public interface ITaskItemAssignService
     {

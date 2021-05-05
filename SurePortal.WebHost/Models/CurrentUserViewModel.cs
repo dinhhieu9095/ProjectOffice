@@ -1,10 +1,10 @@
-﻿using SurePortal.Core.Kernel.Mapper;
+﻿using DaiPhatDat.Core.Kernel.Mapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SurePortal.WebHost.Models
+namespace DaiPhatDat.WebHost.Models
 {
     public class CurrentUserViewModel
     {

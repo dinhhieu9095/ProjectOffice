@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SurePortal.Core.Kernel.Orgs.Domain.Entities
+namespace DaiPhatDat.Core.Kernel.Orgs.Domain.Entities
 {
     [Table("JobTitles", Schema = "dbo")]
     public class UserJobTitle : BaseEntity

@@ -1,12 +1,12 @@
-﻿using SurePortal.Core.Kernel.Domain.ValueObjects;
-using SurePortal.Core.Kernel.Mapper;
-using SurePortal.Core.Kernel.Notifications.Application.Dto;
-using SurePortal.Core.Kernel.Resources.Domain.Entities;
+﻿using DaiPhatDat.Core.Kernel.Domain.ValueObjects;
+using DaiPhatDat.Core.Kernel.Mapper;
+using DaiPhatDat.Core.Kernel.Notifications.Application.Dto;
+using DaiPhatDat.Core.Kernel.Resources.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SurePortal.Core.Kernel.Resources.Application.Dto
+namespace DaiPhatDat.Core.Kernel.Resources.Application.Dto
 {
     public class ResourceDto : IMapping<Domain.Entities.Resources>
     {

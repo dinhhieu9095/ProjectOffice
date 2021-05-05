@@ -2,16 +2,16 @@
 using AutoMapper.QueryableExtensions;
 using Microsoft.Ajax.Utilities;
 using OfficeOpenXml;
-using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Models;
-using SurePortal.Core.Kernel.Notifications.Domain.Entities;
-using SurePortal.Core.Kernel.Notifications.Domain.Repositories;
-using SurePortal.Core.Kernel.Orgs.Application.Contract;
-using SurePortal.Core.Kernel.Orgs.Application.Dto;
-using SurePortal.Core.Kernel.Orgs.Domain;
-using SurePortal.Core.Kernel.Orgs.Domain.Repositories;
-using SurePortal.Core.Kernel.Orgs.Infrastructure;
-using SurePortal.Core.Kernel.Orgs.Models;
+using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Models;
+using DaiPhatDat.Core.Kernel.Notifications.Domain.Entities;
+using DaiPhatDat.Core.Kernel.Notifications.Domain.Repositories;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Contract;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
+using DaiPhatDat.Core.Kernel.Orgs.Domain;
+using DaiPhatDat.Core.Kernel.Orgs.Domain.Repositories;
+using DaiPhatDat.Core.Kernel.Orgs.Infrastructure;
+using DaiPhatDat.Core.Kernel.Orgs.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -19,7 +19,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.Orgs.Application
+namespace DaiPhatDat.Core.Kernel.Orgs.Application
 {
     public class OrgService : IOrgService
     {

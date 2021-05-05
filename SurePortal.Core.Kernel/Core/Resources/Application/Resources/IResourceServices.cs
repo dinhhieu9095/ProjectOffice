@@ -1,8 +1,8 @@
-﻿using SurePortal.Core.Kernel.Orgs.Application.Dto;
+﻿using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
 using System;
 using System.Collections.Generic;
 
-namespace SurePortal.Core.Kernel.Resources.Application
+namespace DaiPhatDat.Core.Kernel.Resources.Application
 {
     public interface IResourceServices
     {

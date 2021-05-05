@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace SurePortal.Core.Kernel.Application
+namespace DaiPhatDat.Core.Kernel.Application
 {
     /// <summary>
     /// ServiceFactory is to replace the API, and an efficient way to get access to any interfaced service

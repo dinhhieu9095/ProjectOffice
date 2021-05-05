@@ -1,5 +1,5 @@
 ﻿
-namespace SurePortal.Core.Kernel.JavaScript.Models
+namespace DaiPhatDat.Core.Kernel.JavaScript.Models
 {
     /// <summary>
     ///     Gets or sets a value that indicates whether to define the direction and field to sort the column.

@@ -1,6 +1,6 @@
-﻿using SurePortal.Core.Kernel.Mapper;
-using SurePortal.WebHost.Common;
-using SurePortal.WebHost.Modules.Navigation.Application.Dto;
+﻿using DaiPhatDat.Core.Kernel.Mapper;
+using DaiPhatDat.WebHost.Common;
+using DaiPhatDat.WebHost.Modules.Navigation.Application.Dto;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace SurePortal.WebHost.Models.Navigation
+namespace DaiPhatDat.WebHost.Models.Navigation
 {
     public class NavNodeIndexModel
     {

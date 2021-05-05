@@ -1,13 +1,13 @@
-﻿using SurePortal.Core.Kernel.Caches;
-using SurePortal.Core.Kernel.Domain.ValueObjects;
-using SurePortal.Core.Kernel.Resources.Application.Dto;
+﻿using DaiPhatDat.Core.Kernel.Caches;
+using DaiPhatDat.Core.Kernel.Domain.ValueObjects;
+using DaiPhatDat.Core.Kernel.Resources.Application.Dto;
 using System;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Security.Claims;
 using System.Web;
 
-namespace SurePortal.Core.Kernel
+namespace DaiPhatDat.Core.Kernel
 {
     public class ResourceManagement
     {

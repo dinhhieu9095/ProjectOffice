@@ -1,15 +1,15 @@
-﻿using SurePortal.Core.Kernel.Controllers;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Models.Responses;
-using SurePortal.Core.Kernel.Orgs.Application;
-using SurePortal.WebHost.Models.Requests;
-using SurePortal.WebHost.Models.Responses;
+﻿using DaiPhatDat.Core.Kernel.Controllers;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Models.Responses;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
+using DaiPhatDat.WebHost.Models.Requests;
+using DaiPhatDat.WebHost.Models.Responses;
 using System.Configuration;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Security;
 
-namespace SurePortal.WebHost.Controllers
+namespace DaiPhatDat.WebHost.Controllers
 {
     [RoutePrefix("_apis/sso")]
     public class SsoController : ApiCoreController

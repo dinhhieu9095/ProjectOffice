@@ -1,6 +1,6 @@
-﻿using SurePortal.Core.Kernel.Notifications.Application.NotificationTypes;
+﻿using DaiPhatDat.Core.Kernel.Notifications.Application.NotificationTypes;
 
-namespace SurePortal.Core.Kernel.Notifications.Models
+namespace DaiPhatDat.Core.Kernel.Notifications.Models
 {
     public class CrudNotificationTypeInput
     {

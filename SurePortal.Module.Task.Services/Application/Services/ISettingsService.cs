@@ -1,9 +1,9 @@
-﻿using SurePortal.Core.Kernel.Models;
-using SurePortal.Module.Task.Entities;
+﻿using DaiPhatDat.Core.Kernel.Models;
+using DaiPhatDat.Module.Task.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public interface ISettingsService
     {

@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace SurePortal.Core.Kernel.Application.Utilities
+namespace DaiPhatDat.Core.Kernel.Application.Utilities
 {
     public static class WebUtils
     {

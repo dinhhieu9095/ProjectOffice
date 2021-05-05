@@ -3,8 +3,8 @@ using Microsoft.Owin;
 using Owin;
 using System.Web;
 
-[assembly: OwinStartup(typeof(SurePortal.WebHost.Startup))]
-namespace SurePortal.WebHost
+[assembly: OwinStartup(typeof(DaiPhatDat.WebHost.Startup))]
+namespace DaiPhatDat.WebHost
 {
     public class Startup
     {

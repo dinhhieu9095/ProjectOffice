@@ -1,18 +1,18 @@
 ﻿using AutoMapper;
-using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Orgs.Models;
-using SurePortal.Module.Task.Entities;
+using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Models;
+using DaiPhatDat.Module.Task.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
-using SurePortal.Core.Kernel.Orgs.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
 using System.Globalization;
 
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public class ProjectFolderService : IProjectFolderService
     {

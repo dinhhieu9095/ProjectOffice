@@ -1,6 +1,6 @@
-﻿using SurePortal.Core.Kernel.Orgs.Application.Dto;
+﻿using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
 
-namespace SurePortal.WebHost.Models.Requests
+namespace DaiPhatDat.WebHost.Models.Requests
 {
     public class LogoutRequest
     {

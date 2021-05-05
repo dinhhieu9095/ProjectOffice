@@ -1,11 +1,11 @@
-﻿using SurePortal.Core.Kernel.Notifications.Application.Dto;
-using SurePortal.Core.Kernel.Notifications.Application.Notifications.Dto;
-using SurePortal.Core.Kernel.Notifications.Domain.ValueObjects;
+﻿using DaiPhatDat.Core.Kernel.Notifications.Application.Dto;
+using DaiPhatDat.Core.Kernel.Notifications.Application.Notifications.Dto;
+using DaiPhatDat.Core.Kernel.Notifications.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.Notifications.Application
+namespace DaiPhatDat.Core.Kernel.Notifications.Application
 {
     public interface INotificationServices
     {

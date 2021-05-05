@@ -1,7 +1,7 @@
-﻿using SurePortal.Core.Kernel.Orgs.Domain.Entities;
+﻿using DaiPhatDat.Core.Kernel.Orgs.Domain.Entities;
 using System;
 
-namespace SurePortal.Core.Kernel.Orgs.Domain
+namespace DaiPhatDat.Core.Kernel.Orgs.Domain
 {
     public class Department : BaseEntity
     {

@@ -689,9 +689,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SurePortal.Core.Kernel\SurePortal.Core.Kernel.csproj">
+    <ProjectReference Include="..\SurePortal.Core.Kernel\DaiPhatDat.Core.Kernel.csproj">
       <Project>{ecd84ef0-b902-41a1-b8e6-2113d278bb8f}</Project>
-      <Name>SurePortal.Core.Kernel</Name>
+      <Name>DaiPhatDat.Core.Kernel</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

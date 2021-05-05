@@ -1,9 +1,9 @@
-using SurePortal.Core.Kernel.Mapper;
-using SurePortal.Module.Task.Entities;
-using SurePortal.Module.Task.Services;
+using DaiPhatDat.Core.Kernel.Mapper;
+using DaiPhatDat.Module.Task.Entities;
+using DaiPhatDat.Module.Task.Services;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SurePortal.Module.Task.Web
+namespace DaiPhatDat.Module.Task.Web
 {
     public class NatureTaskModel : NatureTaskDto, IMapping<NatureTaskDto>
     {

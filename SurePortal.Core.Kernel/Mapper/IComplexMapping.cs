@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace SurePortal.Core.Kernel.Mapper
+namespace DaiPhatDat.Core.Kernel.Mapper
 {
     public interface IComplexMapping : IMapping
     {

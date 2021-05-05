@@ -1,9 +1,9 @@
-﻿using SurePortal.Core.Kernel.Mapper;
-using SurePortal.Core.Kernel.Orgs.Domain;
+﻿using DaiPhatDat.Core.Kernel.Mapper;
+using DaiPhatDat.Core.Kernel.Orgs.Domain;
 using System;
 using System.Collections.Generic;
 
-namespace SurePortal.Core.Kernel.Orgs.Application.Dto
+namespace DaiPhatDat.Core.Kernel.Orgs.Application.Dto
 {
     public partial class DepartmentDto : IMapping<Department>
     {

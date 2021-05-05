@@ -7,16 +7,16 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using SurePortal.Core.Kernel;
-using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Firebase.Models;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Models;
-using SurePortal.Core.Kernel.Orgs.Application;
-using SurePortal.Core.Kernel.Orgs.Application.Dto;
-using SurePortal.Module.Task.Entities;
+using DaiPhatDat.Core.Kernel;
+using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Firebase.Models;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Models;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
+using DaiPhatDat.Module.Task.Entities;
 
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public class TaskItemProcessHistoryService : ITaskItemProcessHistoryService
     {

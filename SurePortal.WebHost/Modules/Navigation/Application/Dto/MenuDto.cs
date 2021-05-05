@@ -1,14 +1,14 @@
-﻿using SurePortal.Core.Kernel.Domain.ValueObjects;
-using SurePortal.Core.Kernel.Mapper;
-using SurePortal.WebHost.Common;
-using SurePortal.WebHost.Modules.Navigation.Domain.Entities;
-using SurePortal.WebHost.Modules.Navigation.Domain.POCO;
+﻿using DaiPhatDat.Core.Kernel.Domain.ValueObjects;
+using DaiPhatDat.Core.Kernel.Mapper;
+using DaiPhatDat.WebHost.Common;
+using DaiPhatDat.WebHost.Modules.Navigation.Domain.Entities;
+using DaiPhatDat.WebHost.Modules.Navigation.Domain.POCO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SurePortal.WebHost.Modules.Navigation.Application.Dto
+namespace DaiPhatDat.WebHost.Modules.Navigation.Application.Dto
 {
     public class MenuDto : MenuEntity, IMapping<Menu>
     {

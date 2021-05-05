@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace SurePortal.Core.Kernel.AmbientScope
+namespace DaiPhatDat.Core.Kernel.AmbientScope
 {
     /// <summary>
     ///     Convenience methods to create a new ambient DbContextScope. This is the prefered method

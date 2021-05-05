@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="SurePortal.WebHost.App" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="DaiPhatDat.WebHost.App" Language="C#" %>

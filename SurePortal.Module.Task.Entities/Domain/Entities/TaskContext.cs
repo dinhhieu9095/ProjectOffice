@@ -1,9 +1,9 @@
-using SurePortal.Core.Kernel;
-using SurePortal.Core.Kernel.Orgs.Domain;
-using SurePortal.Core.Kernel.Orgs.Domain.Entities;
+using DaiPhatDat.Core.Kernel;
+using DaiPhatDat.Core.Kernel.Orgs.Domain;
+using DaiPhatDat.Core.Kernel.Orgs.Domain.Entities;
 using System.Data.Entity;
 
-namespace SurePortal.Module.Task.Entities
+namespace DaiPhatDat.Module.Task.Entities
 {
     public partial class TaskContext : Context, IContext
     {

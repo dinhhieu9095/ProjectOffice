@@ -1,16 +1,16 @@
 ﻿using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
 using Google.Apis.Auth.OAuth2;
-using SurePortal.Core.Kernel.Firebase.Models;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Orgs.Application;
+using DaiPhatDat.Core.Kernel.Firebase.Models;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.Firebase.Application
+namespace DaiPhatDat.Core.Kernel.Firebase.Application
 {
     public class FirebaseServices : IFirebaseService
     {

@@ -1,9 +1,9 @@
-﻿using SurePortal.Core.Kernel.Orgs.Application.Dto;
+﻿using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.Orgs.Application
+namespace DaiPhatDat.Core.Kernel.Orgs.Application
 {
     public interface IUserDelegationServices
     {

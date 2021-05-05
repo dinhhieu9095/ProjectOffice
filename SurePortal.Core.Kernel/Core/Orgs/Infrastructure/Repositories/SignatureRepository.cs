@@ -1,15 +1,15 @@
-﻿using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Application;
-using SurePortal.Core.Kernel.Helper;
-using SurePortal.Core.Kernel.Orgs.Application.Dto;
-using SurePortal.Core.Kernel.Orgs.Domain;
-using SurePortal.Core.Kernel.Orgs.Domain.Repositories;
+﻿using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Application;
+using DaiPhatDat.Core.Kernel.Helper;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
+using DaiPhatDat.Core.Kernel.Orgs.Domain;
+using DaiPhatDat.Core.Kernel.Orgs.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading.Tasks;
 
-namespace SurePortal.Core.Kernel.Orgs.Application
+namespace DaiPhatDat.Core.Kernel.Orgs.Application
 {
     public class SignatureRepository : Repository<OrgDbContext, UserSignature>,
         ISignatureRepository

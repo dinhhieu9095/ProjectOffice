@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SurePortal.Core.Kernel.JavaScript
+namespace DaiPhatDat.Core.Kernel.JavaScript
 {
     public class WhereFilter
     {

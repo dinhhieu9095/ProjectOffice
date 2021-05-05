@@ -1,11 +1,11 @@
-﻿using SurePortal.Core.Kernel.Application;
-using SurePortal.Core.Kernel.Orgs.Application;
-using SurePortal.WebHost.Models;
+﻿using DaiPhatDat.Core.Kernel.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
+using DaiPhatDat.WebHost.Models;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
-namespace SurePortal.WebHost
+namespace DaiPhatDat.WebHost
 {
     [Authorize]
     public class AccountController : Controller

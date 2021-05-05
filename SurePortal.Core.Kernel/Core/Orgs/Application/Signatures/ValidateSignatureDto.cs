@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SurePortal.Core.Kernel.Orgs.Application.Dto
+namespace DaiPhatDat.Core.Kernel.Orgs.Application.Dto
 {
     public class ValidateSignatureDto
     {

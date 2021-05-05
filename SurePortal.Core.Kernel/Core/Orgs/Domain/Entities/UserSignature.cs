@@ -1,10 +1,10 @@
-﻿using SurePortal.Core.Kernel.Application;
-using SurePortal.Core.Kernel.Helper;
-using SurePortal.Core.Kernel.Orgs.Domain.Entities;
+﻿using DaiPhatDat.Core.Kernel.Application;
+using DaiPhatDat.Core.Kernel.Helper;
+using DaiPhatDat.Core.Kernel.Orgs.Domain.Entities;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SurePortal.Core.Kernel.Orgs.Application.Dto
+namespace DaiPhatDat.Core.Kernel.Orgs.Application.Dto
 {
     [Table("Signature", Schema = "Core")]
     public class UserSignature : BaseEntity

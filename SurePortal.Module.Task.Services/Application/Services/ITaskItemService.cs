@@ -1,10 +1,10 @@
-﻿using SurePortal.Core.Kernel.Firebase.Models;
-using SurePortal.Core.Kernel.Orgs.Application.Dto;
+﻿using DaiPhatDat.Core.Kernel.Firebase.Models;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public interface ITaskItemService
     {

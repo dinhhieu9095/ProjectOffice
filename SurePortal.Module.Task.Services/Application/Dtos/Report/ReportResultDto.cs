@@ -1,11 +1,11 @@
-﻿using SurePortal.Module.Task.Entities;
+﻿using DaiPhatDat.Module.Task.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public class ReportResultDto
     {

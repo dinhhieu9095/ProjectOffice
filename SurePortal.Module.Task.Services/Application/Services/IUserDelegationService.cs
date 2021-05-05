@@ -1,12 +1,12 @@
 ﻿
-using SurePortal.Core.Kernel.Orgs.Domain.Entities;
+using DaiPhatDat.Core.Kernel.Orgs.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public interface IUserDelegationService
     {

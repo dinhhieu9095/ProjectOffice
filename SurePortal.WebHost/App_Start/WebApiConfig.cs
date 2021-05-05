@@ -1,11 +1,11 @@
-﻿using SurePortal.Core.Kernel.Application;
-using SurePortal.Core.Kernel.Ioc;
-using SurePortal.Core.Kernel.Logger.Application;
+﻿using DaiPhatDat.Core.Kernel.Application;
+using DaiPhatDat.Core.Kernel.Ioc;
+using DaiPhatDat.Core.Kernel.Logger.Application;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using Unity;
 
-namespace SurePortal.WebHost
+namespace DaiPhatDat.WebHost
 {
     public class WebApiConfig
     {

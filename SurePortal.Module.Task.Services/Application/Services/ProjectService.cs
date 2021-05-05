@@ -11,19 +11,19 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using RefactorThis.GraphDiff;
-using SurePortal.Core.Kernel;
-using SurePortal.Core.Kernel.AmbientScope;
-using SurePortal.Core.Kernel.Firebase.Models;
-using SurePortal.Core.Kernel.Helper;
-using SurePortal.Core.Kernel.Linq;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Models;
-using SurePortal.Core.Kernel.Orgs.Application;
-using SurePortal.Core.Kernel.Orgs.Application.Contract;
-using SurePortal.Core.Kernel.Orgs.Application.Dto;
-using SurePortal.Module.Task.Entities;
+using DaiPhatDat.Core.Kernel;
+using DaiPhatDat.Core.Kernel.AmbientScope;
+using DaiPhatDat.Core.Kernel.Firebase.Models;
+using DaiPhatDat.Core.Kernel.Helper;
+using DaiPhatDat.Core.Kernel.Linq;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Models;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Contract;
+using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
+using DaiPhatDat.Module.Task.Entities;
 using SystemTask = System.Threading.Tasks.Task;
-namespace SurePortal.Module.Task.Services
+namespace DaiPhatDat.Module.Task.Services
 {
     public class ProjectService : IProjectService
     {

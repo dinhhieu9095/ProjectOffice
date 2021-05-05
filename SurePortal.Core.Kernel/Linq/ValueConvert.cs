@@ -5,10 +5,10 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 
-namespace SurePortal.Core.Kernel.Linq
+namespace DaiPhatDat.Core.Kernel.Linq
 {
     /// <summary>
-    ///     <see cref="T:SurePortal.Core.Kernel.Linq.ValueConvert" /> provides conversion routines for values
+    ///     <see cref="T:DaiPhatDat.Core.Kernel.Linq.ValueConvert" /> provides conversion routines for values
     ///     to convert them to another type and routines for formatting values.
     /// </summary>
     internal class ValueConvert
@@ -22,7 +22,7 @@ namespace SurePortal.Core.Kernel.Linq
         /// <summary>
         ///     Indicates whether
         ///     <see
-        ///         cref="M:SurePortal.Core.Kernel.Linq.ValueConvert.FormatValue(System.Object,System.Type,System.String,System.Globalization.CultureInfo,System.Globalization.NumberFormatInfo)" />
+        ///         cref="M:DaiPhatDat.Core.Kernel.Linq.ValueConvert.FormatValue(System.Object,System.Type,System.String,System.Globalization.CultureInfo,System.Globalization.NumberFormatInfo)" />
         ///     should trim whitespace characters from
         ///     the end of the formatted text.
         /// </summary>

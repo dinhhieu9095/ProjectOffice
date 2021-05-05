@@ -1,14 +1,14 @@
-﻿using SurePortal.Core.Kernel.Application;
-using SurePortal.Core.Kernel.Controllers;
-using SurePortal.Core.Kernel.Linq;
-using SurePortal.Core.Kernel.Logger.Application;
-using SurePortal.Core.Kernel.Orgs.Application;
-using SurePortal.WebHost.Models;
+﻿using DaiPhatDat.Core.Kernel.Application;
+using DaiPhatDat.Core.Kernel.Controllers;
+using DaiPhatDat.Core.Kernel.Linq;
+using DaiPhatDat.Core.Kernel.Logger.Application;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
+using DaiPhatDat.WebHost.Models;
 using System;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace SurePortal.WebHost.Controllers
+namespace DaiPhatDat.WebHost.Controllers
 {
     [Authorize]
     public class HomeController : CoreController

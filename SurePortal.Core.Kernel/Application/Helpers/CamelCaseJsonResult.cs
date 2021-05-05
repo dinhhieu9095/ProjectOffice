@@ -4,7 +4,7 @@ using System;
 using System.Text;
 using System.Web.Mvc;
 
-namespace SurePortal.Core.Kernel.Application.Helpers
+namespace DaiPhatDat.Core.Kernel.Application.Helpers
 {
     public class CamelCaseJsonResult : ActionResult
     {

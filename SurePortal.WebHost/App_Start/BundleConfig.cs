@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace SurePortal.WebHost
+namespace DaiPhatDat.WebHost
 {
     public class BundleConfig
     {

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using SurePortal.Core.Kernel;
-using SurePortal.Core.Kernel.Domain.ValueObjects;
-using SurePortal.Core.Kernel.Orgs.Application;
-using SurePortal.WebHost.Models;
-using SurePortal.WebHost.Models.Navigation;
-using SurePortal.WebHost.Modules.Navigation.Application.Dto;
-using SurePortal.WebHost.Modules.Navigation.Application.Services;
+using DaiPhatDat.Core.Kernel;
+using DaiPhatDat.Core.Kernel.Domain.ValueObjects;
+using DaiPhatDat.Core.Kernel.Orgs.Application;
+using DaiPhatDat.WebHost.Models;
+using DaiPhatDat.WebHost.Models.Navigation;
+using DaiPhatDat.WebHost.Modules.Navigation.Application.Dto;
+using DaiPhatDat.WebHost.Modules.Navigation.Application.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SurePortal.WebHost.Controllers
+namespace DaiPhatDat.WebHost.Controllers
 {
     public class MenuController : BaseMenuController
     {
