@@ -238,8 +238,20 @@ namespace DaiPhatDat.Module.Task.Services
             {
                 newVersion = 20210503;
                 queries.Add(@"
+  insert into  [dbo].[Roles] values ('3A9EC51A-6EBC-4964-9297-4C97B827DB42',	N'Quản trị hệ thống',	N'Quản trị hệ thống',	'AABA4C69-D2FA-4BAF-97B5-BE6C17742A3B')");
+                queries.Add(@"
+  insert into [dbo].[Permissions] values ('F90744BA-9090-400B-89FD-A4D12FF7697A',	'AABA4C69-D2FA-4BAF-97B5-BE6C17742A3B',	'TaskFullControl',	N'Toàn quyền quản lý công việc')");
+                queries.Add(@"
+  insert into [dbo].[RolePermissions] values ('3A9EC51A-6EBC-4964-9297-4C97B827DB42',	'F90744BA-9090-400B-89FD-A4D12FF7697A',	N'Quản trị hệ thống')");
+
+                queries.Add(@"
   insert into  [SurePortal_DEV].[dbo].[Users] (ID,UserName,FullName,Gender,Email,IsActive,UserIndex,AccountName)
-  values (NEWID(),'SWIC\spadmin','Quản trị viên', 1,'spadmin@gamil.com',1,1,'spadmin')");
+  values ('44E34922-FE7F-4ADA-A29C-14B4164D0649','SWIC\spadmin', N'Quản trị viên', 1, 'spadmin@gamil.com', 1, 1, 'spadmin')");
+                queries.Add(@"
+  insert into  [SurePortal_DEV].[dbo].[UserRoles] ([UserID]
+      ,[RoleID]
+      ,[Description])
+  values ('44E34922-FE7F-4ADA-A29C-14B4164D0649','3A9EC51A-6EBC-4964-9297-4C97B827DB42','')");
             }
             if(newVersion < 20210504)
             {
