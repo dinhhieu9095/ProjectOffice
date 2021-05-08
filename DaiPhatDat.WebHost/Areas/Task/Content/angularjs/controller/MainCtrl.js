@@ -149,6 +149,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
     $controller('ProjectDetailCtrl', { $scope: $scope });
     $controller('TaskItemDetailCtrl', { $scope: $scope });
     $scope.ProjectTaskItem = [];
+    $scope.projectFilters = [];
     $scope.ViewBreadCrumb = [];
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -170,6 +171,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
     $scope.advanceFilter = { keyWord: "", CurrentPage: 1, PageSize:20};
     $scope.selectedRow = null;
     $scope.init = function () {
+        debugger
         //$scope.SetShowType(view);
         if (view === "calendar") {
             $scope.ShowType = 3;
@@ -194,6 +196,10 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
         //    //{ field: "ProcessHtml", displayName: "ProcessHtml", visible: true, cellTemplate: true }
         //];
         $scope.getDataByProject(parentId);
+    };
+    $scope.changeProjectFilters = function () {
+        debugger
+        $scope.getDataByProject($scope.selectedRow.ProjectId);
     };
     $scope.SetShowType =function(view)
     {
@@ -371,6 +377,13 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
         $q.all(promises).then(function (rs) {
 
             if (rs[0].data.status) {
+                if (parentId == null || parentId == undefined) {
+                    $('#projectFilters').select2({
+                        placeholder: "Tất cả",
+                        width: '100%'
+                    });
+                    $scope.projectFilters = rs[0].data.data.Result;
+                }
                 if ($scope.ShowType===0) {
                     var myTreeData = rs[0].data.data.Result;
                     if (branch !== undefined) {
@@ -449,7 +462,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
             }
             else {
                 $scope.hideLoading();
-                toastr.error(rs[0].data.data.msg, 'Thông báo')
+                toastr.error(rs[0].data.data.msg, 'Thông báo');
             }
             $scope.hideLoading();
         }, function (er) {

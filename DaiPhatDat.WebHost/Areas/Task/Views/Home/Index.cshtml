@@ -25,7 +25,7 @@
                     </span>
                     <div class="dropdown-menu dropdown-menu-left p-0 m-0 dropdown-menu-sm" style="">
                         <ul class="navi py-3">
-                            <li class="navi-item">
+                            @*<li class="navi-item">
                                 <a ng-click="ChangeView('table')" class="navi-link">
                                     <span class="svg-icon svg-icon-primary mr-3">
                                         <svg width="24px" height="24px" viewBox="0 0 24 24">
@@ -38,7 +38,7 @@
                                     </span>
                                     <span class="navi-text">@ResourceManagement.GetResourceText("Task.Home.ViewTable", "Bảng", "Table") </span>
                                 </a>
-                            </li>
+                            </li>*@
                             <li class="navi-item">
                                 <a ng-click="ChangeView('grantt')" class="navi-link">
                                     <span class="svg-icon svg-icon-primary mr-3">
@@ -92,6 +92,9 @@
                                 </li>*@
                         </ul>
                     </div>
+                </div>
+                <div>
+                    <select ng-model="selectedRow.ProjectId" class="form-control" id="projectFilters" name="projectFilters" ng-options="option.Id as option.Summary for option in projectFilters" ng-change="changeProjectFilters()"></select>
                 </div>
                 <span class="ml-3">Danh sách công việc</span>
             </h3>

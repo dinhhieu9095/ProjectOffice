@@ -237,7 +237,7 @@ namespace DaiPhatDat.Module.Task.Services
                                 || isFullControl
                                 || (!string.IsNullOrEmpty(project.ManagerId) && project.ManagerId.Contains(userId.ToString()))) && project.ProjectStatusId != ProjectStatusId.Finished)
                         {
-                            itemActions.Add(new ItemActionDto { Code = ActionClick.ImportMSProjectDoc.ToString(), Name = "Import MS Project" });
+                            //itemActions.Add(new ItemActionDto { Code = ActionClick.ImportMSProjectDoc.ToString(), Name = "Import MS Project" });
                             itemActions.Add(new ItemActionDto { Code = ActionClick.ImportDoc.ToString(), Name = "Import Excel" });
 
 

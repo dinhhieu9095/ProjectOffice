@@ -59,11 +59,11 @@ namespace DaiPhatDat.Module.Task.Web
                 case ViewGrantt:
                 case null:
                 case "":
-                    viewType.Name = HomeController.ViewTable;
+                    viewType.Name = HomeController.ViewGrantt;
                     break;
                 default:
                     isView = false;
-                    viewType.Name = HomeController.ViewTable;
+                    viewType.Name = HomeController.ViewGrantt;
                     break;
             }
             if (!isView)
@@ -99,6 +99,8 @@ namespace DaiPhatDat.Module.Task.Web
                     viewKaban.Add(new TitleKanbanViewModel() { StatusId = 4, DisplayName = ResourceManagement.GetResourceText("Task.Home.TitleKanBanFinishedCancel", "Kết thúc/Hủy", "Finished/Cancel") });
                     strReturn = JsonConvert.SerializeObject(viewKaban);
                     break;
+                case null:
+                case "":
                 case ViewGrantt:
                     List<TitleTableViewModel> returnData = new List<TitleTableViewModel>();
                     Dictionary<string, string> dic = new Dictionary<string, string>();
@@ -126,8 +128,6 @@ namespace DaiPhatDat.Module.Task.Web
                     strReturn = JsonConvert.SerializeObject(returnData);
                     break;
                 case ViewTable:
-                case null:
-                case "":
                     List<TitleTableViewModel> returnDataT = new List<TitleTableViewModel>();
                     Dictionary<string, string> dicT = new Dictionary<string, string>();
                     dicT.Add("Name", ResourceManagement.GetResourceText("Task.Home.TitleTableName", "Nội dung", "Name"));
@@ -219,7 +219,8 @@ namespace DaiPhatDat.Module.Task.Web
                 if (view != null && view.Length > 0) { }
                 else
                 {
-                    view = ViewTable;
+                    //Mặc định là view grantt
+                    view = ViewGrantt;
                 }
                 ProjectFilterParamDto otherParams = new ProjectFilterParamDto();
                 if (filterId.HasValue && !filterId.Equals(Guid.Empty))

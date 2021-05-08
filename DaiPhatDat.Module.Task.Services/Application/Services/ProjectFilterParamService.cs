@@ -506,7 +506,7 @@ namespace DaiPhatDat.Module.Task.Services
         {
             var models = new List<ProjectFilterParam>();
             List<ProjectFilterParam> listUserTree = null;
-            using (var scope = _dbContextScopeFactory.CreateReadOnly())
+            using (var scope = _dbContextScopeFactory.Create())
             {
                 var dbcontext = scope.DbContexts.Get<TaskContext>();
                 listUserTree = _objectRepository.GetAll().Where(
@@ -518,7 +518,30 @@ namespace DaiPhatDat.Module.Task.Services
                                                       //|| tfd.Code == "HSCN" || tfd.Code == "HSCT"
                             )
                         ).ToList();
-
+                if (!listUserTree.Any())
+                {
+                    ProjectFilterParam filter = new ProjectFilterParam()
+                    {
+                        Code = "ROOT",
+                        CreatedBy = null,
+                        CreatedDate = DateTime.Now,
+                        IsActive =true,
+                        IsLable = true,
+                        Name = "Tất cả",
+                        NoOrder = 0,
+                    };
+                    _objectRepository.Add(filter);
+                    scope.SaveChanges();
+                    listUserTree = _objectRepository.GetAll().Where(
+                        tfd =>
+                        tfd.IsActive == true &&
+                        tfd.ParentID.HasValue &&
+                        tfd.Code != null && (
+                            tfd.Code.Contains("TASK") //|| tfd.Code.Contains("UQ") || tfd.Code.Contains("BG")
+                                                      //|| tfd.Code == "HSCN" || tfd.Code == "HSCT"
+                            )
+                        ).ToList();
+                }
                 // translate
                 //foreach (var item in listUserTree)
                 //{
