@@ -148,8 +148,12 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
     $controller('CalendarCtrl', { $scope: $scope });
     $controller('ProjectDetailCtrl', { $scope: $scope });
     $controller('TaskItemDetailCtrl', { $scope: $scope });
+    
     $scope.ProjectTaskItem = [];
-    $scope.projectFilters = [];
+    $scope.projectFilters = [{
+        Name: 'Tất cả',
+        Id: ''
+    }];
     $scope.ViewBreadCrumb = [];
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -170,6 +174,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
     $scope.IsEvict = false;
     $scope.advanceFilter = { keyWord: "", CurrentPage: 1, PageSize:20};
     $scope.selectedRow = null;
+    $scope.projectFilterId = urlParams.get('parentId');
     $scope.init = function () {
         debugger
         //$scope.SetShowType(view);
@@ -199,7 +204,8 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
     };
     $scope.changeProjectFilters = function () {
         debugger
-        $scope.getDataByProject($scope.selectedRow.ProjectId);
+        var url = CommonUtils.RootURL("Task/Home/Index?parentId=" + $('#projectFilters').val());
+        window.location.href = url;
     };
     $scope.SetShowType =function(view)
     {
@@ -213,11 +219,10 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
             $scope.ShowType = 0; //table, grantt
         }
     };
-    $scope.ChangeView=function(viewType)
-    {
+    $scope.ChangeView = function (viewType) {
         //window.location.href =  CommonUtils.RootURL(result.url + "&folderGroupId=" + folderGroupId + " &keyword= " + keyword + "&pageIndex=" + pageIndex);
         window.location.href = CommonUtils.RootURL("Task/Home/Index?filterId=" + filterId + "&folderId=" + folderId + "&view=" + viewType);
-    }
+    };
     $scope.callbackDblFunctionInController = function (branch) {
         if (!$("#kt_demo_panel").hasClass('offcanvas-on')) {
             $("#kt_demo_panel_toggle").click();
@@ -375,14 +380,18 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
         });
         let promises = [MainService.GetDataByProject(data)];
         $q.all(promises).then(function (rs) {
-
+            debugger
             if (rs[0].data.status) {
-                if (parentId == null || parentId == undefined) {
+                if (parentId == null || parentId == undefined || parentId == '') {
                     $('#projectFilters').select2({
                         placeholder: "Tất cả",
                         width: '100%'
                     });
-                    $scope.projectFilters = rs[0].data.data.Result;
+                    $scope.projectFilters = [{
+                        Name: 'Tất cả',
+                        Id: ''
+                    }];
+                    $scope.projectFilters = $scope.projectFilters.concat(rs[0].data.data.Result);
                 }
                 if ($scope.ShowType===0) {
                     var myTreeData = rs[0].data.data.Result;

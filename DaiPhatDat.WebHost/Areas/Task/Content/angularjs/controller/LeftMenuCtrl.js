@@ -84,6 +84,7 @@ app.controller("LeftMenuCtrl", function ($scope, $controller, $q, $timeout, Left
             }
             $scope.showLoading(null);
             LeftMenuService.getNavigationLeftFilter().then(function (rs) {
+                
                 $scope.leftMenu.data = rs.data;
                 setTimeout(function () {
                     $("#menu-item-TASK").addClass('menu-item-open');
@@ -96,6 +97,7 @@ app.controller("LeftMenuCtrl", function ($scope, $controller, $q, $timeout, Left
         },
 
         loadMenu: function (id, code) {
+            
             if ($("#tree-nav-" + code).html() == '') {
                 $("#tree-nav-" + code).jstree({
                     'core': {
@@ -580,7 +582,6 @@ app.controller("LeftMenuCtrl", function ($scope, $controller, $q, $timeout, Left
             this.clearFormTask();
             $scope.showLoading(null);
             LeftMenuService.getById('').then(function (rs) {
-                debugger;
                 $scope.leftMenu.item = rs.data;
                 $(ui.isLableCustomFilter).eq(0).prop("checked", true);
                 $(ui.isExtend).prop("checked", false);
@@ -689,7 +690,7 @@ app.controller("LeftMenuCtrl", function ($scope, $controller, $q, $timeout, Left
         },
 
         onCheckedChangeLabel: function (val) {
-            debugger;
+            ;
             $scope.lable = val;
             if (val == 1) {
                 $(ui.folderCustomFilter).val('00000000-0000-0000-0000-000000000000');

@@ -522,15 +522,29 @@ namespace DaiPhatDat.Module.Task.Services
                 {
                     ProjectFilterParam filter = new ProjectFilterParam()
                     {
-                        Code = "ROOT",
+                        Code = "TASK",
                         CreatedBy = null,
                         CreatedDate = DateTime.Now,
                         IsActive =true,
                         IsLable = true,
+                        Id = Guid.NewGuid(),
+                        Name = "Bộ lọc",
+                        NoOrder = 0,
+                    };
+                    ProjectFilterParam filterChild = new ProjectFilterParam()
+                    {
+                        Code = "TASK",
+                        CreatedBy = null,
+                        CreatedDate = DateTime.Now,
+                        IsActive = true,
+                        IsLable = false,
+                        Id = Guid.NewGuid(),
+                        ParentID = filter.Id,
                         Name = "Tất cả",
                         NoOrder = 0,
                     };
                     _objectRepository.Add(filter);
+                    _objectRepository.Add(filterChild);
                     scope.SaveChanges();
                     listUserTree = _objectRepository.GetAll().Where(
                         tfd =>

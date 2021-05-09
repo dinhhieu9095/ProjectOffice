@@ -94,7 +94,9 @@
                     </div>
                 </div>
                 <div>
-                    <select ng-model="selectedRow.ProjectId" class="form-control" id="projectFilters" name="projectFilters" ng-options="option.Id as option.Summary for option in projectFilters" ng-change="changeProjectFilters()"></select>
+                    <select class="form-control" id="projectFilters" name="projectFilters" onchange="changeProjectFilters()">
+                        <option ng-repeat="option in projectFilters" value="{{option.Id}}">{{option.Name}}</option>
+                    </select>
                 </div>
                 <span class="ml-3">Danh sách công việc</span>
             </h3>
@@ -497,7 +499,11 @@
 </div>
 
 <script type="text/javascript">
-    var ColumnHeader =JSON.parse( @Html.Raw(Json.Encode(ViewBag.col_defs)));
+    var ColumnHeader = JSON.parse( @Html.Raw(Json.Encode(ViewBag.col_defs)));
+    var changeProjectFilters = function () {
+        debugger
+        angular.element('#MainCtrl').scope().changeProjectFilters();
+    }
 </script>
 
 <!-- Modal-->
