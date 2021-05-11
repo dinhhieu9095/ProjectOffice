@@ -31,7 +31,7 @@ app.directive('kanbanBoardDrop', function () {
                 cancel(event);
                 event.originalEvent.dataTransfer.dropEffect = 'move';
                 element.addClass(dragOverClass);
-            }); 
+            });
             element.bind('drop', function (event) {
                 cancel(event);
                 element.removeClass(dragOverClass);
@@ -125,7 +125,7 @@ app.directive('draggable', function () {
             });
 
             el.addEventListener("dragstart", function (e) {
-                if (dragDataVal !== undefined && dragDataVal!="" ) {
+                if (dragDataVal !== undefined && dragDataVal != "") {
                     var sendData = angular.toJson(dragDataVal);
                     var dataSS = angular.fromJson(dragDataVal);
                     if (dataSS.DragDrop === false) {
@@ -138,17 +138,17 @@ app.directive('draggable', function () {
                             scope[dragFn](sendData);
                         })
                     }
-                } 
+                }
             });
         }
     };
 });
-app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFactory, MainService) {
+app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFactory, MainService) {
     $controller('BaseCtrl', { $scope: $scope });
     $controller('CalendarCtrl', { $scope: $scope });
     $controller('ProjectDetailCtrl', { $scope: $scope });
     $controller('TaskItemDetailCtrl', { $scope: $scope });
-    
+
     $scope.ProjectTaskItem = [];
     $scope.projectFilters = [{
         Name: 'Tất cả',
@@ -172,11 +172,13 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
     $scope.isProcessProject = false;
     $scope.isImport = false;
     $scope.IsEvict = false;
-    $scope.advanceFilter = { keyWord: "", CurrentPage: 1, PageSize:20};
+    $scope.advanceFilter = { keyWord: "", CurrentPage: 1, PageSize: 20 };
     $scope.selectedRow = null;
-    $scope.projectFilterId = urlParams.get('parentId');
+    $scope.projectFilterId = undefined;
+
     $scope.init = function () {
         debugger
+
         //$scope.SetShowType(view);
         if (view === "calendar") {
             $scope.ShowType = 3;
@@ -191,6 +193,19 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
             $scope.ShowType = 0;
         }
         $scope.col_defs = ColumnHeader;
+        $scope.$example = $('#projectFilters').select2({
+            placeholder: "Tất cả",
+            width: '100%'
+        });
+        $('#projectFilters').on('select2:select', function (e) {
+            debugger
+            $scope.tree_data = [];
+            var select = $scope.projectFilters.filter(e => e.ProjectId == $('#projectFilters').val());
+            $scope.my_tree.reset_project_all();
+            $scope.tree_data = $scope.tree_data.concat(select);
+            $scope.$apply();
+            //$scope.my_tree.add_branch(branch, myTreeData[i]);
+        });
         //$scope.col_defs = [
         //    { field: "Name", displayName: "Nội dung", visible: false, typeHtml: false },
         //    { field: "StatusName", displayName: "Tình trạng", visible: true, typeHtml: false },
@@ -201,15 +216,10 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
         //    //{ field: "ProcessHtml", displayName: "ProcessHtml", visible: true, cellTemplate: true }
         //];
         $scope.getDataByProject(parentId);
+
     };
-    $scope.changeProjectFilters = function () {
-        debugger
-        var url = CommonUtils.RootURL("Task/Home/Index?parentId=" + $('#projectFilters').val());
-        window.location.href = url;
-    };
-    $scope.SetShowType =function(view)
-    {
-        if (view==="calendar") {
+    $scope.SetShowType = function (view) {
+        if (view === "calendar") {
             $scope.ShowType = 3;
         }
         else if (view === "kanban") {
@@ -227,13 +237,13 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
         if (!$("#kt_demo_panel").hasClass('offcanvas-on')) {
             $("#kt_demo_panel_toggle").click();
         }
-        
+
         if (branch.Type == "project") {
             $scope.projectDetail.init(branch.Id);
             //if (!$('#modal-project-detail').is(':visible')) {
             //    $("#kt_demo_panel_toggle").click();
             //}
-            $("#tabli_projectStatus").children().addClass("active");   
+            $("#tabli_projectStatus").children().addClass("active");
             $("#tabli_attachmentZone").children().removeClass("active");
             $("#tabli_projectTaskRoot").children().removeClass("active");
             $("#tabli_projectReport").children().removeClass("active");
@@ -269,7 +279,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                         if (rs[0].data.status) {
                             //var myTreeData = rs[0].data.data.Result;
                             branchChildrenD.HasLoading = true;
-                            if (!branchChildrenD.HasChildren ) {
+                            if (!branchChildrenD.HasChildren) {
                                 branchChildrenD.HasChildren = true;
                             }
                             if (branchChildrenD.HasChildren) {
@@ -289,7 +299,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                                 var positionS = branchS.children.map(function (e) { return e.Id; }).indexOf(dataS.Id);
                                 //var element = branchS.children[positionS];
                                 branchS.children.splice(positionS, 1);
-                                if (branchS.children.length==0) {
+                                if (branchS.children.length == 0) {
                                     branchS.HasChildren = false;
                                 }
                             }
@@ -333,7 +343,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
         }
     };
     //Expand
-    $scope.callbackFunctionInController = function (branch) {  
+    $scope.callbackFunctionInController = function (branch) {
         if (branch.HasPagination) {
             $scope.advanceFilter.CurrentPage = branch.CurrentPage;
             $scope.getDataByProject(branch.ParentId, branch);
@@ -365,9 +375,10 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
         }
     };
     $scope.getDataByProject = function (parentId, branch) {
-        
+
+
         //$scope.showLoading(null);
-        if (branch===undefined) {
+        if (branch === undefined) {
             $scope.advanceFilter.CurrentPage = 1;
         }
         $scope.onSelectItem(branch);
@@ -383,17 +394,16 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
             debugger
             if (rs[0].data.status) {
                 if (parentId == null || parentId == undefined || parentId == '') {
-                    $('#projectFilters').select2({
-                        placeholder: "Tất cả",
-                        width: '100%'
-                    });
                     $scope.projectFilters = [{
                         Name: 'Tất cả',
-                        Id: ''
+                        Id: undefined
                     }];
                     $scope.projectFilters = $scope.projectFilters.concat(rs[0].data.data.Result);
+                    //$scope.$example.select2({
+                    //    width: '100%'
+                    //});
                 }
-                if ($scope.ShowType===0) {
+                if ($scope.ShowType === 0) {
                     var myTreeData = rs[0].data.data.Result;
                     if (branch !== undefined) {
                         if (branch.HasChildren) {
@@ -404,7 +414,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
 
                             }
                         }
-                   if (branch.HasPagination) {
+                        if (branch.HasPagination) {
                             if ($scope.ShowType === 2) {
 
                             } else {
@@ -420,18 +430,18 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                                     //$scope.my_tree.add_root_branch(myTreeData[i])
                                     $scope.my_tree.add_branch(parentBranch, myTreeData[i]);
                                 }
-                            } 
+                            }
                         }
-                   else if (!branch.HasChildren) {
-                       branch.HasLoading = false;
-                       branch.HasChildren = true;
-                       for (var i = 0; i < myTreeData.length; i++) {
-                           $scope.my_tree.add_branch(branch, myTreeData[i]);
-                           //branch.children.push(myTreeData[i]);
+                        else if (!branch.HasChildren) {
+                            branch.HasLoading = false;
+                            branch.HasChildren = true;
+                            for (var i = 0; i < myTreeData.length; i++) {
+                                $scope.my_tree.add_branch(branch, myTreeData[i]);
+                                //branch.children.push(myTreeData[i]);
 
-                       }
-                   }
-                   else {
+                            }
+                        }
+                        else {
 
                         }
                         if ($scope.ShowType === 2) {
@@ -454,8 +464,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                         }
                     }
                 }
-                else if ($scope.ShowType === 2) 
-                {   
+                else if ($scope.ShowType === 2) {
                     if (branch != undefined && branch.HasPagination) {
                         var valueHasPagination = $scope.ProjectTaskItem.slice(-1)[0];
                         if (valueHasPagination !== undefined && valueHasPagination.HasPagination) {
@@ -466,7 +475,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                     else {
                         $scope.getViewBreadCrumbWithParent(parentId);
                         $scope.bindingDataKanban(rs[0].data.data.Result);
-                    }    
+                    }
                 }
             }
             else {
@@ -479,20 +488,19 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
             $scope.hideLoading();
         });
     }
-    $scope.bindingDataKanban = function (data, dataPagging)
-    {
-        if (dataPagging!==undefined) {
+    $scope.bindingDataKanban = function (data, dataPagging) {
+        if (dataPagging !== undefined) {
             $scope.ProjectTaskItem = $scope.ProjectTaskItem.concat(dataPagging);
         }
         else {
             $scope.ProjectTaskItem = data;
-        }    
+        }
     }
     $scope.dblGetDataKanbanByItem = function (data) {
         $scope.selectedRow = data;
-        if (data.Type != "task" || data.Type == "tasks" || (data.Type == "task" && data.HasChildren )) {
+        if (data.Type != "task" || data.Type == "tasks" || (data.Type == "task" && data.HasChildren)) {
             $scope.selectedRow = null;
-            $scope.getDataByProject(data.Id); 
+            $scope.getDataByProject(data.Id);
         }
     }
     $scope.selectGetDataKanbanByItem = function (branch) {
@@ -609,7 +617,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
             $scope.isAppraiseExtendTask = false;
             $scope.isProcessProject = false;
         }
-        
+
         //////alert("my_tree_handler");
         ////console.log('you clicked on', branch)
 
@@ -638,7 +646,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
         }
     };
     $scope.ExportExcel = function () {
-        
+
         if ($scope.selectedRow == null) {
             $scope.hasSubmit = false;
             toastr.error('Vui lòng chọn 1 dự án/ công việc!', 'Thông báo');
@@ -667,7 +675,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
         //    $scope.hideLoading();
         //    $scope.handleError(error)
         //});
-        
+
     };
     function getTreeGrid(data, primaryIdName, parentIdName) {
         if (!data || data.length == 0 || !primaryIdName || !parentIdName)
@@ -779,7 +787,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                 var param = {
                     id: $scope.filter.projectId
                 }
-                var promises = [MainService.GetProject(param), MainService.GetProjectTypes(), MainService.GetProjectPriorities(), MainService.GetProjectCategories({ projectId: $scope.filter.projectId})];
+                var promises = [MainService.GetProject(param), MainService.GetProjectTypes(), MainService.GetProjectPriorities(), MainService.GetProjectCategories({ projectId: $scope.filter.projectId })];
                 $q.all(promises).then(function (rs) {
                     if (rs[0].data.Message != undefined && rs[0].data.Message == 'AccessDenied') {
                         toastr.error('Bạn không có quyền chỉnh sửa dự án này', 'Thông báo');
@@ -791,7 +799,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                     $scope.ProjectTypes = rs[1].data;
                     $scope.ProjectPriorities = rs[2].data;
                     $scope.ProjectCategories = rs[3].data;
-                   
+
                     $scope.Project.CreatedDateText = moment($scope.Project.CreatedDate).format("DD/MM/YYYY");
                     $('.select2').select2({
                         placeholder: "Tất cả",
@@ -873,7 +881,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                                         $("#FromDateText").datepicker("setDate", fromdate.toDate());
                                     }
                                 } else {
-                                    $scope.Project.IsAuto = false; 
+                                    $scope.Project.IsAuto = false;
                                 }
                             }
                             if (valid && todate < date) {
@@ -894,7 +902,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                             var todate = moment($scope.Project.ToDateText, 'DD/MM/YYYY');
                             if ($scope.Project.Id !== undefined) {
                                 if ($scope.Project.MaxToDateText != '') {
-                                    var max = moment($scope.Project.MaxToDateText,'DD/MM/YYYY');
+                                    var max = moment($scope.Project.MaxToDateText, 'DD/MM/YYYY');
                                     if (max > date) {
                                         toastr.error('Có công việc có ngày kết thúc lớn hơn', 'Thông báo');
                                         valid = false;
@@ -928,7 +936,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                 });
             } else if (action === 'New') {
                 $scope.modalTitle = "Thêm dự án"
-                var promises = [MainService.GetProjectTypes(), MainService.GetProjectPriorities(), MainService.GetProject({id: null})];
+                var promises = [MainService.GetProjectTypes(), MainService.GetProjectPriorities(), MainService.GetProject({ id: null })];
                 $q.all(promises).then(function (rs) {
                     $scope.ProjectTypes = rs[0].data;
                     $scope.ProjectPriorities = rs[1].data;
@@ -1045,14 +1053,14 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                     $scope.hideLoading();
                     $scope.hasSubmit = false;
                 }, function (er) {
-                        $scope.hideLoading();
-                        $scope.hasSubmit = false;
+                    $scope.hideLoading();
+                    $scope.hasSubmit = false;
                 });
             }
         }
     }
     $scope.SaveProject = function () {
-        
+
         if (!$scope.hasSubmit) {
             $scope.showLoading(null);
             $scope.hasSubmit = true;
@@ -1063,46 +1071,46 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                 $('#ProjectSummary').focus();
                 validate = false;
             } else
-            if ($scope.Project.FromDateText == '' || $scope.Project.FromDateText == undefined) {
-                toastr.error('Vui lòng nhập từ ngày', 'Thông báo');
-                $('#FromDateText').focus();
-                $('#FromDateText').focus();
-                validate = false;
-            } else
-            if ($scope.Project.ToDateText == '' || $scope.Project.ToDateText == undefined) {
-                toastr.error('Vui lòng nhập đến ngày', 'Thông báo');
-                $('#ToDateText').focus();
-                $('#ToDateText').focus();
-                validate = false;
-            } else
-            //if ($scope.Project.ProjectTypeId === '' || $scope.Project.ProjectTypeId === undefined) {
-            //    toastr.error('Vui lòng nhập loại công việc', 'Thông báo');
-            //    $('#ProjectTypeId').focus();
-            //    validate = false;
-            //} else
-            if ($scope.Project.ProjectPriorityId === '' || $scope.Project.ProjectPriorityId === undefined) {
-                toastr.error('Vui lòng nhập mức đô quan trọng', 'Thông báo');
-                $('#ProjectPriorityId').focus();
-                validate = false;
-            } else
-            if ($scope.Project.ProjectMembers == undefined || $scope.Project.ProjectMembers.length <=0) {
-                toastr.error('Vui lòng chọn thành viên', 'Thông báo');
-                validate = false;
-            } else
-                if ($scope.Project.ProjectMembers.filter(e => e.Role == "1").length <= 0) {
-                toastr.error('Vui lòng chọn người quản lý', 'Thông báo');
-                validate = false;
-            }
+                if ($scope.Project.FromDateText == '' || $scope.Project.FromDateText == undefined) {
+                    toastr.error('Vui lòng nhập từ ngày', 'Thông báo');
+                    $('#FromDateText').focus();
+                    $('#FromDateText').focus();
+                    validate = false;
+                } else
+                    if ($scope.Project.ToDateText == '' || $scope.Project.ToDateText == undefined) {
+                        toastr.error('Vui lòng nhập đến ngày', 'Thông báo');
+                        $('#ToDateText').focus();
+                        $('#ToDateText').focus();
+                        validate = false;
+                    } else
+                        //if ($scope.Project.ProjectTypeId === '' || $scope.Project.ProjectTypeId === undefined) {
+                        //    toastr.error('Vui lòng nhập loại công việc', 'Thông báo');
+                        //    $('#ProjectTypeId').focus();
+                        //    validate = false;
+                        //} else
+                        if ($scope.Project.ProjectPriorityId === '' || $scope.Project.ProjectPriorityId === undefined) {
+                            toastr.error('Vui lòng nhập mức đô quan trọng', 'Thông báo');
+                            $('#ProjectPriorityId').focus();
+                            validate = false;
+                        } else
+                            if ($scope.Project.ProjectMembers == undefined || $scope.Project.ProjectMembers.length <= 0) {
+                                toastr.error('Vui lòng chọn thành viên', 'Thông báo');
+                                validate = false;
+                            } else
+                                if ($scope.Project.ProjectMembers.filter(e => e.Role == "1").length <= 0) {
+                                    toastr.error('Vui lòng chọn người quản lý', 'Thông báo');
+                                    validate = false;
+                                }
             if (validate == false) {
                 $scope.hideLoading();
                 $scope.hasSubmit = false;
                 return;
             }
-            
+
             $scope.Project.ProjectCategories = $('#ProjectCategory').val();
-           
+
             MainService.SaveProject($scope.Project, $scope.fileTemps).then(function (rs) {
-                
+
                 if (rs !== undefined && rs.IsSuccess == true) {
                     toastr.success('Thành công!', 'Thông báo')
                     $scope.CloseProject();
@@ -1189,6 +1197,12 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
     $scope.CloseProject = function () {
         $scope.Project = {
         };
+        var $select = $('.select2').select2();
+        //console.log($select);
+        $select.each(function (i, item) {
+            //console.log(item);
+            $(item).select2("destroy");
+        });
         $('#FromDateText').datepicker(
             { format: "dd/mm/yyyy" }).off('changeDate');
         $('#ToDateText').datepicker(
@@ -1227,7 +1241,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                             UserId: users[i].id,
                             Role: "2"
                         }
-                        
+
                         $scope.Project.ProjectMembers.push(projectMember);
                     }
                 }
@@ -1238,7 +1252,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
     }
     $scope.ScheduleProject = function () {
         if ($scope.Project.Id !== undefined) {
-            if ($scope.Project.MinFromDateText !== '' && $scope.Project.MinFromDateText!== null) {
+            if ($scope.Project.MinFromDateText !== '' && $scope.Project.MinFromDateText !== null) {
                 $scope.Project.FromDateText = $scope.Project.MinFromDateText;
             }
             if ($scope.Project.MaxToDateText !== '' && $scope.Project.MaxToDateText !== null) {
@@ -1289,12 +1303,12 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
         $scope.showLoading(null);
         if (type == 'TaskItem') {
             surePortalCommon.initJstreeCheckBox($scope.filterOrgForTask);
-        }else
+        } else
             if (type == 'AssignBy') {
-            surePortalCommon.initJstreeCheckBox($scope.filterOrgForAssignBy);
-        } else {
-            surePortalCommon.initJstreeCheckBox($scope.filterOrg);
-        }
+                surePortalCommon.initJstreeCheckBox($scope.filterOrgForAssignBy);
+            } else {
+                surePortalCommon.initJstreeCheckBox($scope.filterOrg);
+            }
         $scope.hideLoading();
     }
     $scope.ParsingFile = function (files) {
@@ -1336,7 +1350,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
         }
         if (acceptedTypes.indexOf(fileType.toLowerCase()) === -1) {
             toastr.error('Tập tin có định đang không hợp lệ!', 'Thông báo');
-           
+
             error = false;
         }
         if (error == false) {
@@ -1401,21 +1415,21 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                 $("#FinishDateText").val($scope.Project.FinishDateText);
                 $('#FinishDateText').datepicker(
                     { format: "dd/mm/yyyy" }).on('changeDate', function (e) {
-                    var valid = true;
-                    var date = moment($("#FinishDateText").val(), 'DD/MM/YYYY');
-                    var fromdate = moment($scope.Project.FromDateText, 'DD/MM/YYYY');
-                    var finishdate = moment($scope.Project.FinishDateText, 'DD/MM/YYYY');
-                    if (fromdate > date) {
-                        toastr.error('Ngày kết thúc không hợp lệ', 'Thông báo');
-                        valid = false;
-                        $("#FinishDateText").datepicker("destroy");
-                        $("#FinishDateText").datepicker("setDate", finishdate.toDate());
-                    }
-                    if (valid) {
-                        $scope.Project.FinishDateText = $("#FinishDateText").val();
-                    }
-                    $('.datepicker').hide();
-                });
+                        var valid = true;
+                        var date = moment($("#FinishDateText").val(), 'DD/MM/YYYY');
+                        var fromdate = moment($scope.Project.FromDateText, 'DD/MM/YYYY');
+                        var finishdate = moment($scope.Project.FinishDateText, 'DD/MM/YYYY');
+                        if (fromdate > date) {
+                            toastr.error('Ngày kết thúc không hợp lệ', 'Thông báo');
+                            valid = false;
+                            $("#FinishDateText").datepicker("destroy");
+                            $("#FinishDateText").datepicker("setDate", finishdate.toDate());
+                        }
+                        if (valid) {
+                            $scope.Project.FinishDateText = $("#FinishDateText").val();
+                        }
+                        $('.datepicker').hide();
+                    });
                 $scope.ConfigValue = [];
                 $scope.ConfigType = rs[2].data.filter(e => e.Code == 'Task.TypeBarProcesTask')[0].Value;
                 if ($scope.ConfigType == 'combobox') {
@@ -1542,10 +1556,10 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
             $scope.showLoading(null);
             $scope.hasSubmit = true;
             MainService.PostTrackingUpdateDB().then(function (rs) {
-                
+
                 if (rs.data !== undefined && rs.data == true) {
                     toastr.success('Thành công!', 'Thông báo')
-                } 
+                }
                 $scope.hideLoading();
                 $scope.hasSubmit = false;
             }, function (er) {
@@ -1559,7 +1573,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
     // ---- Tạo công việc -----
     $scope.filterTask = {};
     $scope.ViewTaskItem = function (action) {
-        
+
         if (!$scope.hasSubmit) {
             $scope.showLoading(null);
             $scope.hasSubmit = true;
@@ -1585,7 +1599,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
             }
             $scope.filterTask.taskId = $scope.selectedRow.Id;
             $scope.filterTask.projectId = $scope.selectedRow.ProjectId;
-            
+
             if (action === 'Update') {
                 $scope.modalTitle = "Chỉnh sửa công việc";
                 var param = {
@@ -1612,7 +1626,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                     $('.select2').select2({
                         placeholder: "Tất cả",
                         width: '100%',
-                    }); 
+                    });
                     $('#TaskGroupType').on('select2:select', function (e) {
                         if ($('#TaskGroupType').val() == '1') {
                             $scope.TaskItem.IsReport = true;
@@ -1620,7 +1634,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                         } else if ($('#TaskGroupType').val() == '2') {
                             $scope.TaskItem.IsGroupLabel = true;
                             $scope.TaskItem.IsReport = false;
-                        } else { 
+                        } else {
                             $scope.TaskItem.IsReport = false;
                             $scope.TaskItem.IsGroupLabel = false;
                         }
@@ -1788,7 +1802,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                         templateSelection: function (data, container) {
                             var selection = $('#TaskItemAssign').select2('data');
                             var idx = selection.indexOf(data);
-                            
+
                             if (data.selected == true) {
                                 $scope.InitAssignType(idx, container);
                             } else {
@@ -1817,7 +1831,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                             },
                             processResults: function (data) {
                                 if (data.length > 0) {
-                                    
+
                                 }
                                 var items = [];
                                 for (var i = 0; i < data.length; i++) {
@@ -1872,7 +1886,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                         });
                     $('#TaskToDateText').datepicker(
                         { format: "dd/mm/yyyy" }).on('changeDate', function (e) {
-                            
+
                             var valid = true;
                             var date = moment($("#TaskToDateText").val(), 'DD/MM/YYYY');
                             if (!$scope.TaskItem.IsParentAuto) {
@@ -1929,32 +1943,31 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                 toastr.error('Vui lòng chọn người tham gia', 'Thông báo');
                 $('#TaskItemAssign').focus();
                 validate = false;
-            } else if ($scope.TaskItem.TaskItemAssigns.filter(e=>e.TaskType == '1').length !== 1) {
+            } else if ($scope.TaskItem.TaskItemAssigns.filter(e => e.TaskType == '1').length !== 1) {
                 toastr.error('Vui lòng chọn 1 người xử lý chính', 'Thông báo');
                 $('#TaskItemAssign').focus();
                 validate = false;
-            } 
+            }
             else if ($scope.TaskItem.FromDateText == '' || $scope.TaskItem.FromDateText == undefined) {
                 toastr.error('Vui lòng nhập từ ngày', 'Thông báo');
                 $('#TaskFromDateText').focus();
                 $('#TaskFromDateText').focus();
                 validate = false;
-            } else if ($scope.TaskItem.ToDateText == '' || $scope.TaskItem.ToDateText == undefined)
-            {
+            } else if ($scope.TaskItem.ToDateText == '' || $scope.TaskItem.ToDateText == undefined) {
                 toastr.error('Vui lòng nhập đến ngày', 'Thông báo');
                 $('#TaskToDateText').focus();
                 $('#TaskToDateText').focus();
-                validate = false;          
+                validate = false;
             }
             else
                 if (!$scope.TaskItem.IsParentAuto && fromDate < min) {
-                toastr.error('Ngày bắt đầu không hợp lệ', 'Thông báo');
-                validate = false;
-            } else
+                    toastr.error('Ngày bắt đầu không hợp lệ', 'Thông báo');
+                    validate = false;
+                } else
                     if (!$scope.TaskItem.IsParentAuto && toDate > max) {
-                toastr.error('Ngày kết thúc không hợp lệ', 'Thông báo');
-                validate = false;
-            }
+                        toastr.error('Ngày kết thúc không hợp lệ', 'Thông báo');
+                        validate = false;
+                    }
             if (validate == false) {
                 $scope.hideLoading();
                 $scope.hasSubmit = false;
@@ -1982,7 +1995,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                             $scope.selectViewBreadCrumbWithParent(id);
                         }
                         else if ($scope.TaskItem.Id === '00000000-0000-0000-0000-000000000000') {
-                            
+
                             $scope.selectViewBreadCrumbWithParent($scope.selectedRow.Id);
                         }
                     }
@@ -2005,7 +2018,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                                     $scope.callbackFunctionInController($scope.selectedRow);
                                 }
                             }
-                            
+
                         } else {
                             if ($scope.TaskItem.Id !== '00000000-0000-0000-0000-000000000000') {
                                 var parentBranch = $scope.my_tree.get_parent_branch($scope.selectedRow);
@@ -2036,7 +2049,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
             });
         }
     }
-   
+
     $scope.DeleteTaskItem = function () {
         if (!$scope.hasSubmit) {
             $scope.hasSubmit = true;
@@ -2099,7 +2112,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
         }
     }
     $scope.CloseTaskItem = function () {
-        
+
         $scope.TaskItem = {
         };
         $('#TaskToDateText').datepicker({ format: "dd/mm/yyyy" }).off('changeDate');
@@ -2114,7 +2127,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
         $('#AddEditTaskItem').modal('hide');
     }
     $scope.ChangeAssignType = function (idx, container) {
-        
+
         if ($scope.TaskItem.TaskItemAssigns[idx] !== undefined) {
             if ($scope.TaskItem.TaskItemAssigns[idx].TaskType == "1") {
                 $scope.TaskItem.TaskItemAssigns[idx].TaskType = "3";
@@ -2213,7 +2226,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
             }
         });
     }
-  
+
     // -----------------
     // -------Xử lý Công việc-------
     $scope.ViewTaskItemAssign = function (action) {
@@ -2346,31 +2359,31 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                 toastr.error('Vui lòng nhập ngày gia hạn', 'Thông báo');
                 $('#ExtendDate').focus();
                 $('#ExtendDate').focus();
-                validate = false;    
-            } else
-            if ($scope.TaskItemAssign.Description == '' || $scope.TaskItemAssign.Description == undefined) {
-                toastr.error('Vui lòng nhập Nội dung', 'Thông báo');
-                if ($scope.action == 'Process') {
-                    $('#ProcessTaskItem #Description').focus();
-                }
-                if ($scope.action == 'Return') {
-                    $('#AppraiseExtendTaskItem #Description').focus();
-                }
-                if ($scope.action == 'Appraise') {
-                    $('#AppraiseTaskItem #Description').focus();
-                }
-                if ($scope.action == 'Extend') {
-                    $('#AppraiseExtendTaskItem #Description').focus();
-                }
                 validate = false;
-            } else if (isAssignBy == 1 && action == 'AppraiseExtend') {
-                if ($scope.TaskItemAssign.AllowedExtendDateText == '' || $scope.TaskItemAssign.AllowedExtendDateText == undefined) {
-                    toastr.error('Vui lòng nhập ngày cho phép gia hạn', 'Thông báo');
-                    $('#AllowedExtendDateText').focus();
-                    $('#AllowedExtendDateText').focus();
+            } else
+                if ($scope.TaskItemAssign.Description == '' || $scope.TaskItemAssign.Description == undefined) {
+                    toastr.error('Vui lòng nhập Nội dung', 'Thông báo');
+                    if ($scope.action == 'Process') {
+                        $('#ProcessTaskItem #Description').focus();
+                    }
+                    if ($scope.action == 'Return') {
+                        $('#AppraiseExtendTaskItem #Description').focus();
+                    }
+                    if ($scope.action == 'Appraise') {
+                        $('#AppraiseTaskItem #Description').focus();
+                    }
+                    if ($scope.action == 'Extend') {
+                        $('#AppraiseExtendTaskItem #Description').focus();
+                    }
                     validate = false;
+                } else if (isAssignBy == 1 && action == 'AppraiseExtend') {
+                    if ($scope.TaskItemAssign.AllowedExtendDateText == '' || $scope.TaskItemAssign.AllowedExtendDateText == undefined) {
+                        toastr.error('Vui lòng nhập ngày cho phép gia hạn', 'Thông báo');
+                        $('#AllowedExtendDateText').focus();
+                        $('#AllowedExtendDateText').focus();
+                        validate = false;
+                    }
                 }
-            } 
             if (validate == false) {
                 $scope.hideLoading();
                 $scope.hasSubmit = false;
@@ -2399,8 +2412,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                         if (action == 'AppraiseExtend') {
                             $scope.getDataByProject(null);
                         }
-                        if(check === true)
-                        {
+                        if (check === true) {
                             if ($scope.TaskItemAssign !== undefined) {
                                 var parentBranch = $scope.my_tree.get_parent_branch($scope.selectedRow);
                                 parentBranch.HasLoading = true;
@@ -2445,7 +2457,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
                 toastr.error('Vui lòng chọn 1 công việc!', 'Thông báo');
                 return;
             }
-            
+
             $scope.filterTask.taskId = $scope.selectedRow.Id;
             $scope.filterTask.projectId = $scope.selectedRow.ProjectId;
             if (action === 'Evict') {
@@ -2474,7 +2486,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
             }, function (er) {
                 $scope.hideLoading();
                 $scope.hasSubmit = false;
-            });    
+            });
         }
     }
     $scope.UpdateStatusTaskItem = function (action) {
@@ -2576,7 +2588,7 @@ app.controller("MainCtrl", function ($scope,$controller, $q, $timeout, fileFacto
         }
     }
     $scope.ImportMSProject = function (files) {
-        
+
         if (!$scope.hasSubmit) {
             if (files.length !== 0) {
                 if (files.length > 0) {
