@@ -198,12 +198,34 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
             width: '100%'
         });
         $('#projectFilters').on('select2:select', function (e) {
-            debugger
-            $scope.tree_data = [];
-            var select = $scope.projectFilters.filter(e => e.ProjectId == $('#projectFilters').val());
-            $scope.my_tree.reset_project_all();
-            $scope.tree_data = $scope.tree_data.concat(select);
-            $scope.$apply();
+            debugger;
+            var select = []
+            if ($('#projectFilters').val() !== "undefined") {
+                select = $scope.projectFilters.filter(e => e.ProjectId == $('#projectFilters').val());
+            } else {
+                select = $scope.projectFilters.filter(e => e.ProjectId !== undefined);
+            }
+
+            if ($scope.ShowType === 0) {
+                $scope.tree_data = [];
+                $scope.my_tree.reset_project_all();
+                $scope.tree_data = select;
+                $scope.$apply();
+            }
+            if ($scope.ShowType === 2) {
+                if ($('#projectFilters').val() !== "undefined") {
+                    $scope.getDataByProject($('#projectFilters').val());
+                } else {
+                    $scope.getDataByProject(null);
+                }
+            }
+            if ($scope.ShowType === 3) {
+                if ($('#projectFilters').val() !== "undefined") {
+                    let item = $scope.projectFilters.filter(e => e.ProjectId == $('#projectFilters').val())[0];
+                    $scope.calendar.filter.fromDate = moment(item.FromDateText, 'DD/MM/YYYY').startOf('week').format('DD/MM/YYYY');
+                }
+                $scope.calendar.init();
+            }
             //$scope.my_tree.add_branch(branch, myTreeData[i]);
         });
         //$scope.col_defs = [
@@ -230,8 +252,14 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
         }
     };
     $scope.ChangeView = function (viewType) {
-        //window.location.href =  CommonUtils.RootURL(result.url + "&folderGroupId=" + folderGroupId + " &keyword= " + keyword + "&pageIndex=" + pageIndex);
+
         window.location.href = CommonUtils.RootURL("Task/Home/Index?filterId=" + filterId + "&folderId=" + folderId + "&view=" + viewType);
+        //window.location.href =  CommonUtils.RootURL(result.url + "&folderGroupId=" + folderGroupId + " &keyword= " + keyword + "&pageIndex=" + pageIndex);
+        //if ($('#projectFilters').val() !== "undefined") {
+        //    window.location.href = CommonUtils.RootURL("Task/Home/Index?parentId=" + $('#projectFilters').val() + "&filterId=" + filterId + "&folderId=" + folderId + "&view=" + viewType);
+        //} else {
+           
+        //}
     };
     $scope.callbackDblFunctionInController = function (branch) {
         if (!$("#kt_demo_panel").hasClass('offcanvas-on')) {
@@ -389,19 +417,35 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
             view: view,
             filter: $scope.advanceFilter
         });
-        let promises = [MainService.GetDataByProject(data)];
+        var promises = [];
+        if ($scope.ShowType == 2) {
+            promises = [MainService.GetDataByProject(data), MainService.GetDataByProject(JSON.stringify({
+                parentId: parentId,
+                filterId: filterId,
+                folderId: folderId,
+                view: '',
+                filter: $scope.advanceFilter
+            }))];
+        } else {
+            promises = [MainService.GetDataByProject(data)];
+        }
         $q.all(promises).then(function (rs) {
             debugger
             if (rs[0].data.status) {
                 if (parentId == null || parentId == undefined || parentId == '') {
-                    $scope.projectFilters = [{
-                        Name: 'Tất cả',
-                        Id: undefined
-                    }];
-                    $scope.projectFilters = $scope.projectFilters.concat(rs[0].data.data.Result);
-                    //$scope.$example.select2({
-                    //    width: '100%'
-                    //});
+                    if ($scope.ShowType === 2) {
+                        $scope.projectFilters = [{
+                            Name: 'Tất cả',
+                            ProjectId: undefined
+                        }];
+                        $scope.projectFilters = $scope.projectFilters.concat(rs[1].data.data.Result);
+                    } else {
+                        $scope.projectFilters = [{
+                            Name: 'Tất cả',
+                            ProjectId: undefined
+                        }];
+                        $scope.projectFilters = $scope.projectFilters.concat(rs[0].data.data.Result);
+                    }
                 }
                 if ($scope.ShowType === 0) {
                     var myTreeData = rs[0].data.data.Result;
@@ -465,6 +509,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                     }
                 }
                 else if ($scope.ShowType === 2) {
+                    debugger
                     if (branch != undefined && branch.HasPagination) {
                         var valueHasPagination = $scope.ProjectTaskItem.slice(-1)[0];
                         if (valueHasPagination !== undefined && valueHasPagination.HasPagination) {
@@ -801,7 +846,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                     $scope.ProjectCategories = rs[3].data;
 
                     $scope.Project.CreatedDateText = moment($scope.Project.CreatedDate).format("DD/MM/YYYY");
-                    $('.select2').select2({
+                    $('.select2css').select2({
                         placeholder: "Tất cả",
                         width: '100%',
                     });
@@ -949,7 +994,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                         $scope.Project.ProjectPriorityId = $scope.ProjectPriorities[0].Id;
                     }
 
-                    $('.select2').select2({
+                    $('.select2css').select2({
                         placeholder: "Tất cả",
                         width: '100%',
                     });
@@ -1195,6 +1240,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
         }
     }
     $scope.CloseProject = function () {
+        debugger
         $scope.Project = {
         };
         var $select = $('.select2').select2();
@@ -1408,7 +1454,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                 }
                 $scope.Project = rs[0].data;
                 $scope.ProjectStatuses = rs[1].data;
-                $('.select2').select2({
+                $('.select2css').select2({
                     placeholder: "Chọn tình trạng",
                     width: '100%',
                 });
@@ -1623,7 +1669,8 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                     } else {
                         $('#TaskGroupType').val('0');
                     }
-                    $('.select2').select2({
+                    debugger
+                    $('.select2css').select2({
                         placeholder: "Tất cả",
                         width: '100%',
                     });
@@ -1779,7 +1826,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                     $scope.TaskItem.TaskItemPriorityId = $scope.TaskItemPriorities[0].Id;
                     //Mặc định là task
                     $('#TaskGroupType').val('0');
-                    $('.select2').select2({
+                    $('.select2css').select2({
                         placeholder: "Tất cả",
                         width: '100%',
                     });
@@ -2112,7 +2159,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
         }
     }
     $scope.CloseTaskItem = function () {
-
+        debugger
         $scope.TaskItem = {
         };
         $('#TaskToDateText').datepicker({ format: "dd/mm/yyyy" }).off('changeDate');

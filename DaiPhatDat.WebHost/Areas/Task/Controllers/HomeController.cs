@@ -216,7 +216,7 @@ namespace DaiPhatDat.Module.Task.Web
             Pagination<FetchProjectsTasksResult> pagingData = null;
             try
             {
-                if (view != null && view.Length > 0) { }
+                if (!string.IsNullOrWhiteSpace(view)) { }
                 else
                 {
                     //Mặc định là view grantt
@@ -252,6 +252,11 @@ namespace DaiPhatDat.Module.Task.Web
                 }
                 else
                 {
+                    if(view == ViewKanban)
+                    {
+                        lstParams.Add($"@IsAllLevel:{1}");
+
+                    }
                     pagingData = _projectService.GetTaskWithFilterPaging(filter.KeyWord, lstParams, filter.CurrentPage, filter.PageSize, " CreatedDate DESC ", CurrentUser, parentId != null ? false : true);
                 }
                 {

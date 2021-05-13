@@ -23,6 +23,9 @@
 
         getData: function (item) {
             var parentId = '';
+            if ($('#projectFilters').val() != "undefined" && $('#projectFilters').val() != null) {
+                parentId = $('#projectFilters').val();
+            }
             if (item != null) {
                 parentId = item.Id;
             }
@@ -289,17 +292,19 @@
 
         nextTime: function () {
             if (this.filter.type == 'week') {
-                var startDate = moment($scope.calendar.filter.fromDate, 'DD/MM/YYYY').add(1, 'week').startOf('week');
+                let startDate = moment($scope.calendar.filter.fromDate, 'DD/MM/YYYY').add(1, 'week').startOf('week');
                 $scope.calendar.filter.fromDate = startDate.format('DD/MM/YYYY');
                 $scope.calendar.filter.toDate = startDate.add(6, 'day').format('DD/MM/YYYY');
             }
             else if (this.filter.type == 'day') {
-                var startDate = moment($scope.calendar.filter.fromDate, 'DD/MM/YYYY').add(1, 'day');
+                let startDate = moment($scope.calendar.filter.fromDate, 'DD/MM/YYYY').add(1, 'day');
                 $scope.calendar.filter.fromDate = startDate.format('DD/MM/YYYY');
                 $scope.calendar.filter.toDate = angular.copy($scope.calendar.filter.fromDate);
             }
             else if (this.filter.type == 'month') {
-
+                let startDate = moment($scope.calendar.filter.fromDate, 'DD/MM/YYYY').add(1, 'month').startOf('month');
+                $scope.calendar.filter.fromDate = startDate.format('DD/MM/YYYY');
+                $scope.calendar.filter.toDate = startDate.add(1, 'month').add(-1, 'day');
             }
             $scope.calendar.init();
 
@@ -318,7 +323,9 @@
                 $scope.calendar.filter.toDate = startDate.format('DD/MM/YYYY');
             }
             else if (this.filter.type == 'month') {
-
+                let startDate = moment($scope.calendar.filter.fromDate, 'DD/MM/YYYY').add(-1, 'month').startOf('month');
+                $scope.calendar.filter.fromDate = startDate.format('DD/MM/YYYY');
+                $scope.calendar.filter.toDate = startDate.add(1, 'month').add(-1, 'day');
             }
             $scope.calendar.init();
         },

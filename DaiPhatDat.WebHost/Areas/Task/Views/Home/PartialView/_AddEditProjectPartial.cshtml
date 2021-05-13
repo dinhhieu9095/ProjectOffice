@@ -56,7 +56,7 @@
                             @*<div class="col-md-5 pr-0">
                                     <div class="form-group">
                                         <label>@ResourceManagement.GetResourceText("Task.Home.ProjectType", "Loại công việc", "Project type")<span class="text-danger"> *</span></label>
-                                        <select class="form-control select2" ng-model="Project.ProjectTypeId" id="ProjectTypeId" ng-options="option.Id as option.Name for option in ProjectTypes">
+                                        <select class="form-control select2css" ng-model="Project.ProjectTypeId" id="ProjectTypeId" ng-options="option.Id as option.Name for option in ProjectTypes">
                                         </select>
                                     </div>
                                 </div>*@
@@ -70,7 +70,7 @@
                             <div class="col-md-4 pl-0">
                                 <div class="form-group">
                                     <label>@ResourceManagement.GetResourceText("Task.Home.ProjectPriority", "Mức độ quan trọng", "Project priority")<span class="text-danger"> *</span></label>
-                                    <select class="form-control select2" id="ProjectPriorityId" ng-model="Project.ProjectPriorityId" ng-options="option.Id as option.Name for option in ProjectPriorities"></select>
+                                    <select class="form-control select2css" id="ProjectPriorityId" ng-model="Project.ProjectPriorityId" ng-options="option.Id as option.Name for option in ProjectPriorities"></select>
                                 </div>
                             </div>
                         </div>

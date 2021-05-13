@@ -245,10 +245,10 @@ namespace DaiPhatDat.Module.Task.Services
   insert into [dbo].[RolePermissions] values ('3A9EC51A-6EBC-4964-9297-4C97B827DB42',	'F90744BA-9090-400B-89FD-A4D12FF7697A',	N'Quản trị hệ thống')");
 
                 queries.Add(@"
-  insert into  [SurePortal_DEV].[dbo].[Users] (ID,UserName,FullName,Gender,Email,IsActive,UserIndex,AccountName)
+  insert into  [dbo].[Users] (ID,UserName,FullName,Gender,Email,IsActive,UserIndex,AccountName)
   values ('44E34922-FE7F-4ADA-A29C-14B4164D0649','SWIC\spadmin', N'Quản trị viên', 1, 'spadmin@gamil.com', 1, 1, 'spadmin')");
                 queries.Add(@"
-  insert into  [SurePortal_DEV].[dbo].[UserRoles] ([UserID]
+  insert into  [dbo].[UserRoles] ([UserID]
       ,[RoleID]
       ,[Description])
   values ('44E34922-FE7F-4ADA-A29C-14B4164D0649','3A9EC51A-6EBC-4964-9297-4C97B827DB42','')");
@@ -419,6 +419,667 @@ INSERT INTO [Task].[TaskItemStatus]
 5,N'Gia hạn','EXTEND',	1),(
 6,N'Trả lại','REPORT_RETURN',	1),(
 8,N'Ðã xem','READ',	1)");
+            }
+            if(newVersion < 20210514)
+            {
+                newVersion = 20210514;
+                queries.Add(@"
+
+ALTER PROCEDURE [dbo].[SP_Select_Projects_With_Filter] 
+	-- Add the parameters for the stored procedure here
+	@CurrentUserId		NVARCHAR(200),					-- Func_GetUserIDByLoginName('benthanh\nguyenminhphuong')
+	@CurrentDate		DATETIME			= '',
+	@Keyword			NVARCHAR(200)		= '', 
+	@ParentId			NVARCHAR(200)		= '',
+	@IsSearching		BIT					= 0,
+	@AssignBy			NVARCHAR(200)		= '',
+	@TaskItemStatusId	VARCHAR(10)			= '',
+	@AssignTo			NVARCHAR(200)		= '',
+	@TaskType			VARCHAR(10)			= '',
+	@FromDate			VARCHAR(50)			= '',
+	@ToDate				VARCHAR(50)			= '',
+	@TaskFromDateOfFromDate			VARCHAR(50)			= '',
+	@TaskFromDateOfToDate				VARCHAR(50)			= '',
+	@TaskToDateOfFromDate			VARCHAR(50)			= '',
+	@TaskToDateOfToDate				VARCHAR(50)			= '',
+	@StatusTime			INT					= 0,
+	@TaskItemPriorityId VARCHAR(50)			= null,
+	@TaskItemNatureId VARCHAR(50) = null,
+	@ProjectHashtag	NVARCHAR(255)		= '',
+	@TaskHashtag	NVARCHAR(255)		= '',
+	@IsReport			VARCHAR(10)			= '',
+	@IsWeirdo			VARCHAR(10)			= '',
+	@Page				INT					= 1,
+	@PageSize			INT					= 10,
+	@OrderBy	  		NVARCHAR(50)			= 'CreatedDate DESC',
+	@IsCount			BIT					= 0,
+	@IsFullControl		BIT					= 0,
+	@StartDate		VARCHAR(50)					= '',
+	@EndDate		VARCHAR(50)					= '',
+	@IsExtend		VARCHAR(50)					= '',
+	@ProjectId nvarchar(50) = '',
+	@IsAllLevel		BIT					= 0
+AS
+BEGIN TRY
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	SET ARITHABORT ON;
+
+    -- Insert statements for procedure here
+	
+	-- Create temp table
+	CREATE TABLE #TempOneTItemTbl (TaskItemId uniqueidentifier);
+	CREATE TABLE #TempTwoTItemTbl (TaskItemId uniqueidentifier);
+	
+	CREATE TABLE #TempTItemTbl (TaskItemId uniqueidentifier);
+	CREATE TABLE #TItemTbl (TaskItemId uniqueidentifier);
+
+
+	CREATE TABLE #ProTaskTbl (TaskItemAssignId uniqueidentifier, TaskItemId uniqueidentifier, ProjectId uniqueidentifier);
+	CREATE TABLE #ProTbl (ProjectId uniqueidentifier);
+	
+	CREATE TABLE #DocTbl 
+	(
+		[Id] uniqueidentifier,
+		[ProjectId] uniqueidentifier,
+		[ParentId] uniqueidentifier,
+		[Name] NVARCHAR(MAX),
+		[Type] VARCHAR(10),
+		[Status] VARCHAR(20),
+		[Process] VARCHAR(20),
+		[HasChildren] BIT,
+		[FromDate] DATETIME,
+		[ToDate] DATETIME,
+		[ApprovedBy] uniqueidentifier,
+		[AssignBy] uniqueidentifier,
+		[UserId] uniqueidentifier,
+		[DepartmentId] uniqueidentifier,
+		[StatusName] NVARCHAR(50)
+	);
+	
+	-- Create variable
+	DECLARE 
+			@ProTaskSqlTrack nvarchar(MAX),
+			@ProSqlTrack nvarchar(MAX),
+			@TaskSqlTrack nvarchar(MAX),
+			@SqlTrack nvarchar(MAX),
+			@SqlFilter nvarchar(200),
+			@Sql nvarchar(MAX),
+			@TotalRecord int ,
+            @TotalPage int,
+			@FilerTrackType nvarchar(100) = '',
+			@IsParentInProject bit = 0;
+
+
+	-- AFTER CHANGING
+	
+	-- Lay danh project ban dau
+	if @IsFullControl = 0
+	-- lấy all vào #ProTaskTbl
+	SET @ProTaskSqlTrack =
+			'INSERT INTO #ProTaskTbl
+			SELECT TIAssign.Id, TItem.Id, Pro.Id AS ProjectId 
+			FROM [Task].[TaskItemAssign] TIAssign
+			FULL OUTER JOIN [Task].[TaskItem] TItem ON TIAssign.TaskItemId = TItem.Id
+ 			FULL OUTER JOIN [Task].[Project] Pro ON TItem.ProjectId = Pro.Id
+			WHERE
+				Pro.IsActive = 1 
+				AND (Pro.ApprovedBy = ''' + @CurrentUserId + ''' 
+					OR Pro.CreatedBy = ''' + @CurrentUserId + '''
+					OR Pro.UserViews like N''%' + @CurrentUserId + '%''
+					OR Pro.ManagerId like ''%'+@CurrentUserId+'%''
+					OR TItem.AssignBy = ''' + @CurrentUserId + '''
+					OR (TIAssign.TaskItemId IS NOT NULL 
+						AND TIAssign.TaskItemId != ''00000000-0000-0000-0000-000000000000''
+						AND (TIAssign.AssignTo = ''' + @CurrentUserId + '''
+								OR TIAssign.AssignFollow = ''' + @CurrentUserId + ''') AND TIAssign.TaskItemStatusId != 3)) ';
+	else
+		SET @ProTaskSqlTrack =
+			'INSERT INTO #ProTaskTbl
+			SELECT TIAssign.Id, TItem.Id, Pro.Id AS ProjectId 
+			FROM [Task].[TaskItemAssign] TIAssign
+			FULL OUTER JOIN [Task].[TaskItem] TItem ON TIAssign.TaskItemId = TItem.Id
+ 			FULL OUTER JOIN [Task].[Project] Pro ON TItem.ProjectId = Pro.Id
+			WHERE
+				Pro.IsActive = 1 '
+	--print @ProTaskSqlTrack
+	-- Keyword Condition
+	IF (@Keyword != '') 
+	BEGIN
+		SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+								' AND (
+								--Pro.Summary like N''%' + @Keyword + '%'' OR 
+								TItem.TaskName like N''%' + @Keyword + '%'')';
+	END
+	IF (@ParentId!= '' and EXISTS (SELECT Id FROM [Task].[Project] WHERE Id = @ParentId))
+		BEGIN
+			SET @ProjectId = @ParentId;
+		END
+	IF (@ProjectId != '') 
+	BEGIN
+		
+			SET @ProTaskSqlTrack = @ProTaskSqlTrack + ' AND Pro.Id = ''' + @ProjectId + '''';
+	END
+
+	-- AssignBy Condition
+	IF (@AssignBy != '') 
+	BEGIN
+		if @AssignBy = 'CurentUser'
+			SET @ProTaskSqlTrack = @ProTaskSqlTrack + ' AND TItem.AssignBy = ''' + @CurrentUserId + ''' ';
+		else
+			SET @ProTaskSqlTrack = @ProTaskSqlTrack + ' AND TItem.AssignBy = ''' + @AssignBy + ''' ';
+	END
+
+	-- TaskItemStatusId Condition
+	IF (@TaskItemStatusId != '')
+	BEGIN
+		SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+								' AND  TItem.TaskItemStatusId In (' + @TaskItemStatusId + ') AND (TItem.IsGroupLabel Is null or TItem.IsGroupLabel = 0 ) ';
+	END
+
+	-- AssignTo Condition
+	IF (@AssignTo != '')
+	BEGIN
+		if @AssignTo = 'CurentUser'
+			SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+								' AND TIAssign.AssignTo = ''' + @CurrentUserId + ''' AND TIAssign.TaskItemStatusId != 3';
+		else
+			SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+								' AND TIAssign.AssignTo = ''' + @AssignTo + ''' AND TIAssign.TaskItemStatusId != 3';
+		
+	END
+
+	-- TaskType Condition
+	IF (@TaskType != '')
+	BEGIN
+		SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+								' AND TIAssign.TaskType In (' + @TaskType + ')';
+	END
+
+	-- FromDate Condition
+	IF (@FromDate != '')
+	BEGIN
+		SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+								' AND (TItem.FromDate >= ''' + @FromDate + ''' 
+										OR TItem.FromDate >= ''' + @FromDate + '''
+										OR Pro.FromDate >= ''' + @FromDate + ''')';
+	END
+
+	-- ToDate Condition
+	IF (@ToDate != '')
+	BEGIN
+		SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+								' AND (TItem.ToDate <= ''' + @ToDate + '''
+										OR TItem.ToDate <= ''' + @ToDate + '''
+										OR Pro.ToDate <= ''' + @ToDate + ''')';
+	END
+
+	-- so sánh với fromdate của công việc
+	IF (@TaskFromDateOfFromDate != '')
+	BEGIN
+		SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+								' AND (TItem.FromDate >= ''' + @TaskFromDateOfFromDate + ''' 
+										OR TItem.FromDate >= ''' + @TaskFromDateOfFromDate + '''
+										OR Pro.FromDate >= ''' + @TaskFromDateOfFromDate + ''')';
+	END
+
+	IF (@TaskFromDateOfToDate != '')
+	BEGIN
+		SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+								' AND (TItem.FromDate <= ''' + @TaskFromDateOfToDate + '''
+										OR TItem.FromDate <= ''' + @TaskFromDateOfToDate + '''
+										OR Pro.FromDate <= ''' + @TaskFromDateOfToDate + ''')';
+	END
+	-- so sánh với todate của công việc
+	IF (@TaskToDateOfFromDate != '')
+	BEGIN
+		SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+								' AND (TItem.ToDate >= ''' + @TaskToDateOfFromDate + ''' 
+										OR TItem.ToDate >= ''' + @TaskToDateOfFromDate + '''
+										OR Pro.ToDate >= ''' + @TaskToDateOfFromDate + ''')';
+	END
+
+	IF (@TaskToDateOfToDate != '')
+	BEGIN
+		SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+								' AND (TItem.ToDate <= ''' + @TaskToDateOfToDate + '''
+										OR TItem.ToDate <= ''' + @TaskToDateOfToDate + '''
+										OR Pro.ToDate <= ''' + @TaskToDateOfToDate + ''')';
+	END
+
+	-- mặc định
+	--IF (@StatusTime = 0)
+	--BEGIN
+		
+	--END
+	-- sắp hết hạn
+	IF (@StatusTime = 1)
+	BEGIN
+		SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+								' AND dbo.Func_Doc_CheckIsOverDue(TItem.ToDate, 
+																	TItem.FinishedDate, 
+																	TItem.TaskItemStatusId, 
+																	dateadd(DAY, 2, getdate())) = 1
+									AND dbo.Func_Doc_CheckIsOverDue(TItem.ToDate, 
+																	TItem.FinishedDate, 
+																	TItem.TaskItemStatusId, 
+																	getdate()) = 0 
+									 AND (TItem.IsGroupLabel Is null or TItem.IsGroupLabel = 0 ) ';
+	END
+	-- quá hạn
+	IF (@StatusTime = 2)
+	BEGIN
+		SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+								' AND dbo.Func_Doc_CheckIsOverDue(TItem.ToDate, 
+																	TItem.FinishedDate,
+																	TItem.TaskItemStatusId, 
+																	getdate()) = 1 
+								 AND (TItem.IsGroupLabel Is null or TItem.IsGroupLabel = 0 )';
+	END
+
+	
+	-- gia hạn
+	IF (@IsExtend = '1')
+	BEGIN
+		SET @ProTaskSqlTrack = @ProTaskSqlTrack + ' AND (TIAssign.IsExtend = 1)'
+								 
+	END
+ 
+	-- Priority
+	IF (@TaskItemPriorityId IS NOT NULL)
+	BEGIN
+		SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+								' AND (TItem.TaskItemPriorityId In (' + @TaskItemPriorityId + '))';
+	END
+
+	--natureTask
+	IF @TaskItemNatureId IS NOT NULL 
+	BEGIN
+		SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+								' AND (TItem.NatureTaskId In (' + @TaskItemNatureId + '))';
+	END
+
+
+	-- Hashtag
+	-- khánh nói
+	IF (@ProjectHashtag != '')
+	BEGIN
+		--SET @ProTaskSqlTrack = @ProTaskSqlTrack + ' AND (Pro.ProjectCategory like N''%' + @ProjectHashtag + '%'')';
+		SET @ProTaskSqlTrack = @ProTaskSqlTrack + ' AND (EXISTS  (SELECT 1
+													FROM dbo.Func_SplitTextToTable(N'''+@ProjectHashtag+''','','') where items in (select *  from dbo.Func_SplitTextToTable(Pro.ProjectCategory,'';''))))';
+		--SET @ProTaskSqlTrack = @ProTaskSqlTrack + ' AND (Pro.ProjectCategory like N''%' + @ProjectHashtag + '%'')';
+	END
+
+	IF (@TaskHashtag != '')
+	BEGIN
+		--SET @ProTaskSqlTrack = @ProTaskSqlTrack + ' AND (Pro.ProjectCategory like N''%' + @ProjectHashtag + '%'')';
+		SET @ProTaskSqlTrack = @ProTaskSqlTrack + ' AND (EXISTS  (SELECT 1
+													FROM dbo.Func_SplitTextToTable(N'''+@TaskHashtag+''','','') where items in (select *  from dbo.Func_SplitTextToTable(TaskItemCategory,'';''))))';
+		--SET @ProTaskSqlTrack = @ProTaskSqlTrack + ' AND (TItem.TaskItemCategory like N''%' + @TaskHashtag + '%'')';
+	END
+	--print @ProTaskSqlTrack
+	-- IsReport
+	IF (@IsReport != '')
+	BEGIN
+		SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+								' AND (TItem.IsReport = ' + @IsReport + ')';
+	END
+
+	IF (@IsWeirdo != '')
+	BEGIN
+		SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+								' AND (TItem.IsReport = ' + @IsWeirdo + ')';
+	END
+			-- FromDate Condition
+	IF (@StartDate!='' or @EndDate !='' )
+	BEGIN
+		--SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+		--						' AND ((TItem.FromDate <= ''' + @EndDate + ''' And TItem.FromDate >=''' + @StartDate + ''') or (TItem.ToDate <= ''' + @EndDate + ''' And TItem.ToDate >=''' + @StartDate + ''') or (TItem.FromDate <= ''' + @StartDate  + ''' And TItem.ToDate >=''' + @EndDate + '''))' ;
+								SET @ProTaskSqlTrack = @ProTaskSqlTrack +
+								' AND ((TItem.FromDate < ''' + @EndDate + ''' And TItem.ToDate >''' + @StartDate + '''))' ;
+
+	END
+	--print(@ProTaskSqlTrack);
+	-- lấy all vào #ProTaskTbl
+	EXEC sp_executesql @ProTaskSqlTrack;
+	--print @IsAllLevel;
+	-- Neu lay project
+	IF (@ParentId = '' and @IsAllLevel = 0)
+	BEGIN
+	-- lấy projectId vào #ProTbl
+		SET @ProSqlTrack = 
+				'INSERT INTO #ProTbl
+				select ProjectId from (SELECT ProjectId
+				FROM #ProTaskTbl) AS T3
+GROUP BY ProjectId'
+				;
+
+		EXEC sp_executesql @ProSqlTrack;
+
+		-- Get info Project from #ProTbl
+		SET @SqlTrack = 
+				'INSERT INTO #DocTbl
+				SELECT 
+					Pro.Id AS [Id],
+					Pro.Id As [ProjectId],
+					''00000000-0000-0000-0000-000000000000'' AS [ParentId],
+					Pro.Summary AS [Name], 
+					''project'' AS [Type],
+					ProStatus.Code AS [Status],
+					CASE 
+						When dbo.Func_Doc_CheckIsOverDue(Pro.ToDate, 
+																	Pro.FinishedDate, 
+																	Pro.ProjectStatusId, 
+																	dateadd(DAY, 2, getdate()))=1 
+																		and dbo.Func_Doc_CheckIsOverDue(Pro.ToDate, 
+																	Pro.FinishedDate, 
+																	Pro.ProjectStatusId, 
+																	getdate()) = 0  Then ''near-of-date''
+						WHEN Pro.ProjectStatusId  = 4 AND Pro.FinishedDate <= Pro.ToDate THEN ''in-due-date''
+						WHEN Pro.ProjectStatusId  = 4 AND Pro.FinishedDate >  Pro.ToDate THEN ''out-of-date''
+						WHEN Pro.ProjectStatusId != 4 AND Pro.ToDate       >= GETDATE()  THEN ''in-due-date''
+					ELSE ''out-of-date'' 
+					END AS [Process],
+					[dbo].[Func_CheckChildrenOfProject](Pro.Id) AS [HasChildren],
+					Pro.FromDate AS [FromDate],
+					Pro.ToDate AS [ToDate],
+					Pro.ApprovedBy AS [ApprovedBy],
+					Pro.ApprovedBy AS [AssignBy],
+					NULL AS [UserId],
+					Pro.DepartmentId AS [DepartmentId],
+					ProStatus.Name AS [StatusName]
+				FROM #ProTbl TempTbl
+				LEFT JOIN [Task].[Project] Pro ON TempTbl.ProjectId = Pro.Id
+				LEFT JOIN [Task].[ProjectStatus] ProStatus ON Pro.ProjectStatusId = ProStatus.Id
+				ORDER BY Pro.CreatedDate DESC, Pro.Summary';
+
+		EXEC sp_executesql @SqlTrack;
+
+	END
+	-- Neu lay task
+	ELSE
+	BEGIN
+
+		SET @ProSqlTrack = 
+				'INSERT INTO #ProTbl
+				SELECT DISTINCT ProjectId
+				FROM #ProTaskTbl';
+
+		EXEC sp_executesql @ProSqlTrack;
+
+		SET @TaskSqlTrack = 
+				'INSERT INTO #TempTItemTbl
+				SELECT DISTINCT TaskItemId
+				FROM #ProTaskTbl';
+
+		EXEC sp_executesql @TaskSqlTrack;
+		
+		-- Insert vào @TaskItemId danh sách TaskItemId có quan hệ
+		DECLARE @TaskItemId NVARCHAR(200);
+		DECLARE MY_CURSOR CURSOR
+		LOCAL STATIC READ_ONLY FORWARD_ONLY
+		FOR
+		SELECT TaskItemId FROM #TempTItemTbl
+
+		OPEN MY_CURSOR
+		FETCH NEXT FROM MY_CURSOR INTO @TaskItemId
+		WHILE @@FETCH_STATUS = 0
+		BEGIN 
+			--Do something with Id here
+			WITH tbParent AS
+			(
+				SELECT Id, ParentId 
+				FROM [Task].[TaskItem]
+				WHERE Id = @TaskItemId  and IsDeleted = 0
+				
+				UNION ALL
+
+				SELECT TItem.Id, TItem.ParentId
+				FROM [Task].[TaskItem] TItem
+				JOIN tbParent 
+				ON TItem.Id = tbParent.ParentId
+				
+			)
+
+			INSERT INTO #TempTwoTItemTbl
+			SELECT Id AS Id
+			FROM tbParent
+
+			FETCH NEXT FROM MY_CURSOR INTO @TaskItemId
+		END
+		CLOSE MY_CURSOR
+		DEALLOCATE MY_CURSOR
+
+		-- Đưa TaskItemId đã được lọc duplicate vào trong #TItemTbl
+		INSERT INTO #TItemTbl
+		SELECT DISTINCT *
+		FROM #TempTwoTItemTbl
+		SET @SqlTrack =
+			'INSERT INTO #DocTbl
+				SELECT TItem.Id AS [Id],
+					TItem.ProjectId AS [ProjectId],
+					TItem.ParentId AS [ParentId],
+					TItem.TaskName AS [Name],
+					CASE 
+						WHEN TItem.IsGroupLabel = 1 THEN ''group''
+						ELSE ''''
+						END AS [Type],
+					TIStatus.Code AS [Status],
+					CASE
+									When dbo.Func_Doc_CheckIsOverDue(TItem.ToDate, 
+																	TItem.FinishedDate, 
+																	TItem.TaskItemStatusId, 
+																	dateadd(DAY, 2, getdate()))=1 
+																		And dbo.Func_Doc_CheckIsOverDue(TItem.ToDate, 
+																	TItem.FinishedDate, 
+																	TItem.TaskItemStatusId, 
+																	getdate()) = 0  Then ''near-of-date''
+						WHEN TItem.TaskItemStatusId  = 4 AND TItem.FinishedDate <= TItem.ToDate THEN ''in-due-date''
+						WHEN TItem.TaskItemStatusId  = 4 AND TItem.FinishedDate >  TItem.ToDate THEN ''out-of-date''
+						WHEN TItem.TaskItemStatusId != 4 AND TItem.ToDate       >= GETDATE()    THEN ''in-due-date''
+						ELSE ''out-of-date''
+						END AS [Process],
+					[dbo].[Func_CheckChildrenOfTaskItem](TItem.Id) AS [HasChildren],
+					TItem.FromDate AS [FromDate],
+					TItem.ToDate AS [ToDate],
+					''00000000-0000-0000-0000-000000000000'' AS [ApprovedBy],
+					TItem.AssignBy AS [AssignBy],
+					[dbo].[Func_GetPriorityUserIdByTaskItemId](TItem.Id) AS [UserId],
+					TItem.DepartmentId AS [DepartmentId],
+					TIStatus.Name AS [StatusName]
+				FROM [Task].[TaskItem] AS TItem
+				LEFT JOIN [Task].[TaskItemStatus] AS TIStatus
+				ON TItem.TaskItemStatusId = TIStatus.Id 
+				WHERE TItem.TaskName IS NOT NULL ';
+
+		IF (@ParentId != '' and EXISTS (SELECT Id FROM [Task].[Project] WHERE Id = @ParentId))
+		BEGIN
+			if(@IsAllLevel = 0)
+			SET @SqlTrack = @SqlTrack +
+							' AND (TItem.ProjectId = ''' + @ParentId + ''' 
+								AND (TItem.ParentId IS NULL OR TItem.ParentId = ''00000000-0000-0000-0000-000000000000'')) ';
+			else
+			SET @SqlTrack = @SqlTrack +
+							' AND (TItem.ProjectId = ''' + @ParentId + ''' and TItem.IsGroupLabel != 1 ) ';
+		END
+		ELSE
+		BEGIN
+			if(@IsAllLevel = 1)
+			SET @SqlTrack = @SqlTrack +
+							' AND (TItem.IsGroupLabel != 1 ) ';
+			if(@IsAllLevel = 0 and @ParentId!='')
+			SET @SqlTrack = @SqlTrack + 
+							' AND (TItem.ParentId = ''' + @ParentId + ''')';
+		END
+
+		SET @SqlTrack = @SqlTrack + 
+				' AND TItem.Id IN (SELECT TaskItemId FROM #TItemTbl)';
+
+	
+		SET @SqlTrack = @SqlTrack +
+						' ORDER BY TItem.[Order], TItem.CreatedDate';
+		--Print @SqlTrack;
+		EXEC sp_executesql @SqlTrack;
+
+	END
+
+	-- END: AFTER CHANGING
+
+	-- lấy số trang
+	SET @TotalRecord = (SELECT COUNT(*) FROM #DocTbl);
+	SET @TotalPage = dbo.Func_GetTotalPage(@TotalRecord, @PageSize);
+
+	-- lấy dữ liệu phân trang
+	IF (@IsCount = 1 AND @ParentId = '' and @IsAllLevel=0)
+	BEGIN
+		IF (@TotalRecord IS NULL)
+			SET @TotalRecord = 0;
+		IF (@TotalPage IS NULL)
+			SET @TotalPage = 0;
+		SELECT Pro.Id AS [Id],
+			Pro.Summary AS [Name], 
+			Pro.Id As [ProjectId],
+			'project' AS [Type],
+			TempPro.[Status] AS [Status],
+				pro.PercentFinish AS [PercentFinish],
+				TempPro.Process  as Process,
+			[dbo].[Func_CheckChildrenOfProject](Pro.Id) AS [HasChildren],
+			Pro.FromDate AS [FromDate],
+			Pro.ToDate AS [ToDate],
+			Pro.ApprovedBy AS [ApprovedBy],
+			Pro.DepartmentId AS [DepartmentId],
+			ProStatus.Name AS [StatusName],
+			@TotalPage AS [TotalPage],
+			@TotalRecord AS [TotalRecord],
+			@Page as CurrentPage,
+			@PageSize as PageSize,
+			Pro.CreatedBy,
+			'' as ProcessClass,
+			Pro.ManagerId as UsersPrimary,
+			pro.UserViews as UsersSecond,
+			'' as UsersThird 
+
+		FROM #DocTbl TempPro
+		LEFT JOIN [Task].[Project] Pro ON TempPro.Id = Pro.Id
+		LEFT JOIN [Task].[ProjectStatus] ProStatus ON Pro.ProjectStatusId = ProStatus.Id
+		ORDER BY Pro.CreatedDate DESC, Pro.Summary
+		OFFSET     (@Page - 1) * @PageSize ROWS       -- skip 10 rows
+		FETCH NEXT @PageSize ROWS ONLY;
+
+	END
+	ELSE IF @ParentId = '' and @IsAllLevel=0
+	BEGIN
+		SELECT 
+			Doc.*,
+			p.PercentFinish AS [PercentFinish],
+			p.UserViews [UserViews],
+			(SELECT Count(ti.Id) FROM Task.TaskItem ti
+				WHERE ti.ProjectId = Doc.Id AND (ti.IsGroupLabel is null Or ti.IsGroupLabel = 0) AND (ti.AssignBy = @CurrentUserId Or (select Count(tia.Id) from Task.TaskItemAssign tia where tia.ProjectId = ti.Id AND tia.AssignTo = @CurrentUserId) > 0)) As CountTask,
+			@TotalPage AS [TotalPage],
+			@TotalRecord AS [TotalRecord],
+			@Page as CurrentPage,
+			@PageSize as PageSize,
+			p.CreatedBy,
+				'' as ProcessClass,
+			p.ManagerId as UsersPrimary,
+			p.UserViews as UsersSecond,
+			'' as UsersThird 
+		FROM #DocTbl Doc INNER JOIN Task.Project p ON p.Id = Doc.Id
+		ORDER BY p.CreatedDate DESC, p.Summary
+	END
+	ELSE
+	BEGIN
+	if (@IsCount = 1)
+		begin
+		IF (@TotalRecord IS NULL)
+			SET @TotalRecord = 0;
+		IF (@TotalPage IS NULL)
+			SET @TotalPage = 0;
+			SELECT 
+			Doc.*,
+			p.IsGroupLabel,
+			CASE
+				WHEN p.PercentFinish <= 0 THEN (Select top 1 PercentFinish From Task.TaskItemAssign tia where tia.TaskType = 1 AND tia.TaskItemId = Doc.Id)
+				ELSE p.PercentFinish
+			END as PercentFinish,
+			p.Conclusion as Content,
+			(SELECT Count(ti.Id) FROM Task.TaskItem ti
+				WHERE ti.ParentId = Doc.Id) As CountTask,
+			(SELECT Top 1 tia.AssignTo FROM Task.TaskItemAssign tia
+				WHERE tia.TaskItemId = Doc.Id and tia.TaskType = 1) As AssignTo,
+			(SELECT Top 1 tia.DepartmentId FROM Task.TaskItemAssign tia
+				WHERE tia.TaskItemId = Doc.Id and tia.TaskType = 1) As AssignToDeparmentId,
+			@TotalPage AS [TotalPage],
+			@TotalRecord AS [TotalRecord],
+			@Page as CurrentPage,
+			@PageSize as PageSize,
+			p.CreatedBy,
+			[Task].[Udf_Get_Process_Class_Grantt_View_By_Task](p.ProjectId,p.Id) as ProcessClass,
+			[Task].[Udf_Get_UserIdAssign_By_TaskType](1,p.Id,p.ProjectId) as UsersPrimary,
+			[Task].[Udf_Get_UserIdAssign_By_TaskType](3,p.Id,p.ProjectId) as UsersSecond,
+			[Task].[Udf_Get_UserIdAssign_By_TaskType](7,p.Id,p.ProjectId) as UsersThird
+
+		FROM #DocTbl Doc INNER JOIN Task.TaskItem p ON p.Id = Doc.Id
+		where p.IsDeleted = 0
+		ORDER BY p.[Order], p.CreatedDate
+		OFFSET     (@Page - 1) * @PageSize ROWS       -- skip 10 rows
+		FETCH NEXT @PageSize ROWS ONLY;
+		end
+	else 
+	begin
+		SELECT 
+			Doc.*,
+			p.IsGroupLabel,
+			CASE
+				WHEN p.PercentFinish <= 0 THEN (Select top 1 PercentFinish From Task.TaskItemAssign tia where tia.TaskType = 1 AND tia.TaskItemId = Doc.Id)
+				ELSE p.PercentFinish
+			END as PercentFinish,
+			p.Conclusion as Content,
+			(SELECT Count(ti.Id) FROM Task.TaskItem ti
+				WHERE ti.ParentId = Doc.Id) As CountTask,
+			(SELECT Top 1 tia.AssignTo FROM Task.TaskItemAssign tia
+				WHERE tia.TaskItemId = Doc.Id and tia.TaskType = 1) As AssignTo,
+			(SELECT Top 1 tia.DepartmentId FROM Task.TaskItemAssign tia
+				WHERE tia.TaskItemId = Doc.Id and tia.TaskType = 1) As AssignToDeparmentId,
+			@TotalPage AS [TotalPage],
+			@TotalRecord AS [TotalRecord],
+			@Page as CurrentPage,
+			@PageSize as PageSize,
+			p.CreatedBy,
+			[Task].[Udf_Get_Process_Class_Grantt_View_By_Task](p.ProjectId,p.Id) as ProcessClass,
+				[Task].[Udf_Get_UserIdAssign_By_TaskType](1,p.Id,p.ProjectId) as UsersPrimary,
+			[Task].[Udf_Get_UserIdAssign_By_TaskType](3,p.Id,p.ProjectId) as UsersSecond,
+			[Task].[Udf_Get_UserIdAssign_By_TaskType](7,p.Id,p.ProjectId) as UsersThird
+		FROM #DocTbl Doc INNER JOIN Task.TaskItem p ON p.Id = Doc.Id
+		where p.IsDeleted = 0
+		ORDER BY p.[Order], p.CreatedDate
+		end
+	END
+	DROP TABLE #TempOneTItemTbl;
+	DROP TABLE #TempTwoTItemTbl;
+	DROP TABLE #TempTItemTbl;
+	DROP TABLE #TItemTbl;
+	DROP TABLE #ProTaskTbl;
+	DROP TABLE #ProTbl;
+	DROP TABLE #DocTbl;
+
+END TRY
+BEGIN CATCH
+	-- Whoops, there was an error
+	IF @@TRANCOUNT > 0
+	ROLLBACK TRANSACTION
+	
+	-- Raise an error with the details of the exception
+	DECLARE @ErrMsg nvarchar(4000), 
+			@ErrSeverity int;
+
+	SELECT @ErrMsg = ERROR_MESSAGE(),
+		   @ErrSeverity = ERROR_SEVERITY();
+
+	RAISERROR(@ErrMsg, @ErrSeverity, 1)
+END CATCH
+");
             }
 			if (newVersion != currentVersion)
             {
