@@ -1,0 +1,35 @@
+﻿@using DaiPhatDat.Core.Kernel;
+<div class="task-item-vs task-item-vs2" ng-if="item.TaskName != null">
+    <a class="task-link" target="_blank" href="#">
+        <span class="task-num">{{ item.Index }}.</span> {{ item.TaskName }}
+    </a>
+    <span class="item-info">
+        <span class="item-owner">
+            <span class="item-color"> @ResourceManagement.GetResourceText("Task.ProjectDetail.AssignBy", "Giao bởi", "Assign By") </span> {{item.AssignByFullName}} - {{item.JobTitleName}}  <span class="item-time"><span class="item-color"> @ResourceManagement.GetResourceText("Task.ProjectDetail.From", "Từ", "From") </span> {{ item.FromDateFormat }} - <span class="item-color">@ResourceManagement.GetResourceText("Task.ProjectDetail.To", "đến", "To") </span> {{ item.ToDateFormat }}</span>
+            <span ng-if="item.TaskItemCategories.length > 0" class="item-tags">
+                <span ng-if="item.TaskItemCategories.length > 0" class="item-color">
+                    @ResourceManagement.GetResourceText("Task.ProjectDetail.TaskItemCategories", "Nhãn danh mục", "Task Item Categories")
+                </span>
+                <a ng-repeat="cate in item.TaskItemCategories" href="#"><span>{{ cate }}</span></a>                
+            </span>
+        </span>
+        <span class="item-block">
+            <span class="item-assign">
+                <span class="item-color"> @ResourceManagement.GetResourceText("Task.ProjectDetail.AssignTo", "Xử lý bởi", "Assign To") </span> {{item.TaskItemAssigns[0].AssignToFullName}} - {{item.TaskItemAssigns[0].AssignToJobTitleName}}
+                <span class="item-time-update"><span class="item-color"> @ResourceManagement.GetResourceText("Task.ProjectDetail.Update", "Cập nhật", "Update")     </span>{{item.TaskItemAssigns[0].ModifiedDateFormat}}</span>
+                <span ng-if="item.TaskItemAssigns[0].PercentFinish != null && item.TaskItemAssigns[0].PercentFinish > 0" class="item-color">
+            @ResourceManagement.GetResourceText("Task.ProjectDetail.PercentComplete", "Với tỷ lệ hoàn thành", "Percent Complete")
+        </span>
+                <span ng-if="item.TaskItemAssigns[0].PercentFinish != null && item.TaskItemAssigns[0].PercentFinish > 0" class="item-complete">
+                    <span ng-if="item.TaskItemAssigns[0].PercentFinish != null && item.TaskItemAssigns[0].PercentFinish > 0" class="label-process"> {{item.TaskItemAssigns[0].PercentFinish}}%</span>
+                    <span class="label-process"> | 45%</span>
+                </span>
+                
+            </span>          
+        </span>
+        <label class="label label-inline label-status progress-task {{item.Process}}" >
+            {{item.StatusName}}
+            @*<span ng-if="item.PercentFinish != null && item.PercentFinish > 0" class="label-process"> ({{item.PercentFinish}}%)</span>*@
+        </label>
+    </span>
+</div>

@@ -1,22 +1,32 @@
 ﻿//menu left
-app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout, ProjectDetailService, $window) {
+app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout, ProjectDetailService, TaskItemDetailService, $window) {
     $controller('BaseCtrl', { $scope: $scope });
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    
+
     $scope.projectDetail = {
         item: {
 
         },
 
-        id: '',
+        filter: {
+            UserId: null,
+            ProjectId: null,
+            TaskItemId: null,
+            TaskItemAssignId: null,
+            PageIndex: 1,
+            PageSize: 10,
+            FromDate: null,
+            ToDate: null
+        },
 
         table: [],
 
         getData: function () {
             $scope.showLoading(null);
-            ProjectDetailService.getData($scope.projectDetail.id).then(function (rs) {
+            debugger;
+            ProjectDetailService.getData($scope.projectDetail.filter.ProjectId).then(function (rs) {
                 $scope.projectDetail.item = rs.data;
                 $("#modal-project-detail").css("display", "block");
                 $("#modal-task-detail").css("display", "none");
@@ -28,7 +38,7 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
         getAttachment: function () {
             if ($scope.projectDetail.item.Attachments == null) {
                 $scope.showLoading(null);
-                ProjectDetailService.attachmentProject($scope.projectDetail.id).then(function (rs) {
+                ProjectDetailService.attachmentProject($scope.projectDetail.filter.ProjectId).then(function (rs) {
                     $scope.projectDetail.item.Attachments = rs.data;
                     $scope.hideLoading(null);
                 })
@@ -39,7 +49,7 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
             //if ($scope.projectDetail.item.TaskItems == null) {
             $scope.showLoading(null);
 
-            ProjectDetailService.reportProject($scope.projectDetail.id).then(function (rs) {
+            ProjectDetailService.reportProject($scope.projectDetail.filter.ProjectId).then(function (rs) {
                 $scope.hideLoading(null);
                 $scope.projectDetail.item.ReportProject = rs.data;
                 $scope.projectDetail.renderPieChartStatus();
@@ -49,7 +59,7 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
 
             });
 
-            ProjectDetailService.userInProject($scope.projectDetail.id).then(function (rs) {
+            ProjectDetailService.userInProject($scope.projectDetail.filter.ProjectId).then(function (rs) {
                 $scope.projectDetail.item.ProjectMembers = rs.data;
                 $scope.projectDetail.renderbarChart();
             });
@@ -85,7 +95,7 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
                     type: 'pie'
                 },
                 title: {
-                    text: 'Tình trạng xử lý'
+                    text: 'Theo tình trạng'
                 },
                 tooltip: {
                     pointFormat: '{series.x}: <b>{point.percentage:.1f}%</b>'
@@ -171,7 +181,7 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
                     type: 'pie'
                 },
                 title: {
-                    text: 'Tình trạng xử lý'
+                    text: 'Theo tiến độ'
                 },
                 tooltip: {
                     pointFormat: '{series.x}: <b>{point.percentage:.1f}%</b>'
@@ -205,19 +215,10 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
                                     case 'indueDate':
                                         $scope.projectDetail.table = $scope.projectDetail.item.ReportProject.TaskItems.filter(function (item) {
 
-                                            if (item.ToDate === null
-                                                || (item.TaskItemStatusId !== 4 && moment(item.ToDate) >= new Date())
-                                                || (item.TaskItemStatusId === 4 && moment(item.ToDate) >= moment(item.FinishedDate))) {
+                                            if (item.Process == "in-due-date") {
                                                 index++;
                                                 item.Index = index;
-                                                if (item.ToDate === null
-                                                    || (item.TaskItemStatusId !== 4 && moment(item.ToDate) >= new Date())
-                                                    || (item.TaskItemStatusId === 4 && moment(item.ToDate) >= moment(item.FinishedDate))) {
-                                                    item.BgColor = 'bg-color-OnSchedule';
-                                                }
-                                                else {
-                                                    item.BgColor = 'bg-color-IsOutOfDate';
-                                                }
+                                                item.BgColor = 'bg-color-OnSchedule';
                                                 item.FromDateFormat = moment(item.FromDate).format('DD/MM/YY');
                                                 item.ToDateFormat = moment(item.ToDate).format('DD/MM/YY');
 
@@ -228,18 +229,10 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
                                     case 'outOfDate':
                                         $scope.projectDetail.table = $scope.projectDetail.item.ReportProject.TaskItems.filter(function (item) {
 
-                                            if ((item.TaskItemStatusId !== 4 && moment(item.ToDate) < new Date())
-                                                || (item.TaskItemStatusId === 4 && moment(item.ToDate) < moment(item.FinishedDate))) {
+                                            if (item.Process == "out-of-date") {
                                                 index++;
                                                 item.Index = index;
-                                                if (item.ToDate === null
-                                                    || (item.TaskItemStatusId !== 4 && moment(item.ToDate) >= new Date())
-                                                    || (item.TaskItemStatusId === 4 && moment(item.ToDate) >= moment(item.FinishedDate))) {
-                                                    item.BgColor = 'bg-color-OnSchedule';
-                                                }
-                                                else {
-                                                    item.BgColor = 'bg-color-IsOutOfDate';
-                                                }
+                                                item.BgColor = 'bg-color-IsOutOfDate';
                                                 item.FromDateFormat = moment(item.FromDate).format('DD/MM/YY');
                                                 item.ToDateFormat = moment(item.ToDate).format('DD/MM/YY');
 
@@ -371,9 +364,59 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
             $("#tab_projectStatus").attr("class", 'tab-pane active');
         },
 
+        getHistory: function (userId) {
+            this.filter.PageIndex = 1;
+            this.filter.FromDate = '';
+            this.filter.ToDate = '';
+            this.filter.UserId = userId;
+            if (userId != null) {
+                $('.search-user-history').val(userId);
+            }
+            //if ($scope.taskItem.item.Attachments == null || $scope.taskItem.item.Attachments) {
+            $scope.showLoading(null);
+            TaskItemDetailService.getHistory($scope.projectDetail.filter).then(function (rs) {
+                $scope.projectDetail.item.TaskItemProcessHistories = rs.data;
+                if (rs.data.length < $scope.projectDetail.filter.PageSize) {
+                    $('.btn-more').css('display', 'none');
+                }
+                else {
+                    $('.btn-more').css('display', 'block');
+                }
+
+                if ($('.search-user-history').html() == '') {
+                    var html = '<option value= "">Chọn user</option>';
+                    for (var i = 0; i < rs.data.length; i++) {
+                        debugger;
+                        var user = rs.data[i];
+                        html = html + '<option value= "' + user.CreatedBy + '">' + user.CreatedByFullName + '</option>'
+                    }
+
+                    $('.search-user-history').html(html);
+                }
+                $scope.hideLoading(null);
+            })
+            //}
+        },
+
+        moreHistory: function () {
+            debugger;
+            $scope.showLoading(null);
+            this.filter.PageIndex = this.filter.PageIndex + 1;
+            TaskItemDetailService.getHistory($scope.projectDetail.filter).then(function (rs) {
+                $scope.projectDetail.item.TaskItemProcessHistories = $.merge($scope.projectDetail.item.TaskItemProcessHistories, rs.data);
+                if (rs.data.length < $scope.projectDetail.filter.PageSize) {
+                    $('.btn-more').css('display', 'none');
+                }
+                else {
+                    $('.btn-more').css('display', 'block');
+                }
+                $scope.hideLoading(null);
+            })
+        },
+
         init: function (id) {
             this.clearForm();
-            this.id = id;
+            this.filter.ProjectId = id;
             this.getData();
         }
     };

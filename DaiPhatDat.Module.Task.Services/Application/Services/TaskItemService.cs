@@ -637,8 +637,6 @@ namespace DaiPhatDat.Module.Task.Services
                 return sendMessage;
             }
         }
-
-
         public async Task<TaskItemDetailDto> RenderProjectTask(Guid Id, UserDto currentUser = default)
         {
             var result = new TaskItemDetailDto();
@@ -787,7 +785,6 @@ namespace DaiPhatDat.Module.Task.Services
             await _projectService.MarkTaskItemAssignAsReadAsync(new Guid(result.ProjectId), currentUser.Id, new Guid(result.TaskItemId));
             return result;
         }
-
         public async Task<List<TaskItemProcessHistoryDto>> GetTaskHistories(QueryCommonDto query)
         {
             using (_dbContextScopeFactory.CreateReadOnly())
@@ -844,7 +841,6 @@ namespace DaiPhatDat.Module.Task.Services
                 return taskItemProcessHistoryDtos;
             }
         }
-
         public async Task<List<TaskItemAssignDto>> GetTaskItemAssignChildrens(Guid taskItemId)
         {
             List<TaskItemAssignDto> TaskItemAssigns = new List<TaskItemAssignDto>();

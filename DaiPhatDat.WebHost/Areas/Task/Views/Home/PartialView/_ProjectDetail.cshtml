@@ -5,7 +5,7 @@
 <div id="modal-project-detail" style="display: none">
     <div class="documentDetail p-5">
         <div class="form-horizontal" id="MainDocumentDetails">
-            <h3 class="modal-title">@ResourceManagement.GetResourceText("Task.ProjectDetail.ProjectDetail", "Chi tiết dự án", "Project detail")</h3>
+            @*<h3 class="modal-title">@ResourceManagement.GetResourceText("Task.ProjectDetail.ProjectDetail", "Chi tiết dự án", "Project detail")</h3>*@
             <div class="lv-detailCont dl-tracking-detail lv-detail-project" id="documentdetail-detailCont">
                 <h2 class="lv-detailTitle text-uppercase">
                     {{ projectDetail.item.Summary }}
@@ -33,38 +33,12 @@
                         <span class="dl-label lv-project-content" ng-bind-html="projectDetail.item.ProjectContent"></span>
                     </div>
                     <div class="table-responsive" ng-if="projectDetail.item.Attachments != null && projectDetail.item.Attachments.length > 0">
-                        <div class="text-black text-bold pr-2 pull-left dl-label-color">
-                            @ResourceManagement.GetResourceText("Task.ProjectDetail.Documents", "Tài liệu", "Documents"): 
-                            <span ng-repeat="item in projectDetail.item.Attachments" class="mr-5">
-                                <a class="file-name" target="_blank" href="~/Task/Project/DownloadFileTrackingWorkflowDocument?fileTrackingWorkflowDocumentID={{item.Id}}&deptID=00000000-0000-0000-0000-000000000000" ng-click="projectDetail.openPreviewFileTrackingModel(item.Id)" title="{{item.FileName}}"><i class="{{item.Icon}} file-icon"></i> {{item.FileName}}</a>
+                        <div class="text-black text-bold pr-2 pull-left dl-label-color attachment-down">
+                            @ResourceManagement.GetResourceText("Task.ProjectDetail.Documents", "Tài liệu", "Documents"):
+                            <span ng-repeat="item in projectDetail.item.Attachments">
+                                <a class="file-name" target="_blank" href="~/Task/Project/DownloadFileTrackingWorkflowDocument?fileTrackingWorkflowDocumentID={{item.Id}}&deptID=00000000-0000-0000-0000-000000000000" ng-click="projectDetail.openPreviewFileTrackingModel(item.Id)" title="{{item.FileName}}">@*<i class="{{item.Icon}} file-icon"></i>*@ {{item.FileName}} (200KB) <i class="fas fa-arrow-down"></i> <span class="spliter">|</span></a>
                             </span>
                         </div>
-                        @*<table class="table table-striped table-attachment">
-                            <thead>
-                                    <tr>
-                                        <th style="width:280px">@ResourceManagement.GetResourceText("Task.ProjectDetail.Name", "Tên", "Name")</th>
-                                        <th style="text-align:center">@ResourceManagement.GetResourceText("Task.ProjectDetail.SaveFile", "Lưu file", "Save file")</th>
-                                        <th>@ResourceManagement.GetResourceText("Task.ProjectDetail.Type", "Loại", "Type")</th>
-                                        <th>@ResourceManagement.GetResourceText("Task.ProjectDetail.CreateBy", "Người tạo", "CreateBy")</th>
-                                        <th>@ResourceManagement.GetResourceText("Task.ProjectDetail.Time", "Thời gian", "Time")</th>
-                                    </tr>
-                                </thead>
-                            <tbody>
-                                <tr ng-repeat="item in projectDetail.item.Attachments">
-                                    <td>
-                                        <a class="file-name" target="_blank" href="~/Task/Project/DownloadFileTrackingWorkflowDocument?fileTrackingWorkflowDocumentID={{item.Id}}&deptID=00000000-0000-0000-0000-000000000000" ng-click="projectDetail.openPreviewFileTrackingModel(item.Id)" title="{{item.FileName}}"><i class="{{item.Icon}} file-icon"></i> {{item.FileName}}</a>
-                                    </td>
-                                    <td class="file-infor file-infor-down">
-                                            <a class="file-download" target="_blank" href="~/Task/Project/DownloadFileTrackingWorkflowDocument?fileTrackingWorkflowDocumentID={{item.Id}}&deptID=00000000-0000-0000-0000-000000000000">
-                                                <i class="fa fa-download"></i>
-                                            </a>
-                                        </td>
-                                        <td class="file-infor">{{tem.FileExt}}</td>
-                                        <td class="file-infor">{{item.CreateByFullName}}</td>
-                                        <td class="file-infor file-infor-date">{{item.DateFormat}}</td>
-                                </tr>
-                            </tbody>
-                        </table>*@
                     </div>
                     <div class="lv-more show-project-content" style="display:none">
                         <span>@ResourceManagement.GetResourceText("Task.ProjectDetail.ViewMore", "Xem thêm", "View more")</span>
@@ -88,13 +62,25 @@
                         <li class="nav-item" id="tabli_projectTaskRoot">
                             <a class="nav-link" data-toggle="tab" href="#tab_projectTaskRoot">
                                 <span class="nav-icon"><i class="flaticon2-chat-1"></i></span>
-                                <span class="nav-text"> @ResourceManagement.GetResourceText("Task.ProjectDetail.Task", "Công việc", "Tasks")</span>
+                                <span class="nav-text"> @ResourceManagement.GetResourceText("Task.ProjectDetail.Task", "Công việc", "Tasks") <span ng-if="projectDetail.item.TaskItems!=null">({{projectDetail.item.TaskItems.length}})</span> </span>
                             </a>
                         </li>
                         <li class="nav-item" id="tabli_projectReport" ng-click="projectDetail.getReportProject()">
                             <a class="nav-link" data-toggle="tab" href="#tab_projectReport">
                                 <span class="nav-icon"><i class="flaticon2-graphic"></i></span>
                                 <span class="nav-text">@ResourceManagement.GetResourceText("Task.ProjectDetail.Report", "Thống kê", "Report")</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="tabli_detailHis" ng-click="projectDetail.getHistory(null)">
+                            <a class="nav-link" href="#tab_detailHis" data-toggle="tab">
+                                <span class="nav-icon"><i class="fa fa-history"></i></span>
+                                <span class="nav-text">@ResourceManagement.GetResourceText("Task.TaskDetail.History", "Lược sử", "History") </span>
+                            </a>
+                        </li>
+                        <li ng-if="projectDetail.item.IsLink">
+                            <a class="link-detail-module" href="{{projectDetail.item.Link}}" target="_blank">
+                                <span class="nav-icon"><i class="fa fa-link"></i></span>
+                                <span class="nav-text">@ResourceManagement.GetResourceText("Task.TaskDetail.LinkModule", "Liên kết link", "Link") </span>
                             </a>
                         </li>
                     </ul>
@@ -167,22 +153,8 @@
                                 <div class="panel panel-default">
                                     <div id="collapseFour" class="" role="tabpanel" aria-labelledby="headingFour">
                                         <div class="panel-body">
-                                            <div ng-repeat="task in projectDetail.item.TaskItemRoots" class="task-child pb-4">
-                                                <a class="jstree-anchor jstree-clicked task-item-child-anchor" href="javascript:;" ng-click="taskItem.init(task.Id)"
-                                                   data-task-item-child-id="{{task.Id}}">
-                                                    <span class="item-name">{{task.TaskName}}</span>
-                                                    <span class="item-info">
-                                                        <span class="item-time">{{task.DateFormat}}</span>
-                                                        <span class="item-owner">
-                                                            <img title="" class="img-circle" style="object-fit: cover; object-position: center; width: 16px; height: 16px;" src="/module/Account/Avartar/{{task.UserId}}">
-                                                            {{task.UserFullName}} - {{task.JobTitleName}}
-                                                        </span>
-                                                        <label ng-if="task.IsGroupLabel != true" class="label label-inline  pull-right label-status progress-task {{task.Process}}">
-                                                            {{task.StatusName}}
-                                                            <span ng-if="task.PercentFinish != null && task.PercentFinish > 0" class="label-process"> ({{task.PercentFinish}}%)</span>
-                                                        </label>
-                                                    </span>
-                                                </a>
+                                            <div ng-repeat="taskItem in projectDetail.item.TaskItems track by $index" class="task-child pb-4">
+                                                @Html.Partial("~/Areas/Task/Views/Home/PartialView/_TaskItemVS1.cshtml")
                                             </div>
                                         </div>
                                     </div>
@@ -194,6 +166,97 @@
                                 <div class="col-md-6" id="pie-chart-status"></div>
                                 <div class="col-md-6" id="pie-chart-proccess"></div>
                                 <div class="col-md-12" id="bar-chart"></div>
+                            </div>
+                        </div>
+                        <div class="tab-pane dl-tracking-detail" id="tab_detailHis">
+                            <div class="lv-detailHis">
+                                <div class="timeline white-bg lv-detailHis">
+                                    <div class="d-flex align-items-center box-filter">
+                                        <div class="d-flex align-items-center">
+                                            <label>Lược sử của:</label>
+                                        </div>
+                                        <div class="d-flex align-items-center mr-3">
+                                            <select class="form-control search-user-history"></select>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <label>Từ ngày:</label>
+                                        </div>
+                                        <div class="d-flex align-items-center mr-3">
+                                            <input class="form-control from-date-search" date-picker placeholder="@ResourceManagement.GetResourceText("Task.TaskDetail.FromDate", ".....", ".....")" />
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <label>đến:</label>
+                                        </div>
+                                        <div class="d-flex align-items-center mr-1">
+                                            <input class="form-control to-date-search" date-picker placeholder="@ResourceManagement.GetResourceText("Task.TaskDetail.ToDate", ".....", ".....")" />
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <a class="btn-line" ng-click="projectDetail.searchHistory()">@ResourceManagement.GetResourceText("Task.TaskDetail.Search", "Tìm kiếm", "Search")</a>
+                                        </div>
+                                    </div>
+                                    <div class="lv-hisItem" ng-repeat="taskItemHistory in projectDetail.item.TaskItemProcessHistories">
+                                        <div class="lv-hisDate" style="width: 100px">
+                                            <span>{{taskItemHistory.CreatedDateFormat}}</span>
+                                        </div>
+                                        <div class="lv-hisCont">
+                                            <div class="timeline-item">
+                                                @*<div class="timeline-badge">
+                                                        <img class="timeline-badge-userpic" src="~/Account/Avartar?Id={{taskItemHistory.CreatedBy}}" />
+                                                    </div>*@
+                                                <div class="timeline-body">
+                                                    <div class="timeline-body-head">
+                                                        <div class="timeline-body-head-caption">
+                                                            <span class="timeline-body-title">{{taskItemHistory.CreatedByFullName}}</span>
+                                                            <span class="timeline-body-time font-grey-cascade">{{taskItemHistory.CreatedByJobTitle}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="timeline-body-content" ng-bind-html="taskItemHistory.ProcessResult">
+                                                    </div>
+                                                    <div class="fileTracking">
+                                                        <div class="detailAttach" data-always-visible="1" data-rail-visible="0">
+                                                            <ul class="feeds">
+                                                                <li ng-repeat="attachment in taskItemHistory.Attachments">
+                                                                    <div class="col1">
+                                                                        <div class="cont">
+                                                                            <div class="cont-col1">
+                                                                                <div class="label label-sm font-red">
+                                                                                    <i ng-if="attachment.FileExt == '.pdf'" class="fa fa-file-pdf-o"></i>
+                                                                                    <i ng-if="attachment.FileExt == '.xls' || attachment.FileExt == '.xlsx'" class="fa fa-file-excel-o"></i>
+                                                                                    <i ng-if="attachment.FileExt == '.doc' || attachment.FileExt == '.docx'" class="fa fa-file-word-o"></i>
+                                                                                    <i ng-if="attachment.FileExt == '.ppt' || attachment.FileExt == '.pptx'" class="fa fa-file-powerpoint-o"></i>
+                                                                                    <i ng-if="attachment.FileExt == '.txt'" class="fa fa-file-text-o"></i>
+                                                                                    <i ng-if="attachment.FileExt == '.jpg' || attachment.FileExt == '.png'" class="fa fa-image"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="cont-col2">
+                                                                                <div class="desc">
+                                                                                    <span>
+                                                                                        <a target="_blank" ng-click="projectDetail.openPreviewFileTrackingModel(attachment.Id)">{{attachment.FileName}}</a>
+                                                                                    </span>
+                                                                                    <a target="_blank" href="~/Task/Project/DownloadFileTrackingWorkflowDocument?fileTrackingWorkflowDocumentID={{attachment.Id}}&deptID=00000000-0000-0000-0000-000000000000">
+                                                                                        <i class="fa fa-download"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="lv-hisStatus">
+                                            <div class="statusProcessing">
+                                                <span class="btn-circle status-value blue" ng-bind-html="taskItemHistory.Action.Name"></span>
+                                                <span ng-if="taskItemHistory.PercentFinish != null && taskItemHistory.PercentFinish > 0" class="proPercent">{{taskItemHistory.PercentFinish}}%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary btn-more" ng-click="projectDetail.moreHistory()">@ResourceManagement.GetResourceText("Task.TaskDetail.More", "Xem tiếp", "More")</button>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -94,6 +94,7 @@ namespace DaiPhatDat.Module.Task.Web
         public UserAssign ProjectUserAssign { get; set; }
 
         public IReadOnlyList<TaskItemRoot> TaskItemRoots { get; set; }
+        public IReadOnlyList<TaskDetailModel> TaskItems { get; set; }
         public int CountTask { get; set; }
 
         public int? ProjectKindId { get; set; }

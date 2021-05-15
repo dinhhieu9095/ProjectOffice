@@ -342,75 +342,100 @@ namespace DaiPhatDat.Module.Task.Web
             try
             {
                 var x = await _projectService.RenderProject(Id, CurrentUser, false);
-                result = new ProjectDetailModel()
+                if (x != null)
                 {
-                    Id = x.Id,
-                    Summary = x.Summary,
-                    ProjectCategory = x.ProjectCategory,
-                    ProjectStatusName = x.ProjectStatusName,
-                    StatusId = x.StatusId,
-                    Finished = x.FinishedDate,
-                    FromDate = x.FromDate,
-                    ToDate = x.ToDate,
-                    FinishedDate = x.FinishedDate,
-                    ProjectPriorityId = x.ProjectPriorityId,
-                    ApprovedBy = x.ApprovedBy,
-                    CreatedBy = x.CreatedBy,
-                    DepartmentId = x.DepartmentId,
-                    ProjectContent = x.ProjectContent,
-                    UserViews = x.UserViews,
-                    PercentFinish = x.PercentFinish,
-                    ProjectKindId = x.ProjectKindId,
-                    ProjectKindName = x.ProjectKindName,
-                    ProjectHistories = x.ProjectHistories.Select(e => new ProjectHistoryModel()
+                    result = new ProjectDetailModel()
                     {
-                        Id = e.Id,
-                        Action = e.Action,
-                        ActionId = e.ActionId,
-                        CreatedBy = e.CreatedBy,
-                        CreatedByFullName = e.CreatedByFullName,
-                        CreatedByJobTitleName = e.CreatedByJobTitleName,
-                        Attachments = e.Attachments.Select(y => new AttachmentModel()
+                        Id = x.Id,
+                        Summary = x.Summary,
+                        ProjectCategory = x.ProjectCategory,
+                        ProjectStatusName = x.ProjectStatusName,
+                        StatusId = x.StatusId,
+                        Finished = x.FinishedDate,
+                        FromDate = x.FromDate,
+                        ToDate = x.ToDate,
+                        FinishedDate = x.FinishedDate,
+                        ProjectPriorityId = x.ProjectPriorityId,
+                        ApprovedBy = x.ApprovedBy,
+                        CreatedBy = x.CreatedBy,
+                        DepartmentId = x.DepartmentId,
+                        ProjectContent = x.ProjectContent,
+                        UserViews = x.UserViews,
+                        PercentFinish = x.PercentFinish,
+                        ProjectKindId = x.ProjectKindId,
+                        ProjectKindName = x.ProjectKindName,
+                        ProjectHistories = x.ProjectHistories.Select(e => new ProjectHistoryModel()
                         {
-                            Id = y.Id,
-                            CreateByFullName = y.CreateByFullName,
-                            CreatedBy = y.CreatedBy,
-                            CreatedDate = y.CreatedDate,
-                            FileExt = y.FileExt,
-                            FileName = y.FileName,
-                            ProjectId = y.ProjectId,
-                            ItemId = y.ItemId,
-                            DateFormat = y.CreatedDate.Value.ToString("dd/MM/yyyy")
+                            Id = e.Id,
+                            Action = e.Action,
+                            ActionId = e.ActionId,
+                            CreatedBy = e.CreatedBy,
+                            CreatedByFullName = e.CreatedByFullName,
+                            CreatedByJobTitleName = e.CreatedByJobTitleName,
+                            Attachments = e.Attachments.Select(y => new AttachmentModel()
+                            {
+                                Id = y.Id,
+                                CreateByFullName = y.CreateByFullName,
+                                CreatedBy = y.CreatedBy,
+                                CreatedDate = y.CreatedDate,
+                                FileExt = y.FileExt,
+                                FileName = y.FileName,
+                                ProjectId = y.ProjectId,
+                                ItemId = y.ItemId,
+                                DateFormat = y.CreatedDate.Value.ToString("dd/MM/yyyy")
+                            }).ToList(),
+                            DepartmentId = e.DepartmentId,
+                            PercentFinish = e.PercentFinish,
+                            ProjectId = e.ProjectId,
+                            Summary = e.Summary,
+                            Created = e.Created,
+                            DateFormat = e.DateFormat
                         }).ToList(),
-                        DepartmentId = e.DepartmentId,
-                        PercentFinish = e.PercentFinish,
-                        ProjectId = e.ProjectId,
-                        Summary = e.Summary,
-                        Created = e.Created
-                    }).ToList(),
-                    TaskItemRoots = x.TaskItemRoots.Select(e => new ProjectDetailModel.TaskItemRoot
-                    {
-                        UserId = e.UserId,
-                        AssignBy = e.AssignBy,
-                        FromDate = e.FromDate,
-                        Id = e.Id,
-                        Content = e.Content,
-                        PercentFinish = e.PercentFinish,
-                        TaskItemStatusId = e.TaskItemStatusId,
-                        TaskName = e.TaskName,
-                        ToDate = e.ToDate,
-                        StatusName = e.StatusName,
-                        DepartmentId = e.DepartmentId,
-                        IsGroupLabel = e.IsGroupLabel,
-                        CountChildren = e.CountChildren,
-                        UserFullName = e.UserFullName,
-                        JobTitleName = e.JobTitleName,
-                        DateFormat = e.DateFormat,
-                        FinishedDate = e.FinishedDate
-                    }).ToList(),
-                    DateTimeString = x.DateTimeString,
-                    DepartmentName = x.DepartmentName
-                };
+                        TaskItemRoots = x.TaskItemRoots.Select(e => new ProjectDetailModel.TaskItemRoot
+                        {
+                            UserId = e.UserId,
+                            AssignBy = e.AssignBy,
+                            FromDate = e.FromDate,
+                            Id = e.Id,
+                            Content = e.Content,
+                            PercentFinish = e.PercentFinish,
+                            TaskItemStatusId = e.TaskItemStatusId,
+                            TaskName = e.TaskName,
+                            ToDate = e.ToDate,
+                            StatusName = e.StatusName,
+                            DepartmentId = e.DepartmentId,
+                            IsGroupLabel = e.IsGroupLabel,
+                            CountChildren = e.CountChildren,
+                            UserFullName = e.UserFullName,
+                            JobTitleName = e.JobTitleName,
+                            DateFormat = e.DateFormat,
+                            FinishedDate = e.FinishedDate
+                        }).ToList(),
+                        TaskItems = x.TaskItemRoots.Select(e => new TaskDetailModel
+                        {
+                            Id = e.Id,
+                            IsGroupLabel = e.IsGroupLabel,
+                            TaskName = e.TaskName,
+                            Content = e.Content,
+                            FromDate = e.FromDate?.ToString("dd/MM/yy"),
+                            ToDate = e.ToDate,
+                            ToDateFormat = e.ToDate?.ToString("dd/MM/yy"),
+                            FinishedDate = e.FinishedDate?.ToString("dd/MM/yy"),
+                            AssignByID = e.UserId,
+                            AssignByJobTitle = e.JobTitleName,
+                            AssignByFullName = e.UserFullName,
+                            AssignToID = e.UserAssignId,
+                            AssignToJobTitle = e.UserAssignJobTitleName,
+                            AssignToFullName = e.UserAssignFullName,
+                            PercentFinish = e.PercentFinish,
+                            StatusName = e.StatusName,
+                            TaskItemStatusId = e.TaskItemStatusId,
+                            DateFormat = e.DateFormat,
+                        }).ToList(),
+                        DateTimeString = x.DateTimeString,
+                        DepartmentName = x.DepartmentName,
+                    };
+                }
             }
             catch (Exception ex)
             {

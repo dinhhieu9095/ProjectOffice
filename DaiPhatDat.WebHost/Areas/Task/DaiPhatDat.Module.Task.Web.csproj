@@ -248,6 +248,7 @@
     <Compile Include="Common\Enums.cs" />
     <Compile Include="Common\Utility.cs" />
     <Compile Include="Controllers\ApisController.cs" />
+    <Compile Include="Controllers\BaseTaskController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\ProjectV1Controller.cs" />
@@ -260,6 +261,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\TaskDetailModel.cs" />
     <Compile Include="Models\QueryCommonModel.cs" />
     <Compile Include="Models\ProjectCategoryModel.cs" />
     <Compile Include="Models\ProjectDetailModel.cs" />
@@ -1371,6 +1373,8 @@
     <Content Include="Views\Report\ReportIframe.cshtml" />
     <Content Include="Views\Home\_ViewTaskInMain.cshtml" />
     <Content Include="Views\Home\NotFound.cshtml" />
+    <Content Include="Views\Home\PartialView\_TaskItemVS1.cshtml" />
+    <Content Include="Views\Home\PartialView\_TaskItemVS2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Apis\" />

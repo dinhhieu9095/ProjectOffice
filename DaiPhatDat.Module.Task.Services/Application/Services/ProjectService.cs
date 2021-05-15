@@ -738,7 +738,8 @@ namespace DaiPhatDat.Module.Task.Services
                         PercentFinish = x.PercentFinish,
                         ProjectKindId = x.ProjectKindId,
                         ProjectHistories = x.ProjectHistories.OrderByDescending(y => y.Created)
-                        .Where(y => y.ActionId == ActionId.Process).Select(e => new ProjectHistoryDto() { 
+                        .Where(y => y.ActionId == ActionId.Process).Select(e => new ProjectHistoryDto()
+                        {
                             Id = e.Id,
                             Action = e.Action,
                             ActionId = e.ActionId,
@@ -760,7 +761,6 @@ namespace DaiPhatDat.Module.Task.Services
 
                 var projectPrioritys = await _categoryService.GetAllOfProjectPriorities();
                 result.ProjectPriorityName = projectPrioritys.FirstOrDefault(e => e.Id == result.ProjectPriorityId).Name;
-
                 if (result.ProjectKindId.HasValue)
                 {
                     if (result.ProjectKindId == 1)
@@ -772,35 +772,6 @@ namespace DaiPhatDat.Module.Task.Services
                         result.ProjectKindName = "Không phải dự án";
                     }
                 }
-
-                //result.TaskItemRoots = dbContextReadOnlyScope.DbContexts
-                //    .Get<TaskContext>()
-                //    .Set<TaskItem>()
-                //    .AsNoTracking()
-                //    .Include(x => x.Children)
-                //    .Include(x => x.TaskItemAssigns)
-                //    .Where(x => x.ProjectId == projectId
-                //        && x.ParentId == Guid.Empty && (x.AssignBy == currentUser.Id || x.CreatedBy == currentUser.Id || x.TaskItemAssigns.Any(y => y.AssignTo == currentUser.Id) || checkUserViewInProject))
-
-                //    .OrderBy(x => x.CreatedDate)
-                //    .Include(x => x.TaskItemStatus)
-                //    .Select(x => new ProjectDetailDto.TaskItemRoot
-                //    {
-                //        UserId = x.TaskItemAssigns.OrderBy(y => y.TaskType).FirstOrDefault().AssignTo ?? null,
-                //        AssignBy = x.AssignBy,
-                //        FromDate = x.FromDate,
-                //        Id = x.Id,
-                //        Content = x.Conclusion,
-                //        PercentFinish = x.PercentFinish,
-                //        TaskItemStatusId = x.TaskItemStatusId,
-                //        TaskName = x.TaskName,
-                //        ToDate = x.ToDate,
-                //        StatusName = x.TaskItemStatus.Name,
-                //        DepartmentId = x.DepartmentId,
-                //        IsGroupLabel = x.IsGroupLabel,
-                //        CountChildren = x.Children.Count()
-                //    }).ToList();
-
                 var lstParams = new List<string>();
                 lstParams.Add($"@ParentId:{projectId}");
                 var pagingData = GetTaskWithFilterPaging(
@@ -827,7 +798,8 @@ namespace DaiPhatDat.Module.Task.Services
                     StatusName = x.StatusName,
                     DepartmentId = x.DepartmentId,
                     IsGroupLabel = x.IsGroupLabel,
-                    CountChildren = x.CountTask
+                    CountChildren = x.CountTask,
+                    // ModifiedDate=x.tas
 
                 }).ToList();
 
@@ -847,15 +819,15 @@ namespace DaiPhatDat.Module.Task.Services
                         history.CreatedByFullName = createBy?.FullName;
                         history.CreatedByJobTitleName = createBy?.JobTitleName;
                         history.Attachments = attachmentHistories.Where(x => x.ItemId == history.Id).ToList();
+                        if (history.Created.HasValue)
+                            history.DateFormat = ConvertToStringExtensions.DateTimeToString(history.Created.Value);
                     }
 
                 if (isMobile)
                 {
                     var userDeparment = await GetUserDeptDTO(result.ApprovedBy, result.DepartmentId, userDepartments);
-
                     result.FullName = userDeparment?.FullName;
                     result.JobTitle = userDeparment?.JobTitleName;
-
                     result.Users = new List<UserDto>();
                     if (!string.IsNullOrEmpty(result.UserViews))
                     {
@@ -887,12 +859,11 @@ namespace DaiPhatDat.Module.Task.Services
 
                 foreach (var taskItem in result.TaskItemRoots)
                 {
+                    // Người xử lý
                     var assignBy = await GetUserDeptDTO(taskItem.UserId, taskItem.DepartmentId, userDepartments);
                     taskItem.UserFullName = assignBy?.FullName;
                     taskItem.JobTitleName = assignBy?.JobTitleName;
                     taskItem.DateFormat = ConvertToStringExtensions.DateToString(taskItem.FromDate, taskItem.ToDate);
-
-
                     // là mobile
                     if (isMobile)
                     {
@@ -908,6 +879,7 @@ namespace DaiPhatDat.Module.Task.Services
                 return result;
             }
         }
+
 
         public async Task<UserDepartmentDto> GetUserDeptDTO(Guid? userId, Guid? deptId, IReadOnlyList<UserDepartmentDto> userDeptDtos = null)
         {

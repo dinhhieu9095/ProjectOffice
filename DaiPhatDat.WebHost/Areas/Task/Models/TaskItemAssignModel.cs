@@ -71,6 +71,7 @@ namespace DaiPhatDat.Module.Task.Web
         public string Problem { get; set; }
 
         public Guid? UserHandoverId { get; set; }
+        public string AvatarUrl { get; set; }
 
         public TaskItemModel TaskItemModel { get; set; }
 

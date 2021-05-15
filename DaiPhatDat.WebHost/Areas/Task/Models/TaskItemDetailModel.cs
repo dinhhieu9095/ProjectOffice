@@ -96,8 +96,8 @@ namespace DaiPhatDat.Module.Task.Web
                 return result;
             }
         }
-        public IEnumerable<FetchProjectsTasksResult> Children { get; set; } 
-
+        public IEnumerable<FetchProjectsTasksResult> Children { get; set; }
+        public IEnumerable<TaskDetailModel> TaskDetail { get; set; }
         #region Mobile
 
         public int CountChildren { get; set; }

@@ -4,11 +4,11 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    
-    $scope.taskItem = {
-        countAttachTask : 0,
 
-        countAttachProcess : 0,
+    $scope.taskItem = {
+        countAttachTask: 0,
+
+        countAttachProcess: 0,
 
         filter: {
             UserId: null,
@@ -63,8 +63,8 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
             $scope.showLoading(null);
             TaskItemDetailService.getAttachment($scope.taskItem.filter.TaskItemId, $scope.taskItem.item.ProjectId).then(function (rs) {
                 $scope.taskItem.item.Attachments = rs.data;
-                $scope.taskItem.countAttachTask = rs.data.filter(e => e.ItemId == $scope.taskItem.item.TaskItemId).length;
-                $scope.taskItem.countAttachProcess = rs.data.filter(e => e.ItemId != $scope.taskItem.item.TaskItemId).length;
+                $scope.taskItem.countAttachTask = rs.data.filter(e => e.Source == 1).length;
+                $scope.taskItem.countAttachProcess = rs.data.filter(e => e.Source == 2).length;
                 $scope.hideLoading(null);
             })
             //}
@@ -143,7 +143,7 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
                     type: 'pie'
                 },
                 title: {
-                    text: 'Tình trạng xử lý'
+                    text: 'Theo tình trạng'
                 },
                 tooltip: {
                     pointFormat: '{series.x}: <b>{point.percentage:.1f}%</b>'
@@ -230,7 +230,7 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
                     type: 'pie'
                 },
                 title: {
-                    text: 'Tình trạng xử lý'
+                    text: 'Theo tiến độ'
                 },
                 tooltip: {
                     pointFormat: '{series.x}: <b>{point.percentage:.1f}%</b>'
@@ -264,19 +264,10 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
                                     case 'indueDate':
                                         $scope.taskItem.table = $scope.taskItem.item.ReportTask.TaskItems.filter(function (item) {
 
-                                            if (item.ToDate === null
-                                                || (item.TaskItemStatusId !== 4 && moment(item.ToDate) >= new Date())
-                                                || (item.TaskItemStatusId === 4 && moment(item.ToDate) >= moment(item.FinishedDate))) {
+                                            if (item.Process == "in-due-date") {
                                                 index++;
                                                 item.Index = index;
-                                                if (item.ToDate === null
-                                                    || (item.TaskItemStatusId !== 4 && moment(item.ToDate) >= new Date())
-                                                    || (item.TaskItemStatusId === 4 && moment(item.ToDate) >= moment(item.FinishedDate))) {
-                                                    item.BgColor = 'bg-color-OnSchedule';
-                                                }
-                                                else {
-                                                    item.BgColor = 'bg-color-IsOutOfDate';
-                                                }
+                                                item.BgColor = 'bg-color-OnSchedule';
                                                 item.FromDateFormat = moment(item.FromDate).format('DD/MM/YY');
                                                 item.ToDateFormat = moment(item.ToDate).format('DD/MM/YY');
 
@@ -287,18 +278,10 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
                                     case 'outOfDate':
                                         $scope.taskItem.table = $scope.taskItem.item.ReportTask.TaskItems.filter(function (item) {
 
-                                            if ((item.TaskItemStatusId !== 4 && moment(item.ToDate) < new Date())
-                                                || (item.TaskItemStatusId === 4 && moment(item.ToDate) < moment(item.FinishedDate))) {
+                                            if (item.Process == "out-of-date") {
                                                 index++;
                                                 item.Index = index;
-                                                if (item.ToDate === null
-                                                    || (item.TaskItemStatusId !== 4 && moment(item.ToDate) >= new Date())
-                                                    || (item.TaskItemStatusId === 4 && moment(item.ToDate) >= moment(item.FinishedDate))) {
-                                                    item.BgColor = 'bg-color-OnSchedule';
-                                                }
-                                                else {
-                                                    item.BgColor = 'bg-color-IsOutOfDate';
-                                                }
+                                                item.BgColor = 'bg-color-IsOutOfDate';
                                                 item.FromDateFormat = moment(item.FromDate).format('DD/MM/YY');
                                                 item.ToDateFormat = moment(item.ToDate).format('DD/MM/YY');
 

@@ -17,7 +17,7 @@ namespace DaiPhatDat.Module.Task.Web
     [Authorize]
     [RouteArea("Task")]
     [RoutePrefix("TaskItem")]
-    public class TaskItemController : CoreController
+    public class TaskItemController : BaseTaskController
     {
         public TaskItemController(ILoggerServices loggerServices, IUserServices userService, IUserDepartmentServices userDepartmentServices, ITaskItemService taskItemService, IMapper mapper, ICategoryService categoryService, IAttachmentService attachmentService, IProjectService projectService) : base(loggerServices, userService, userDepartmentServices)
         {
@@ -236,6 +236,36 @@ namespace DaiPhatDat.Module.Task.Web
             {
                 var dto = await _taskItemService.RenderProjectTask(Id, CurrentUser);
                 result = _mapper.Map<TaskItemDetailModel>(dto);
+                result.TaskDetail = dto.Children.Select(e => new TaskDetailModel()
+                {
+                    Id = e.Id,
+                    IsGroupLabel = e.IsGroupLabel,
+                    TaskName = e.TaskName,
+                    Content = e.Content,
+                    FromDate = e.FromDate?.ToString("dd/MM/yy"),
+                    ToDate = e.ToDate,
+                    ToDateFormat = e.ToDate?.ToString("dd/MM/yy"),
+                    FinishedDate = e.FinishedDate?.ToString("dd/MM/yy"),
+                    AssignByID = e.UserId,
+                    AssignByJobTitle = e.JobTitleName,
+                    AssignByFullName = e.UserFullName,
+                    AssignToJobTitle = dto.AssignByFullName,
+                    AssignToFullName = dto.AssignByJobTitleName,
+                    PercentFinish = e.PercentFinish,
+                    StatusName = e.StatusName,
+                    TaskItemStatusId = e.TaskItemStatusId,
+                    DateFormat = e.DateFormat,
+                }).ToList();
+                result.TaskItemAssigns.ToList().ForEach(item =>
+                {
+                    string imgSrc = DefaultImageBase64;
+                    var isImg = System.IO.File.Exists(Server.MapPath(string.Concat("~", AVARTAR_URL, "/", item.Id)));
+                    if (isImg)
+                    {
+                        imgSrc = string.Concat(AVARTAR_URL, "/", item.Id);
+                    }
+                    item.AvatarUrl = imgSrc;
+                });
                 result.CurrentUserID = CurrentUser.Id;
             }
             catch (Exception ex)

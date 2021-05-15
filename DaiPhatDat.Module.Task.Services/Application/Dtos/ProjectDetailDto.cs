@@ -122,6 +122,12 @@ namespace DaiPhatDat.Module.Task.Services
             public string UserFullName { get; set; }
 
             public string JobTitleName { get; set; }
+            //Mã người Người Nhận
+            public Guid? UserAssignId { get; set; }
+            //Tên đăng nhập Người Nhận
+            public string UserAssignJobTitleName { get; set; }
+            //Họ và tên Người Nhận
+            public string UserAssignFullName { get; set; }
 
             public string StatusName { get; set; }
 

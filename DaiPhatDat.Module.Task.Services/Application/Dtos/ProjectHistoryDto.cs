@@ -23,6 +23,7 @@ namespace DaiPhatDat.Module.Task.Services
         public string CreatedByJobTitleName { get; set; }
 
         public DateTime? Created { get; set; }
+        public string DateFormat { get; set; }
 
         public Guid? CreatedBy { get; set; }
 
