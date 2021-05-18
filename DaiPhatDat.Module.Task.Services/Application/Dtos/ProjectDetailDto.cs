@@ -142,7 +142,7 @@ namespace DaiPhatDat.Module.Task.Services
             public int CountChildren { get; set; }
             public int CountAttachment { get; set; }
             public List<EditTaskItemAssignDto> TaskItemAssigns { get; set; }
-
+            public ICollection<AttachmentDto> Attachments { get; set; }
 
         }
 

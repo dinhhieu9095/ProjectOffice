@@ -810,15 +810,15 @@ namespace DaiPhatDat.Module.Task.Services
                     .Select(x => x.Name)
                     .FirstOrDefault();
 
-                var attachmentHistories = await _attachmentService.GetAttachmentDtoHistoryProject(result.Id);
-
+                List<AttachmentDto> attachments =  _attachmentService.GetAllAttachments(result.Id);
+                result.Attachments = attachments.Where(e => e.Source == Source.Project).ToList();
                 if (result.ProjectHistories != null)
                     foreach (var history in result.ProjectHistories)
                     {
                         var createBy = await GetUserDeptDTO(history.CreatedBy, history.DepartmentId, userDepartments);
                         history.CreatedByFullName = createBy?.FullName;
                         history.CreatedByJobTitleName = createBy?.JobTitleName;
-                        history.Attachments = attachmentHistories.Where(x => x.ItemId == history.Id).ToList();
+                        history.Attachments = attachments.Where(x => x.ItemId == null && x.Source == Source.Project && x.CreatedDate == history.Created).ToList();
                         if (history.Created.HasValue)
                             history.DateFormat = ConvertToStringExtensions.DateTimeToString(history.Created.Value);
                     }
@@ -852,7 +852,7 @@ namespace DaiPhatDat.Module.Task.Services
                         }
                     }
 
-                    var attachmentProjects = await _attachmentService.GetAttachments(result.Id, result.Id);
+                    var attachmentProjects = attachments.Where(e=>e.Source == Source.Project).ToList();
 
                     result.Attachments = attachmentProjects;
                 }
@@ -864,6 +864,7 @@ namespace DaiPhatDat.Module.Task.Services
                     taskItem.UserFullName = assignBy?.FullName;
                     taskItem.JobTitleName = assignBy?.JobTitleName;
                     taskItem.DateFormat = ConvertToStringExtensions.DateToString(taskItem.FromDate, taskItem.ToDate);
+                    taskItem.Attachments = attachments.Where(e=>e.ItemId == taskItem.Id && e.Source == Source.TaskItem).ToList();
                     // là mobile
                     if (isMobile)
                     {

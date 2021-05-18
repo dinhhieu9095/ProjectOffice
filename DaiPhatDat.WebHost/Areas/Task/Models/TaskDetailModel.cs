@@ -64,5 +64,6 @@ namespace DaiPhatDat.Module.Task.Web
                     return "in-due-date";
             }
         }
+        public ICollection<AttachmentModel> Attachments { get; set; }
     }
 }

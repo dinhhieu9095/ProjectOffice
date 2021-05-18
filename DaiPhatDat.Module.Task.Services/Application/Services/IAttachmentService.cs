@@ -13,5 +13,6 @@ namespace DaiPhatDat.Module.Task.Services
         Task<List<AttachmentDto>> GetAttachments(Guid projectId, Guid itemId, Source source = Source.Project);
 
         Task<Attachment> GetById(Guid id);
+        List<AttachmentDto> GetAllAttachments(Guid? projectId = null, Guid? itemId = null, Source? source = null);
     }
 }

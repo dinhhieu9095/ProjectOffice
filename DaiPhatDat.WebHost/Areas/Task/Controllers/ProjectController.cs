@@ -154,7 +154,8 @@ namespace DaiPhatDat.Module.Task.Web
                             FileContent = document,
                             FileName = fileContent.FileName,
                             FileSize = fileContent.ContentLength,
-                            ProjectId = dto.Id
+                            ProjectId = dto.Id,
+                            Source = Source.Project
                         };
                         dto.Attachments.Add(attachmentDto);
                     }
@@ -347,6 +348,18 @@ namespace DaiPhatDat.Module.Task.Web
                     result = new ProjectDetailModel()
                     {
                         Id = x.Id,
+                        Attachments = x.Attachments.Select(y => new AttachmentModel()
+                        {
+                            Id = y.Id,
+                            CreateByFullName = y.CreateByFullName,
+                            CreatedBy = y.CreatedBy,
+                            CreatedDate = y.CreatedDate,
+                            FileExt = y.FileExt,
+                            FileName = y.FileName,
+                            ProjectId = y.ProjectId,
+                            ItemId = y.ItemId,
+                            DateFormat = y.CreatedDate.Value.ToString("dd/MM/yyyy")
+                        }).ToList(),
                         Summary = x.Summary,
                         ProjectCategory = x.ProjectCategory,
                         ProjectStatusName = x.ProjectStatusName,
@@ -415,6 +428,19 @@ namespace DaiPhatDat.Module.Task.Web
                         {
                             Id = e.Id,
                             IsGroupLabel = e.IsGroupLabel,
+                            Attachments = e.Attachments.Select(y => new AttachmentModel()
+                            {
+                                Id = y.Id,
+                                CreateByFullName = y.CreateByFullName,
+                                CreatedBy = y.CreatedBy,
+                                CreatedDate = y.CreatedDate,
+                                FileExt = y.FileExt,
+                                FileName = y.FileName,
+                                FileSize = y.FileSize,
+                                ProjectId = y.ProjectId,
+                                ItemId = y.ItemId,
+                                DateFormat = y.CreatedDate.Value.ToString("dd/MM/yyyy")
+                            }).ToList(),
                             TaskName = e.TaskName,
                             Content = e.Content,
                             FromDate = e.FromDate?.ToString("dd/MM/yy"),

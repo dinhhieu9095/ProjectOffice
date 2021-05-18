@@ -27,6 +27,7 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
             $scope.showLoading(null);
             debugger;
             ProjectDetailService.getData($scope.projectDetail.filter.ProjectId).then(function (rs) {
+                debugger;
                 $scope.projectDetail.item = rs.data;
                 $("#modal-project-detail").css("display", "block");
                 $("#modal-task-detail").css("display", "none");
@@ -34,8 +35,11 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
                 $scope.hideLoading(null);
             })
         },
-
+        downloadFile: function (id) {
+            window.location.href = CommonUtils.RootURL("Task/Project/DownloadFileTrackingWorkflowDocument?fileTrackingWorkflowDocumentID=") + id;
+        },
         getAttachment: function () {
+            debugger
             if ($scope.projectDetail.item.Attachments == null) {
                 $scope.showLoading(null);
                 ProjectDetailService.attachmentProject($scope.projectDetail.filter.ProjectId).then(function (rs) {

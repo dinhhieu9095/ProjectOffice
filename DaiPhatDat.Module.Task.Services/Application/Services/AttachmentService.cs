@@ -51,7 +51,8 @@ namespace DaiPhatDat.Module.Task.Services
                                Id = e.Id,
                                FileExt = e.FileExt,
                                CreatedBy = e.CreatedBy,
-                               CreatedDate = e.CreatedDate
+                               CreatedDate = e.CreatedDate,
+                               Source = e.Source
                            }).ToListAsync();
 
                 return await _attachmentRepository.GetAll()
@@ -65,7 +66,7 @@ namespace DaiPhatDat.Module.Task.Services
                                FileExt = e.FileExt,
                                CreatedBy = e.CreatedBy,
                                CreatedDate = e.CreatedDate,
-
+                               Source = e.Source
                            }).ToListAsync();
             }
         }
@@ -96,7 +97,7 @@ namespace DaiPhatDat.Module.Task.Services
                                FileExt = e.FileExt,
                                CreatedBy = e.CreatedBy,
                                CreatedDate = e.CreatedDate,
-
+                               Source = e.Source
                            }).ToListAsync();
                 }
                 else
@@ -110,7 +111,7 @@ namespace DaiPhatDat.Module.Task.Services
                            FileExt = e.FileExt,
                            CreatedBy = e.CreatedBy,
                            CreatedDate = e.CreatedDate,
-
+                           Source = e.Source
                        }).ToListAsync();
                 }
                 var userDtos = _userServices.GetUsers();
@@ -133,6 +134,34 @@ namespace DaiPhatDat.Module.Task.Services
             {
                 return await _attachmentRepository.FindAsync(x => x.Id == id);
             }
+        }
+        public List<AttachmentDto> GetAllAttachments(Guid? projectId, Guid? itemId, Source? source)
+        {
+            List<AttachmentDto> attachmentDtos = new List<AttachmentDto>();
+            var result = _attachmentRepository.GetAll();
+            if (projectId.HasValue)
+            {
+                result = result.Where(e => e.ProjectId == projectId);
+            }
+            if (itemId.HasValue)
+            {
+                result = result.Where(e => e.ItemId == itemId);
+            }
+            if (source.HasValue)
+            {
+                result = result.Where(e => e.Source == source);
+            }
+            attachmentDtos = result.Select(e => new AttachmentDto()
+            {
+                FileName = e.FileName,
+                Id = e.Id,
+                ItemId = e.ItemId,
+                FileExt = e.FileExt,
+                CreatedBy = e.CreatedBy,
+                CreatedDate = e.CreatedDate,
+                Source = e.Source
+            }).ToList();
+            return attachmentDtos;
         }
     }
 

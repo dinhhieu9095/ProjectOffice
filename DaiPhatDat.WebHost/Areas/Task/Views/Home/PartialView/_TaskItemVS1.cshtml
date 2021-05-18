@@ -32,11 +32,8 @@
         </span>
         <span class="item-block attachment-down">
             <span class="item-color"> @ResourceManagement.GetResourceText("Task.ProjectDetail.Attachment", " Tài liệu", "Attachment"): </span>
-            <span>
-                <a class="file-name ng-binding" target="_blank" href="" ng-click="" title="ChuyenVien01.png">ChuyenVien01.png (200KB) <i class="fas fa-arrow-down"></i></a> <span class="spliter">|</span>
-            </span>
-            <span>
-               <a class="file-name ng-binding" target="_blank" href="" ng-click="" title="ChuyenVien01.png">ChuyenVien02.png (300KB) <i class="fas fa-arrow-down"></i></a> <span class="spliter">|</span>
+            <span ng-repeat="att in taskItem.Attachments">
+                <a class="file-name" target="_blank" href="" ng-click="projectDetail.downloadFile(att.Id)" title="{{att.FileName}}">{{att.FileName}} ({{att.FileSize}}) <i class="fas fa-arrow-down"></i></a> <span class="spliter">|</span>
             </span>
         </span>
         <label class="label label-inline label-status progress-task {{taskItem.Color}}" ng-if="!taskItem.IsGroupLabel">

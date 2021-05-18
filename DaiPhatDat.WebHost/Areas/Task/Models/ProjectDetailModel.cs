@@ -170,6 +170,7 @@ namespace DaiPhatDat.Module.Task.Web
             public int CountAttachment { get; set; }
             public List<EditTaskItemAssignModel> TaskItemAssigns { get; set; }
 
+            public ICollection<AttachmentModel> Attachments { get; set; }
 
         }
 
