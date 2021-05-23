@@ -30,6 +30,7 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
         getData: function () {
             $scope.showLoading(null);
             TaskItemDetailService.getData($scope.taskItem.filter.TaskItemId).then(function (rs) {
+                debugger
                 $scope.taskItem.item = rs.data;
                 $scope.taskItem.filter.ProjectId = $scope.taskItem.item.ProjectId;
                 $("#modal-task-detail").css("display", "block");
@@ -45,7 +46,7 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
                 var html = '<option value= "">Chọn user</option>';
                 html = html + '<option value= "' + $scope.taskItem.item.AssignBy + '">' + $scope.taskItem.item.AssignByFullName + '</option>';
                 for (var i = 0; i < $scope.taskItem.item.TaskItemAssigns.length; i++) {
-                    debugger;
+                    
                     var user = $scope.taskItem.item.TaskItemAssigns[i];
                     if ($scope.taskItem.item.AssignBy != user.AssignTo) {
                         html = html + '<option value= "' + user.AssignTo + '">' + user.AssignToFullName + '</option>'
@@ -59,6 +60,7 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
         },
 
         getAttachment: function () {
+            debugger
             //if ($scope.taskItem.item.Attachments == null || $scope.taskItem.item.Attachments) {
             $scope.showLoading(null);
             TaskItemDetailService.getAttachment($scope.taskItem.filter.TaskItemId, $scope.taskItem.item.ProjectId).then(function (rs) {
@@ -173,7 +175,7 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
                             click: function (e) {
                                 statusId = parseInt(e.point.id);
                                 let index = 0;
-                                debugger;
+                                
                                 $scope.taskItem.table = $scope.taskItem.item.ReportTask.TaskItems.filter(function (item) {
                                     if (item.TaskItemStatusId === statusId) {
                                         index++;
@@ -208,7 +210,7 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
 
         renderPieChartProccess: function () {
             let data = $scope.taskItem.item.ReportTask;
-            debugger;
+            
             let centerTitle = document.createElement('div');
             centerTitle.innerHTML = data.TotalTask + "<br/>" + 'Công việc';
             centerTitle.style.position = 'absolute';
@@ -445,7 +447,7 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
         },
 
         moreHistory: function () {
-            debugger;
+            
             $scope.showLoading(null);
             this.filter.PageIndex = this.filter.PageIndex + 1;
             TaskItemDetailService.getHistory($scope.taskItem.filter).then(function (rs) {

@@ -177,7 +177,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
     $scope.projectFilterId = undefined;
 
     $scope.init = function () {
-        debugger
+        
 
         //$scope.SetShowType(view);
         if (view === "calendar") {
@@ -198,7 +198,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
             width: '100%'
         });
         $('#projectFilters').on('select2:select', function (e) {
-            debugger;
+            ;
             var select = []
             if ($('#projectFilters').val() !== "undefined") {
                 select = $scope.projectFilters.filter(e => e.ProjectId == $('#projectFilters').val());
@@ -430,7 +430,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
             promises = [MainService.GetDataByProject(data)];
         }
         $q.all(promises).then(function (rs) {
-            debugger
+            
             if (rs[0].data.status) {
                 if (parentId == null || parentId == undefined || parentId == '') {
                     if ($scope.ShowType === 2) {
@@ -509,7 +509,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                     }
                 }
                 else if ($scope.ShowType === 2) {
-                    debugger
+                    
                     if (branch != undefined && branch.HasPagination) {
                         var valueHasPagination = $scope.ProjectTaskItem.slice(-1)[0];
                         if (valueHasPagination !== undefined && valueHasPagination.HasPagination) {
@@ -1240,7 +1240,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
         }
     }
     $scope.CloseProject = function () {
-        debugger
+        
         $scope.Project = {
         };
         var $select = $('.select2').select2();
@@ -1669,7 +1669,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                     } else {
                         $('#TaskGroupType').val('0');
                     }
-                    debugger
+                    
                     $('.select2css').select2({
                         placeholder: "Tất cả",
                         width: '100%',
@@ -1831,7 +1831,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                         width: '100%',
                     });
                     $('#TaskGroupType').on('select2:select', function (e) {
-                        debugger
+                        
                         if ($('#TaskGroupType').val() == '1') {
                             $scope.TaskItem.IsReport = true;
                             $scope.TaskItem.IsGroupLabel = false;
@@ -1973,7 +1973,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
         }
     }
     $scope.SaveTaskItem = function () {
-        debugger
+        
         if (!$scope.hasSubmit) {
             $scope.showLoading(null);
             $scope.hasSubmit = true;
@@ -2021,7 +2021,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                 return;
             }
             $scope.TaskItem.TaskItemCategories = $('#TaskCategory').val();
-            debugger
+            
             if ($('#TaskGroupType').val() == '1') {
                 $scope.TaskItem.IsReport = true;
                 $scope.TaskItem.IsGroupLabel = false;
@@ -2159,7 +2159,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
         }
     }
     $scope.CloseTaskItem = function () {
-        debugger
+        
         $scope.TaskItem = {
         };
         $('#TaskToDateText').datepicker({ format: "dd/mm/yyyy" }).off('changeDate');

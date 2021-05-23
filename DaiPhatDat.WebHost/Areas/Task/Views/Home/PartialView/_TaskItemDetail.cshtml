@@ -98,7 +98,7 @@
                         </a>
                     </li>
                     <li class="nav-item" id="tabli_detailHis" ng-click="taskItem.getHistory(null)">
-                        <a class="nav-link" href="#tab_detailHis" data-toggle="tab">
+                        <a class="nav-link" href="#tab_taskDetailHis" data-toggle="tab">
                             <span class="nav-icon"><i class="fa fa-history"></i></span>
                             <span class="nav-text">@ResourceManagement.GetResourceText("Task.TaskDetail.History", "Lược sử", "History") </span>
                         </a>
@@ -154,12 +154,14 @@
                                                                     </span>
                                                                 </div>
                                                                 <!--Nhờ Tài-->
-                                                                <div class="text-black text-bold pr-2 pull-left dl-label-color attachment-down">
+
+
+                                                                @*<div class="text-black text-bold pr-2 pull-left dl-label-color attachment-down">
                                                                     @ResourceManagement.GetResourceText("Task.TaskItemDetail.Documents", "Tài liệu", "Documents"):
                                                                     <span class="ng-scope">
                                                                         <a class="file-name ng-binding" target="_blank" href="" ng-click="" title="ChuyenVien01.png">ChuyenVien01.png (200KB) <i class="fas fa-arrow-down"></i></a> <span class="spliter">|</span>
                                                                     </span>
-                                                                </div>
+                                                                </div>*@
                                                             </div>
                                                         </div>
                                                         <div class="statusProcessing">
@@ -268,7 +270,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane dl-tracking-detail" id="tab_detailHis">
+                    <div class="tab-pane dl-tracking-detail" id="tab_taskDetailHis">
                         <div class="lv-detailHis">
                             <div class="timeline white-bg lv-detailHis">
                                 <div class="d-flex align-items-center box-filter">
