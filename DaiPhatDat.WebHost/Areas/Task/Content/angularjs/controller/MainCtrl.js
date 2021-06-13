@@ -2402,7 +2402,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
             $scope.showLoading(null);
             $scope.hasSubmit = true;
             var validate = true;
-            if ($scope.TaskItemAssign.IsExtend == 1 && ($scope.TaskItemAssign.ExtendDateText == '' || $scope.TaskItemAssign.ExtendDateText == undefined)) {
+            if ($scope.TaskItemAssign.IsExtend == true && ($scope.TaskItemAssign.ExtendDateText == '' || $scope.TaskItemAssign.ExtendDateText == undefined)) {
                 toastr.error('Vui lòng nhập ngày gia hạn', 'Thông báo');
                 $('#ExtendDate').focus();
                 $('#ExtendDate').focus();
@@ -2423,7 +2423,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                         $('#AppraiseExtendTaskItem #Description').focus();
                     }
                     validate = false;
-                } else if (isAssignBy == 1 && action == 'AppraiseExtend') {
+                } else if (isAssignBy == true && action == 'AppraiseExtend') {
                     if ($scope.TaskItemAssign.AllowedExtendDateText == '' || $scope.TaskItemAssign.AllowedExtendDateText == undefined) {
                         toastr.error('Vui lòng nhập ngày cho phép gia hạn', 'Thông báo');
                         $('#AllowedExtendDateText').focus();
@@ -2436,13 +2436,13 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                 $scope.hasSubmit = false;
                 return;
             }
-            if (isAssignBy == 1 && $scope.TaskItemAssign.IsExtend === true) {
+            if (isAssignBy == true && $scope.TaskItemAssign.IsExtend === true) {
                 $scope.TaskItemAssign.ExtendDateText = $scope.TaskItemAssign.AllowedExtendDateText;
             }
             $scope.TaskItemAssign.ActionText = action;
             $scope.TaskItemAssign.IsAssignBy = isAssignBy;
             MainService.ProcessTaskItemAssign($scope.TaskItemAssign, $scope.fileTemps).then(function (rs) {
-                if (rs.data !== undefined && rs.data.IsSuccess == true) {
+                if (rs !== undefined && rs.IsSuccess == true) {
                     toastr.success('Thành công!', 'Thông báo')
                     if ($scope.ShowType === 2) //kanban
                     {

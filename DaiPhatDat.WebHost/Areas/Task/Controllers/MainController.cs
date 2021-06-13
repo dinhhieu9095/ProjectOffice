@@ -10,11 +10,9 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace DaiPhatDat.Module.Task.Web.Controllers
+namespace DaiPhatDat.Module.Task.Web
 {
     [Authorize]
-    [RouteArea("Task")]
-    [RoutePrefix("Main")]
     public class MainController : CoreController
     {
         private IProjectFilterParamService _projectFilterParamService;
@@ -31,7 +29,6 @@ namespace DaiPhatDat.Module.Task.Web.Controllers
         /// Lấy cây danh mục filter
         /// </summary>
         /// <returns></returns>
-        [Route("GetAdvanceFilterTree")]
         public async Task<JsonResult> GetAdvanceFilterTree(Guid parentID = default(Guid), string keySearch = null)
         {
             try
@@ -51,7 +48,6 @@ namespace DaiPhatDat.Module.Task.Web.Controllers
         /// Render view menu trái
         /// </summary>
         /// <returns></returns>
-        [Route("NavigationLeftFilter")]
         public JsonResult NavigationLeftFilter()
         {
             var datas = _projectFilterParamService.GetRootCheckSubProjectFilterParams(CurrentUser.Id);

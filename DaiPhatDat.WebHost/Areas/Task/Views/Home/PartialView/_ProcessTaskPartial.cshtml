@@ -101,12 +101,12 @@
                     </label>
                 </div>
                 <div class="pull-right">
-                    <button type="button" ng-show="TaskItemAssign.IsExtend == 1 && TaskItemAssign.TaskType == 1" ng-click="SaveTaskItemAssign('@ActionId.Extend', 0)" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Extend", "Gia hạn", "Extend")</button>
-                    <button type="button" ng-show="TaskItemAssign.TaskItemModel.IsReport == 1 && TaskItemAssign.IsExtend != 1" ng-click="SaveTaskItemAssign('@ActionId.ReturnReport', 0)" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.ReturnReport", "Trả lại", "Return Report")</button>
+                    <button type="button" ng-show="TaskItemAssign.IsExtend === true && TaskItemAssign.TaskType == 1" ng-click="SaveTaskItemAssign('@ActionId.Extend', false)" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Extend", "Gia hạn", "Extend")</button>
+                    <button type="button" ng-show="TaskItemAssign.TaskItemModel.IsReport === true && TaskItemAssign.IsExtend !== true" ng-click="SaveTaskItemAssign('@ActionId.ReturnReport', 0)" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.ReturnReport", "Trả lại", "Return Report")</button>
 
-                    <button type="button" ng-show="TaskItemAssign.TaskItemModel.IsReport == 1 && TaskItemAssign.IsExtend != 1" ng-click="SaveTaskItemAssign('@ActionId.Report', 0)" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Report", "Báo cáo", "Report")</button>
-                    <button type="button" ng-show="TaskItemAssign.TaskType == 1 && TaskItemAssign.TaskItemModel.IsReport == 0  && TaskItemAssign.IsExtend != 1" ng-click="SaveTaskItemAssign('@ActionId.Report', 0)" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Finish", "Kết thúc", "Finish")</button>
-                    <button type="button" ng-show="TaskItemAssign.IsExtend != 1" ng-click="SaveTaskItemAssign('@ActionId.Process', 0)" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Process", "Xử lý", "Processing")</button>
+                    <button type="button" ng-show="TaskItemAssign.TaskItemModel.IsReport === true && TaskItemAssign.IsExtend !== true" ng-click="SaveTaskItemAssign('@ActionId.Report', false)" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Report", "Báo cáo", "Report")</button>
+                    <button type="button" ng-show="TaskItemAssign.TaskType === 1 && TaskItemAssign.TaskItemModel.IsReport === false  && TaskItemAssign.IsExtend !== true" ng-click="SaveTaskItemAssign('@ActionId.Report', false)" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Finish", "Kết thúc", "Finish")</button>
+                    <button type="button" ng-show="TaskItemAssign.IsExtend !== true" ng-click="SaveTaskItemAssign('@ActionId.Process', false)" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Process", "Xử lý", "Processing")</button>
                     <button type="button" ng-click="CloseTaskItemAssign()" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">@ResourceManagement.GetResourceText("Task.Home.Close", "Đóng", "Close")</button>
                 </div>
 

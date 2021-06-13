@@ -15,8 +15,6 @@ using System.Web.Mvc;
 namespace DaiPhatDat.Module.Task.Web
 {
     [Authorize]
-    [RouteArea("Task")]
-    [RoutePrefix("SystemManagement")]
     public class SystemManagementController : CoreController
     {
         private IProjectFilterParamService _projectFilterParamService;
@@ -29,14 +27,12 @@ namespace DaiPhatDat.Module.Task.Web
             _mapper = mapper;
         }
          
-        [Route("Index")]
         public ActionResult Index()
         {
             return View();
         }
         
         [HttpPost]
-        [Route("GetByKeys")]
         public async Task<JsonResult> GetKeys()
         {
             var result = new List<Setting>();
@@ -58,7 +54,6 @@ namespace DaiPhatDat.Module.Task.Web
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        [Route("GetSettingsById")]
         public async Task<JsonResult> SettingsById(string Id)
         {
             var result = new SettingsModel();
@@ -81,7 +76,6 @@ namespace DaiPhatDat.Module.Task.Web
         }
 
         [HttpPost]
-        [Route("SaveSettings")]
         public async Task<JsonResult> SaveSettings(List<SettingsModel> models)
         {
             try

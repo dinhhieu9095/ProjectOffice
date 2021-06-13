@@ -795,7 +795,7 @@ namespace DaiPhatDat.Module.Task.Services
                 var attachments = _attachmentService.GetAllAttachments(query.ProjectId, query.TaskItemId, Source.TaskItem);
                 var taskItemProcessHistoryDtos = new List<TaskItemProcessHistoryDto>();
                 var queryable = _taskItemHistoryRepository.GetAll();
-                queryable = queryable.Where(e => e.ProjectId == query.ProjectId && e.TaskItemId == query.TaskItemId && (e.TaskItemAssignId == null || e.TaskItemAssignId == Guid.Empty)); // && e.TaskItemAssignId == null || e.TaskItemAssignId == Guid.Empty
+                queryable = queryable.Where(e => e.ProjectId == query.ProjectId && e.TaskItemId == query.TaskItemId /*&& (e.TaskItemAssignId == null || e.TaskItemAssignId == Guid.Empty)*/); // && e.TaskItemAssignId == null || e.TaskItemAssignId == Guid.Empty
 
                 if (query.UserId != null)
                 {

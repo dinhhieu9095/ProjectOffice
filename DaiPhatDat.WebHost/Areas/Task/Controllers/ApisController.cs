@@ -35,7 +35,6 @@ namespace DaiPhatDat.Module.Task.Web.Controllers
             return View();
         }
         [HttpGet]
-        //[Route("FetchProjectsTasks")]
         public JsonResult FetchProjectsTasks(FetchProjectsTasksQuery fetchProjectsTasksQuery)
         {
             try

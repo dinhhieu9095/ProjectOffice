@@ -14,8 +14,6 @@ using System.Web.Mvc;
 namespace DaiPhatDat.Module.Task.Web
 {
     [Authorize]
-    [RouteArea("Task")]
-    [RoutePrefix("ProjectFilterParam")]
     public class ProjectFilterParamController : CoreController
     {
         private IProjectFilterParamService _projectFilterParamService;
@@ -33,7 +31,6 @@ namespace DaiPhatDat.Module.Task.Web
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("GetAdvancedSearch")]
         public async Task<JsonResult> GetAdvancedSearch(Guid? id)
         {
             var model = new ResponseProjectFilterParamModel();
@@ -74,7 +71,6 @@ namespace DaiPhatDat.Module.Task.Web
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("SaveAdvancedSearch")]
         public JsonResult SaveAdvancedSearch(ProjectFilterParamModel model)
         {
             try
@@ -97,7 +93,6 @@ namespace DaiPhatDat.Module.Task.Web
         /// <param name="Id"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("Delete")]
         public JsonResult Delete(Guid Id)
         {
             try

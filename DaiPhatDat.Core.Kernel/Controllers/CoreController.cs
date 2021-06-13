@@ -77,7 +77,6 @@ namespace DaiPhatDat.Core.Kernel.Controllers
                     }
                     _currentUser.Permissions = _userService.GetUserPermission(_currentUser.UserName);
                 }
-
                 return _currentUser;
             }
         }

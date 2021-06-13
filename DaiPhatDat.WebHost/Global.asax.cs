@@ -46,15 +46,10 @@ namespace DaiPhatDat.WebHost
         private ILoggerServices _loggingService => ServiceFactory.Get<ILoggerServices>();
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-
             GlobalConfiguration.Configure(WebApiConfig.Register);
-
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new DynamicViewEngine(""));
             var jsonSerializerSettings = new JsonSerializerSettings

@@ -15,8 +15,6 @@ using System.Web.Mvc;
 namespace DaiPhatDat.Module.Task.Web
 {
     [Authorize]
-    [RouteArea("Task")]
-    [RoutePrefix("TaskItem")]
     public class TaskItemController : BaseTaskController
     {
         public TaskItemController(ILoggerServices loggerServices, IUserServices userService, IUserDepartmentServices userDepartmentServices, ITaskItemService taskItemService, IMapper mapper, ICategoryService categoryService, IAttachmentService attachmentService, IProjectService projectService) : base(loggerServices, userService, userDepartmentServices)
@@ -32,7 +30,6 @@ namespace DaiPhatDat.Module.Task.Web
         private readonly IAttachmentService _attachmentService;
         private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
-        [Route("GetTaskItem")]
         [HttpPost]
         public async Task<JsonResult> GetTaskItem(Guid? id)
         {
@@ -74,7 +71,6 @@ namespace DaiPhatDat.Module.Task.Web
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
-        [Route("GetNewTaskItem")]
         [HttpPost]
         public async Task<JsonResult> GetNewTaskItem(TaskItemModel model)
         {
@@ -100,7 +96,6 @@ namespace DaiPhatDat.Module.Task.Web
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
-        [Route("SearchTaskAssign")]
         [HttpPost]
         public JsonResult SearchTaskAssign(string userName, List<TaskItemAssignModel> taskItemAssigns)
         {
@@ -126,7 +121,6 @@ namespace DaiPhatDat.Module.Task.Web
             }
             return Json(assigns, JsonRequestBehavior.AllowGet);
         }
-        [Route("SaveTaskItem")]
         [HttpPost]
         public async Task<JsonResult> SaveTaskItem(TaskItemModel model)
         {
@@ -179,7 +173,6 @@ namespace DaiPhatDat.Module.Task.Web
             return Json(rs, JsonRequestBehavior.AllowGet);
         }
 
-        [Route("DeleteTaskItem")]
         [HttpPost]
         public async Task<JsonResult> DeleteTaskItem(TaskItemDto model)
         {
@@ -203,7 +196,6 @@ namespace DaiPhatDat.Module.Task.Web
             }
             return Json(rs, JsonRequestBehavior.AllowGet);
         }
-        [Route("UpdateStatusTaskItem")]
         [HttpPost]
         public async Task<JsonResult> UpdateStatusTaskItem(TaskItemModel model)
         {
@@ -228,7 +220,6 @@ namespace DaiPhatDat.Module.Task.Web
             return Json(rs, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
-        [Route("TaskItemDetail")]
         public async Task<JsonResult> TaskItemDetail(Guid Id)
         {
             var result = new TaskItemDetailModel();
@@ -276,7 +267,6 @@ namespace DaiPhatDat.Module.Task.Web
         }
 
         [HttpGet]
-        [Route("Attachments")]
         public async Task<JsonResult> Attachments(Guid projectId, Guid taskItemId)
         {
 
@@ -295,7 +285,6 @@ namespace DaiPhatDat.Module.Task.Web
         }
 
         [HttpPost]
-        [Route("Histories")]
         public async Task<JsonResult> Histories(QueryCommonModel model)
         {
 
@@ -314,7 +303,6 @@ namespace DaiPhatDat.Module.Task.Web
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        [Route("GetTaskPriorities")]
         [HttpGet]
         public async Task<JsonResult> GetTaskPriorities()
         {
@@ -336,7 +324,6 @@ namespace DaiPhatDat.Module.Task.Web
         /// <param name="taskId"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("CheckActionsTask")]
         public async Task<JsonResult> CheckActionsTask(Guid projectId, Guid taskId)
         {
             var model = new List<ItemActionDto>();
@@ -354,7 +341,6 @@ namespace DaiPhatDat.Module.Task.Web
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        [Route("ReportTask")]
         [HttpGet]
         public async Task<JsonResult> ReportTask(Guid TaskItemId)
         {
@@ -376,7 +362,6 @@ namespace DaiPhatDat.Module.Task.Web
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        [Route("UserReportInTask")]
         [HttpGet]
         public async Task<JsonResult> UserReportInTask(Guid TaskItemId)
         {
@@ -395,7 +380,6 @@ namespace DaiPhatDat.Module.Task.Web
 
         }
 
-        [Route("ReturnTaskItemAssign")]
         [HttpPost]
         public async Task<JsonResult> ReturnTaskItemAssign(Guid Id)
         {

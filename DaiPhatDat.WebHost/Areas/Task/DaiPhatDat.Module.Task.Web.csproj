@@ -301,6 +301,7 @@
     <Compile Include="Models\TaskViewTypeModel.cs" />
     <Compile Include="Models\ViewGranttModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskAreaRegistration.cs" />
     <Compile Include="Utils\DateUtils.cs" />
     <Compile Include="Utils\ExportExcelUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
@@ -1355,6 +1356,7 @@
     <Content Include="Content\Templates\TemplateProjectReport.xlsx" />
     <Content Include="Content\Templates\TemplateProjectReportWeekly.xlsx" />
     <Content Include="Content\Templates\TemplateReportOnePage.xlsx" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\Home\AccessDenied.cshtml" />
     <Content Include="Views\Project\TrackingUpdateDatabase.cshtml" />

@@ -34,7 +34,6 @@ namespace DaiPhatDat.Module.Task.Web
     [Authorize]
     public partial class ProjectController : CoreController
     {
-        [Route("ExportExcel")]
         public async Task<ActionResult> ExportExcel(Guid? projectId, Guid? taskId)
         {
             if (projectId == null || projectId == Guid.Empty)
@@ -226,7 +225,6 @@ namespace DaiPhatDat.Module.Task.Web
             return null;
         }
 
-        [Route("ImportExcel")]
         public async Task<JsonResult> ImportExcel(Guid projectId, Guid? taskId)
         {
             try
@@ -600,7 +598,6 @@ namespace DaiPhatDat.Module.Task.Web
             }
             return error;
         }
-        [Route("DownloadFile")]
         public ActionResult DownloadFile(string path)
         {
             try
@@ -621,7 +618,6 @@ namespace DaiPhatDat.Module.Task.Web
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        [Route("ExportMSProject")]
         public async Task<ActionResult> ExportMSProject(Guid projectId)
         {
             byte[] fileBytesArray = null;
@@ -813,7 +809,6 @@ namespace DaiPhatDat.Module.Task.Web
             }
             return File(fileBytesArray, "application/xml", projectDTO.Summary+ ".xml");
         }
-        [Route("ImportMSProject")]
         [HttpPost]
         public async Task<JsonResult> ImportMSProject(Guid projectId)
         {

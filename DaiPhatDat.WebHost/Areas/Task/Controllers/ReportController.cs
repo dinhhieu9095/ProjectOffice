@@ -23,8 +23,6 @@ namespace DaiPhatDat.Module.Task.Web
 {
 
     [Authorize]
-    [RouteArea("Task")]
-    [RoutePrefix("Report")]
     public class ReportController : CoreController
     {
         public ReportController(ILoggerServices loggerServices, IUserServices userService, IUserDepartmentServices userDepartmentServices, IReportService ReportService, IMapper mapper, ICategoryService categoryService, IDepartmentServices departmentServices, IOrgService orgService, IProjectService projectService) : base(loggerServices, userService, userDepartmentServices)
@@ -47,8 +45,6 @@ namespace DaiPhatDat.Module.Task.Web
         private static readonly IDictionary<string, byte[]> TemporaryData = new Dictionary<string, byte[]>();
         #endregion
 
-        // GET: Report
-        [Route("Index")]
         public ActionResult Index()
         {
             ViewBag.IsAdmin = CurrentUser.AccountName == "spadmin";
@@ -59,18 +55,15 @@ namespace DaiPhatDat.Module.Task.Web
             return View();
         }
 
-        [Route("Edit")]
         public ActionResult Edit(ReportModel filter)
         {
             return View();
         }
 
-        [Route("ViewDetail")]
         public ActionResult ViewDetail(ReportModel filter)
         {
             return View();
         }
-        [Route("GetPaging")]
         [HttpPost]
         public async Task<JsonResult> GetPaging(string keyword, int pageIndex = 1, int pageSize = 20)
         {
@@ -93,7 +86,6 @@ namespace DaiPhatDat.Module.Task.Web
         }
 
         [HttpPost]
-        [Route("Edit")]
         public async Task<ActionResult> PostEdit(ReportModel model)
         {
             var response = new ReportModel();
@@ -120,7 +112,6 @@ namespace DaiPhatDat.Module.Task.Web
         }
 
         [HttpPost]
-        [Route("GetById")]
         public async Task<ActionResult> GetById(ReportModel model)
         {
             var response = new ReportModel();
@@ -141,7 +132,6 @@ namespace DaiPhatDat.Module.Task.Web
             return Json(response, JsonRequestBehavior.AllowGet);
         }
 
-        [Route("Download")]
         public async Task<System.Web.Mvc.FileResult> Download(int Id)
         {
             var data = await _ReportService.GetFileAsync(Id);
@@ -149,7 +139,6 @@ namespace DaiPhatDat.Module.Task.Web
         }
 
         [HttpPost]
-        [Route("Delete")]
         public async Task<JsonResult> Delete(ReportModel model)
         {
             try
@@ -174,7 +163,6 @@ namespace DaiPhatDat.Module.Task.Web
 
 
         [HttpPost]
-        [Route("PostReportWeekly")]
         public async Task<ActionResult> PostReportWeekly(ReportFilterModel reportFilterModel)
         {
             var result = new ReportResultModel();
@@ -470,7 +458,6 @@ namespace DaiPhatDat.Module.Task.Web
         }
 
         [HttpGet]
-        [Route("ReportCommon")]
         public async Task<ActionResult> ReportCommon(int Id, Guid? projectId, string type, string device = "")
         {
             var model = new ReportFilterModel();
@@ -579,7 +566,6 @@ namespace DaiPhatDat.Module.Task.Web
         }
 
         [HttpGet]
-        [Route("ReportWeekly")]
         public async Task<ActionResult> ReportWeekly(Guid? projectId, string type, string device = "")
         {
             //var model = new ReportFilterModel();
@@ -597,7 +583,6 @@ namespace DaiPhatDat.Module.Task.Web
         }
 
         [HttpGet]
-        [Route("ProjectReport")]
         public async Task<ActionResult> ProjectReport(Guid? projectId, string type, string device = "")
         {
             //var model = new ReportFilterModel();
@@ -617,7 +602,6 @@ namespace DaiPhatDat.Module.Task.Web
         }
 
         [HttpGet]
-        [Route("FormSearch")]
         public async Task<ActionResult> FormSearch(int Id, Guid? projectId, string type, string device = "")
         {
             var model = new ReportFilterModel();
@@ -694,7 +678,6 @@ namespace DaiPhatDat.Module.Task.Web
         }
 
         [HttpPost]
-        [Route("PostProjectReport")]
         public async Task<ActionResult> PostProjectReport(ReportFilterModel reportFilterModel)
         {
             var reportResultModel = new ReportResultModel();
@@ -1026,7 +1009,6 @@ namespace DaiPhatDat.Module.Task.Web
         }
 
         [HttpGet]
-        [Route("ExportDepartmentReport")]
         public ActionResult ExportDepartmentReport(string file, string fileName, string contentType)
         {
             if (TemporaryData[file] != null &&
@@ -1042,7 +1024,6 @@ namespace DaiPhatDat.Module.Task.Web
         }
 
         [HttpGet]
-        [Route("ReportOnePage")]
         public async Task<ActionResult> ReportOnePage(Guid? projectId, string type, string device = "")
         {
             var model = new ReportFilterModel();
@@ -1061,7 +1042,6 @@ namespace DaiPhatDat.Module.Task.Web
             return View();
         }
 
-        [Route("PostReportOnePage")]
         [HttpPost]
         public async Task<ActionResult> PostReportOnePage(ReportFilterModel reportFilterModel)
         {
@@ -1120,7 +1100,6 @@ namespace DaiPhatDat.Module.Task.Web
             }
         }
 
-        [Route("DownloadFile")]
         [HttpGet]
         public ActionResult DownloadFile(string fileName)
         {
@@ -1139,7 +1118,6 @@ namespace DaiPhatDat.Module.Task.Web
             return actionResult;
         }
 
-        [Route("ReportIframe")]
         [HttpGet]
         public ActionResult ReportIframe(string url, string title)
         {

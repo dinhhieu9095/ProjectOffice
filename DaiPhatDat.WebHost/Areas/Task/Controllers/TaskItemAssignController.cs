@@ -15,8 +15,6 @@ using DaiPhatDat.Module.Task.Services;
 namespace DaiPhatDat.Module.Task.Web
 {
     [Authorize]
-    [RouteArea("Task")]
-    [RoutePrefix("TaskItemAssign")]
     public class TaskItemAssignController : CoreController
     {
         private readonly ITaskItemAssignService _taskItemAssignService;
@@ -29,7 +27,6 @@ namespace DaiPhatDat.Module.Task.Web
             _settingsService = settingsService;
         }
 
-        [Route("GetTaskItemAssign")]
         [HttpPost]
         public async Task<JsonResult> GetTaskItemAssign(Guid taskId, string action)
         {
@@ -64,7 +61,6 @@ namespace DaiPhatDat.Module.Task.Web
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [Route("ProcessTaskItemAssign")]
         [HttpPost]
         public async Task<JsonResult> ProcessTaskItemAssign(TaskItemAssignModel model)
         {
@@ -116,7 +112,6 @@ namespace DaiPhatDat.Module.Task.Web
             }
             return Json(rs, JsonRequestBehavior.AllowGet);
         }
-        [Route("GetTaskItemAssignConfigPoint")]
         [HttpGet]
         public async Task<JsonResult> GetTaskItemAssignConfigPoint()
         {

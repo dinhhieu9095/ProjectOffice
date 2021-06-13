@@ -282,6 +282,7 @@
     <Content Include="Content\metronic\css\fonts\la-solid-900.ttf" />
     <Content Include="Content\metronic\css\fonts\la-solid-900.woff" />
     <Content Include="Content\metronic\css\fonts\la-solid-900.woff2" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.8.0.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.0.js" />

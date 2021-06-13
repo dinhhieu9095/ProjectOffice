@@ -20,8 +20,6 @@ using System.Web.Mvc;
 namespace DaiPhatDat.Module.Task.Web
 {
     [Authorize]
-    [RouteArea("Task")]
-    [RoutePrefix("Home")]
     public class HomeController : CoreController
     {
         private readonly IProjectService _projectService;
@@ -42,7 +40,6 @@ namespace DaiPhatDat.Module.Task.Web
             _mapper = mapper;
             _userdepartmentServices = userDepartmentServices;
         }
-        [Route("Index")]
         public ActionResult Index(Guid? parentId, Guid? filterId, Guid? folderId, string view, string type = "")
         {
             TaskViewTypeModel viewType = new TaskViewTypeModel();
@@ -157,49 +154,16 @@ namespace DaiPhatDat.Module.Task.Web
             }
             return strReturn;
         }
-        //[Route("treegrid")]
-        //public ActionResult TreeGrid()
-        //{
-        //    return View();
-        //}
-        [Route("DemoForm")]
+        
         public ActionResult DemoForm()
         {
             return View();
         }
-        //[Route("ViewTaskInTable")]
-        //public ActionResult ViewTaskInTable()
-        //{
-        //    return PartialView();
-        //}
-        //[Route("ViewTaskInKaban")]
-        //public ActionResult ViewTaskInKaban()
-        //{
-        //    return PartialView();
-        //}
-        //[Route("ViewTaskInKanban")]
-        //public ActionResult ViewTaskInKanban()
-        //{
-        //    return PartialView();
-        //}
-        //[Route("ViewTaskInGrantt")]
-        //public ActionResult ViewTaskInGrantt()
-        //{
-        //    TempData[HomeController.TaskViewType] = HomeController.ActionViewTaskInGrantt;
-        //    return PartialView();
-        //}
-        //[Route("ViewTaskInGrantt")]
-        //public ActionResult ViewTaskInCalendar()
-        //{
-        //    TempData[HomeController.TaskViewType] = HomeController.ActionViewTaskInCalendar;
-        //    return PartialView();
-        //}
-        [Route("ViewTaskInMain")]
+        
         public ActionResult ViewTaskInMain()
         {
             return PartialView(HomeController.PartialViewTaskInMain);
         }
-        [Route("GetDataByProject")]
         [HttpPost]
         public async Task<JsonResult> GetDataByProject(Guid? parentId, Guid? filterId, Guid? folderId, string view, AdvanceFilterModel filter)
         {
@@ -552,7 +516,6 @@ namespace DaiPhatDat.Module.Task.Web
             }
             return strBuilder.ToString();
         }
-        [Route("MoveDataByTask")]
         [HttpPost]
         public async Task<JsonResult> MoveDataByTask(MoveFilterModel filter)
         {
@@ -608,7 +571,6 @@ namespace DaiPhatDat.Module.Task.Web
             }
             return Json(new { status = bResult, msg = strMsg, parentId = parentIdRefresh });
         }
-        [Route("GetViewBreadCrumbWithParent")]
         [HttpPost]
         public async Task<JsonResult> GetViewBreadCrumbWithParent(Guid? parentId)
         {
@@ -638,7 +600,6 @@ namespace DaiPhatDat.Module.Task.Web
             }
             return Json(new { status = bResult, msg = strMsg, data = breadCrumb.OrderBy(x => x.STT).ToList() });
         }
-        [Route("GetDataByTitleTable")]
         [HttpPost]
         public async Task<JsonResult> GetDataByTitleTable(string view)
         {
@@ -984,19 +945,13 @@ namespace DaiPhatDat.Module.Task.Web
                 return DateTime.Now;
             }
         }
-        //[Route("getHeaderView")]
-        //[HttpPost]
-        //public async Task<JsonResult> getHeaderView( string view)
-        //{
-
-        //    return userReportResults;
-        //}
+        
 
         /// <summary>
         /// Lấy cây danh mục filter
         /// </summary>
         /// <returns></returns>
-        [Route("GetAdvanceFilterTree")]
+       
         [HttpGet]
         public JsonResult GetAdvanceFilterTree(Guid parentID = default(Guid), string keySearch = null)
         {
@@ -1008,7 +963,6 @@ namespace DaiPhatDat.Module.Task.Web
         /// Lấy filter để chỉnh sửa
         /// </summary>
         /// <returns></returns>
-        [Route("GetAdvanceFilter")]
         [HttpGet]
         public JsonResult GetAdvanceFilter(Guid Id)
         {
@@ -1018,7 +972,6 @@ namespace DaiPhatDat.Module.Task.Web
         /// Lấy quyển tạo filter của user
         /// </summary>
         /// <returns></returns>
-        [Route("GetAdvanceFilterPermission")]
         [HttpGet]
         public JsonResult GetAdvanceFilterPermission()
         {
@@ -1028,7 +981,6 @@ namespace DaiPhatDat.Module.Task.Web
         /// Lấy danh mục theo tên bảng
         /// </summary>
         /// <returns></returns>
-        [Route("GetCategory")]
         [HttpGet]
         public JsonResult GetCategory(string tableName)
         {
@@ -1038,7 +990,6 @@ namespace DaiPhatDat.Module.Task.Web
         /// Lưu filter advance
         /// </summary>
         /// <returns></returns>
-        [Route("SaveAdvanceFilter")]
         [HttpPost]
         public JsonResult SaveAdvanceFilter(ProjectFilterParamModel model)
         {
@@ -1048,24 +999,20 @@ namespace DaiPhatDat.Module.Task.Web
         /// Xóa filter advance
         /// </summary>
         /// <returns></returns>
-        [Route("DeleteAdvanceFilter")]
         [HttpPost]
         public JsonResult DeleteAdvanceFilter(ProjectFilterParamModel model)
         {
             return null;
         }
-        [Route("UserInfoHeader")]
         public ActionResult UserInfoHeader()
         {
             var currentUser = CurrentUser;
             return PartialView(currentUser);
         }
-        [Route("AccessDenied")]
         public ActionResult AccessDenied()
         {
             return View();
         }
-        [Route("NotFound")]
         public ActionResult NotFound()
         {
             return View();

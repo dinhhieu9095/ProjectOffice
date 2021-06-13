@@ -19,7 +19,6 @@ namespace DaiPhatDat.WebHost.Controllers
             : base(loggerServices, userService, userDepartmentServices)
         {
         }
-        [Route("index")]
         public ActionResult Index()
         {
             var homeUrl = AppSettings.HomeUrl;

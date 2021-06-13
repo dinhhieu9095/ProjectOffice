@@ -139,6 +139,10 @@ namespace DaiPhatDat.Module.Task.Services
                         {
                             dto.TaskItem.IsLate = false;
                         }
+                        if(dto.TaskItem.AssignBy == userId)
+                        {
+                            dto.IsAssignBy = true;
+                        }
                         dto.AppraisePercentFinish = dto.PercentFinish;
                     }
                     
