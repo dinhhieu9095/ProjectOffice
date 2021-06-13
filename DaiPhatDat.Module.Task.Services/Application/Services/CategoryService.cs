@@ -1081,6 +1081,57 @@ BEGIN CATCH
 END CATCH
 ");
             }
+            if(newVersion < 20210613)
+            {
+                newVersion = 20210613;
+                queries.Add(@"ALTER   PROCEDURE [dbo].[SP_UPDATE_TASK_RANGE_DATE]
+	@ProjectId uniqueidentifier,
+	@TaskId uniqueidentifier,
+	@FromDate datetime,
+	@ToDate datetime,
+	@IsUpdateStatus bit null
+AS
+BEGIN
+	SET NOCOUNT ON;
+	create table #temp (id uniqueidentifier);
+WITH tbParent AS
+(
+	SELECT Id, ParentId
+	FROM [Task].[TaskItem]
+	WHERE Id = @TaskId AND IsDeleted = 0
+	UNION ALL
+	SELECT TItem.Id, TItem.ParentId
+	FROM [Task].[TaskItem] TItem
+	JOIN tbParent 
+	ON TItem.Id = tbParent.ParentId where TItem.IsDeleted = 0
+)			
+	insert into #temp
+	select distinct Id from tbParent where id != @TaskId;
+	if(Exists(select * from [Task].[Project] 
+	where Id = @ProjectId ))
+	begin
+		update [Task].[TaskItem] set FromDate = @FromDate
+		where FromDate > @FromDate and Id in (select id from #temp)
+		update [Task].[TaskItem] set ToDate = @ToDate
+		where ToDate < @ToDate and Id in (select id from #temp)
+
+		update [Task].[Project] set FromDate = @FromDate
+		where FromDate > @FromDate and Id = @ProjectId
+		update [Task].[Project] set ToDate = @ToDate
+		where ToDate < @ToDate and Id = @ProjectId
+	end
+	if(@IsUpdateStatus = 1)
+	begin 
+		update [Task].[TaskItem] set TaskItemStatusId = 1
+			where IsGroupLabel!= 1 and TaskItemStatusId = 0 and Id in (select id from #temp);
+		update [Task].[Project] set ProjectStatusId = 3
+			where ProjectStatusId = 0 and Id = @ProjectId;
+	end
+	
+	drop table #temp;
+	
+END");
+            }
 			if (newVersion != currentVersion)
             {
                 queries.Add(string.Format(@"if (Not Exists(select * from [dbo].[Settings] where Code = 'CurrentTaskVersion'))
