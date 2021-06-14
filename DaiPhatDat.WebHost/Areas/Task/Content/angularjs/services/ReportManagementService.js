@@ -43,7 +43,7 @@
             var request = $http({
                 method: 'POST',
                 async: true,
-                url: CommonUtils.RootURL("Task/Report/Edit"),
+                url: CommonUtils.RootURL("Task/Report/PostEdit"),
                 data: model,
                 headers: { 'Content-Type': undefined },
                 transformRequest: function (data) {

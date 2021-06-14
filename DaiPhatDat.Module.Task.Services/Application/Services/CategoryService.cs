@@ -244,62 +244,6 @@ namespace DaiPhatDat.Module.Task.Services
                 queries.Add(@"
   insert into [dbo].[RolePermissions] values ('3A9EC51A-6EBC-4964-9297-4C97B827DB42',	'F90744BA-9090-400B-89FD-A4D12FF7697A',	N'Quản trị hệ thống')");
 
-                queries.Add(@"
-  insert into  [dbo].[Users] (ID,UserName,FullName,Gender,Email,IsActive,UserIndex,AccountName)
-  values ('44E34922-FE7F-4ADA-A29C-14B4164D0649','SWIC\spadmin', N'Quản trị viên', 1, 'spadmin@gamil.com', 1, 1, 'spadmin')");
-                queries.Add(@"
-  insert into  [dbo].[UserRoles] ([UserID]
-      ,[RoleID]
-      ,[Description])
-  values ('44E34922-FE7F-4ADA-A29C-14B4164D0649','3A9EC51A-6EBC-4964-9297-4C97B827DB42','')");
-                queries.Add(@"insert into dbo.Departments ([ID]
-      ,[Name]
-      ,[NoUser]
-      ,[OrderNumber]
-      ,[ParentID]
-      ,[Path]
-      ,[IsActive]
-      ,[Created]
-      ,[AuthorID]
-      ,[IsShow]
-      ,[DeptTypeID]
-      ,[EditorID]
-      ,[Modified]
-      ,[ServerAddress])
-values ('457ef59c-4657-42fc-a39b-80c2cc7d23f5', N'Tổng công ty', null, 1, null,null, 1, '2021-05-08 16:42:20.530', '04b460f6-a86b-4fee-9e4d-3d007e34b103', 1, '2a2f6903-5a5a-4cd0-bb1f-d0ce4e33d544', '04b460f6-a86b-4fee-9e4d-3d007e34b103', '2021-05-08 16:42:20.530', '')
-
-insert into dbo.Departments ([ID]
-      ,[Name]
-      ,[NoUser]
-      ,[OrderNumber]
-      ,[ParentID]
-      ,[Path]
-      ,[IsActive]
-      ,[Created]
-      ,[AuthorID]
-      ,[IsShow]
-      ,[DeptTypeID]
-      ,[EditorID]
-      ,[Modified]
-      ,[ServerAddress])
-	  values ('A73A7A0D-A80C-4CB7-98E3-E43F78B23CA4', N'Ban giám đốc', null, 1, '457ef59c-4657-42fc-a39b-80c2cc7d23f5',null, 1, '2021-05-08 16:42:20', '04b460f6-a86b-4fee-9e4d-3d007e34b103', 1, '2a2f6903-5a5a-4cd0-bb1f-d0ce4e33d544', '04b460f6-a86b-4fee-9e4d-3d007e34b103', '2021-05-08 16:42:20', '')
-
-insert into [dbo].[JobTitles] ([ID]
-      ,[Name]
-      ,[OrderNumber]
-      ,[Code]
-      ,[IsActive])
-  values ('2FD2496B-31C0-4475-B6AA-76A4F1D24DE9', N'chuyên viên', 1, 'CV', 1)
-
-insert into [dbo].[UserDepartments] ([UserID]
-      ,[DeptID]
-      ,[JobDescription]
-      ,[OrderNumber]
-      ,[JobTitleID]
-      ,[IsManager])
- values ('778BAB10-71D9-43A1-9653-CDE1F0A340C8', 'A73A7A0D-A80C-4CB7-98E3-E43F78B23CA4', N'Chuyên viên',1,'2FD2496B-31C0-4475-B6AA-76A4F1D24DE9',0)
-
-");
             }
             if(newVersion < 20210504)
             {

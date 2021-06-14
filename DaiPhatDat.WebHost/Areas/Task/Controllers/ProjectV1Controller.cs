@@ -532,11 +532,11 @@ namespace DaiPhatDat.Module.Task.Web
                         else
                         {
                             fileBytes = package.GetAsByteArray();
-                            if (!Directory.Exists(Server.MapPath("~/ErrorFile")))
+                            if (!Directory.Exists(ConfigurationManager.AppSettings["TempFileDocuments"].ToString()+ "ErrorFile"))
                             {
-                                Directory.CreateDirectory(Server.MapPath("~/ErrorFile"));
+                                Directory.CreateDirectory(ConfigurationManager.AppSettings["TempFileDocuments"].ToString() + "ErrorFile");
                             }
-                            var path = Server.MapPath("~/ErrorFile/" + fileName);
+                            var path = ConfigurationManager.AppSettings["TempFileDocuments"].ToString() + "ErrorFile";
                             System.IO.File.WriteAllBytes(path, fileBytes);
                             return Json(new { Message = "Failure", Url = Convert.ToBase64String(Encoding.UTF8.GetBytes(path)), FileName = fileName });
                         }

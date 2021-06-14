@@ -310,7 +310,7 @@ namespace DaiPhatDat.Module.Task.Services
                         {
                             Id = Guid.NewGuid(),
                             ProjectId = entity.Id,
-                            ActionId = ActionId.Appraise,
+                            ActionId = ActionId.Process,
                             Created = dto.ModifiedDate,
                             CreatedBy = dto.ModifiedBy,
                             DepartmentId = Guid.Empty,
@@ -787,6 +787,7 @@ namespace DaiPhatDat.Module.Task.Services
                 {
                     UserId = x.AssignTo,
                     AssignBy = x.UserId,
+                    UserAssignId = x.AssignBy,
                     FromDate = x.FromDate,
                     Id = x.Id,
                     Content = x.Content,
@@ -865,6 +866,10 @@ namespace DaiPhatDat.Module.Task.Services
                     taskItem.JobTitleName = assignBy?.JobTitleName;
                     taskItem.DateFormat = ConvertToStringExtensions.DateToString(taskItem.FromDate, taskItem.ToDate);
                     taskItem.Attachments = attachments.Where(e=>e.ItemId == taskItem.Id && e.Source == Source.TaskItem).ToList();
+                    var assignTo = await GetUserDeptDTO(taskItem.UserAssignId, taskItem.DepartmentId, userDepartments);
+                    taskItem.UserAssignFullName = assignTo?.FullName;
+                    taskItem.UserAssignJobTitleName = assignTo?.JobTitleName;
+
                     // là mobile
                     if (isMobile)
                     {
