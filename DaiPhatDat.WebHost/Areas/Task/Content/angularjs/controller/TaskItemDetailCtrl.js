@@ -340,7 +340,7 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
                     name = name.replace("{Type}", 'Công việc được giao');
                     name = name.replace("{TotalTask}", user.TotalTask);
                 }
-                name = name.replace("{RootUrl}", CommonUtils.RootURL("Task/Account/Avartar"));
+                name = name.replace("{RootUrl}", CommonUtils.RootURL("Account/Avartar"));
                 name = name.replace("{UserId}", user.UserId);
                 name = name.replace("{UserName}", user.UserName);
                 name = name.replace("{JobTitleName}", user.JobTitleName);

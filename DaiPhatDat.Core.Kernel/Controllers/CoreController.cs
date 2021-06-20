@@ -43,11 +43,9 @@ namespace DaiPhatDat.Core.Kernel.Controllers
 
                 var currentUserName = WebUtils.GetUserNameFromContext(User.Identity.Name);
 
-                _loggerServices.WriteError("User from Identity: " + currentUserName);
 
                 _currentUser = _userService.GetByUserName(currentUserName);
 
-                _loggerServices.WriteError("User from Database: " + _currentUser?.UserName);
 
                 if (_currentUser == null)
                 {
@@ -72,8 +70,6 @@ namespace DaiPhatDat.Core.Kernel.Controllers
                             OrderNumber = s.OrderNumber
                         }).OrderBy(x => x.OrderNumber).ToList();
 
-                        _loggerServices.WriteError("Jobtitle of User: " + _currentUser.UserName);
-                        _loggerServices.WriteError("Department of User: " + _currentUser.Departments?.FirstOrDefault()?.Name);
                     }
                     _currentUser.Permissions = _userService.GetUserPermission(_currentUser.UserName);
                 }

@@ -173,7 +173,7 @@ namespace DaiPhatDat.Module.Task.Web
             string strHtmlStatus = "<div class='progress-task {3}'> <div class='process-label'>{2}</div><div class='progress'><div class='progress-bar' role='progressbar' style='width: {0}%;' aria-valuenow='{0}' aria-valuemin='0' aria-valuemax='100'></div>{1}</div></div>";
             string strHtmlDate = "<div class='timeline'><span>{0} </span> {1} </div>";
             string strHtmlDateHover = " <div class='timeline-day'><i class='far fa-clock mr-2'></i>{0}</div>";
-            string strUrl = "/account/Avartar";
+            string strUrl = "/feature/account/Avartar";
             string strValueDay = ResourceManagement.GetResourceText("Task.Home.TableLeftDay", "còn lại {0} ngày", "{0} day left");
             string strValueDays = ResourceManagement.GetResourceText("Task.Home.TableLeftDays", "còn lại {0} ngày", "{0} days left");
             int numberShowInMember = 2;
