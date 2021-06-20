@@ -86,7 +86,7 @@ namespace DaiPhatDat.Module.Task.Services
                         .Include(i => i.ProcessHistory)
                         .OrderByDescending(o => o.CreatedDate)
                         .Where(w => w.ProjectId == projectId && w.Source != Source.Project
-                        && (w.ItemId == itemId || w.ItemId.HasValue)
+                        && (w.ItemId == itemId || (w.ItemId.HasValue && guilds.Contains(w.ItemId.Value)))
                         )
                            //&& (w.ProcessHistory.TaskItemId == itemId || w.ProcessHistory.TaskItemAssignId == itemId))
                            .Select(e => new AttachmentDto()
@@ -98,6 +98,7 @@ namespace DaiPhatDat.Module.Task.Services
                                CreatedBy = e.CreatedBy,
                                CreatedDate = e.CreatedDate,
                                Source = e.Source
+
                            }).ToListAsync();
                 }
                 else
@@ -112,6 +113,7 @@ namespace DaiPhatDat.Module.Task.Services
                            CreatedBy = e.CreatedBy,
                            CreatedDate = e.CreatedDate,
                            Source = e.Source
+
                        }).ToListAsync();
                 }
                 var userDtos = _userServices.GetUsers();

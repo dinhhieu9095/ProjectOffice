@@ -7,7 +7,7 @@
     <span class="item-info">
         <span class="item-owner">
             <span class="item-color"> @ResourceManagement.GetResourceText("Task.ProjectDetail.AssignBy", "Giao bởi", "Assign By") </span>
-            {{taskItem.AssignToFullName}} - {{taskItem.AssignToJobTitle}}
+            {{taskItem.AssignToFullName}} ({{taskItem.AssignToJobTitle}})
             <span class="item-time">
                 <span class="item-color"> @ResourceManagement.GetResourceText("Task.ProjectDetail.From", "Từ", "From") </span>
                 {{ taskItem.FromDate }} -
@@ -18,7 +18,7 @@
         <span class="item-block">
             <span class="item-assign">
                 <span class="item-color"> @ResourceManagement.GetResourceText("Task.ProjectDetail.AssignTo", "Xử lý bởi", "Assign To") </span>
-                {{taskItem.AssignByFullName}} - {{taskItem.AssignByJobTitle}}
+                {{taskItem.AssignByFullName}} ({{taskItem.AssignByJobTitle}})
             </span>
             <span ng-if="taskItem.FinishedDate != null" class="item-time-update">
                 <span class="item-color"> @ResourceManagement.GetResourceText("Task.ProjectDetail.FinishedDate", "Ngày hoàn thành", "Finished Date") </span>

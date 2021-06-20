@@ -65,6 +65,7 @@ namespace DaiPhatDat.Module.Task.Web
                 }
                 else
                 {
+                    dto.IsAuto = true;
                     dto.ProjectMembers.Add(new ProjectMemberDto()
                     {
                         Department = CurrentUser.Departments!=null ? CurrentUser.Departments[0].Name:string.Empty,

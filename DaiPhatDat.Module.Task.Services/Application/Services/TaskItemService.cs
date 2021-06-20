@@ -792,11 +792,22 @@ namespace DaiPhatDat.Module.Task.Services
                 var userDepartments = await _userDepartmentServices.GetCachedUserDepartmentDtos();
                 var UserDto = _userServices.GetUsers();
                 var actions = _actionRepository.GetAll().ToList();
-                var attachments = _attachmentService.GetAllAttachments(query.ProjectId, query.TaskItemId, Source.TaskItem);
+                var attachments = await _attachmentRepository.GetAll().Where(e => e.ProjectId == query.ProjectId).Select(e => new AttachmentDto()
+                {
+                    Id = e.Id,
+                    FileExt = e.FileExt,
+                    ItemId = e.ItemId,
+                    ProjectId = e.ProjectId,
+                    Source = e.Source,
+                    FileName = e.FileName
+                }).ToListAsync();
                 var taskItemProcessHistoryDtos = new List<TaskItemProcessHistoryDto>();
                 var queryable = _taskItemHistoryRepository.GetAll();
-                queryable = queryable.Where(e => e.ProjectId == query.ProjectId && e.TaskItemId == query.TaskItemId /*&& (e.TaskItemAssignId == null || e.TaskItemAssignId == Guid.Empty)*/); // && e.TaskItemAssignId == null || e.TaskItemAssignId == Guid.Empty
-
+                queryable = queryable.Where(e => e.ProjectId == query.ProjectId); // && e.TaskItemAssignId == null || e.TaskItemAssignId == Guid.Empty
+                if (query.TaskItemId.HasValue)
+                {
+                    queryable = queryable.Where(e => e.TaskItemId == query.TaskItemId);
+                }
                 if (query.UserId != null)
                 {
                     queryable = queryable.Where(e => e.CreatedBy == query.UserId);
@@ -824,7 +835,7 @@ namespace DaiPhatDat.Module.Task.Services
                     item.CreatedByJobTitle = user?.JobDescription;
                     if (item.CreatedDate != null)
                         item.CreatedDateFormat = ConvertToStringExtensions.DateTimeToString(item.CreatedDate);
-                    item.Attachments = attachments.Where(e => e.CreatedDate == item.CreatedDate).ToList();
+                    item.Attachments = attachments.Where(e => e.ItemId != null && e.ItemId == item.Id).ToList();
                     item.Action = new ActionDto();
                     if (item.ActionId.HasValue)
                         item.Action.Name = actions.FirstOrDefault(e => e.Id == item.ActionId.Value).Name;

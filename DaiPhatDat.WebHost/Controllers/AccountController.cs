@@ -1,6 +1,7 @@
 ﻿using DaiPhatDat.Core.Kernel.Application;
 using DaiPhatDat.Core.Kernel.Orgs.Application;
 using DaiPhatDat.WebHost.Models;
+using System.Configuration;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -107,6 +108,20 @@ namespace DaiPhatDat.WebHost
                 return Redirect(AppSettings.LogoutUrl);
             }
             return RedirectToAction("Login", "Account");
+        }
+        public FileResult Avartar(string userName)
+        {
+            //var image = this._userService.GetUserProfile(id).Avartar;
+            string avaPath = ConfigurationManager.AppSettings["RootApplicationPath"].ToString() + @"\Content\img\avatar.png";
+            byte[] fileBytes = System.IO.File.ReadAllBytes(avaPath);
+            if (fileBytes != null && fileBytes.Length > 0)
+            {
+                return File(fileBytes, "image/png", userName + ".png");
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

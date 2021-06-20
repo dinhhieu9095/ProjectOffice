@@ -298,12 +298,12 @@ namespace DaiPhatDat.Module.Task.Services
                                     entity.ExtendDate = dto.ExtendDate;
                                     taskEntity.ToDate = dto.ExtendDate;
                                     entity.IsExtend = false;
-                                    dto.ActionId = ActionId.Appraise;
+                                    dto.ActionId = ActionId.AppraiseExtend;
                                     break;
                                 case "ReturnExtend":
                                     entity.ExtendDate = null;
                                     entity.IsExtend = false;
-                                    dto.ActionId = ActionId.Return;
+                                    dto.ActionId = ActionId.ReturnExtend;
                                     break;
                                 default:
                                     break;

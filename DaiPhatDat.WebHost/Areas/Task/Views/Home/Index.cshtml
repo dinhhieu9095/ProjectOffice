@@ -266,23 +266,7 @@
                                     <span class="navi-text">@ResourceManagement.GetResourceText("Task.Home.ViewTable.ExportExcel", "Xuất excel", "Export excel") </span>
                                 </a>
                             </li>
-                            <li class="navi-item">
-                                <a ng-click="ExportMSProject()" class="navi-link">
-                                    <span class="svg-icon svg-icon-primary svg-icon-2x">
-                                        <svg width="24px" height="24px" viewBox="0 0 24 24">
-                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                <polygon points="0 0 24 0 24 24 0 24" />
-                                                <path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
-                                                <rect fill="#000000" opacity="0.3" transform="translate(8.984240, 12.127098) rotate(-45.000000) translate(-8.984240, -12.127098) " x="7.41281179" y="10.5556689" width="3.14285714" height="3.14285714" rx="0.75" />
-                                                <rect fill="#000000" opacity="0.3" transform="translate(15.269955, 12.127098) rotate(-45.000000) translate(-15.269955, -12.127098) " x="13.6985261" y="10.5556689" width="3.14285714" height="3.14285714" rx="0.75" />
-                                                <rect fill="#000000" transform="translate(12.127098, 15.269955) rotate(-45.000000) translate(-12.127098, -15.269955) " x="10.5556689" y="13.6985261" width="3.14285714" height="3.14285714" rx="0.75" />
-                                                <rect fill="#000000" transform="translate(12.127098, 8.984240) rotate(-45.000000) translate(-12.127098, -8.984240) " x="10.5556689" y="7.41281179" width="3.14285714" height="3.14285714" rx="0.75" />
-                                            </g>
-                                        </svg>
-                                    </span>
-                                    <span class="navi-text">@ResourceManagement.GetResourceText("Task.Home.ViewTable.ExportMSProject", "Xuất ms project", "Export ms project") </span>
-                                </a>
-                            </li>
+                            
                             <li class="navi-item">
                                 <label class="form-control-static attachment navi-link">
                                     <span class="svg-icon svg-icon-primary svg-icon-2x">
@@ -300,23 +284,7 @@
                                     </span>
                                 </label>
                             </li>
-                            <li class="navi-item">
-                                <label class="form-control-static attachment navi-link">
-                                    <span class="svg-icon svg-icon-primary svg-icon-2x">
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                <polygon points="0 0 24 0 24 24 0 24" />
-                                                <path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
-                                                <path d="M11,14 L9,14 C8.44771525,14 8,13.5522847 8,13 C8,12.4477153 8.44771525,12 9,12 L11,12 L11,10 C11,9.44771525 11.4477153,9 12,9 C12.5522847,9 13,9.44771525 13,10 L13,12 L15,12 C15.5522847,12 16,12.4477153 16,13 C16,13.5522847 15.5522847,14 15,14 L13,14 L13,16 C13,16.5522847 12.5522847,17 12,17 C11.4477153,17 11,16.5522847 11,16 L11,14 Z" fill="#000000" />
-                                            </g>
-                                        </svg>
-                                    </span>
-                                    <span class="navi-text">
-                                        @ResourceManagement.GetResourceText("Task.Home.ImportMSProject", "Import MS Project", "Import MS Project")
-                                        <input type="file" style="display: none" name="file" accept=".mpp, .xml" id="datafileMS" ngf-select="ImportMSProject($files)" class="file" data-show-preview="false" data-show-upload="false" data-show-caption="true" />
-                                    </span>
-                                </label>
-                            </li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -404,7 +372,7 @@
                                         <span class="item-info">
                                             <span class="item-time">{{ item.FromDateFormat }} - {{ item.ToDateFormat }}</span>
                                             <span class="item-owner">
-                                                <img title="" class="img-circle" src="/module/Account/Avartar/{{item.AssingBy}}">{{item.AssignByFullName}} - {{item.JobTitleName}}
+                                                <img title="" class="img-circle" src="/account/Avartar/{{item.AssingBy}}">{{item.AssignByFullName}} - {{item.JobTitleName}}
                                             </span>
                                         </span>
                                     </td>
@@ -465,7 +433,7 @@
                                         <span class="item-info">
                                             <span class="item-time">{{ item.FromDateFormat }} - {{ item.ToDateFormat }}</span>
                                             <span class="item-owner">
-                                                <img title="" class="img-circle" src="/module/Account/Avartar/{{item.AssingBy}}">{{item.AssignByFullName}} - {{item.JobTitleName}}
+                                                <img title="" class="img-circle" src="/account/Avartar/{{item.AssingBy}}">{{item.AssignByFullName}} - {{item.JobTitleName}}
                                             </span>
                                         </span>
                                     </td>

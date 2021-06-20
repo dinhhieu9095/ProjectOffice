@@ -50,7 +50,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div id="collapseTask" class="more-content collapse" data-parent="#accordionTask">
+                            <div id="collapseTaskDetail" class="more-content collapse" data-parent="#accordionTask">
                                 <div class="detail-block">
                                     <span class="dl-label-color float-left">@ResourceManagement.GetResourceText("Task.TaskDetail.ProjectName", "Tên dự án", "Project name"): <span class="item-project-name">{{ taskItem.item.ProjectSummary }}</span></span>
                                 </div>
@@ -71,7 +71,7 @@
                                 </div>
                             </div>
                             <div class="more-btn" id="headingOne3" ng-if="taskItem.item.TaskItemConclusion || (taskItem.item.TaskItemCategories.length > 0 && taskItem.item.IsGroupLabel != true) || taskItem.item.TaskItemCategories.length > 0 || taskItem.item.ProjectSummary.length > 0">
-                                <button type="button" class="btn btn-primary btn-xs collapsed" data-toggle="collapse" data-target="#collapseTask"><span class="collapse-show">@ResourceManagement.GetResourceText("Task.Home.Expand", "Mở rộng", "Expand")</span><span class="collapse-hide">@ResourceManagement.GetResourceText("Task.Home.Hide", "Thu gọn", "Hide")</span></button>
+                                <button type="button" class="btn btn-primary btn-xs collapsed" data-toggle="collapse" data-target="#collapseTaskDetail"><span class="collapse-show">@ResourceManagement.GetResourceText("Task.Home.Expand", "Mở rộng", "Expand")</span><span class="collapse-hide">@ResourceManagement.GetResourceText("Task.Home.Hide", "Thu gọn", "Hide")</span></button>
                             </div>
                         </div>
                     </div>
