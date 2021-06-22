@@ -30,7 +30,6 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
         getData: function () {
             $scope.showLoading(null);
             TaskItemDetailService.getData($scope.taskItem.filter.TaskItemId).then(function (rs) {
-                debugger
                 $scope.taskItem.item = rs.data;
                 $scope.taskItem.filter.ProjectId = $scope.taskItem.item.ProjectId;
                 $("#modal-task-detail").css("display", "block");
@@ -60,7 +59,6 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
         },
 
         getAttachment: function () {
-            debugger
             //if ($scope.taskItem.item.Attachments == null || $scope.taskItem.item.Attachments) {
             $scope.showLoading(null);
             TaskItemDetailService.getAttachment($scope.taskItem.filter.TaskItemId, $scope.taskItem.item.ProjectId).then(function (rs) {

@@ -96,11 +96,11 @@ namespace DaiPhatDat.Module.Task.Services
                 {
                     result = "out-of-date";
                 }
-                else if (TaskItemStatusId != Entities.TaskItemStatusId.Finished && ToDate.HasValue && ToDate.Value >= DateTime.Now && ToDate.Value <= DateTime.Now.AddDays(2))
+                else if (TaskItemStatusId != Entities.TaskItemStatusId.Finished && ToDate.HasValue && ToDate.Value >= DateTime.Now.Date && ToDate.Value <= DateTime.Now.Date.AddDays(2))
                 {
                     result = "near-of-date";
                 }
-                else if (TaskItemStatusId != Entities.TaskItemStatusId.Finished && ToDate.HasValue && ToDate >= DateTime.Now)
+                else if (TaskItemStatusId != Entities.TaskItemStatusId.Finished && ToDate.HasValue && ToDate >= DateTime.Now.Date)
                 {
                     result = "in-due-date";
                 }

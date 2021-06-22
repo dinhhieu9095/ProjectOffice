@@ -146,22 +146,21 @@
                                                                 </span>
                                                                 <span ng-if="taskItemAssign.PercentFinish != null && taskItemAssign.PercentFinish > 0" class="timeline-body-content font-grey-cascade dl-complete-percen">
                                                                     @ResourceManagement.GetResourceText("Task.TaskDetail.PercentFinish", "Với tỷ lệ hoàn thành", "Percent Finish"):
-                                                                    <span ng-if="taskItemAssign.PercentFinish != null && taskItemAssign.PercentFinish > 0" class="label-process"> {{taskItemAssign.PercentFinish}}%</span> <span ng-if="taskItemAssign.AppraisePercentFinish != null && taskItemAssign.AppraisePercentFinish > 0" class="label-process">| {{taskItemAssign.AppraisePercentFinish > 0 ? taskItemAssign.AppraisePercentFinish + "%" : '' }}%</span>
+                                                                    <span ng-if="taskItemAssign.PercentFinish != null && taskItemAssign.PercentFinish > 0" class="label-process"> {{taskItemAssign.PercentFinish}}%</span> 
                                                                 </span>
                                                                 <div ng-if="taskItemAssign.LastResult != null" class="timeline-body-content dl-min-height dl-last-result" style="">
                                                                     @ResourceManagement.GetResourceText("Task.TaskDetail.Content", "Nội dung", "Content"):
                                                                     <span class=" tracking-document-name dl-min-height-content" ng-bind-html="taskItemAssign.LastResult">
                                                                     </span>
                                                                 </div>
-                                                                <!--Nhờ Tài-->
 
-
-                                                                @*<div class="text-black text-bold pr-2 pull-left dl-label-color attachment-down">
+                                                                <div class="text-black text-bold pr-2 pull-left dl-label-color attachment-down" ng-show="taskItemAssign.Attachments != null && taskItemAssign.Attachments.length >0 ">
                                                                     @ResourceManagement.GetResourceText("Task.TaskItemDetail.Documents", "Tài liệu", "Documents"):
-                                                                    <span class="ng-scope">
-                                                                        <a class="file-name ng-binding" target="_blank" href="" ng-click="" title="ChuyenVien01.png">ChuyenVien01.png (200KB) <i class="fas fa-arrow-down"></i></a> <span class="spliter">|</span>
+                                                                    <span ng-repeat="att in taskItemAssign.Attachments">
+                                                                        <a class="file-name" target="_blank" href="" ng-click="projectDetail.downloadFile(att.Id)" title="{{att.FileName}}">{{att.FileName}} ({{att.FileSize}}) <i class="fas fa-arrow-down"></i></a> <span class="spliter">|</span>
                                                                     </span>
-                                                                </div>*@
+                                                                    
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="statusProcessing">

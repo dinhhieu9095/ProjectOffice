@@ -25,9 +25,7 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
 
         getData: function () {
             $scope.showLoading(null);
-            debugger;
             ProjectDetailService.getData($scope.projectDetail.filter.ProjectId).then(function (rs) {
-                debugger;
                 $scope.projectDetail.item = rs.data;
                 $("#modal-project-detail").css("display", "block");
                 $("#modal-task-detail").css("display", "none");
@@ -39,7 +37,6 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
             window.location.href = CommonUtils.RootURL("Task/Project/DownloadFileTrackingWorkflowDocument?fileTrackingWorkflowDocumentID=") + id;
         },
         getAttachment: function () {
-            debugger
             if ($scope.projectDetail.item.Attachments == null) {
                 $scope.showLoading(null);
                 ProjectDetailService.attachmentProject($scope.projectDetail.filter.ProjectId).then(function (rs) {
@@ -163,7 +160,6 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
 
         renderPieChartProccess: function () {
             let data = $scope.projectDetail.item.ReportProject;
-            debugger;
             let centerTitle = document.createElement('div');
             centerTitle.innerHTML = data.TotalTask + "<br/>" + 'Công việc';
             centerTitle.style.position = 'absolute';
@@ -378,8 +374,8 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
             }
             //if ($scope.taskItem.item.Attachments == null || $scope.taskItem.item.Attachments) {
             $scope.showLoading(null);
-            TaskItemDetailService.getHistory($scope.projectDetail.filter).then(function (rs) {
-                $scope.projectDetail.item.TaskItemProcessHistories = rs.data;
+            ProjectDetailService.getHistory($scope.projectDetail.filter).then(function (rs) {
+                $scope.projectDetail.ProcessHistories = rs.data;
                 if (rs.data.length < $scope.projectDetail.filter.PageSize) {
                     $('.btn-more').css('display', 'none');
                 }
@@ -390,7 +386,6 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
                 if ($('.search-user-history').html() == '') {
                     var html = '<option value= "">Chọn user</option>';
                     for (var i = 0; i < rs.data.length; i++) {
-                        debugger;
                         var user = rs.data[i];
                         html = html + '<option value= "' + user.CreatedBy + '">' + user.CreatedByFullName + '</option>'
                     }
@@ -403,7 +398,6 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
         },
 
         moreHistory: function () {
-            debugger;
             $scope.showLoading(null);
             this.filter.PageIndex = this.filter.PageIndex + 1;
             TaskItemDetailService.getHistory($scope.projectDetail.filter).then(function (rs) {

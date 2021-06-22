@@ -358,7 +358,7 @@ namespace DaiPhatDat.Module.Task.Web
                                 string startDate = workSheet.Cells[rowIterator, colNgayBatDau].Value != null ? workSheet.Cells[rowIterator, colNgayBatDau].Value.ToString() : string.Empty;
                                 if (DateTime.TryParseExact(startDate, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
                                 {
-                                    TimeSpan ts = new TimeSpan(08, 0, 0);
+                                    TimeSpan ts = new TimeSpan(0, 0, 0);
                                     date = date.Date + ts;
                                     taskDto.StartTime = date;
                                 }
@@ -370,7 +370,7 @@ namespace DaiPhatDat.Module.Task.Web
                                 string endDate = workSheet.Cells[rowIterator, colHanXuLy].Value != null ? workSheet.Cells[rowIterator, colHanXuLy].Value.ToString() : string.Empty;
                                 if (DateTime.TryParseExact(endDate, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
                                 {
-                                    TimeSpan ts = new TimeSpan(17, 0, 0);
+                                    TimeSpan ts = new TimeSpan(0, 0, 0);
                                     date = date.Date + ts;
                                     taskDto.EndTime = date;
                                 }
@@ -462,6 +462,13 @@ namespace DaiPhatDat.Module.Task.Web
                         {
                             string error = "";
                             // Nếu import từ task và = task thì lấy range trên
+                            if(task.StartTime.HasValue && task.EndTime.HasValue)
+                            {
+                                if (task.StartTime.Value.Date > task.EndTime.Value.Date)
+                                {
+                                    error += " Ngày bắt đầu nhỏ hơn ngày kết thúc";
+                                }
+                            }
                             if (taskId.HasValue && task.Id == taskId)
                             {
                                 var taskParent = await _taskItemService.GetById(taskId.Value);
@@ -472,7 +479,7 @@ namespace DaiPhatDat.Module.Task.Web
                                     {
                                         if (task.StartTime.Value.Date < checkTask.FromDate.Value.Date)
                                         {
-                                            error = "Ngày bắt đầu nhỏ hơn ngày bắt đầu của công việc cha;";
+                                            error += "Ngày bắt đầu nhỏ hơn ngày bắt đầu của công việc cha;";
                                         }
                                     }
                                     if (task.EndTime.HasValue && checkTask.ToDate.HasValue)
@@ -492,7 +499,7 @@ namespace DaiPhatDat.Module.Task.Web
                                     StartTime = task.StartTime,
                                     EndTime = task.EndTime
                                 };
-                                error = ValidateRangeTimeTask(fromDate, toDate, checkTask, lstTrackingDocument);
+                                error += ValidateRangeTimeTask(fromDate, toDate, checkTask, lstTrackingDocument);
                             }
                             if (!string.IsNullOrEmpty(error))
                             {
@@ -536,7 +543,7 @@ namespace DaiPhatDat.Module.Task.Web
                             {
                                 Directory.CreateDirectory(ConfigurationManager.AppSettings["TempFileDocuments"].ToString() + "ErrorFile");
                             }
-                            var path = ConfigurationManager.AppSettings["TempFileDocuments"].ToString() + "ErrorFile";
+                            var path = ConfigurationManager.AppSettings["TempFileDocuments"].ToString() + "ErrorFile\\" + fileName;
                             System.IO.File.WriteAllBytes(path, fileBytes);
                             return Json(new { Message = "Failure", Url = Convert.ToBase64String(Encoding.UTF8.GetBytes(path)), FileName = fileName });
                         }

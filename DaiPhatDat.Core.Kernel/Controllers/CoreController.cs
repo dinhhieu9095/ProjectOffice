@@ -49,6 +49,7 @@ namespace DaiPhatDat.Core.Kernel.Controllers
 
                 if (_currentUser == null)
                 {
+                    _loggerServices.WriteDebug("lost user:"+ currentUserName);
                     RedirectToAction("Logout", "Account");
                 }
 

@@ -108,7 +108,7 @@
                                                         <div class="timeline-body-content">{{history.Summary}}</div>
                                                         <div class="attachment-zone">
                                                             <div class="attachment-zone">
-                                                                <div ng-repeat="item in history.AttachmentDto" class="attachment-row">
+                                                                <div ng-repeat="item in history.Attachments" class="attachment-row">
                                                                     <div class="attachment-icon">
                                                                         <i class="{{item.Icon}} font-red"></i>
                                                                     </div>
@@ -194,9 +194,9 @@
                                             <a class="btn-line" ng-click="projectDetail.searchHistory()">@ResourceManagement.GetResourceText("Task.TaskDetail.Search", "Tìm kiếm", "Search")</a>
                                         </div>
                                     </div>
-                                    <div class="lv-hisItem" ng-repeat="taskItemHistory in projectDetail.item.TaskItemProcessHistories">
+                                    <div class="lv-hisItem" ng-repeat="taskItemHistory in projectDetail.ProcessHistories">
                                         <div class="lv-hisDate" style="width: 100px">
-                                            <span>{{taskItemHistory.CreatedDateFormat}}</span>
+                                            <span>{{taskItemHistory.DateFormat}}</span>
                                         </div>
                                         <div class="lv-hisCont">
                                             <div class="timeline-item">
@@ -247,7 +247,7 @@
                                         </div>
                                         <div class="lv-hisStatus">
                                             <div class="statusProcessing">
-                                                <span class="btn-circle status-value blue" ng-bind-html="taskItemHistory.Action.Name"></span>
+                                                <span class="btn-circle status-value blue" ng-bind-html="taskItemHistory.Action"></span>
                                                 <span ng-if="taskItemHistory.PercentFinish != null && taskItemHistory.PercentFinish > 0" class="proPercent">{{taskItemHistory.PercentFinish}}%</span>
                                             </div>
                                         </div>

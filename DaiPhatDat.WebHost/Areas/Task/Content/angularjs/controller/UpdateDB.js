@@ -16,7 +16,6 @@ app.controller("UpdateDBCtrl", function ($scope, $controller, $q, $timeout, file
             $scope.showLoading(null);
             $scope.hasSubmit = true;
             UpdateDBService.PostTrackingUpdateDB().then(function (rs) {
-                debugger
                 if (rs.data !== undefined && rs.data == true) {
                     toastr.success('Thành công!', 'Thông báo')
                 }

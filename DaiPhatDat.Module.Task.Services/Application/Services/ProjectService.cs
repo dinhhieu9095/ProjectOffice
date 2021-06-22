@@ -40,7 +40,8 @@ namespace DaiPhatDat.Module.Task.Services
         private readonly IAttachmentRepository _attachmentRepository;
         private readonly IUserServices _userServices;
         private readonly IUserDepartmentServices _userDepartmentServices;
-        public ProjectService(ILoggerServices loggerServices, IDbContextScopeFactory dbContextScopeFactory, IMapper mapper, IProjectRepository objectRepository, IUserServices userServices, ICategoryService categoryService, IDepartmentServices departmentServices, IProjectHistoryRepository projectHistoryRepository, IAttachmentRepository attachmentRepository, IProjectCategoryRepository projectCategoryRepository, IUserDepartmentServices userDepartmentServices, IAttachmentService attachmentService, ITaskItemRepository taskItemRepository)
+        private readonly IActionRepository _actionRepository;
+        public ProjectService(ILoggerServices loggerServices, IDbContextScopeFactory dbContextScopeFactory, IMapper mapper, IProjectRepository objectRepository, IUserServices userServices, ICategoryService categoryService, IDepartmentServices departmentServices, IProjectHistoryRepository projectHistoryRepository, IAttachmentRepository attachmentRepository, IProjectCategoryRepository projectCategoryRepository, IUserDepartmentServices userDepartmentServices, IAttachmentService attachmentService, ITaskItemRepository taskItemRepository, IActionRepository actionRepository)
         {
             _loggerServices = loggerServices;
             _dbContextScopeFactory = dbContextScopeFactory;
@@ -55,6 +56,7 @@ namespace DaiPhatDat.Module.Task.Services
             _projectHistoryRepository = projectHistoryRepository;
             _attachmentRepository = attachmentRepository;
             _taskItemRepository = taskItemRepository;
+            _actionRepository = actionRepository;
         }
         public async Task<ProjectDto> GetById(Guid id)
         {
@@ -886,6 +888,61 @@ namespace DaiPhatDat.Module.Task.Services
             }
         }
 
+        public async Task<List<ProjectHistoryDto>> GetHistories(QueryCommonDto query)
+        {
+            using (_dbContextScopeFactory.CreateReadOnly())
+            {
+                var userDepartments = await _userDepartmentServices.GetCachedUserDepartmentDtos();
+                var UserDto = _userServices.GetUsers();
+                var actions = _actionRepository.GetAll().ToList();
+                var attachments = await _attachmentRepository.GetAll().Where(e => e.ProjectId == query.ProjectId).Select(e => new AttachmentDto()
+                {
+                    Id = e.Id,
+                    FileExt = e.FileExt,
+                    ItemId = e.ItemId,
+                    ProjectId = e.ProjectId,
+                    Source = e.Source,
+                    FileName = e.FileName
+                }).ToListAsync();
+                var taskItemProcessHistoryDtos = new List<ProjectHistoryDto>();
+                var queryable = _projectHistoryRepository.GetAll();
+                queryable = queryable.Where(e => e.ProjectId == query.ProjectId); // && e.TaskItemAssignId == null || e.TaskItemAssignId == Guid.Empty
+                
+                if (query.UserId != null)
+                {
+                    queryable = queryable.Where(e => e.CreatedBy == query.UserId);
+                }
+                if (query.FromDate != null)
+                {
+                    queryable = queryable.Where(e => e.Created >= query.FromDate);
+                }
+
+                if (query.ToDate != null)
+                {
+                    queryable = queryable.Where(e => e.Created <= query.ToDate);
+                }
+
+                queryable = queryable.OrderByDescending(e => e.Created);
+                queryable = queryable.Skip(query.PageSize * (query.PageIndex - 1));
+                queryable = queryable.Take(query.PageSize);
+                var taskItemProcessHistorys = queryable.ToList();
+                taskItemProcessHistoryDtos = _mapper.Map<List<ProjectHistoryDto>>(taskItemProcessHistorys);
+
+                foreach (var item in taskItemProcessHistoryDtos)
+                {
+                    var user = await GetUserDeptDTO(item.CreatedBy, null, userDepartments);
+                    item.CreatedByFullName = user?.FullName;
+                    item.CreatedByJobTitleName = user?.JobDescription;
+                    if (item.Created != null)
+                        item.DateFormat = ConvertToStringExtensions.DateTimeToString(item.Created);
+                    item.Attachments = attachments.Where(e => e.ItemId != null && e.ItemId == item.Id).ToList();
+                    if (item.ActionId.HasValue)
+                        item.Action = actions.FirstOrDefault(e => e.Id == item.ActionId.Value).Name;
+                }
+
+                return taskItemProcessHistoryDtos;
+            }
+        }
 
         public async Task<UserDepartmentDto> GetUserDeptDTO(Guid? userId, Guid? deptId, IReadOnlyList<UserDepartmentDto> userDeptDtos = null)
         {

@@ -72,7 +72,6 @@
         ]
 
     $scope.init = function () {
-        //debugger;
         ////$("#FromDate").value($scope.FromDate);
 
         //$scope.advanceFilter.FromDate=moment(startOfWeek).format("DD/MM/YYYY");
@@ -196,7 +195,6 @@
                         $scope.tree_data = myTreeData;
                     }
                
-                    //debugger;
                     //if ($scope.ProjectTaskItem.length > 0) {
                     //    //$scope.ProjectTaskItem = $scope.ProjectTaskItem.concat(myTreeData);
                     //}
@@ -530,7 +528,6 @@
 
     }
     $scope.AddProjectMember = function (datas) {
-        debugger
         if (datas.length > 0) {
             var users = datas.filter(e => e.type == 'user');
             if (users.length > 0) {

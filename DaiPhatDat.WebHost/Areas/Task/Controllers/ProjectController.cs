@@ -167,7 +167,24 @@ namespace DaiPhatDat.Module.Task.Web
             }
             return Json(rs, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public async Task<JsonResult> Histories(QueryCommonModel model)
+        {
 
+            var result = new List<ProjectHistoryDto>();
+            try
+            {
+                var filter = _mapper.Map<QueryCommonDto>(model);
+                var dto = await _projectService.GetHistories(filter);
+                result = _mapper.Map<List<ProjectHistoryDto>>(dto);
+
+            }
+            catch (Exception ex)
+            {
+                _loggerServices.WriteError(ex.Message);
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public async Task<JsonResult> UpdateStatusProject(ProjectModel model)
         {
@@ -200,12 +217,13 @@ namespace DaiPhatDat.Module.Task.Web
                             Id = Guid.NewGuid(),
                             CreateByFullName = CurrentUser.FullName,
                             CreatedBy = CurrentUser.Id,
-                            CreatedDate = DateTime.Now,
+                            CreatedDate = dto.ModifiedDate,
                             FileExt = ext,
                             FileContent = document,
                             FileName = fileContent.FileName,
                             FileSize = fileContent.ContentLength,
-                            ProjectId = dto.Id
+                            ProjectId = dto.Id,
+                            Source = Source.Project
                         };
                         dto.Attachments.Add(attachmentDto);
                     }

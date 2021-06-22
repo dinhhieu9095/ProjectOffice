@@ -8,7 +8,7 @@
         <span class="item-owner">
             <span class="item-color"> @ResourceManagement.GetResourceText("Task.ProjectDetail.AssignBy", "Giao bởi", "Assign By") </span>
             {{taskItem.AssignToFullName}} ({{taskItem.AssignToJobTitle}})
-            <span class="item-time">
+            <span class="item-time" ng-show="taskItem.FromDate!= null">
                 <span class="item-color"> @ResourceManagement.GetResourceText("Task.ProjectDetail.From", "Từ", "From") </span>
                 {{ taskItem.FromDate }} -
                 <span class="item-color">@ResourceManagement.GetResourceText("Task.ProjectDetail.To", "đến", "To") </span>
@@ -16,7 +16,7 @@
             </span>
         </span>
         <span class="item-block">
-            <span class="item-assign">
+            <span class="item-assign" ng-show="taskItem.AssignByFullName != null">
                 <span class="item-color"> @ResourceManagement.GetResourceText("Task.ProjectDetail.AssignTo", "Xử lý bởi", "Assign To") </span>
                 {{taskItem.AssignByFullName}} ({{taskItem.AssignByJobTitle}})
             </span>
@@ -30,12 +30,12 @@
             <span class="item-color"> @ResourceManagement.GetResourceText("Task.ProjectDetail.Content", "Nội dung", "Content") </span>
             {{taskItem.Content}}
         </span>
-        <span class="item-block attachment-down">
+        @*<span class="item-block attachment-down" ng-show="taskItem.Attachments != null && taskItem.Attachments.length >0 ">
             <span class="item-color"> @ResourceManagement.GetResourceText("Task.ProjectDetail.Attachment", " Tài liệu", "Attachment"): </span>
             <span ng-repeat="att in taskItem.Attachments">
                 <a class="file-name" target="_blank" href="" ng-click="projectDetail.downloadFile(att.Id)" title="{{att.FileName}}">{{att.FileName}} ({{att.FileSize}}) <i class="fas fa-arrow-down"></i></a> <span class="spliter">|</span>
             </span>
-        </span>
+        </span>*@
         <label class="label label-inline label-status progress-task {{taskItem.Color}}" ng-if="!taskItem.IsGroupLabel">
             {{taskItem.StatusName}}
             <span ng-if="taskItem.PercentFinish != null" class="label-process"> ({{taskItem.PercentFinish}}%)</span>

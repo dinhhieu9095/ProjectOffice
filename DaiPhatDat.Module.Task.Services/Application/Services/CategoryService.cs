@@ -1076,7 +1076,13 @@ WITH tbParent AS
 	
 END");
             }
-			if (newVersion != currentVersion)
+            if (newVersion < 20210622)
+            {
+                newVersion = 20210622;
+                queries.Add(@"Insert into [Task].[Action]
+  values (13, N'Từ chối gia hạn',1),(14, N'Báo cáo trả lại',1)");
+            }
+            if (newVersion != currentVersion)
             {
                 queries.Add(string.Format(@"if (Not Exists(select * from [dbo].[Settings] where Code = 'CurrentTaskVersion'))
   begin insert into [dbo].[Settings] values ('CurrentTaskVersion','CurrentTaskVersion','{0}')

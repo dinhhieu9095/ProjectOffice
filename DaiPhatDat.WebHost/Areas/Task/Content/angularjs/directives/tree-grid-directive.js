@@ -199,7 +199,6 @@
                                 //scope.$apply(function () {
                                 //    refreshHandler({ data: conditions }, scope, { $event: event });
                                 //});
-                                //debugger;
                                 //      return $timeout(function () {
                                 //          return scope.callback(branch);
                                 //    });
@@ -227,9 +226,7 @@
                         //if (branch.expanded===false)
                         ////if (branch !== selected_branch)
                         //{
-                        //    debugger;
                         //    //scope.my_clickCE_handler(branch);
-                        //    //debugger;
                         //    //return select_branch(branch);
                         //    //if (branch.onSelect != null) {
                         //    //    return $timeout(function () {
@@ -768,7 +765,6 @@
                         var brachS = $scope.treeControl.get_parent_branch(angular.fromJson(draggedData));
                         var brachD = $scope.treeControl.get_parent_branch(angular.fromJson(targetElem));
 
-                        ////debugger;
                         //if (tempTo.children.length==0) {
                         //    swapArrayElements(brachS, tempTo, draggedData, targetElem);
                         //}

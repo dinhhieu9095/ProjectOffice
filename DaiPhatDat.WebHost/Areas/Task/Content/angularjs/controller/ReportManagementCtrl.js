@@ -11,7 +11,6 @@ app.controller("ReportManagementCtrl", function ($scope, $controller, $q, Report
     $scope.report = {
         filterOrgChart: {
             getUrl: function (node) {
-                debugger;
                 if (urlParams.get('type') == 'user')
                     return CommonUtils.RootURL("Org/GetOrgUserChart");
                 else
@@ -139,7 +138,6 @@ app.controller("ReportManagementCtrl", function ($scope, $controller, $q, Report
         },
 
         save: function () {
-            debugger;
             var files = $("#file-upload")[0].files;
             if ($(".is-active").prop("checked") == true) {
                 $scope.report.item.IsActive = true;
@@ -187,7 +185,6 @@ app.controller("ReportManagementCtrl", function ($scope, $controller, $q, Report
         },
 
         initOrgUser: function () {
-            debugger;
             $scope.showLoading(null);
             surePortalCommon.initJstreeCheckBox($scope.reportCommon.filterOrgChart);
             $scope.hideLoading();

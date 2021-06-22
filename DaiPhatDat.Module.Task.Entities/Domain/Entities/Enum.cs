@@ -60,9 +60,18 @@ namespace DaiPhatDat.Module.Task.Entities
         /// <summary>
         ///     Thu hồi
         /// </summary>     
-        Evict = 11,
-        AppraiseExtend = 12,
+        Evict = 12,
+        /// <summary>
+        ///     Duyệt gia hạn
+        /// </summary>  
+        AppraiseExtend = 11,
+        /// <summary>
+        ///     Hủy gia hạn
+        /// </summary>  
         ReturnExtend = 13,
+        /// <summary>
+        ///     Báo cáo trả lại
+        /// </summary>  
         ReturnReport = 14,
     }
     public enum EnumNatureTask

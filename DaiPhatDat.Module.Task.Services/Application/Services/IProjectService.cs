@@ -39,7 +39,7 @@ namespace DaiPhatDat.Module.Task.Services
         Task<UserDepartmentDto> GetUserDeptDTO(Guid? userId, Guid? deptId, IReadOnlyList<UserDepartmentDto> userDeptDtos = null);
 
         Task<ProjectDetailDto> RenderProject(Guid projectId, UserDto currentUser = default, bool isMobile = false);
-
+        Task<List<ProjectHistoryDto>> GetHistories(QueryCommonDto query);
         Task<IReadOnlyList<TaskItemDto>> AllTaskItemInProject(Guid Id);
 
         Task<List<UserReportInProjectDto>> UserReportInProject(Guid id);

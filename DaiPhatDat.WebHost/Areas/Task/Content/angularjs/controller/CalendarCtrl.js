@@ -171,7 +171,6 @@
         },
 
         getHeader: function (value) {
-            debugger;
             if ($scope.calendar.filter.type == 'week') {
                 var dateArray = $scope.calendar.filter.fromDate.split('/');
                 var day = parseInt(dateArray[0]);

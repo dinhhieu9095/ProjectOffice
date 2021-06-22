@@ -6,11 +6,11 @@ using System.Web;
 [assembly: OwinStartup(typeof(DaiPhatDat.WebHost.Startup))]
 namespace DaiPhatDat.WebHost
 {
-    public class Startup
+    public partial class Startup
     {
         public void Configuration(IAppBuilder app)
         {
-            //ConfigureAuth(app);
+            ConfigureAuth(app);
             var idProvider = new UserIdProvider();
             GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => idProvider);
         }

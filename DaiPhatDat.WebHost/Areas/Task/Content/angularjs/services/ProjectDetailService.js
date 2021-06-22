@@ -42,6 +42,16 @@
             });
 
             return request;
+        },
+        getHistory: function (filter) {
+            var request = $http({
+                method: 'POST',
+                url: CommonUtils.RootURL("Task/Project/Histories"),
+                data: filter,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8'
+            });
+            return request;
         }
     }
 

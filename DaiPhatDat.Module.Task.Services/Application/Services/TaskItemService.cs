@@ -742,6 +742,7 @@ namespace DaiPhatDat.Module.Task.Services
 
                     taskItemAssign.AssignToFullName = userDeparmentForAssignTo?.FullName;
                     taskItemAssign.AssignToJobTitleName = userDeparmentForAssignTo?.JobTitleName;
+                    taskItemAssign.Attachments = _attachmentService.GetAllAttachments(new Guid(result.ProjectId), taskItemAssign.Id, Source.TaskItemAssign);
                 }
 
                 result.HasFinishTaskAssignAction = result.TaskItemStatus != TaskItemStatusId.Cancel && result.TaskItemStatus != TaskItemStatusId.Finished;
@@ -760,24 +761,13 @@ namespace DaiPhatDat.Module.Task.Services
                 foreach (var child in result.Children)
                 {
                     child.FromDateFormat = ConvertToStringExtensions.DateToString(child.FromDate, child.ToDate);
-                    var userPrimary = await _projectService.GetUserDeptDTO(child.UserId, child.DepartmentId, userDepartments);
-                    child.FullName = userPrimary?.FullName + " - " + userPrimary?.JobTitleName;
-                    //if (child.AssignToIds != null)
-                    //{
-                    //    List<string> fullNames = new List<string>();
-                    //    List<string> jobs = new List<string>();
-                    //    foreach (var assignToId in child.AssignToIds)
-                    //    {
-                    //        var userDeparment = ProjectService.GetUserDeptDTO(assignToId, child.DepartmentId, userDepartments);
-                    //        string fullname = userDeparment?.FullName + " - " + userDeparment?.JobTitleName;
-                    //        fullNames.Add(fullname);
+                    var userAssignBy = await _projectService.GetUserDeptDTO(child.AssignBy, child.DepartmentId, userDepartments);
+                    child.FullName = userAssignBy?.FullName;
+                    child.JobTitle= userAssignBy?.JobTitleName;
 
-
-                    //    }
-                    //    child.FullName = string.Join("; ", fullNames);
-                    //}
-
-
+                    var userAssignTo = await _projectService.GetUserDeptDTO(child.AssignTo, child.AssignToDeparmentId, userDepartments);
+                    child.AssignToFullName = userAssignTo?.FullName;
+                    child.AssignToJobTitle = userAssignTo?.JobTitleName;
                 }
 
             }
