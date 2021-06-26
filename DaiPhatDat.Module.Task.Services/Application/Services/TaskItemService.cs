@@ -743,6 +743,15 @@ namespace DaiPhatDat.Module.Task.Services
                     taskItemAssign.AssignToFullName = userDeparmentForAssignTo?.FullName;
                     taskItemAssign.AssignToJobTitleName = userDeparmentForAssignTo?.JobTitleName;
                     taskItemAssign.Attachments = _attachmentService.GetAllAttachments(new Guid(result.ProjectId), taskItemAssign.Id, Source.TaskItemAssign);
+                    if(taskItemAssign.Attachments!=null && taskItemAssign.Attachments.Any())
+                    {
+                        if(result.Attachments == null)
+                        {
+                            result.Attachments = new List<AttachmentDto>();
+                        }
+                        result.Attachments.AddRange(taskItemAssign.Attachments);
+
+                    }
                 }
 
                 result.HasFinishTaskAssignAction = result.TaskItemStatus != TaskItemStatusId.Cancel && result.TaskItemStatus != TaskItemStatusId.Finished;

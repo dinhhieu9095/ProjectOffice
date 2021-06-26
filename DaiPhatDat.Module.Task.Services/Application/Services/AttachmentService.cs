@@ -163,6 +163,15 @@ namespace DaiPhatDat.Module.Task.Services
                 CreatedDate = e.CreatedDate,
                 Source = e.Source
             }).ToList();
+            var userDtos = _userServices.GetUsers();
+            foreach (var attachment in attachmentDtos)
+            {
+                if (attachment.CreatedBy != null)
+                    attachment.CreateByFullName = userDtos
+                        .FirstOrDefault(x => x.Id == attachment.CreatedBy.GetValueOrDefault())
+                        ?.FullName ?? string.Empty;
+                attachment.DateFormat = ConvertToStringExtensions.DateToString(attachment.CreatedDate);
+            }
             return attachmentDtos;
         }
     }

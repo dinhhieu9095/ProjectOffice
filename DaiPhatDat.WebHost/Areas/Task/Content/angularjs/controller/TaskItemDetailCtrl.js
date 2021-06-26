@@ -53,7 +53,9 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
                 }
 
                 $('.search-user-history').html(html);
-                $scope.taskItem.getAttachment();
+                //$scope.taskItem.getAttachment();
+                $scope.taskItem.countAttachTask = $scope.taskItem.item.Attachments.filter(e => e.Source == 1).length;
+                $scope.taskItem.countAttachProcess = $scope.taskItem.item.Attachments.filter(e => e.Source == 2).length;
                 $scope.hideLoading(null);
             })
         },

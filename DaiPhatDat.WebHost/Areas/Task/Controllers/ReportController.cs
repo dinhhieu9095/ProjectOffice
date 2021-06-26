@@ -47,7 +47,7 @@ namespace DaiPhatDat.Module.Task.Web
 
         public ActionResult Index()
         {
-            ViewBag.IsAdmin = CurrentUser.AccountName == "spadmin";
+            ViewBag.IsAdmin = CurrentUser.HavePermission((EnumModulePermission.Task_FullControl));
             return View();
         }
         public ActionResult UserReviewReport()
@@ -70,7 +70,7 @@ namespace DaiPhatDat.Module.Task.Web
             var response = new Pagination<ReportModel>(0, new List<ReportModel>());
             try
             {
-                bool isAdmin = CurrentUser.AccountName == "spadmin";
+                bool isAdmin = CurrentUser.HavePermission((EnumModulePermission.Task_FullControl));
                 var data = await _ReportService.GetPaginAsync(keyword, pageIndex, pageSize, CurrentUser.Id, isAdmin);
 
                 var result = _mapper.Map<List<ReportModel>>(data.Result);

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using LacViet.SurePortal.Infrastructure.Specifications;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using DaiPhatDat.Core.Kernel;
@@ -18,6 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using LacViet.SurePortal.Infrastructure.Specifications;
 
 namespace DaiPhatDat.Module.Task.Services
 {
@@ -97,7 +97,7 @@ namespace DaiPhatDat.Module.Task.Services
                     queryable = queryable.Where(e => e.Name.Contains(keyword));
                 }
                 if (!isAdmin)
-                    queryable = queryable.Where(e => string.IsNullOrEmpty(e.Permission) || (!string.IsNullOrEmpty(e.Permission) && e.Permission.Contains(guidStr)));
+                    queryable = queryable.Where(e=>e.IsActive).Where(e => string.IsNullOrEmpty(e.Permission) || (!string.IsNullOrEmpty(e.Permission) && e.Permission.Contains(guidStr)));
                 result.Count = queryable.Count();
                 queryable = queryable.OrderBy(e => e.Name).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
 

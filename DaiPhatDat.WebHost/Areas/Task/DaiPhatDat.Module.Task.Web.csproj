@@ -1356,6 +1356,7 @@
     <Content Include="Content\Templates\TemplateProjectReport.xlsx" />
     <Content Include="Content\Templates\TemplateProjectReportWeekly.xlsx" />
     <Content Include="Content\Templates\TemplateReportOnePage.xlsx" />
+    <Content Include="Content\Templates\TemplateProjectReportDepartment.xlsx" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\Home\AccessDenied.cshtml" />

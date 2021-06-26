@@ -48,8 +48,9 @@
     <Reference Include="EPPlus, Version=5.2.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.5.2.1\lib\net45\EPPlus.dll</HintPath>
     </Reference>
-    <Reference Include="LacViet.SurePortal.Infrastructure">
-      <HintPath>..\..\Libraries\LacViet.SurePortal.Infrastructure.dll</HintPath>
+    <Reference Include="LacViet.SurePortal.Infrastructure, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DaiPhatDat.WebHost\Areas\Task\bin\LacViet.SurePortal.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
