@@ -120,6 +120,7 @@
     <Compile Include="Application\Services\ITaskItemAssignService.cs" />
     <Compile Include="Application\Services\ITaskItemService.cs" />
     <Compile Include="Application\Services\ITaskItemProcessHistoryService.cs" />
+    <Compile Include="Application\Services\PredicateBuilder.cs" />
     <Compile Include="Application\Services\TaskItemAssignService.cs" />
     <Compile Include="Application\Services\TaskItemService.cs" />
     <Compile Include="Application\Services\TaskItemProcessHistoryService.cs" />

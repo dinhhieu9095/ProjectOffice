@@ -1028,13 +1028,13 @@ namespace DaiPhatDat.Module.Task.Services
                 var project = await GetById(id);
                 if (project != null)
                 {
-                    var approvedBy = await GetUserDeptDTO(project.ApprovedBy, project.DepartmentId, userDepartmentDto);
+                    //var approvedBy = await GetUserDeptDTO(project.ApprovedBy, project.DepartmentId, userDepartmentDto);
 
-                    var userApprovedBy = new UserReportInProjectDto()
-                        .AddUser(project.ApprovedBy, project.DepartmentId, approvedBy?.FullName,
-                        approvedBy?.JobTitleName, PositionInProject.Manager);
+                    //var userApprovedBy = new UserReportInProjectDto()
+                    //    .AddUser(project.ApprovedBy, project.DepartmentId, approvedBy?.FullName,
+                    //    approvedBy?.JobTitleName, PositionInProject.Manager);
 
-                    rs.Add(userApprovedBy);
+                    //rs.Add(userApprovedBy);
                     if (!string.IsNullOrEmpty(project.ManagerId))
                     {
                         List<Guid?> managerIds = project.ManagerId.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(e => new Guid?(new Guid(e))).ToList();

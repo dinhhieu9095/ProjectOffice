@@ -17,7 +17,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using LacViet.SurePortal.Infrastructure.Specifications;
 
 namespace DaiPhatDat.Module.Task.Services
 {
@@ -400,8 +399,8 @@ namespace DaiPhatDat.Module.Task.Services
                                 Solution = y.Solution,
                                 StatusName = y.TaskItemStatusId.HasValue ? y.TaskItemStatus.Name : string.Empty,
                                 FinishedDate = y.FinishedDate,
-                                FromDate = y.FromDate,
-                                ToDate = y.ToDate,
+                                FromDate = x.FromDate,
+                                ToDate = x.ToDate,
                                 TaskType = y.TaskType,
                                 AppraiseResult = y.AppraiseResult,
 
