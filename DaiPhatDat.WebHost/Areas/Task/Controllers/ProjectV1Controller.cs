@@ -543,7 +543,7 @@ namespace DaiPhatDat.Module.Task.Web
                             {
                                 Directory.CreateDirectory(ConfigurationManager.AppSettings["TempFileDocuments"].ToString() + "ErrorFile");
                             }
-                            var path = ConfigurationManager.AppSettings["TempFileDocuments"].ToString() + "ErrorFile\\" + fileName;
+                            var path = ConfigurationManager.AppSettings["TempFileDocuments"].ToString() + "ErrorFile\\" + fileName.GetHashCode();
                             System.IO.File.WriteAllBytes(path, fileBytes);
                             return Json(new { Message = "Failure", Url = Convert.ToBase64String(Encoding.UTF8.GetBytes(path)), FileName = fileName });
                         }

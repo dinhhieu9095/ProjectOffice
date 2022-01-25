@@ -2616,6 +2616,9 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                         param.taskId = $scope.selectedRow.Id
                     }
                     MainService.ImportExcel(param, $scope.fileTemps).then(function (rs) {
+                        if (rs === 'AccessDenied') {
+                            toastr.error('Bạn không có quyền Import Dự án này!', 'Thông báo');
+                        } else
                         if (rs !== undefined && rs.Message == 'Success') {
                             window.location.reload();
                         } else if (rs !== undefined && rs.Message == 'Failure') {

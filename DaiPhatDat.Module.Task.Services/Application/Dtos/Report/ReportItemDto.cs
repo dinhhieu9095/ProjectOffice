@@ -38,8 +38,39 @@ namespace DaiPhatDat.Module.Task.Services
         public string BlueprintTime { get; set; }
 
         public string ActualTime { get; set; }
-
-        public string Progress { get; set; }
+        public string ProgressAssign { get; set; }
+        
+        public string Progress {
+            get
+            {
+                string result = string.Empty;
+                if (string.IsNullOrEmpty(ProgressAssign))
+                {
+                    if (StatusId == Entities.ProjectStatusId.Finished && FinishedDate.HasValue && ToDate.HasValue && FinishedDate <= ToDate)
+                    {
+                        result = "Trong hạn";
+                    }
+                    else if (StatusId == Entities.ProjectStatusId.Finished && FinishedDate.HasValue && ToDate.HasValue && FinishedDate > ToDate)
+                    {
+                        result = "Quá hạn";
+                    }
+                    else if (StatusId != Entities.ProjectStatusId.Finished && ToDate.HasValue && ToDate.Value >= DateTime.Now.Date && ToDate.Value <= DateTime.Now.Date.AddDays(2))
+                    {
+                        result = "Sắp đến hạn";
+                    }
+                    else if (StatusId != Entities.ProjectStatusId.Finished && ToDate.HasValue && ToDate >= DateTime.Now.Date)
+                    {
+                        result = "Trong hạn";
+                    }
+                    else
+                    {
+                        result = "Quá hạn";
+                    }
+                    return result;
+                }
+                return ProgressAssign;
+            }
+        }
 
         public string AssignBy { get; set; }
 

@@ -221,6 +221,18 @@ namespace DaiPhatDat.Module.Task.Services
                         entity.Problem = dto.Problem;
                         entity.Solution = dto.Solution;
                         entity.ToDate = dto.ToDate;
+                        TaskItemProcessHistory taskAssignHistory = new TaskItemProcessHistory
+                        {
+                            Id = Guid.NewGuid(),
+                            ProjectId = entity.ProjectId,
+                            ActionId = dto.ActionId,
+                            CreatedBy = dto.ModifiedBy,
+                            CreatedDate = dto.ModifiedDate,
+                            TaskItemId = entity.TaskItemId,
+                            TaskItemAssignId = entity.Id,
+                            TaskItemStatusId = entity.TaskItemStatusId,
+                            ProcessResult = dto.Description
+                        };
                         if (entity.AssignTo == dto.ModifiedBy && !dto.IsAssignBy)
                         {
                             switch (dto.ActionText)
@@ -229,12 +241,14 @@ namespace DaiPhatDat.Module.Task.Services
                                     dto.TaskItemStatusId = TaskItemStatusId.InProcess;
                                     dto.ActionId = ActionId.Process;
                                     entity.PercentFinish = dto.PercentFinish;
+                                    taskAssignHistory.PercentFinish = dto.PercentFinish;
                                     break;
                                 case "Report":
                                     if(taskEntity.IsReport == false)
                                     {
                                         dto.TaskItemStatusId = TaskItemStatusId.Finished;
                                         dto.ActionId = ActionId.Finish;
+                                        entity.AppraisePercentFinish = dto.PercentFinish;
                                     }
                                     else
                                     {
@@ -242,6 +256,8 @@ namespace DaiPhatDat.Module.Task.Services
                                         dto.ActionId = ActionId.Report;
                                     }
                                     entity.PercentFinish = dto.PercentFinish;
+                                    taskAssignHistory.PercentFinish = dto.PercentFinish;
+
                                     break;
                                 case "Extend":
                                     entity.IsExtend = true;
@@ -280,7 +296,7 @@ namespace DaiPhatDat.Module.Task.Services
                                     {
                                         dto.TaskItemStatusId = TaskItemStatusId.Finished;
                                         entity.AppraisePercentFinish = dto.AppraisePercentFinish;
-                                        entity.PercentFinish = dto.AppraisePercentFinish;
+                                        //entity.PercentFinish = dto.AppraisePercentFinish;
                                         dto.ActionId = ActionId.Finish;
                                     }
                                     else if (entity.TaskItemStatusId == TaskItemStatusId.ReportReturn)
@@ -291,7 +307,7 @@ namespace DaiPhatDat.Module.Task.Services
                                 case "Return":
                                     dto.TaskItemStatusId = TaskItemStatusId.InProcess;
                                     entity.AppraisePercentFinish = dto.AppraisePercentFinish;
-                                    entity.PercentFinish = dto.AppraisePercentFinish;
+                                    //entity.PercentFinish = dto.AppraisePercentFinish;
                                     dto.ActionId = ActionId.Return;
                                     break;
                                 case "AppraiseExtend":
@@ -312,39 +328,17 @@ namespace DaiPhatDat.Module.Task.Services
                         }
 
                         entity.TaskItemStatusId = dto.TaskItemStatusId;
-                        TaskItemProcessHistory taskAssignHistory = new TaskItemProcessHistory
+                        
+                        if(entity.TaskType == TaskType.Primary && !dto.IsAssignBy)
                         {
-                            Id = Guid.NewGuid(),
-                            ProjectId = entity.ProjectId,
-                            ActionId = dto.ActionId,
-                            CreatedBy = dto.ModifiedBy,
-                            PercentFinish = entity.PercentFinish,
-                            CreatedDate = dto.ModifiedDate,
-                            TaskItemId = entity.TaskItemId,
-                            TaskItemAssignId = entity.Id,
-                            TaskItemStatusId = entity.TaskItemStatusId,
-                            ProcessResult = dto.Description
-                        };
-                        if(entity.TaskType == TaskType.Primary || dto.IsAssignBy)
-                        {
-                            //TaskItemProcessHistory taskHistory = new TaskItemProcessHistory
-                            //{
-                            //    Id = Guid.NewGuid(),
-                            //    ProjectId = entity.ProjectId,
-                            //    ActionId = dto.ActionId,
-                            //    CreatedBy = dto.ModifiedBy,
-                            //    PercentFinish = dto.PercentFinish,
-                            //    CreatedDate = dto.ModifiedDate,
-                            //    TaskItemId = entity.TaskItemId,
-                            //    TaskItemStatusId = entity.TaskItemStatusId,
-                            //    ProcessResult = dto.Description
-                            //};
                             taskEntity.TaskItemStatusId = entity.TaskItemStatusId;
                             taskEntity.PercentFinish = entity.PercentFinish;
-                            //_taskItemProcessHistoryRepository.Add(taskHistory);
-
                         }
-
+                        else if (dto.IsAssignBy)
+                        {
+                            taskEntity.TaskItemStatusId = entity.TaskItemStatusId;
+                            taskEntity.PercentFinish = entity.AppraisePercentFinish;
+                        }
                         _objectRepository.Modify(entity);
                         //_taskItemRepository.Modify(taskEntity);
                         _taskItemProcessHistoryRepository.Add(taskAssignHistory);

@@ -920,16 +920,6 @@ namespace DaiPhatDat.Module.Task.Services
                         TaskItemCategory = x.TaskItemCategory,
                     };
 
-                    if (x.IsGroupLabel != true)
-                    {
-                        if (x.FinishedDate.HasValue)
-                            taskItemDto.Progress = x.FinishedDate <= x.ToDate ? "Trong hạn" : "Quá hạn";
-                        else if (x.ToDate > DateTime.Now)
-                            taskItemDto.Progress = "Trong hạn";
-                        else
-                            taskItemDto.Progress = "Quá hạn";
-                    }
-
                     var userDepartmentAssignBy =
                         userDepartments.FirstOrDefault(
                             y => y.UserID == x.AssignBy &&
@@ -976,13 +966,7 @@ namespace DaiPhatDat.Module.Task.Services
 
                             if (!string.IsNullOrEmpty(taskItemAssign.Solution))
                                 solution = $"{taskItemAssign.Solution}";
-                            string progress = "";
-                            if (x.FinishedDate.HasValue)
-                                progress = taskItemAssign.FinishedDate <= taskItemAssign.ToDate ? "Trong hạn" : "Quá hạn";
-                            else if (taskItemAssign.ToDate > DateTime.Now)
-                                progress = "Trong hạn";
-                            else
-                                progress = "Quá hạn";
+                            string progress = taskItemDto.Progress;
 
                             var taskItemAssignDto = new ReportItemDto
                             {
@@ -1000,7 +984,7 @@ namespace DaiPhatDat.Module.Task.Services
                                 ToDate = taskItemAssign.ToDate,
                                 FinishedDate = taskItemAssign.FinishedDate,
                                 StatusName = statuses.FirstOrDefault(e => taskItemAssign.TaskItemStatusId == e.Id)?.Name,
-                                Progress = progress,
+                                ProgressAssign = progress,
                                 PercentFinish = taskItemAssign.PercentFinish == null ? 0 : taskItemAssign.PercentFinish,
                                 AppraisePercentFinish = taskItemAssign.AppraisePercentFinish == null ? 0 : taskItemAssign.AppraisePercentFinish,
                                 AppraiseProcess = taskItemAssign.AppraiseProcess == null ? "0" : taskItemAssign.AppraiseProcess,
@@ -1786,16 +1770,6 @@ namespace DaiPhatDat.Module.Task.Services
 
                         if (userDepartment != null)
                             taskItemDto.AssignBy = $"{userDepartment.FullName} ({userDepartment.JobTitleName})";
-
-                        if (x.FinishedDate.HasValue)
-                            if (x.FinishedDate <= x.ToDate)
-                                taskItemDto.Progress = "Trong hạn";
-                            else
-                                taskItemDto.Progress = "Quá hạn";
-                        else if (x.ToDate > DateTime.Now)
-                            taskItemDto.Progress = "Trong hạn";
-                        else
-                            taskItemDto.Progress = "Quá hạn";
 
                         return taskItemDto;
                     })
