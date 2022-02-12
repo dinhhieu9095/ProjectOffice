@@ -45,7 +45,7 @@ namespace DaiPhatDat.Module.Task.Web
                         var rs = SendMessageResponse.CreateFailedResponse("NotExist");
                         return Json(rs, JsonRequestBehavior.AllowGet);
                     }
-                    if (dto.CreatedBy != CurrentUser.Id && !CurrentUser.HavePermission(EnumModulePermission.Task_FullControl))
+                    if (dto.AssignBy != CurrentUser.Id && !CurrentUser.HavePermission(EnumModulePermission.Task_FullControl))
                     {
                         var rs = SendMessageResponse.CreateFailedResponse("AccessDenied");
                         return Json(rs, JsonRequestBehavior.AllowGet);
