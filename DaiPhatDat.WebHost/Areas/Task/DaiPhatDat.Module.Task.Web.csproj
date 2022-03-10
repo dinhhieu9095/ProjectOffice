@@ -144,10 +144,6 @@
     <Reference Include="IKVM.Runtime.JNI, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\net.sf.mpxj-ikvm.8.1.4\lib\IKVM.Runtime.JNI.dll</HintPath>
     </Reference>
-    <Reference Include="LacViet.SurePortal.Infrastructure, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Libraries\LacViet.SurePortal.Infrastructure.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="mpxj, Version=8.1.4.0, Culture=neutral, PublicKeyToken=8783d630753e2b3f, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\net.sf.mpxj.8.1.4\lib\mpxj.dll</HintPath>

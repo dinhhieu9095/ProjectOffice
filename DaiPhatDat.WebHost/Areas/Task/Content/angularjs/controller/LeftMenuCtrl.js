@@ -68,36 +68,34 @@ app.controller("LeftMenuCtrl", function ($scope, $controller, $q, $timeout, Left
 
         init: function () {
             this.getMenuRoot();
-
-            //$(ui.priorityProjectSelect).select2({
-            //    placeholder: "Mức độ quan trọng"
-            //})
-
-            //$(ui.natureTaskSelect).select2({
-            //    placeholder: "Tính chất công việc"
-            //})
         },
-
+        reload: function () {
+            LeftMenuService.getNavigationLeftFilter().then(function (rs) {
+                $scope.leftMenu.data = rs.data;
+                $scope.leftMenu.data.forEach(function (e) {
+                    var jsTree = $('#tree-nav-' + e.Code).jstree(true);
+                    jsTree.refresh();
+                })
+            })
+        },
         getMenuRoot: function () {
-            let filter = {
-                parentID: '00000000-0000-0000-0000-000000000000'
-            }
             $scope.showLoading(null);
             LeftMenuService.getNavigationLeftFilter().then(function (rs) {
-                
                 $scope.leftMenu.data = rs.data;
                 setTimeout(function () {
-                    $("#menu-item-TASK").addClass('menu-item-open');
-                    $("#menu-item-TASK").click();
+                    $scope.leftMenu.data.forEach(function (e) {
+                        $("#menu-item-" + e.Code).addClass('menu-item-open');
+                        $("#menu-item-" + e.Code).click();
+                    })
                 });
-
                 $scope.hideLoading();
             })
-
         },
 
-        loadMenu: function (id, code) {
-            
+        loadMenu: function (id, code, isReload = false) {
+            if (isReload === true) {
+                $("#tree-nav-" + code).html('');
+            }
             if ($("#tree-nav-" + code).html() == '') {
                 $("#tree-nav-" + code).jstree({
                     'core': {
@@ -698,7 +696,7 @@ app.controller("LeftMenuCtrl", function ($scope, $controller, $q, $timeout, Left
                 $(ui.isPrivateCustomFilter).eq(0).prop('checked', true);
             }
         }
-    }
+    };
 
-    $scope.leftMenu.init();
+    //$scope.leftMenu.init();
 });

@@ -148,6 +148,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
     $controller('CalendarCtrl', { $scope: $scope });
     $controller('ProjectDetailCtrl', { $scope: $scope });
     $controller('TaskItemDetailCtrl', { $scope: $scope });
+    $controller('LeftMenuCtrl', { $scope: $scope });
 
     $scope.ProjectTaskItem = [];
     $scope.projectFilters = [{
@@ -375,9 +376,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
         if (branch.HasPagination) {
             $scope.advanceFilter.CurrentPage = branch.CurrentPage;
             $scope.getDataByProject(branch.ParentId, branch);
-            //$scope.$apply(function () {
-            //    branch.children.splice(0, branch.length);
-            //});
+            
         }
         else if (branch.HasChildren) {
             if (!branch.HasPagination) {
@@ -391,12 +390,8 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                 $timeout(function () {
                     branch.children.splice(0, branch.children.length);
                 }, 0);
-                //$scope.$apply(function () {
-                //    branch.children.splice(0, branch.children.length);
-                //});
             }
             $scope.getDataByProject(branch.Id, branch);
-            //branch.children.push({ Id: 1, ParentId: 2, StatusName: "Test1", FromDate: "ddd", ToDate: "ddd", FullName: "test2", Type: "Te", HasChildren: true })
         }
         else {
             $scope.getDataByProject(branch.Id, branch);
@@ -2032,7 +2027,8 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
             }
             MainService.SaveTaskItem($scope.TaskItem, $scope.fileTemps).then(function (rs) {
                 if (rs !== undefined && rs.IsSuccess == true) {
-                    toastr.success('Thành công!', 'Thông báo')
+                    toastr.success('Thành công!', 'Thông báo');
+                    $scope.leftMenu.reload();
                     if ($scope.ShowType === 2) //kanban
                     {
                         if ($scope.TaskItem.Id !== '00000000-0000-0000-0000-000000000000') {
