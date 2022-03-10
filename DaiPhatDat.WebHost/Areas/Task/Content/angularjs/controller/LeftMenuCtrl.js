@@ -71,8 +71,8 @@ app.controller("LeftMenuCtrl", function ($scope, $controller, $q, $timeout, Left
         },
         reload: function () {
             LeftMenuService.getNavigationLeftFilter().then(function (rs) {
-                $scope.leftMenu.data = rs.data;
-                $scope.leftMenu.data.forEach(function (e) {
+                $scope.leftMenu.data = rs.data.menu;
+                $scope.leftMenu.data && $scope.leftMenu.data.forEach(function (e) {
                     var jsTree = $('#tree-nav-' + e.Code).jstree(true);
                     jsTree.refresh();
                 })
@@ -81,9 +81,10 @@ app.controller("LeftMenuCtrl", function ($scope, $controller, $q, $timeout, Left
         getMenuRoot: function () {
             $scope.showLoading(null);
             LeftMenuService.getNavigationLeftFilter().then(function (rs) {
-                $scope.leftMenu.data = rs.data;
+                $scope.leftMenu.data = rs.data.menu;
+                $scope.leftMenu.isFullControl = rs.data.isFullControl;
                 setTimeout(function () {
-                    $scope.leftMenu.data.forEach(function (e) {
+                    $scope.leftMenu.data && $scope.leftMenu.data.forEach(function (e) {
                         $("#menu-item-" + e.Code).addClass('menu-item-open');
                         $("#menu-item-" + e.Code).click();
                     })
@@ -697,6 +698,4 @@ app.controller("LeftMenuCtrl", function ($scope, $controller, $q, $timeout, Left
             }
         }
     };
-
-    //$scope.leftMenu.init();
 });

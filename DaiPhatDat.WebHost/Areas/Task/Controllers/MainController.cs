@@ -69,7 +69,12 @@ namespace DaiPhatDat.Module.Task.Web
                     Permission = "",
                     Icon = s.Icon ?? "icon-notebook"
                 }).ToList();
-            return Json(dataModel, JsonRequestBehavior.AllowGet);
+            bool isFullControl = false;
+            if (CurrentUser.HavePermission(EnumModulePermission.Task_FullControl))
+            {
+                isFullControl = true;
+            }
+            return Json(new { menu = dataModel, isFullControl }, JsonRequestBehavior.AllowGet);
         }
 
     }

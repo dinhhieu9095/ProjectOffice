@@ -6,11 +6,7 @@
 }
 
 <ul class="dropdown-menu dropdown-menu-default">
-    <li>
-        <a href="@Url.Action("Logout", "Account")">
-            <i class="fas fa-sign-out-alt"></i> @ResourceManagement.GetResourceText("LogOut", "Đăng xuất", "Log out")
-        </a>
-    </li>
+    
     @foreach (var item in Model)
     {
         string linklv1 = "#";
@@ -21,7 +17,7 @@
         }
         <li>
             <a href="@linklv1">
-                <i class="@item.Icon"></i> @item.Name kjhkjhkj
+                <i class="@item.Icon"></i> @item.Name
             </a>
         </li>
     }
