@@ -367,6 +367,18 @@ namespace DaiPhatDat.Module.Task.Web
                             ItemId = y.ItemId,
                             DateFormat = y.CreatedDate.Value.ToString("dd/MM/yyyy")
                         }).ToList(),
+                        AttachmentChildren = x.AttachmentChildren.Select(y => new AttachmentModel()
+                        {
+                            Id = y.Id,
+                            CreateByFullName = y.CreateByFullName,
+                            CreatedBy = y.CreatedBy,
+                            CreatedDate = y.CreatedDate,
+                            FileExt = y.FileExt,
+                            FileName = y.FileName,
+                            ProjectId = y.ProjectId,
+                            ItemId = y.ItemId,
+                            DateFormat = y.CreatedDate.Value.ToString("dd/MM/yyyy")
+                        }).ToList(),
                         Summary = x.Summary,
                         ProjectCategory = x.ProjectCategory,
                         ProjectStatusName = x.ProjectStatusName,

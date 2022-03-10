@@ -1873,7 +1873,7 @@ div #navigation-left-filter-tree .jstree-default .jstree-icon:empty {
 /*****/
 .dropdown.sticky .fa-plus:before {
     color: #fff !important;
-    font-size: 18px !important;
+    font-size: 15px !important;
 }
 .input-group-append {
     height: 34px;
@@ -2077,16 +2077,28 @@ div #navigation-left-filter-tree .jstree-default .jstree-icon:empty {
 }
 
 .progress-task .progress {
-    height: 18px;
+    height: 20px;
     border-radius: 1rem;
-    border: 1px var(--blue) solid;
-    min-width:105px;
+    min-width:85px;
+	background-color: #f0f0f0;
 }
-.out-of-date .progress {
-    border-color: var(--danger);
+.out-of-date .progress-task .progress {
+	background-color: #FFE2E5;
 }
-.near-of-date .progress {
-    border-color: var(--yellow);
+.out-of-date .progress-task .process-label{
+    color: #F64E60;
+}
+.near-of-date .progress-task .progress {
+	background-color: #FFF4DE;
+}
+.near-of-date .progress-task .process-label {
+    color: #FFA800;
+}
+.in-due-date .progress-task .progress {
+	background-color: #C9F7F5;
+}
+.in-due-date .progress-task .process-label {
+    color: #1BC5BD;
 }
 .process-label {
     position: absolute;
@@ -2098,11 +2110,11 @@ div #navigation-left-filter-tree .jstree-default .jstree-icon:empty {
     height: 20px;
     line-height: 19px;
     color: #2d2d2d;
-    font-size: 12px;
+    font-size: 13px;
     z-index: 9;
     cursor: default;
     white-space: nowrap;
-    text-shadow: 1px 1px 2px white;
+	font-weight:500;
 }
 .process-label:hover {
     color: #000;
@@ -2127,6 +2139,9 @@ div #navigation-left-filter-tree .jstree-default .jstree-icon:empty {
 .near-of-date .progress-bar {
     background-color: var(--yellow) !important;
     border-color: var(--yellow) !important;
+}
+.null-StatusHtml .progress-bar,.null-StatusHtml .process-number{
+	display:none;
 }
 /**/
 .symbol-name {
@@ -2243,17 +2258,16 @@ div #navigation-left-filter-tree .jstree-default .jstree-icon:empty {
 }
 .thumbnail {
     display: block;
-    padding: 5px;
-    margin: 5px 0;
+    padding: 10px 20px 10px 10px;
+    margin: 10px 0;
     background-color: #f3f3f3;
     border-left: 3px var(--success) solid;
     font-size: 14px;
     position: relative;
-    border-radius: 0 8px 8px 0 !important;
-    font-size: 13px;
-    width: 48.5%;
-    float: right;
+    border-radius: 0 !important;
+    width: 100%;
     line-height: normal !important;
+	clear:both;
 }
 .task-list.row{
     margin-left:-5px;
@@ -2273,27 +2287,40 @@ div #navigation-left-filter-tree .jstree-default .jstree-icon:empty {
 }
 .thumbnail .btn {
     position: absolute;
-    right: 0;
-    bottom: 0;
-    padding: 2px 5px;
-    font-size: 10px;
-    border-radius: 6px 0 8px 0 !important;
+    right: 5px;
+    padding: 0 3px;
+    border-radius: 2px !important;
+    top: 6px;
+    height: 26px;
+    border: 0;
+    background-color: transparent;
+    line-height: 24px;
+    width: 20px;
+    text-align: center;
+    display: block;
+}
+.thumbnail .btn .fa-ellipsis-h:before {
+    content: "\f105";
+}
+.thumbnail .btn.btn-primary i {
+     color: #3f4254;
+    font-size: 15px;
 }
 .row-kanban .colStyle {
     border-right: 1px #e0e0e0 solid;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .row-kanban .colStyle:last-child{
     border-right:0;
 }
     div.task-name, div.task-date {
-    color: #999;
-    font-size: 12px;
+    color: #777;
+    font-size: 13px;
 }
 div.task-date {
     color: #3699FF;
-    font-size: 11px;
+    font-size: 13px;
     margin-top: 4px;
 }
 .kanban-title > .col-3 {
@@ -2315,6 +2342,7 @@ div.task-date {
  div.task-title {
     font-weight: 500;
     margin-bottom:4px;
+	clear:both;
 }
 .box-filter {
     box-shadow: 1px 4px 5px -3px rgb(34 43 93 / 20%);
@@ -2499,3 +2527,75 @@ div.task-date {
 .aside-left .menu-icon i {
     color: #4a4a4a;
 }
+
+/***** task daiphatdat ***/
+.menu-nav .jstree-anchor .far.fa-folder{
+	display:none;
+}
+div.menuLeft .jstree-default .jstree-icon:empty {
+    width: 30px !important;
+}
+span.doc-left-span-no {
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 11px;
+    font-weight: 400;
+    background-color: #4ca2ff;
+    border-radius: 20px;
+}
+.tree-grid .level-3.task .indented {
+    color: #4a7eb2;
+}
+td.null-ProcessHtml{
+	width:30%!important;	
+}
+.timeline span{
+	font-size:13px;
+}
+#MainCtrl h3.card-title .select2-selection{
+    color: #444;
+    text-transform: none;
+    font-weight: 500;
+    font-family: roboto;
+    font-size: 14px;
+}
+/*** calender ***/
+.calender-main{
+	margin-top:15px;
+	padding-left:15px;
+	padding-right:15px;
+}
+.calender-main>div:first-child .mr-3.col-md-6{
+	margin-left:0!important;
+	padding-left:0!important;
+}
+.calender-main .kanban-header{
+	margin-top:15px;
+}
+.calender-main .panel-header{
+	font-size: 12px;
+    color: #777;
+	padding-left:10px;
+}
+.calender-main .panel-header:first-line{
+	font-size: 13px;
+    font-weight: 500;
+	    color: #0a327f;
+}
+.calender-main .thumbnail {
+    display: block;
+    padding: 5px;
+}
+.calender-main .row-kanban .colStyle {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.calender-main .task-title, .calender-main .task-date{
+		font-size:12px;
+}
+.calender-main .panel-title {
+	font-size:14px!important;
+	padding-left: 10px;
+}
+/** 11:59 PM 30/6 **/

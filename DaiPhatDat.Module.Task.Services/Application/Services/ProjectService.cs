@@ -815,6 +815,7 @@ namespace DaiPhatDat.Module.Task.Services
 
                 List<AttachmentDto> attachments =  _attachmentService.GetAllAttachments(result.Id);
                 result.Attachments = attachments.Where(e => e.Source == Source.Project).ToList();
+                result.AttachmentChildren = attachments.ToList();
                 if (result.ProjectHistories != null)
                     foreach (var history in result.ProjectHistories)
                     {
@@ -965,7 +966,7 @@ namespace DaiPhatDat.Module.Task.Services
             return rs;
         }
 
-        public async Task<IReadOnlyList<TaskItemDto>> AllTaskItemInProject(Guid Id)
+        public async Task<IReadOnlyList<TaskItemDto>> AllTaskItemInProject(Guid? Id)
         {
             using (var scope = _dbContextScopeFactory.CreateReadOnly())
             {
@@ -973,7 +974,7 @@ namespace DaiPhatDat.Module.Task.Services
 
                 var asyncTaskItem = await _taskItemRepository.GetAll()
                        .Include(x => x.TaskItemStatus)
-                       .Where(x => x.ProjectId == Id && x.IsDeleted == false && (!x.IsGroupLabel.HasValue || x.IsGroupLabel == false))
+                       .Where(x => (!Id.HasValue || x.ProjectId == Id) && x.IsDeleted == false && (!x.IsGroupLabel.HasValue || x.IsGroupLabel == false))
                        .Select(e => new TaskItemDto() { 
                             Id = e.Id,
                             TaskName = e.TaskName,
@@ -1008,6 +1009,112 @@ namespace DaiPhatDat.Module.Task.Services
                        .ToListAsync();
 
                 foreach(var x in asyncTaskItem)
+                {
+                    var assignBy = await GetUserDeptDTO(x.AssignBy, x.DepartmentId, userDepartDto);
+                    x.AssignByFullName = assignBy?.FullName;
+                    x.DepartmentName = assignBy?.DeptName;
+                    x.JobTitleName = assignBy?.JobTitleName;
+                };
+
+                return asyncTaskItem;
+            }
+        }
+
+        public async Task<IReadOnlyList<TaskItemDto>> AllTaskItemInProjectReport(ReportFilterDto reportFilter)
+        {
+            using (var scope = _dbContextScopeFactory.CreateReadOnly())
+            {
+                var userDepartDto = await _userDepartmentServices.GetCachedUserDepartmentDtos();
+                var fromDate = reportFilter.FromDate;
+                var toDate = reportFilter.ToDate;
+                var trackingProgress = reportFilter.TrackingProgress;
+                var trackingStatus = reportFilter.TrackingStatus;
+                var trackingCrucial = reportFilter.TrackingCrucial;
+
+                var taskItemPredicateBuilder = PredicateBuilder.New<TaskItem>(x => true);
+                if (reportFilter.ProjectId.HasValue)
+                {
+                    taskItemPredicateBuilder = taskItemPredicateBuilder.And(
+                            x => x.ProjectId == reportFilter.ProjectId);
+                }
+                if (trackingProgress != null &&
+                    trackingProgress != -1)
+                {
+                    if (trackingProgress == 0)
+                        taskItemPredicateBuilder = taskItemPredicateBuilder.And(
+                            x => x.FinishedDate != null ? x.FinishedDate <= x.ToDate : x.ToDate > DateTime.Now);
+
+                    if (trackingProgress == 1)
+                        taskItemPredicateBuilder = taskItemPredicateBuilder.And(
+                            x => x.FinishedDate != null ? x.FinishedDate > x.ToDate : x.ToDate <= DateTime.Now);
+                }
+                if (trackingStatus != null &&
+                    trackingStatus != -1)
+                    taskItemPredicateBuilder = taskItemPredicateBuilder.And(
+                        x => x.TaskItemStatusId == (TaskItemStatusId)trackingStatus);
+
+                if (trackingCrucial != null &&
+                    trackingCrucial != -1)
+                    taskItemPredicateBuilder = taskItemPredicateBuilder.And(
+                        x => x.TaskItemPriorityId == (TaskItemPriorityId)trackingCrucial);
+                taskItemPredicateBuilder = taskItemPredicateBuilder.And(
+                    x => DbFunctions.TruncateTime(x.FromDate) >= DbFunctions.TruncateTime(fromDate) &&
+                         DbFunctions.TruncateTime(x.FromDate) <= DbFunctions.TruncateTime(toDate) ||
+                         DbFunctions.TruncateTime(x.ToDate) >= DbFunctions.TruncateTime(fromDate) &&
+                         DbFunctions.TruncateTime(x.ToDate) <= DbFunctions.TruncateTime(toDate) ||
+                         DbFunctions.TruncateTime(x.FromDate) <= DbFunctions.TruncateTime(fromDate) &&
+                         DbFunctions.TruncateTime(x.ToDate) >= DbFunctions.TruncateTime(toDate));
+                
+                if (trackingProgress != null &&
+                    trackingProgress != -1)
+                {
+                    if (trackingProgress == 0)
+                        taskItemPredicateBuilder = taskItemPredicateBuilder.And(
+                            x => x.FinishedDate != null ? x.FinishedDate <= x.ToDate : x.ToDate > DateTime.Now);
+
+                    if (trackingProgress == 1)
+                        taskItemPredicateBuilder = taskItemPredicateBuilder.And(
+                            x => x.FinishedDate != null ? x.FinishedDate > x.ToDate : x.ToDate <= DateTime.Now);
+                }
+                var asyncTaskItem = await _taskItemRepository.GetAll()
+                       .Include(x => x.TaskItemStatus)
+                       .Where(x => x.IsDeleted == false && (!x.IsGroupLabel.HasValue || x.IsGroupLabel == false))
+                       .Where(taskItemPredicateBuilder)
+                       .Select(e => new TaskItemDto()
+                       {
+                           Id = e.Id,
+                           TaskName = e.TaskName,
+                           ProjectId = e.ProjectId,
+                           FromDate = e.FromDate,
+                           ToDate = e.ToDate,
+                           FinishedDate = e.FinishedDate,
+                           TaskItemStatusId = e.TaskItemStatusId,
+                           CreatedDate = e.CreatedDate,
+                           CreatedBy = e.CreatedBy,
+                           AssignBy = e.AssignBy,
+                           ParentId = e.ParentId,
+                           PercentFinish = e.PercentFinish,
+                           TaskType = e.TaskType,
+                           IsReport = e.IsReport,
+                           ModifiedDate = e.ModifiedDate,
+                           ModifiedBy = e.ModifiedBy,
+                           Conclusion = e.Conclusion,
+                           TaskItemPriorityId = e.TaskItemPriorityId,
+                           DepartmentId = e.DepartmentId,
+                           TaskItemCategory = e.TaskItemCategory,
+                           IsSecurity = e.IsSecurity,
+                           IsWeirdo = e.IsWeirdo,
+                           HasRecentActivity = e.HasRecentActivity,
+                           Weight = e.Weight,
+                           IsGroupLabel = e.IsGroupLabel,
+                           IsDeleted = e.IsDeleted,
+                           NatureTaskId = e.NatureTaskId,
+                           Order = e.Order,
+                           StatusName = e.TaskItemStatus.Name
+                       })
+                       .ToListAsync();
+
+                foreach (var x in asyncTaskItem)
                 {
                     var assignBy = await GetUserDeptDTO(x.AssignBy, x.DepartmentId, userDepartDto);
                     x.AssignByFullName = assignBy?.FullName;

@@ -65,6 +65,12 @@
                                 <span class="nav-text"> @ResourceManagement.GetResourceText("Task.ProjectDetail.Task", "Công việc", "Tasks") <span ng-if="projectDetail.item.TaskItems!=null">({{projectDetail.item.TaskItems.length}})</span> </span>
                             </a>
                         </li>
+                        <li class="nav-item" id="tabli_attachmentChildZone">
+                            <a class="nav-link" href="#tab_attachmentChildZone" data-toggle="tab">
+                                <span class="nav-icon"><i class="flaticon2-paper"></i></span>
+                                <span class="nav-text">@ResourceManagement.GetResourceText("Task.TaskDetail.Document", "Tài liệu", "Document")</span>
+                            </a>
+                        </li>
                         <li class="nav-item" id="tabli_projectReport" ng-click="projectDetail.getReportProject()">
                             <a class="nav-link" data-toggle="tab" href="#tab_projectReport">
                                 <span class="nav-icon"><i class="flaticon2-graphic"></i></span>
@@ -158,6 +164,42 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab_attachmentChildZone">
+                            <div class="attachment-zone">
+                                <div ng-if="projectDetail.item.AttachmentChildren.length > 0" class="table-responsive">
+                                    <table class="table table-striped table-attachment">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:350px">@ResourceManagement.GetResourceText("Task.TaskDetail.Name", "Tên", "Name")</th>
+                                                <th style="text-align:center">@ResourceManagement.GetResourceText("Task.TaskDetail.SaveFile", "Lưu file", "Save file")</th>
+                                                <th>@ResourceManagement.GetResourceText("Task.TaskDetail.Type", "Loại", "Type")</th>
+                                                <th>@ResourceManagement.GetResourceText("Task.TaskDetail.CreateBy", "Người tạo", "Create by")</th>
+                                                <th>@ResourceManagement.GetResourceText("Task.TaskDetail.Time", "Thời gian", "Time")</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="attachment in projectDetail.item.AttachmentChildren">
+                                                <td>
+                                                    <a class="file-name" target="_blank" href="#" ng-click="projectDetail.openPreviewFileTrackingModel(attachment.Id)" title="{{attachment.FileName}}"><i class="{{attachment.Icon}} file-icon"></i> {{ attachment.FileName }}</a>
+                                                </td>
+                                                <td class="file-infor file-infor-down">
+                                                    <a class="file-download" target="_blank" href="~/Task/Project/DownloadFileTrackingWorkflowDocument?fileTrackingWorkflowDocumentID={{attachment.Id}}&deptID=00000000-0000-0000-0000-000000000000">
+                                                        <i class="fa fa-download"></i>
+                                                    </a>
+                                                </td>
+                                                <td class="file-infor">{{attachment.FileExt}}</td>
+                                                <td class="file-infor">{{attachment.CreateByFullName}}</td>
+                                                <td class="file-infor file-infor-date">{{attachment.DateFormat}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="attachment-noti" ng-if="taskItem.item.countAttachProcess.length <= 0">
+                                    @ResourceManagement.GetResourceText("Task.TaskDetail.NoAttachedDocuments", "Chưa có tài liệu đính kèm", "No attached documents")
                                 </div>
                             </div>
                         </div>

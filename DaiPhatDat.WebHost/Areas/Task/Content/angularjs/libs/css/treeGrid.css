@@ -48,7 +48,7 @@
 
 #MainCtrl .fa-minus:before, #MainCtrl .fa-plus:before {
     color: #636b76;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 /*** custom for sure Task ***/
@@ -68,7 +68,7 @@
 
 .tree-grid .level-3 .indented {
     position: relative;
-    left: 50px;
+    left: 25px;
 }
 
 .tree-grid .level-4 .indented {
@@ -192,7 +192,7 @@ tr.tree-grid-row.haspagination {
 }
 
 #dragtable td {
-    padding: 7px 10px;
+    padding: 7px 15px;
     vertical-align: middle;
 }
 /*****/
@@ -352,13 +352,13 @@ tr.tree-grid-row.haspagination {
 
 .tree-grid-row.project .indented.tree-label {
     /* padding-left: 10px;*/
-    font-weight: 500;
+    font-weight: 600;
     color: #3e414a;
     text-transform: uppercase;
     height: 20px;
     line-height: 22px;
     white-space: nowrap;
-    font-size: 1.1rem;
+    font-size: 1.025rem;
 }
 .tree-grid-row.group .indented.tree-label {
     color:#444;
@@ -376,6 +376,7 @@ tr.tree-grid-row.haspagination {
     line-height: 20px;
     margin-right: 5px;
     color: var(--blue);
+	display:none;
 }
     .tree-grid-row.group .indented.tree-label::before {
         content: "\f0ae";
@@ -401,7 +402,8 @@ tr.tree-grid-row.haspagination {
 }
 
 .task-content .table thead th {
-    padding: 15px 10px 2px;
+    padding: 9px 15px 6px;
+    background-color: #eefbff;
 }
 /*** grantt ***/
 .grantt-ProcessHtml > .ng-binding.ng-scope {
@@ -462,7 +464,7 @@ tr.tree-grid-row.haspagination {
 
 /***/
 .task-content #dragtable td.text-primary {
-    width: 450px;
+    width: 385px;
     display: flex;
     align-items: center !important;
     height: 43px;
@@ -477,3 +479,6 @@ tr.tree-grid-row.haspagination {
 .tree-grid .tree-grid-row a {
     display: flex;
 }
+
+
+/** 11:59 PM 25/6 **/

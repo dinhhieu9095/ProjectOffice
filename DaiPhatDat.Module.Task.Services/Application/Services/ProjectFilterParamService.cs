@@ -82,7 +82,7 @@ namespace DaiPhatDat.Module.Task.Services
             var lstParamsCount = new List<string>();
             // task & document
             // level 1
-            IReadOnlyList<ProjectFilterParam> childLv1 = allFilter.Where(w => w.ParentID == parentID && ((w.IsPrivate == true && w.CreatedBy == currentUserId) || w.IsPrivate == false)).OrderBy(e => e.NoOrder).ThenBy(e => e.Name).ToList();
+            IReadOnlyList<ProjectFilterParam> childLv1 = allFilter.Where(w => w.ParentID == parentID && ((w.IsPrivate == true && w.CreatedBy == currentUserId) || w.IsPrivate != true)).OrderBy(e => e.NoOrder).ThenBy(e => e.Name).ToList();
 
             //AsyncHelper.RunSync(() => _projectFilterParamRepository.GetChild(parentID));
 
@@ -120,7 +120,7 @@ namespace DaiPhatDat.Module.Task.Services
                         }
                     }
                     bool isPermission = false;
-                    if (itemLevel1.IsPrivate == true || itemLevel1.CreatedBy.Value == currentUserId)
+                    if (itemLevel1.IsPrivate == true || (itemLevel1.CreatedBy.HasValue && itemLevel1.CreatedBy.Value == currentUserId))
                     {
                         isPermission = true;
                     }
@@ -352,22 +352,12 @@ namespace DaiPhatDat.Module.Task.Services
         public List<ProjectFilterCounter> CountByListFilter(List<string> paramValues, UserDto currentUser,
             DateTime currentDate)
         {
-            if (paramValues != null)
-            {
-                for (int i = 0; i < paramValues.Count; i++)
-                {
-                    if (paramValues[i].Contains("FromDate") || paramValues[i].Contains("ToDate"))
-                    {
-                        //var listParam = paramValues[i].Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-                        //fore
-                        //paramValues[i] = paramValues[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0];
-                    }
-                }
-            }
-
             using (var dbCtxScope = _dbContextScopeFactory.CreateReadOnly())
             {
                 var dbContext = dbCtxScope.DbContexts.Get<TaskContext>();
+                string text = string.Format(
+                     @" EXEC dbo.SP_Count_Select_Projects_MultiFilters @CurrentDate = '{0}', @CurrentUserID = '{1}', @ListParamsName = '{2}', @IsFullControl= '{3}'",
+                     currentDate.ToString("yyyy-MM-dd HH:mm"), currentUser.Id, string.Join("|", paramValues), currentUser.AccountName.Contains("spadmin") ? "1" : "0");
                 return dbContext.Database.SqlQuery<ProjectFilterCounter>(
                  string.Format(
                      @" EXEC dbo.SP_Count_Select_Projects_MultiFilters @CurrentDate = '{0}', @CurrentUserID = '{1}', @ListParamsName = '{2}', @IsFullControl= '{3}'",
@@ -379,7 +369,7 @@ namespace DaiPhatDat.Module.Task.Services
         public bool CheckPermission(ProjectFilterParam projectFilterParam, Guid currentUserId)
         {
             bool isPermission = false;
-            if (projectFilterParam.IsPrivate == true || projectFilterParam.CreatedBy.Value == currentUserId)
+            if (projectFilterParam.IsPrivate == true || (projectFilterParam.CreatedBy.HasValue && projectFilterParam.CreatedBy.Value == currentUserId))
             {
                 isPermission = true;
             }

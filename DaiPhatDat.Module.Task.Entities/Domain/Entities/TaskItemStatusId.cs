@@ -45,6 +45,10 @@
         /// <summary>
         ///     Đã xem
         /// </summary>
-        Read = 8
+        Read = 8,
+        /// <summary>
+        ///     Nháp
+        /// </summary>
+        Draft = 9
     }
 }

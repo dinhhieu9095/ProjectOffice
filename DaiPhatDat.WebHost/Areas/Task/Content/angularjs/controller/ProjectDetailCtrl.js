@@ -26,6 +26,7 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
         getData: function () {
             $scope.showLoading(null);
             ProjectDetailService.getData($scope.projectDetail.filter.ProjectId).then(function (rs) {
+                debugger
                 $scope.projectDetail.item = rs.data;
                 $("#modal-project-detail").css("display", "block");
                 $("#modal-task-detail").css("display", "none");

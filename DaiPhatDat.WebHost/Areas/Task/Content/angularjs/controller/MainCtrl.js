@@ -1973,7 +1973,6 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
         }
     }
     $scope.SaveTaskItem = function () {
-        
         if (!$scope.hasSubmit) {
             $scope.showLoading(null);
             $scope.hasSubmit = true;
@@ -2021,7 +2020,6 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                 return;
             }
             $scope.TaskItem.TaskItemCategories = $('#TaskCategory').val();
-            
             if ($('#TaskGroupType').val() == '1') {
                 $scope.TaskItem.IsReport = true;
                 $scope.TaskItem.IsGroupLabel = false;
@@ -2095,8 +2093,111 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                 $scope.hasSubmit = false;
             });
         }
-    }
+    };
+    $scope.SaveDraftTaskItem = function () {
+        if (!$scope.hasSubmit) {
+            $scope.showLoading(null);
+            $scope.hasSubmit = true;
+            var validate = true;
+            var min = moment($scope.TaskItem.ParentFromDateText, 'DD/MM/YYYY');
+            var max = moment($scope.TaskItem.ParentToDateText, 'DD/MM/YYYY');
+            var fromDate = moment($scope.TaskItem.FromDateText, 'DD/MM/YYYY');
+            var toDate = moment($scope.TaskItem.ToDateText, 'DD/MM/YYYY');
+            if ($scope.TaskItem.TaskName == '' || $scope.TaskItem.TaskName == undefined) {
+                toastr.error('Vui lòng nhập tên công việc', 'Thông báo');
+                $('#TaskName').focus();
+                validate = false;
+            }
+            else {
+                if (!$scope.TaskItem.IsParentAuto && fromDate < min) {
+                    toastr.error('Ngày bắt đầu không hợp lệ', 'Thông báo');
+                    validate = false;
+                } else
+                    if (!$scope.TaskItem.IsParentAuto && toDate > max) {
+                        toastr.error('Ngày kết thúc không hợp lệ', 'Thông báo');
+                        validate = false;
+                    }
+            }
+            if (validate === false) {
+                $scope.hideLoading();
+                $scope.hasSubmit = false;
+                return;
+            }
+            $scope.TaskItem.TaskItemCategories = $('#TaskCategory').val();
 
+            if ($('#TaskGroupType').val() === '1') {
+                $scope.TaskItem.IsReport = true;
+                $scope.TaskItem.IsGroupLabel = false;
+            } else if ($('#TaskGroupType').val() === '2') {
+                $scope.TaskItem.IsGroupLabel = true;
+                $scope.TaskItem.IsReport = false;
+            } else {
+                $scope.TaskItem.IsReport = false;
+                $scope.TaskItem.IsGroupLabel = false;
+            }
+            MainService.SaveDraftTaskItem($scope.TaskItem, $scope.fileTemps).then(function (rs) {
+                if (rs !== undefined && rs.IsSuccess === true) {
+                    toastr.success('Thành công!', 'Thông báo');
+                    if ($scope.ShowType === 2) //kanban
+                    {
+                        if ($scope.TaskItem.Id !== '00000000-0000-0000-0000-000000000000') {
+                            var id = $scope.selectedRow.ParentId === null ? $scope.selectedRow.ProjectId : $scope.selectedRow.ParentId;
+                            $scope.selectViewBreadCrumbWithParent(id);
+                        }
+                        else if ($scope.TaskItem.Id === '00000000-0000-0000-0000-000000000000') {
+
+                            $scope.selectViewBreadCrumbWithParent($scope.selectedRow.Id);
+                        }
+                    }
+                    else {
+                        if ($scope.TaskItem.IsParentAuto === true) {
+                            var fromdate = moment($scope.TaskItem.FromDateText, 'DD/MM/YYYY');
+                            var todate = moment($scope.TaskItem.ToDateText, 'DD/MM/YYYY');
+                            var min = moment($scope.TaskItem.ParentFromDateText, 'DD/MM/YYYY');
+                            var max = moment($scope.TaskItem.ParentToDateText, 'DD/MM/YYYY');
+                            if (fromdate < min || max < todate) {
+                                $scope.getDataByProject(null);
+                            } else {
+                                if ($scope.TaskItem.Id !== '00000000-0000-0000-0000-000000000000') {
+                                    var parentBranch = $scope.my_tree.get_parent_branch($scope.selectedRow);
+                                    parentBranch.HasLoading = true;
+                                    $scope.callbackFunctionInController(parentBranch);
+                                }
+                                else if ($scope.TaskItem.Id === '00000000-0000-0000-0000-000000000000') {
+                                    $scope.callbackFunctionInController($scope.selectedRow);
+                                }
+                            }
+
+                        } else {
+                            if ($scope.TaskItem.Id !== '00000000-0000-0000-0000-000000000000') {
+                                var parentBranch = $scope.my_tree.get_parent_branch($scope.selectedRow);
+                                parentBranch.HasLoading = true;
+                                $scope.callbackFunctionInController(parentBranch);
+                            }
+                            else if ($scope.TaskItem.Id === '00000000-0000-0000-0000-000000000000') {
+                                $scope.callbackFunctionInController($scope.selectedRow);
+                            }
+                        }
+                    }
+                    $scope.CloseTaskItem();
+                } else {
+                    if (rs !== undefined && rs.Message == "ProcessExpired") {
+                        toastr.error('Thao tác của bạn đã hết hạn!', 'Thông báo')
+                        $scope.CloseTaskItem();
+                        window.location.reload();
+                    } else {
+                        toastr.error('Có lỗi trong quá trình xử lý!', 'Thông báo')
+                    }
+                }
+                $scope.hideLoading();
+                $scope.hasSubmit = false;
+            }, function (er) {
+                toastr.error('Có lỗi trong quá trình xử lý!', 'Thông báo')
+                $scope.hideLoading();
+                $scope.hasSubmit = false;
+            });
+        }
+    };
     $scope.DeleteTaskItem = function () {
         if (!$scope.hasSubmit) {
             $scope.hasSubmit = true;

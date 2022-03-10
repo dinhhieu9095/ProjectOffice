@@ -56,6 +56,7 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
                 //$scope.taskItem.getAttachment();
                 $scope.taskItem.countAttachTask = $scope.taskItem.item.Attachments.filter(e => e.Source == 1).length;
                 $scope.taskItem.countAttachProcess = $scope.taskItem.item.Attachments.filter(e => e.Source == 2).length;
+                $scope.taskItem.countAttachChild = $scope.taskItem.item.AttachmentChildren.length;
                 $scope.hideLoading(null);
             })
         },

@@ -124,7 +124,13 @@ namespace DaiPhatDat.Module.Task.Web
         [HttpPost]
         public async Task<JsonResult> SaveTaskItem(TaskItemModel model)
         {
-            _loggerServices.WriteError("test log");
+            SendMessageResponse rs = null;
+            rs = await SaveTask(model);
+            return Json(rs, JsonRequestBehavior.AllowGet);
+        }
+
+        private async Task<SendMessageResponse> SaveTask(TaskItemModel model, Entities.TaskItemStatusId taskItemStatusId = Entities.TaskItemStatusId.New)
+        {
             SendMessageResponse rs = null;
             try
             {
@@ -163,13 +169,21 @@ namespace DaiPhatDat.Module.Task.Web
                         dto.Attachments.Add(attachmentDto);
                     }
                 }
-                rs = await _taskItemService.SaveAsync(dto);
+                rs = await _taskItemService.SaveAsync(dto, taskItemStatusId);
 
             }
             catch (Exception ex)
             {
                 _loggerServices.WriteError(ex.ToString());
             }
+            return rs;
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> SaveDraftTaskItem(TaskItemModel model)
+        {
+            SendMessageResponse rs = null;
+            rs = await SaveTask(model, Entities.TaskItemStatusId.Draft);
             return Json(rs, JsonRequestBehavior.AllowGet);
         }
 

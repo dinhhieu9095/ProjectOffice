@@ -268,6 +268,34 @@
 
         return defer.promise;
     }
+    this.SaveDraftTaskItem = function (task, files) {
+        var url = CommonUtils.RootURL("Task/TaskItem/SaveDraftTaskItem");
+        var defer = $q.defer();
+        delete $http.defaults.headers.common['X-Requested-With'];
+        $http.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+        $http({
+            method: 'POST',
+            url: url,
+            headers: { 'Content-Type': undefined },
+            transformRequest: function (data) {
+                var frm = objectToFormData(task);
+                if (files != null) {
+                    angular.forEach(files, function (value, index) {
+                        frm.append("File[" + index + "]", value);
+                    });
+                }
+                return frm;
+            },
+            data: task
+        }).then(
+            function (rs) {
+                defer.resolve(rs.data);
+            }, function (data, status, headers, config) {
+                defer.reject();
+            });
+
+        return defer.promise;
+    }
     this.GetTaskPriorities = function () {
         var request = $http({
             method: "GET",

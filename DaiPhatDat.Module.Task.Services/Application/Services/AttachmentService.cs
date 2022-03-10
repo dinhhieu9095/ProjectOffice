@@ -22,11 +22,12 @@ namespace DaiPhatDat.Module.Task.Services
         private readonly ILoggerServices _loggerServices;
         private readonly IDbContextScopeFactory _dbContextScopeFactory;
         private readonly IAttachmentRepository _attachmentRepository;
+        private readonly ITaskItemAssignRepository _taskItemAssignRepository;
         private readonly ITaskItemProcessHistoryService _taskItemProcessHistoryService;
         private readonly IMapper _mapper;
         private readonly IUserServices _userServices;
 
-        public AttachmentService(ILoggerServices loggerServices, IDbContextScopeFactory dbContextScopeFactory, IMapper mapper, IUserServices userServices, IAttachmentRepository attachmentRepository, ITaskItemProcessHistoryService taskItemProcessHistoryService)
+        public AttachmentService(ILoggerServices loggerServices, IDbContextScopeFactory dbContextScopeFactory, IMapper mapper, IUserServices userServices, IAttachmentRepository attachmentRepository, ITaskItemProcessHistoryService taskItemProcessHistoryService, ITaskItemAssignRepository taskItemAssignRepository)
         {
             _loggerServices = loggerServices;
             _dbContextScopeFactory = dbContextScopeFactory;
@@ -34,6 +35,7 @@ namespace DaiPhatDat.Module.Task.Services
             _userServices = userServices;
             _attachmentRepository = attachmentRepository;
             _taskItemProcessHistoryService = taskItemProcessHistoryService;
+            _taskItemAssignRepository = taskItemAssignRepository;
         }
 
         public async Task<List<AttachmentDto>> GetAttachmentDtoHistoryProject(Guid projectId, Guid? historyId = null)
@@ -153,7 +155,7 @@ namespace DaiPhatDat.Module.Task.Services
             {
                 result = result.Where(e => e.Source == source);
             }
-            attachmentDtos = result.Select(e => new AttachmentDto()
+            attachmentDtos = result.OrderByDescending(e => e.CreatedDate).Select(e => new AttachmentDto()
             {
                 FileName = e.FileName,
                 Id = e.Id,
@@ -173,6 +175,66 @@ namespace DaiPhatDat.Module.Task.Services
                 attachment.DateFormat = ConvertToStringExtensions.DateToString(attachment.CreatedDate);
             }
             return attachmentDtos;
+        }
+        public async Task<List<AttachmentDto>> GetAllAttachmentChilds(Guid projectId, Guid? itemId)
+        {
+            var result = new List<AttachmentDto>();
+            using (var scope = _dbContextScopeFactory.CreateReadOnly())
+            {
+                if (itemId.HasValue)
+                {
+                    var dbContext = scope.DbContexts.Get<TaskContext>();
+                    IReadOnlyList<Guid> taskItemIds = new List<Guid>();
+                    taskItemIds = dbContext.Database.SqlQuery<Guid>(
+                      string.Format(@"
+                EXEC dbo.SP_Select_TaskItem_Children
+		            @Id= '{0}'", itemId),
+                              new object[] { }).ToList();
+                    var lstItemIds = _taskItemAssignRepository.GetAll().Where(e => e.TaskItemId.HasValue && taskItemIds.Contains(e.TaskItemId.Value)).Select(e => e.Id).ToList();
+                    lstItemIds.AddRange(taskItemIds);
+                    result = await _attachmentRepository.GetAll()
+                        .OrderByDescending(o => o.CreatedDate)
+                        .Where(w => w.ProjectId == projectId && w.Source != Source.Project
+                        && (w.ItemId == itemId || (w.ItemId.HasValue && lstItemIds.Contains(w.ItemId.Value)))
+                        )
+                           .Select(e => new AttachmentDto()
+                           {
+                               FileName = e.FileName,
+                               Id = e.Id,
+                               ItemId = e.ItemId,
+                               FileExt = e.FileExt,
+                               CreatedBy = e.CreatedBy,
+                               CreatedDate = e.CreatedDate,
+                               Source = e.Source
+                           }).ToListAsync();
+                }
+                else
+                {
+                    result = await _attachmentRepository.GetAll()
+                       .Where(x => x.ProjectId == projectId)
+                       .Select(e => new AttachmentDto()
+                       {
+                           FileName = e.FileName,
+                           Id = e.Id,
+                           FileExt = e.FileExt,
+                           CreatedBy = e.CreatedBy,
+                           CreatedDate = e.CreatedDate,
+                           Source = e.Source
+
+                       }).ToListAsync();
+                }
+                var userDtos = _userServices.GetUsers();
+                foreach (var attachment in result)
+                {
+                    if (attachment.CreatedBy != null)
+                        attachment.CreateByFullName = userDtos
+                            .FirstOrDefault(x => x.Id == attachment.CreatedBy.GetValueOrDefault())
+                            ?.FullName ?? string.Empty;
+                    attachment.DateFormat = ConvertToStringExtensions.DateToString(attachment.CreatedDate);
+                }
+            }
+
+            return result;
         }
     }
 

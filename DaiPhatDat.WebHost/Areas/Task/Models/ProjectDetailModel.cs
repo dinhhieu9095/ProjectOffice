@@ -186,6 +186,7 @@ namespace DaiPhatDat.Module.Task.Web
 
         public List<UserReportInProjectModel> ProjectMembers { get; set; }
         public List<AttachmentModel> Attachments { get; set; }
+        public List<AttachmentModel> AttachmentChildren { get; set; }
         public ReportProjectModel ReportProject { get; set; }
     }
      

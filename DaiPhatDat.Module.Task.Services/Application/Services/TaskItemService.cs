@@ -214,7 +214,7 @@ namespace DaiPhatDat.Module.Task.Services
             }
             return models;
         }
-        public async Task<SendMessageResponse> SaveAsync(TaskItemDto dto)
+        public async Task<SendMessageResponse> SaveAsync(TaskItemDto dto, TaskItemStatusId taskItemStatusId = TaskItemStatusId.New)
         {
             SendMessageResponse sendMessage = new SendMessageResponse();
             try
@@ -249,19 +249,7 @@ namespace DaiPhatDat.Module.Task.Services
                             sendMessage = SendMessageResponse.CreateFailedResponse("AccessDenied");
                             return sendMessage;
                         }
-                        //if (dto.ParentId.HasValue)
-                        //{
-                        //    TaskItem parent = _objectRepository.GetAll().Where(p => p.IsDeleted == false && p.Id == dto.ParentId).FirstOrDefault();
-                        //    dto.IsParentAuto = parent.IsAuto;
-                        //    dto.ParentToDateText = parent.ToDate.Value.ToString("dd/MM/yyyy");
-                        //    dto.ParentFromDateText = parent.FromDate.Value.ToString("dd/MM/yyyy");
-                        //}
-                        //else
-                        //{
-                        //    dto.IsParentAuto = entity.Project.IsAuto;
-                        //    dto.ParentToDateText = entity.Project.ToDate.Value.ToString("dd/MM/yyyy");
-                        //    dto.ParentFromDateText = entity.Project.FromDate.Value.ToString("dd/MM/yyyy");
-                        //}
+                        
                         entity.AssignBy = dto.AssignBy;
                         entity.Conclusion = dto.Conclusion;
                         entity.DepartmentId = dto.DepartmentId;
@@ -334,20 +322,6 @@ namespace DaiPhatDat.Module.Task.Services
                             assign.ModifiedDate = dto.ModifiedDate;
                             assign.TaskItemStatusId = TaskItemStatusId.New;
                             entity.TaskItemAssigns.Add(_mapper.Map<TaskItemAssign>(assign));
-                            //TaskItemProcessHistory taskAssignHistory = new TaskItemProcessHistory
-                            //{
-                            //    Id = Guid.NewGuid(),
-                            //    ProjectId = entity.ProjectId,
-                            //    TaskItemAssignId = assign.Id,
-                            //    ActionId = ActionId.Assign,
-                            //    CreatedBy = dto.ModifiedBy,
-                            //    PercentFinish = dto.PercentFinish,
-                            //    CreatedDate = dto.ModifiedDate,
-                            //    TaskItemId = entity.Id,
-                            //    TaskItemStatusId = entity.TaskItemStatusId,
-                            //    ProcessResult = entity.TaskName
-                            //};
-                            //_taskItemHistoryRepository.Add(taskAssignHistory);
                         }
                         _objectRepository.Modify(entity);
                         _taskItemHistoryRepository.Add(taskHistory);
@@ -364,9 +338,6 @@ namespace DaiPhatDat.Module.Task.Services
                         if (dto.ParentId.HasValue)
                         {
                             TaskItem parent = _objectRepository.GetAll().Where(p => p.IsDeleted == false && p.Id == dto.ParentId).FirstOrDefault();
-                            //dto.IsParentAuto = parent.IsAuto;
-                            //dto.ParentToDateText = parent.ToDate.Value.ToString("dd/MM/yyyy");
-                            //dto.ParentFromDateText = parent.FromDate.Value.ToString("dd/MM/yyyy");
                             if (!((managerInTask.Contains(dto.ModifiedBy)
                    || ListTaskParentHasUser(parent.Id, dto.ModifiedBy.Value) == 1 || dto.IsFullControl)
                    && parent.TaskItemStatusId != TaskItemStatusId.Finished
@@ -387,20 +358,19 @@ namespace DaiPhatDat.Module.Task.Services
                             }
                         }
 
-                        dto.TaskItemStatusId = TaskItemStatusId.New;
+                        dto.TaskItemStatusId = taskItemStatusId;
                         dto.Id = Guid.NewGuid();
                         dto.CreatedBy = dto.ModifiedBy;
                         dto.CreatedDate = dto.ModifiedDate;
                         dto.TaskItemCategory = string.Join(";", dto.TaskItemCategories);
                         dto.IsDeleted = false;
-                        dto.TaskItemStatusId = TaskItemStatusId.New;
                         foreach (var assign in dto.TaskItemAssigns)
                         {
                             assign.Id = Guid.NewGuid();
                             assign.TaskItemId = dto.Id;
                             assign.ProjectId = dto.ProjectId;
                             assign.ModifiedDate = dto.ModifiedDate;
-                            assign.TaskItemStatusId = TaskItemStatusId.New;
+                            assign.TaskItemStatusId = taskItemStatusId;
                         }
                         entity = _mapper.Map<TaskItem>(dto);
                         entity.Project = null;
@@ -453,43 +423,46 @@ namespace DaiPhatDat.Module.Task.Services
                         }
                     }
                     await scope.SaveChangesAsync();
-                    var param = new List<SqlParameter>();
-                    param.Add(new SqlParameter()
+                    if(taskItemStatusId != TaskItemStatusId.Draft)
                     {
-                        SqlDbType = SqlDbType.UniqueIdentifier,
-                        ParameterName = "@ProjectId",
-                        IsNullable = false,
-                        Value = dto.ProjectId
-                    });
-                    param.Add(new SqlParameter()
-                    {
-                        SqlDbType = SqlDbType.UniqueIdentifier,
-                        ParameterName = "@TaskId",
-                        IsNullable = false,
-                        Value = dto.Id
-                    });
-                    param.Add(new SqlParameter()
-                    {
-                        SqlDbType = SqlDbType.DateTime,
-                        ParameterName = "@FromDate",
-                        IsNullable = false,
-                        Value = dto.FromDate
-                    });
-                    param.Add(new SqlParameter()
-                    {
-                        SqlDbType = SqlDbType.DateTime,
-                        ParameterName = "@ToDate",
-                        IsNullable = false,
-                        Value = dto.ToDate
-                    });
-                    param.Add(new SqlParameter()
-                    {
-                        SqlDbType = SqlDbType.Bit,
-                        ParameterName = "@IsUpdateStatus",
-                        IsNullable = true,
-                        Value = 1
-                    });
-                    await _objectRepository.SqlQueryAsync(typeof(ProjectDto), "[dbo].[SP_UPDATE_TASK_RANGE_DATE] @ProjectId, @TaskId, @FromDate, @ToDate, @IsUpdateStatus", param.ToArray());
+                        var param = new List<SqlParameter>();
+                        param.Add(new SqlParameter()
+                        {
+                            SqlDbType = SqlDbType.UniqueIdentifier,
+                            ParameterName = "@ProjectId",
+                            IsNullable = false,
+                            Value = dto.ProjectId
+                        });
+                        param.Add(new SqlParameter()
+                        {
+                            SqlDbType = SqlDbType.UniqueIdentifier,
+                            ParameterName = "@TaskId",
+                            IsNullable = false,
+                            Value = dto.Id
+                        });
+                        param.Add(new SqlParameter()
+                        {
+                            SqlDbType = SqlDbType.DateTime,
+                            ParameterName = "@FromDate",
+                            IsNullable = false,
+                            Value = dto.FromDate
+                        });
+                        param.Add(new SqlParameter()
+                        {
+                            SqlDbType = SqlDbType.DateTime,
+                            ParameterName = "@ToDate",
+                            IsNullable = false,
+                            Value = dto.ToDate
+                        });
+                        param.Add(new SqlParameter()
+                        {
+                            SqlDbType = SqlDbType.Bit,
+                            ParameterName = "@IsUpdateStatus",
+                            IsNullable = true,
+                            Value = 1
+                        });
+                        await _objectRepository.SqlQueryAsync(typeof(ProjectDto), "[dbo].[SP_UPDATE_TASK_RANGE_DATE] @ProjectId, @TaskId, @FromDate, @ToDate, @IsUpdateStatus", param.ToArray());
+                    }
                 }
                 sendMessage = SendMessageResponse.CreateSuccessResponse(string.Empty);
                 return sendMessage;
@@ -706,6 +679,7 @@ namespace DaiPhatDat.Module.Task.Services
 
                 result.CountComment = _commentService.Count(Id);
                 result.Attachments = await _attachmentService.GetAttachments(new Guid(result.ProjectId), new Guid(result.TaskItemId), Source.TaskItem);
+                result.AttachmentChildren = await _attachmentService.GetAllAttachmentChilds(new Guid(result.ProjectId), new Guid(result.TaskItemId));
                 if (result.NatureTaskId != null)
                 {
                     List<EnumNatureTask> EnumNatureTasks = Enum.GetValues(typeof(EnumNatureTask)).Cast<EnumNatureTask>().ToList();

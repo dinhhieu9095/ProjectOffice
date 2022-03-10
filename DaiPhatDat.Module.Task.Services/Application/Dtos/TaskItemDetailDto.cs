@@ -85,6 +85,7 @@ namespace DaiPhatDat.Module.Task.Services
         public List<TaskItemAssignDto> TaskItemAssigns { get; set; }
 
         public List<AttachmentDto> Attachments { get; set; }
+        public List<AttachmentDto> AttachmentChildren { get; set; }
         public List<TaskItemProcessHistoryDto> TaskItemProcessHistories { get; set; }
 
     }

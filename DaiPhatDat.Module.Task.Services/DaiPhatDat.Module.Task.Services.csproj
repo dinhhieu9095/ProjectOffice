@@ -81,6 +81,7 @@
     <Compile Include="Application\Dtos\ActionClick.cs" />
     <Compile Include="Application\Dtos\ActionDto.cs" />
     <Compile Include="Application\Dtos\AttachmentDto.cs" />
+    <Compile Include="Application\Dtos\CategoryProjectDto.cs" />
     <Compile Include="Application\Dtos\QueryCommonDto.cs" />
     <Compile Include="Application\Dtos\FetchProjectsTasksResult.cs" />
     <Compile Include="Application\Dtos\CommentDto.cs" />
@@ -117,10 +118,12 @@
     <Compile Include="Application\Services\CommentService.cs" />
     <Compile Include="Application\Services\AttachmentService.cs" />
     <Compile Include="Application\Services\ICommentService.cs" />
+    <Compile Include="Application\Services\IAdminService.cs" />
     <Compile Include="Application\Services\ITaskItemAssignService.cs" />
     <Compile Include="Application\Services\ITaskItemService.cs" />
     <Compile Include="Application\Services\ITaskItemProcessHistoryService.cs" />
     <Compile Include="Application\Services\PredicateBuilder.cs" />
+    <Compile Include="Application\Services\AdminService.cs" />
     <Compile Include="Application\Services\TaskItemAssignService.cs" />
     <Compile Include="Application\Services\TaskItemService.cs" />
     <Compile Include="Application\Services\TaskItemProcessHistoryService.cs" />

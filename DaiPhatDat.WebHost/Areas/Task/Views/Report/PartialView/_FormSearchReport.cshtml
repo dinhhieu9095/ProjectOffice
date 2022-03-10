@@ -1,0 +1,105 @@
+﻿
+@using DaiPhatDat.Core.Kernel;
+@using DaiPhatDat.Module.Task.Web
+@model DaiPhatDat.Module.Task.Web.ReportFilterModel
+@{
+    var projects = Model.Projects;
+}
+<div class="form-search-report mb-2">
+    <div class="box-filter px-0">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <div class="d-flex align-items-center">
+                    <label>@ResourceManagement.GetResourceText("Task.FilterReport.Project", "Chọn dự án:", "Project:") <span class="text-danger">*</span></label>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="input-group">
+                        @Html.DropDownListFor(n => n.ProjectId, new SelectList(projects, "ProjectId", "Name"), new { @class = "form-control report-project-id" })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <div class="d-flex align-items-center">
+                    <label>@ResourceManagement.GetResourceText("Task.FilterReport.FromDate", "Từ ngày:", "From date:") <span class="text-danger">*</span></label>
+                </div>
+                <div class="d-flex align-items-center mr-5">
+                    <input class="form-control from-date-text" date-picker readonly value="@Model.FromDate.Value.ToString("dd/MM/yyy")" />
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <label>@ResourceManagement.GetResourceText("Task.FilterReport.ToDate", "đến:", "to:") <span class="text-danger">*</span></label>
+                </div>
+                <div class="d-flex align-items-center mr-3">
+                    <input class="form-control to-date-text" date-picker readonly value="@Model.ToDate.Value.ToString("dd/MM/yyy")" />
+                </div>
+
+            </div>
+            <div class="d-flex">
+                <div class="d-flex align-items-center">
+                    <div class="btn-action">
+                        <a class="report-button btn btn-primary" ng-click="init()">@ResourceManagement.GetResourceText("Task.FilterReport.Report", "Báo cáo", "Report")</a>
+                        <a class="more-button btn btn-primary" style="width:40px" ng-click="expandFormsearch()"><i class="fa fa-ellipsis-v"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="more-content {{ expandClass }}">
+            <div class="d-flex">
+                <div class="d-flex align-items-center">
+                    <label>@ResourceManagement.GetResourceText("Task.FilterReport.Progress", "Tiến độ", "Progress") <span class="text-danger"> * </span></label>
+                </div>
+                <div class="d-flex align-items-center mr-10">
+                    <select class="form-control tracking-progress-select" name="TrackingProgress">
+                        <option selected="selected" value="-1">@ResourceManagement.GetResourceText("Task.FilterReport.All", "Tất cả", "All")</option>
+                        <option value="0">@ResourceManagement.GetResourceText("Task.FilterReport.InDue", "Trong hạn", "In due")</option>
+                        <option value="1">@ResourceManagement.GetResourceText("Task.FilterReport.OutOfDue", "Quá hạn", "Out of due")</option>
+                    </select>
+                </div>
+                <div class="d-flex align-items-center">
+                    <label>@ResourceManagement.GetResourceText("Task.FilterReport.Status", "Tình trạng", "Status") <span class="text-danger"> * </span></label>
+                </div>
+                <div class="d-flex align-items-center mr-10">
+                    <select class="form-control tracking-status-select" id="TrackingStatus" name="TrackingStatus">
+                        <option selected="selected" value="-1">@ResourceManagement.GetResourceText("Task.FilterReport.All", "Tất cả", "All")</option>
+                        <option value="0">@ResourceManagement.GetResourceText("Task.FilterReport.New", "Mới", "New")</option>
+                        <option value="1">@ResourceManagement.GetResourceText("Task.FilterReport.Processing", "Đang xử lý", "Processing")</option>
+                        <option value="2">@ResourceManagement.GetResourceText("Task.FilterReport.Report", "Báo cáo", "Report")</option>
+                        <option value="3">@ResourceManagement.GetResourceText("Task.FilterReport.Return", "Trả lại", "Return")</option>
+                        <option value="4">@ResourceManagement.GetResourceText("Task.FilterReport.End", "Kết thúc", "End")</option>
+                        <option value="5">@ResourceManagement.GetResourceText("Task.FilterReport.Extend", "Gia hạn", "Extend")</option>
+                        <option value="6">@ResourceManagement.GetResourceText("Task.FilterReport.ReturnReport", "Báo cáo trả lại", "Return report")</option>
+                        <option value="8">@ResourceManagement.GetResourceText("Task.FilterReport.Seen", "Đã xem", "Seen")</option>
+                    </select>
+                </div>
+                <div class="d-flex align-items-center">
+                    <label>@ResourceManagement.GetResourceText("Task.FilterReport.CriticalLevel", "Mức độ quan trọng", "Critical level") <span class="text-danger"> * </span></label>
+                </div>
+                <div class="d-flex align-items-center mr-10">
+                    <select class="form-control tracking-crucial-select" id="TrackingCrucial" name="TrackingCrucial">
+                        <option selected="selected" value="-1">@ResourceManagement.GetResourceText("Task.FilterReport.All", "Tất cả", "All")</option>
+                        <option value="0">@ResourceManagement.GetResourceText("Task.FilterReport.Normal", "Bình thường", "Normal")</option>
+                        <option value="1">@ResourceManagement.GetResourceText("Task.FilterReport.Important", "Quan trọng", "Important")</option>
+                        <option value="2">@ResourceManagement.GetResourceText("Task.FilterReport.VeryImportant", "Rất quan trọng", "Very important")</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .report .card-body table thead th {
+        min-width: 100px;
+    }
+
+    .report .hidden {
+        display: none;
+    }
+
+    .form-search-report {
+        overflow: hidden;
+    }
+</style>

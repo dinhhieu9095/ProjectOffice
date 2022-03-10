@@ -55,6 +55,78 @@ namespace DaiPhatDat.Module.Task.Web
             return View();
         }
 
+        public ActionResult ReportAll()
+        {
+            if (CurrentUser.HavePermission((EnumModulePermission.Task_FullControl))) {
+                ViewBag.Title = "Báo cáo dự án";
+                return View();
+            }
+            return RedirectToAction("AccessDenied", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult FormSearchReport(string device = "")
+        {
+            var model = new ReportFilterModel();
+            try
+            {
+                model.FromDate = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Sunday);
+                model.ToDate = model.FromDate.Value.AddDays(7);
+                ViewBag.Device = device;
+                
+                DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+                Calendar cal = dfi.Calendar;
+                ViewBag.CurrentWeek = cal.GetWeekOfYear(DateTime.Now, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+                var user = _userService.GetById(CurrentUser.Id);
+
+                var lstParams = new List<string>();
+                lstParams.Add($"@ParentId:{null}");
+                var project = new FetchProjectsTasksResult
+                {
+                    ProjectId = null,
+                    Name = "Tất cả"
+                };
+                model.Projects = new List<FetchProjectsTasksResult>() { project };
+                var page = _projectService.GetTaskWithFilterPaging(
+                                        null,
+                                        lstParams,
+                                        1,
+                                        15,
+                                        " CreatedDate DESC ",
+                                        user,
+                                        true);
+                model.Projects.AddRange(page.Result);
+            }
+            catch (Exception ex)
+            {
+                _loggerServices.WriteDebug(ex.Message);
+            }
+            return PartialView("PartialView/_FormSearchReport", model);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> GetReportAdmin(ReportFilterModel reportFilterModel)
+        {
+            var result = new ReportProjectModel();
+            try
+            {
+                var reportFilterDto = _mapper.Map<ReportFilterDto>(reportFilterModel);
+                var dtos = await _projectService.AllTaskItemInProjectReport(reportFilterDto);
+                var model = _mapper.Map<List<TaskItemModel>>(dtos);
+                result = new ReportProjectModel()
+                {
+                    TaskItems = model
+                };
+
+            }
+            catch (Exception ex)
+            {
+                _loggerServices.WriteError(ex.Message);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Edit(ReportModel filter)
         {
             return View();

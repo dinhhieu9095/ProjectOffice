@@ -5,9 +5,9 @@
         <div class="menuLeft">
             <div ng-repeat="item in leftMenu.data" class="menu-item" id="menu-item-{{ item.Code }}" aria-haspopup="true" ng-click="leftMenu.loadMenu(item.ID, item.Code)" data-treeleftid="{{ item.ID }}">
                 @*<a href="javascript:;" class="menu-link menu-toggle">
-                    <h4 class="menu-text menu-heading text-uppercase mb-0" ng-bind-html="item.Name"></h4>
-                    <i class="fas fa-chevron-right"></i>
-                </a>*@
+                <h4 class="menu-text menu-heading text-uppercase mb-0" ng-bind-html="item.Name"></h4>
+                <i class="fas fa-chevron-right"></i>
+            </a>*@
                 <div class="menu-nav">
                     <div class="menu-sticky-zoon">
                         <div class="d-block float-right">
@@ -24,74 +24,19 @@
                     <span class="menu-icon menu-link-icon">
                         <i class="fas fa-chart-pie"></i>
                     </span>
-                    <span class="menu-text">Báo cáo thống kê</span>
+                    <span class="menu-text">Thống kê</span>
+                </a>
+            </div>
+            <div class="menu-item px-1 py-5">
+                <a href="~/Task/Report/ReportAll" class="menu-link">
+                    <span class="menu-icon menu-link-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </span>
+                    <span class="menu-text">Báo cáo tất cả</span>
                 </a>
             </div>
 
         </div>
-        @*<div class="menu-left">
-            <ul class="menu-nav">
-                <li class="menu-item menu-item-submenu menu-item-open" aria-haspopup="true" data-menu-toggle="hover">
-                    <a href="javascript:;" class="menu-link menu-toggle">
-                        <span class="menu-icon menu-expand">
-                            <i class="far fa-plus-square"></i>
-                        </span>
-                        <span class="menu-icon">
-                            <i class="far fa-folder"></i>
-                        </span>
-                        <span class="menu-text">Công việc của tôi</span>
-                        <span class="doc-left-span-no">21</span>
-                    </a>
-                    <div class="menu-submenu">
-                        <ul class="menu-subnav">
-                            <li class="menu-item" aria-haspopup="true">
-                                <a href="javascript:;" class="menu-link menu-toggle">
-                                    <span class="menu-icon menu-link-icon">
-                                        <i class="fas fa-none"></i>
-                                    </span>
-                                    <span class="menu-text">Mới</span>
-                                    <span class="doc-left-span-no">14</span>
-                                </a>
-                            </li>
-                            <li class="menu-item" aria-haspopup="true">
-                                <a href="javascript:;" class="menu-link menu-toggle">
-                                    <span class="menu-icon menu-link-icon">
-                                        <i class="fas fa-none"></i>
-                                    </span>
-                                    <span class="menu-text">Đang xử lý</span>
-                                    <span class="doc-left-span-no">2</span>
-                                </a>
-                            </li>
-                            <li class="menu-item" aria-haspopup="true">
-                                <a href="javascript:;" class="menu-link menu-toggle">
-                                    <span class="menu-icon menu-link-icon">
-                                        <i class="fas fa-none"></i>
-                                    </span>
-                                    <span class="menu-text">Đến hạn</span>
-                                </a>
-                            </li>
-                            <li class="menu-item" aria-haspopup="true">
-                                <a href="javascript:;" class="menu-link menu-toggle">
-                                    <span class="menu-icon menu-link-icon">
-                                        <i class="fas fa-none"></i>
-                                    </span>
-                                    <span class="menu-text">Quá hạn</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="menu-item" aria-haspopup="true">
-                    <a href="#" class="menu-link">
-                        <span class="menu-icon menu-link-icon">
-                            <i class="fas fa-chart-pie"></i>
-                        </span>
-                        <span class="menu-text">Báo cáo thống kê</span>
-                    </a>
-                </li>
-            </ul>
-        </div>*@
-
     </div>
 
     @Html.Partial("~/Areas/Task/Views/ProjectFilterParam/_ProjectFilterParamPartial.cshtml")

@@ -1,5 +1,6 @@
 ﻿using DaiPhatDat.Core.Kernel.Firebase.Models;
 using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
+using DaiPhatDat.Module.Task.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace DaiPhatDat.Module.Task.Services
         Task<TaskItemDto> GetById(Guid id);
         Task<TaskItemDto> GetNewTask(TaskItemDto dto);
         IReadOnlyList<Guid> GetTaskOfUserAssign(Guid id, Guid userId);
-        Task<SendMessageResponse> SaveAsync(TaskItemDto dto);
+        Task<SendMessageResponse> SaveAsync(TaskItemDto dto, TaskItemStatusId taskItemStatusId = TaskItemStatusId.New);
         Task<SendMessageResponse> DeleteTaskItem(TaskItemDto dto);
         Task<TaskItemDetailDto> RenderProjectTask(Guid Id, UserDto currentUser = default);
 

@@ -374,20 +374,22 @@ a {
 .contract-left {
     position: relative;
 }
-
+#tree-nav-TASK{
+	margin-top:30px;
+}
 .menu-sticky-zoon {
     position: absolute;
     right: 0;
-    top: 80px;
-    width: 42px;
+    top: 0;
+    left: 0;
+    height: 42px;
     list-style: none;
     margin: 0;
     z-index: 95;
     background: rgb(255 255 255 / 65%);
     padding: 5px;
     padding-top: 0;
-    border-radius: 6px 0 0 6px !important;
-    box-shadow: 0 0 20px 0 rgba(82,63,105,.1);
+    border-bottom: 1px #ddd solid;
 }
 
     .menu-sticky-zoon:hover {
@@ -402,8 +404,11 @@ a {
         width: 32px;
         height: 32px;
         margin-top: 5px;
+		margin-right: 5px;
         display: block;
         line-height: 28px;
+        float: left;
+		
     }
 
         .menu-sticky-zoon .btn.btn-icon i {
@@ -427,15 +432,15 @@ a {
     left: 20px;
 }
 
-    .sticky.dropdown .btn.btn-icon.btn-circle {
-        height: 50px;
-        width: 50px;
-        border-radius: 50% !important;
-    }
+.sticky.dropdown .btn.btn-icon.btn-circle {
+	height: 40px;
+	width: 40px;
+	border-radius: 50% !important;
+}
 
-    .sticky.dropdown .dropdown-menu a:hover span, .sticky.dropdown .dropdown-menu a:hover i {
-        color: #3598dc !important;
-    }
+.sticky.dropdown .dropdown-menu a:hover span, .sticky.dropdown .dropdown-menu a:hover i {
+	color: #3598dc !important;
+}
 /*****
     
 .sticky-toolbar {
@@ -1547,7 +1552,18 @@ div.jstree-default .jstree-node {
         transition: color .15s ease,background-color .15s ease,border-color .15s ease,box-shadow .15s ease,-webkit-box-shadow .15s ease;
     }
 
-        .menu-admin .row .col-md-3 a:hover span,
-        .menu-admin .row .col-md-3 a:hover span i {
-            color: #fff;
-        }
+.menu-admin .row .col-md-3 a:hover span,
+.menu-admin .row .col-md-3 a:hover span i {
+	color: #fff;
+}
+
+/**** task Dai Phat Dat ***/
+.brand-logo img{
+	height:34px;
+}
+div.jstree-default .jstree-node {
+    margin-left: 2px;
+}
+
+
+/** 11:59 PM 30/6 **/

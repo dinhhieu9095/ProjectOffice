@@ -168,6 +168,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Threading.Tasks" />
@@ -180,6 +183,12 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -245,8 +254,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\Enums.cs" />
     <Compile Include="Common\Utility.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ApisController.cs" />
     <Compile Include="Controllers\BaseTaskController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -315,6 +326,7 @@
     <Content Include="Content\angularjs\app\SurePortalApp.js" />
     <Content Include="Content\angularjs\controller\BaseCtrl.js" />
     <Content Include="Content\angularjs\controller\CalendarCtrl.js" />
+    <Content Include="Content\angularjs\controller\ReportAdminCtrl.js" />
     <Content Include="Content\angularjs\controller\ReportProjectCtrl.js" />
     <Content Include="Content\angularjs\controller\ReportOnePageCtrl.js" />
     <Content Include="Content\angularjs\controller\ReportWeeklyCtrl.js" />
@@ -698,6 +710,7 @@
     <Content Include="Content\angularjs\libs\js\ui-select2.js" />
     <Content Include="Content\angularjs\orgchartapp.js" />
     <Content Include="Content\angularjs\paging.js" />
+    <Content Include="Content\angularjs\services\ReportAdminService.js" />
     <Content Include="Content\angularjs\services\ReportService.js" />
     <Content Include="Content\angularjs\services\TaskItemDetailService.js" />
     <Content Include="Content\angularjs\services\ProjectDetailService.js" />
@@ -1348,63 +1361,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Report\Index.cshtml" />
-    <Content Include="Views\Report\PartialView\_Edit.cshtml" />
-    <Content Include="Views\SystemManagement\Index.cshtml" />
-    <Content Include="Views\Home\PartialView\_ProjectDetail.cshtml" />
-    <Content Include="Content\Templates\TemplateExportTaskV2Excel.xlsx" />
-    <Content Include="Content\Templates\TemplateProjectReport.xlsx" />
-    <Content Include="Content\Templates\TemplateProjectReportWeekly.xlsx" />
-    <Content Include="Content\Templates\TemplateReportOnePage.xlsx" />
-    <Content Include="Content\Templates\TemplateProjectReportDepartment.xlsx" />
-    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
-    <Content Include="Views\Home\AccessDenied.cshtml" />
-    <Content Include="Views\Project\TrackingUpdateDatabase.cshtml" />
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\Home\DemoForm.cshtml" />
-    <Content Include="Views\Home\PartialView\_TaskItemDetail.cshtml" />
-    <Content Include="Views\Home\PartialView\_ProcessTaskPartial.cshtml" />
-    <Content Include="Views\Report\PartialView\_FormSearch.cshtml" />
-    <Content Include="Views\Home\PartialView\_AppraiseTaskPartial.cshtml" />
-    <Content Include="Views\Home\PartialView\_AppraiseExtendTaskPartial.cshtml" />
-    <Content Include="Views\Report\ProjectReport.cshtml" />
-    <Content Include="Views\Home\PartialView\_EvictFinishTaskPartial.cshtml" />
-    <Content Include="Views\Home\PartialView\_ProcessProjectPartial.cshtml" />
-    <Content Include="Views\Report\ReportWeekly.cshtml" />
-    <Content Include="Views\Report\ReportOnePage.cshtml" />
-    <Content Include="Views\Report\ReportIframe.cshtml" />
-    <Content Include="Views\Home\_ViewTaskInMain.cshtml" />
-    <Content Include="Views\Home\NotFound.cshtml" />
-    <Content Include="Views\Home\PartialView\_TaskItemVS1.cshtml" />
-    <Content Include="Views\Home\PartialView\_TaskItemVS2.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Apis\" />
-    <Folder Include="Views\Main\" />
-    <Folder Include="Views\TaskItemAssign\" />
-    <Folder Include="Views\Task\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\angularjs\libs\bootstrap-toastr\README.md" />
-    <Content Include="Content\angularjs\libs\bootstrap-toastr\toastr.min.js.map" />
-    <Content Include="Content\angularjs\libs\js\ckeditor\CHANGES.md" />
-    <Content Include="Content\angularjs\libs\js\ckeditor\LICENSE.md" />
-    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\scayt\CHANGELOG.md" />
-    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\scayt\LICENSE.md" />
-    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\scayt\README.md" />
-    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\wsc\LICENSE.md" />
-    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\wsc\README.md" />
-    <Content Include="Content\angularjs\libs\js\ckeditor\README.md" />
-    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\htmlwriter\assets\outputforflash\outputforflash.fla" />
-    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\font\config.json" />
-    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\font\fontello.eot" />
-    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\font\fontello.ttf" />
-    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
-    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
-    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\readme.md" />
-    <Content Include="Content\angularjs\locales\validation\en.json" />
-    <Content Include="Content\angularjs\libs\js\jquery-1.10.2.min.map" />
     <Content Include="Content\Highcharts\css\annotations\popup.scss" />
     <Content Include="Content\Highcharts\css\highcharts.scss" />
     <Content Include="Content\Highcharts\css\stocktools\gui.scss" />
@@ -1491,23 +1447,83 @@
     <Content Include="Content\Highcharts\themes\sand-signika.js.map" />
     <Content Include="Content\Highcharts\themes\skies.js.map" />
     <Content Include="Content\Highcharts\themes\sunset.js.map" />
+    <Content Include="Content\Templates\TemplateExportTaskV2Excel.xlsx" />
+    <Content Include="Content\Templates\TemplateProjectReport.xlsx" />
+    <Content Include="Content\Templates\TemplateProjectReportDepartment.xlsx" />
+    <Content Include="Content\Templates\TemplateProjectReportWeekly.xlsx" />
+    <Content Include="Content\Templates\TemplateReportOnePage.xlsx" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Home\AccessDenied.cshtml" />
+    <Content Include="Views\Home\DemoForm.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\NotFound.cshtml" />
+    <Content Include="Views\Home\PartialView\_AddEditProjectPartial.cshtml" />
+    <Content Include="Views\Home\PartialView\_AddEditTaskPartial.cshtml" />
+    <Content Include="Views\Home\PartialView\_AddViewAdvanceFilter.cshtml" />
+    <Content Include="Views\Home\PartialView\_AppraiseExtendTaskPartial.cshtml" />
+    <Content Include="Views\Home\PartialView\_AppraiseTaskPartial.cshtml" />
+    <Content Include="Views\Home\PartialView\_EvictFinishTaskPartial.cshtml" />
+    <Content Include="Views\Home\PartialView\_ProcessProjectPartial.cshtml" />
+    <Content Include="Views\Home\PartialView\_ProcessTaskPartial.cshtml" />
+    <Content Include="Views\Home\PartialView\_ProjectDetail.cshtml" />
+    <Content Include="Views\Home\PartialView\_TaskItemDetail.cshtml" />
+    <Content Include="Views\Home\PartialView\_TaskItemVS1.cshtml" />
+    <Content Include="Views\Home\PartialView\_TaskItemVS2.cshtml" />
+    <Content Include="Views\Home\UserInfoHeader.cshtml" />
+    <Content Include="Views\Home\_ViewTaskInMain.cshtml" />
+    <Content Include="Views\ProjectFilterParam\_ProjectFilterParamPartial.cshtml" />
+    <Content Include="Views\Project\TrackingUpdateDatabase.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Report\PartialView\_Edit.cshtml" />
+    <Content Include="Views\Report\PartialView\_FormSearch.cshtml" />
+    <Content Include="Views\Report\ProjectReport.cshtml" />
+    <Content Include="Views\Report\ReportIframe.cshtml" />
+    <Content Include="Views\Report\ReportOnePage.cshtml" />
+    <Content Include="Views\Report\ReportWeekly.cshtml" />
+    <Content Include="Views\Report\UserReviewReport.cshtml" />
+    <Content Include="Views\Shared\_HeaderPartial.cshtml" />
+    <Content Include="Views\Shared\_LayoutTask.cshtml" />
+    <Content Include="Views\Shared\_LeftMenuPartial.cshtml" />
+    <Content Include="Views\Shared\_LeftMenuTaskPartial.cshtml" />
+    <Content Include="Views\Shared\_OrgChartModalPartial.cshtml" />
+    <Content Include="Views\Shared\_UserProfilePartial.cshtml" />
+    <Content Include="Views\SystemManagement\Index.cshtml" />
+    <Content Include="Views\Report\ReportAll.cshtml" />
+    <Content Include="Views\Report\PartialView\_FormSearchReport.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\Apis\" />
+    <Folder Include="Views\Main\" />
+    <Folder Include="Views\TaskItemAssign\" />
+    <Folder Include="Views\Task\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\angularjs\libs\bootstrap-toastr\README.md" />
+    <Content Include="Content\angularjs\libs\bootstrap-toastr\toastr.min.js.map" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\CHANGES.md" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\LICENSE.md" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\scayt\CHANGELOG.md" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\scayt\README.md" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\wsc\LICENSE.md" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\README.md" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\old\htmlwriter\assets\outputforflash\outputforflash.fla" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\font\config.json" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\font\fontello.eot" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\font\fontello.ttf" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
+    <Content Include="Content\angularjs\libs\js\ckeditor\skins\moono-lisa\readme.md" />
+    <Content Include="Content\angularjs\locales\validation\en.json" />
+    <Content Include="Content\angularjs\libs\js\jquery-1.10.2.min.map" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\Report\UserReviewReport.cshtml" />
-    <Content Include="Views\Shared\_LayoutTask.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\PartialView\_AddViewAdvanceFilter.cshtml" />
-    <Content Include="Views\Shared\_HeaderPartial.cshtml" />
-    <Content Include="Views\Shared\_LeftMenuPartial.cshtml" />
-    <Content Include="Views\Shared\_OrgChartModalPartial.cshtml" />
-    <Content Include="Views\Shared\_UserProfilePartial.cshtml" />
-    <Content Include="Views\Home\UserInfoHeader.cshtml" />
-    <Content Include="Views\Shared\_LeftMenuTaskPartial.cshtml" />
-    <Content Include="Views\Home\PartialView\_AddEditProjectPartial.cshtml" />
-    <Content Include="Views\Home\PartialView\_AddEditTaskPartial.cshtml" />
-    <Content Include="Views\ProjectFilterParam\_ProjectFilterParamPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\DaiPhatDat.Core.Kernel\DaiPhatDat.Core.Kernel.csproj">

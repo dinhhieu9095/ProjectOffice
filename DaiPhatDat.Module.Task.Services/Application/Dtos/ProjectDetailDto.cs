@@ -158,6 +158,7 @@ namespace DaiPhatDat.Module.Task.Services
 
         public List<UserReportInProjectDto> ProjectMembers { get; set; }
         public List<AttachmentDto> Attachments { get; set; }
+        public List<AttachmentDto> AttachmentChildren { get; set; }
     }
      
     public class EditTaskItemAssignDto

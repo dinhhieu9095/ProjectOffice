@@ -1,0 +1,100 @@
+﻿@using DaiPhatDat.Core.Kernel;
+
+<div class="content d-flex flex-column flex-column-fluid report" id="ReportAdminCtrl" ng-controller="ReportAdminCtrl" ng-cloak>
+    <div class="d-flex flex-column-fluid">
+        <div class="container px-9px">
+            <div class="card card-custom card-stretch">
+                <div class="card-header">
+                    <h3 class="card-title font-weight-bolder text-dark">@ViewBag.Title</h3>
+                    <div class="card-toolbar">
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    @Html.Action("FormSearchReport")
+                    <div class="col-md-12 report-project-task">
+                        <h3 class="show-hide-report">
+                            @ViewBag.Title
+                        </h3>
+                        <div class="report-project-task-content">
+                            <div class="row">
+                                <div class="col-md-12" id="report-pie-chart-status"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" id="report-pie-chart-proccess"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="detail-report-project" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@ResourceManagement.GetResourceText("Task.ProjectDetail.Tasks", "Công việc", "Tasks")</h5>
+                    <button type="button" ng-click="CloseTaskItem()" class="close" data-dismiss="modal">
+                        <i aria-hidden="true" class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="list-detail-task">
+                        <table class="table table-vertical-center">
+                            <thead>
+                                <tr>
+                                    <th style="width:50px">STT</th>
+                                    <th>@ResourceManagement.GetResourceText("Task.ProjectDetail.TaskName", "Tên công việc", "Task name")</th>
+                                    <th style="width:120px">@ResourceManagement.GetResourceText("Task.ProjectDetail.Tag", "Nhãn", "Tag")</th>
+                                    <th style="width:120px">@ResourceManagement.GetResourceText("Task.ProjectDetail.Status", "Trạng thái", "Status")</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in table">
+                                    <td class="task-num" style="text-align:center">
+                                        <span ng-bind-html="item.Index"></span>
+                                    </td>
+                                    <td class="task-name">
+                                        <a class="task-link" target="_blank" href="#" ng-bind-html="item.TaskName">
+                                        </a>
+                                        <span class="item-info">
+                                            <span class="item-time">{{ item.FromDateFormat }} - {{ item.ToDateFormat }}</span>
+                                            <span class="item-owner">
+                                                <img title="" class="img-circle" src="/feature/account/Avartar/{{item.AssingBy}}">{{item.AssignByFullName}} - {{item.JobTitleName}}
+                                            </span>
+                                        </span>
+                                    </td>
+                                    <td style="width:120px" class="task-tags">
+                                        <span ng-if="item.TaskItemCategories.length > 0" class="item-tags">
+                                            <a ng-repeat="cate in item.TaskItemCategories" href="#"><span>{{ cate }}</span></a>
+                                        </span>
+                                    </td>
+                                    <td style="width:120px" class="task-status">
+                                        <label class="label label-inline label-status progress-task {{item.Process}}">
+                                            {{item.StatusName}}
+                                            <span ng-if="item.PercentFinish != null && item.PercentFinish > 0" class="label-process"> ({{item.PercentFinish}}%)</span>
+                                        </label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal">
+                        @ResourceManagement.GetResourceText("Task.ProjectDetail.Close", "Đóng", "Close")
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+        });
+    </script>
+    <script src="~/Areas/Task/Content/angularjs/services/ReportAdminService.js"></script>
+    <script src="~/Areas/Task/Content/angularjs/controller/ReportAdminCtrl.js"></script>
+}

@@ -149,6 +149,7 @@ namespace DaiPhatDat.Module.Task.Web
         }
 
         public List<AttachmentModel> Attachments { get; set; }
+        public List<AttachmentModel> AttachmentChildren { get; set; }
         public List<TaskItemProcessHistoryModel> TaskItemProcessHistories { get; set; }
     }
 }
