@@ -154,55 +154,6 @@ namespace DaiPhatDat.Core.Kernel.Orgs.Application
         public IList<Guid> GetDirectManager(Guid userId, Guid jobTitleId)
         {
             return new List<Guid>();
-            //const string query = @"
-            //    WITH CTE
-            //    AS
-            //    (
-            //        SELECT
-            //            d.ID
-            //            , d.ParentID
-            //            , ud.UserID
-            //            , jt.ID AS JobTitleID
-            //            , jt.Code
-            //            , 1 as Lv
-            //            FROM Departments d
-            //            INNER JOIN UserDepartments ud ON ud.DeptID = d.id
-            //            INNER JOIN JobTitles jt ON jt.ID = ud.JobTitleID
-            //            WHERE d.IsActive = 1
-            //            AND ud.DeptID IN
-            //            (
-            //                SELECT DeptID
-            //                FROM UserDepartments
-            //                WHERE UserID = @UserID
-            //            )
-            //    UNION ALL
-            //    SELECT
-            //        d.ID
-            //        , d.ParentID
-            //        , ud.UserID
-            //        , jt.ID AS JobTitleID
-            //        , jt.Code
-            //        , (cte.Lv + 1 ) AS Lv
-            //        FROM Departments d
-            //        INNER JOIN UserDepartments ud ON ud.DeptID = d.ID
-            //        INNER JOIN JobTitles jt ON jt.ID = ud.JobTitleID
-            //        INNER JOIN cte ON cte.ParentID = d.ID
-            //    )
-
-            //    SELECT DISTINCT UserID, LV
-            //    FROM cte
-            //    WHERE JobTitleID = @JobTitleID
-            //    ORDER BY Lv";
-
-            //return unitOfWork
-            //    .GetContext<SurePortalContext>()
-            //    .Database
-            //    .SqlQuery<UserDirectManager>(query
-            //        , new SqlParameter("@UserID", userId)
-            //        , new SqlParameter("@JobTitleID", jobTitleId))
-            //    .Where(predicate => predicate.LV == 1)
-            //    .Select(selector => selector.UserID)
-            //    .ToList();
         }
 
         public IList<Guid> GetDirectManager(Guid userId)

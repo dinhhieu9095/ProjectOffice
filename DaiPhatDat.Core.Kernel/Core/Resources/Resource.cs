@@ -21,57 +21,6 @@ namespace DaiPhatDat.Core.Kernel
         public static string GetResourceText(string resourceID)
         {
             return resourceID;
-            //if (App.DicResources != null && App.DicResources.ContainsKey(resourceID))
-            //{
-            //    #region Get Language
-
-            //    string LANGUAGECODE = ((ClaimsIdentity)HttpContext.Current.User.Identity).Claims
-            //        .Where(x => x.Type == ClaimTypes.Country)
-            //        .Select(x => x.Value)
-            //        ?.FirstOrDefault();
-            //    LANGUAGECODE = string.IsNullOrEmpty(LANGUAGECODE) ? Constant.Language_Vietnamese : LANGUAGECODE;
-
-            //    #endregion
-
-            //    #region Get UserId
-
-            //    string USERID = ((ClaimsIdentity)HttpContext.Current.User.Identity).Claims
-            //        .Where(x => x.Type == ClaimTypes.Name)
-            //        .Select(x => x.Value)
-            //        ?.FirstOrDefault();
-            //    USERID = string.IsNullOrEmpty(USERID) ? Constant.Anonymous : USERID;
-
-            //    #endregion
-
-            //    var langCode = App.CacheProvider.GetLocalLanguage(USERID, LANGUAGECODE);
-            //    if (langCode == SurePortalLanguages.Vietnamese && !string.IsNullOrEmpty(App.DicResources[resourceID].ResourceText0))
-            //    {
-            //        return App.DicResources[resourceID].ResourceText0;
-            //    }
-            //    if (langCode == SurePortalLanguages.English && !string.IsNullOrEmpty(App.DicResources[resourceID].ResourceText1))
-            //    {
-            //        return App.DicResources[resourceID].ResourceText1;
-            //    }
-            //    if (langCode == SurePortalLanguages.French && !string.IsNullOrEmpty(App.DicResources[resourceID].ResourceText2))
-            //    {
-            //        return App.DicResources[resourceID].ResourceText2;
-            //    }
-            //    if (langCode == SurePortalLanguages.Chinese && !string.IsNullOrEmpty(App.DicResources[resourceID].ResourceText3))
-            //    {
-            //        return App.DicResources[resourceID].ResourceText3;
-            //    }
-            //    if (langCode == SurePortalLanguages.Japanese && !string.IsNullOrEmpty(App.DicResources[resourceID].ResourceText4))
-            //    {
-            //        return App.DicResources[resourceID].ResourceText4;
-            //    }
-            //    if (langCode == SurePortalLanguages.Russian && !string.IsNullOrEmpty(App.DicResources[resourceID].ResourceText5))
-            //    {
-            //        return App.DicResources[resourceID].ResourceText5;
-            //    }
-            //}
-            //return !string.IsNullOrEmpty(App.DicResources[resourceID].ResourceText0)
-            //    ? App.DicResources[resourceID].ResourceText0
-            //    : resourceID.Split('.')[resourceID.Split('.').Length - 1];
         }
         public static string GetResourceText(string resourceID, string defaultTextVie)
         {

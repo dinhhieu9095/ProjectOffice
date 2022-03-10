@@ -8,7 +8,7 @@ namespace DaiPhatDat.Module.Task.Entities
     public partial class TaskContext : Context, IContext
     {
         public TaskContext()
-            : base("name=SurePortalDbContext")
+            : base("name=VanPhongDienTuDbContext")
         {
             // when loading entity, you should you Include method for every navigation properties you need
             Configuration.LazyLoadingEnabled = false;

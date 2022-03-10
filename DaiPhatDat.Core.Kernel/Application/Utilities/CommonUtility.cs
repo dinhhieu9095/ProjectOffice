@@ -14,7 +14,7 @@ namespace DaiPhatDat.Core.Kernel
                   (() => new CommonUtility());
         public static CommonUtility Instance { get { return lazy.Value; } }
 
-        public const string ConnectionSQLString = "SurePortalDbContext";
+        public const string ConnectionSQLString = "VanPhongDienTuDbContext";
 
         private const string Pattern = @"\p{IsCombiningDiacriticalMarks}+";
         public static string ToUnsignString(string input)
