@@ -20,7 +20,7 @@ namespace DaiPhatDat.Core.Kernel.Application
                 }
                 if (string.IsNullOrEmpty(_rootFolderPath))
                 {
-                    _rootFolderPath = ConfigurationManager.AppSettings["SurePortalFolder"];
+                    _rootFolderPath = ConfigurationManager.AppSettings["VanPhongDienTuFolder"];
                 }
                 if (string.IsNullOrEmpty(_rootFolderPath))
                 {

@@ -14,7 +14,7 @@ namespace DaiPhatDat.WebHost.Controllers
         {
             return MobileResponse<List<string>>.Create(MobileStatusCode.Success,
                 "", new List<string>() {
-                SurePortalModules.BW.ToString()
+                VanPhongDienTuModules.BW.ToString()
                 });
         }
     }

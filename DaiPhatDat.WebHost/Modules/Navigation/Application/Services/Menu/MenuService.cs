@@ -103,7 +103,7 @@ namespace DaiPhatDat.WebHost.Navigation.Application
         }
 
 
-        public List<MenuPagingDto> GetTreeMenu(SurePortalModules module, string code)
+        public List<MenuPagingDto> GetTreeMenu(VanPhongDienTuModules module, string code)
         {
             try
             {

@@ -193,7 +193,7 @@
     <Content Include="Content\js\jstree\themes\default\throbber.gif" />
     <Content Include="Content\js\notify.js" />
     <Content Include="Content\js\select2.full.min.js" />
-    <Content Include="Content\js\sureportal.common.js" />
+    <Content Include="Content\js\vanphongdientu.common.js" />
     <Content Include="Content\metronic\css\custom.css" />
     <Content Include="Content\metronic\css\datatables.bundle.css" />
     <Content Include="Content\metronic\css\fonts\fa-brands-400.svg" />

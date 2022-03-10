@@ -14,7 +14,7 @@ namespace DaiPhatDat.Core.Kernel.Firebase.Application
 {
     public class FirebaseServices : IFirebaseService
     {
-        private static string _serviceAccountKeyFile = AppDomain.CurrentDomain.BaseDirectory + "\\sureportal-office-firebase-key.json";
+        private static string _serviceAccountKeyFile = AppDomain.CurrentDomain.BaseDirectory + "\\vanphongdientu-office-firebase-key.json";
         private readonly IUserDeviceServices _userDeviceServices;
         private readonly ILoggerServices _loggerServices;
         private static FirebaseApp _firebaseDefaultApp;

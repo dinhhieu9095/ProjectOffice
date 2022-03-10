@@ -14,11 +14,11 @@ namespace DaiPhatDat.Core.Kernel.Firebase.Models
         public string Title { get; private set; }
         public string Body { get; private set; }
         public string ImageUrl { get; private set; }
-        public SurePortalModules Module { get; private set; }
+        public VanPhongDienTuModules Module { get; private set; }
         public ActionType Action { get; private set; }
         public Dictionary<string, string> CustomData { get; private set; }
         public static SendMessageData CreateDisplayMessage(string title, string body, string imageUrl,
-            SurePortalModules module, Guid? objectId = null)
+            VanPhongDienTuModules module, Guid? objectId = null)
         {
             var message = new SendMessageData()
             {
@@ -39,7 +39,7 @@ namespace DaiPhatDat.Core.Kernel.Firebase.Models
         }
 
         public static SendMessageData CreateSyncDataMessage(string body, string imageUrl,
-            SurePortalModules module, Guid? objectId = null)
+            VanPhongDienTuModules module, Guid? objectId = null)
         {
             var message = new SendMessageData()
             {

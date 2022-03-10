@@ -323,7 +323,7 @@
     <Content Include="Content\angularjs\angular-chosen.min.js" />
     <Content Include="Content\angularjs\angular-sanitize.min.js" />
     <Content Include="Content\angularjs\angular.min.js" />
-    <Content Include="Content\angularjs\app\SurePortalApp.js" />
+    <Content Include="Content\angularjs\app\VanPhongDienTuApp.js" />
     <Content Include="Content\angularjs\controller\BaseCtrl.js" />
     <Content Include="Content\angularjs\controller\CalendarCtrl.js" />
     <Content Include="Content\angularjs\controller\ReportAdminCtrl.js" />

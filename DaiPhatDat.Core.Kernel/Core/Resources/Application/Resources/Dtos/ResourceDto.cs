@@ -15,7 +15,7 @@ namespace DaiPhatDat.Core.Kernel.Resources.Application.Dto
             this.CreateDate = DateTime.Now;
         }
         public string ResourceID { get; set; }
-        public Nullable<SurePortalModules> Module { get; set; }
+        public Nullable<VanPhongDienTuModules> Module { get; set; }
         public string Function { get; set; }
         public string ResourceText0 { get; set; }
         public string DefaultText0 { get; set; }

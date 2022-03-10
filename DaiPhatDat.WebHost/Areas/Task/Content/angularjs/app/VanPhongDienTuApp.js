@@ -1,6 +1,6 @@
 ﻿var app;
 (function () {
-    app = angular.module("sureportalapp"
+    app = angular.module("vanphongdientuapp"
         , ['ngSanitize'
             , 'toastr'
             , 'ui.bootstrap'

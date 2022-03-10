@@ -103,8 +103,8 @@
     <Compile Include="Domain\Entity.cs" />
     <Compile Include="Domain\IAggregateRoot.cs" />
     <Compile Include="Domain\IEntity.cs" />
-    <Compile Include="Domain\ValueObjects\SurePortalLanguages.cs" />
-    <Compile Include="Domain\ValueObjects\SurePortalModules.cs" />
+    <Compile Include="Domain\ValueObjects\VanPhongDienTuLanguages.cs" />
+    <Compile Include="Domain\ValueObjects\VanPhongDienTuModules.cs" />
     <Compile Include="Domain\ValueObjects\Enumeration.cs" />
     <Compile Include="Domain\ValueObjects\ValueObject.cs" />
     <Compile Include="ExternalServices\SmsGateway.cs" />

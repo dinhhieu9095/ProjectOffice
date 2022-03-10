@@ -38,7 +38,7 @@ namespace DaiPhatDat.Module.Task.Web
                 "~/Areas/Task/Content/angularjs/libs/js/pbkdf2.js",
                 "~/Areas/Task/Content/angularjs/libs/js/angular.dcb-img-fallback.min.js",
                 "~/Areas/Task/Content/angularjs/Tables/angular-scrollable-table.js",
-                "~/Areas/Task/Content/angularjs/app/SurePortalApp.js",
+                "~/Areas/Task/Content/angularjs/app/VanPhongDienTuApp.js",
                  "~/Areas/Task/Content/angularjs/directives/validate.js",
                 "~/Areas/Task/Content/angularjs/directives/icheck.js",
                 "~/Areas/Task/Content/angularjs/directives/rw-money-mask.js",

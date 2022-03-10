@@ -186,7 +186,7 @@ app.controller("ReportManagementCtrl", function ($scope, $controller, $q, Report
 
         initOrgUser: function () {
             $scope.showLoading(null);
-            surePortalCommon.initJstreeCheckBox($scope.reportCommon.filterOrgChart);
+            vanPhongDienTuCommon.initJstreeCheckBox($scope.reportCommon.filterOrgChart);
             $scope.hideLoading();
         },
 

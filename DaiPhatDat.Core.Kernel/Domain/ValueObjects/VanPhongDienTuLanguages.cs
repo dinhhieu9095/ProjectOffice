@@ -1,7 +1,7 @@
 ﻿
 namespace DaiPhatDat.Core.Kernel.Domain.ValueObjects
 {
-    public enum SurePortalLanguages
+    public enum VanPhongDienTuLanguages
     {
         Vietnamese = 0,
         English = 1,

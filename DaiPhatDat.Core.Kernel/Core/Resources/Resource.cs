@@ -163,7 +163,7 @@ namespace DaiPhatDat.Core.Kernel
     }
     public class ResourceCache : Cache
     {
-        public bool SetLocalLanguage(SurePortalLanguages languageCode, string userId)
+        public bool SetLocalLanguage(VanPhongDienTuLanguages languageCode, string userId)
         {
             string key = (Cache_LocalLanguage + userId).ToUpper();
             if (MemoryCache.Default.Contains(key))
@@ -176,7 +176,7 @@ namespace DaiPhatDat.Core.Kernel
             }
             return true;
         }
-        public SurePortalLanguages GetLocalLanguage(string userId, string languageCode)
+        public VanPhongDienTuLanguages GetLocalLanguage(string userId, string languageCode)
         {
             try
             {
@@ -184,16 +184,16 @@ namespace DaiPhatDat.Core.Kernel
                 object item = MemoryCache.Default.Get(key);
                 if (item == null)
                 {
-                    return (languageCode == Language_Vietnamese) ? SurePortalLanguages.Vietnamese : SurePortalLanguages.English;
+                    return (languageCode == Language_Vietnamese) ? VanPhongDienTuLanguages.Vietnamese : VanPhongDienTuLanguages.English;
                 }
                 else
                 {
-                    return (SurePortalLanguages)item;
+                    return (VanPhongDienTuLanguages)item;
                 }
             }
             catch
             {
-                return SurePortalLanguages.Vietnamese;
+                return VanPhongDienTuLanguages.Vietnamese;
             }
         }
         /// <summary>

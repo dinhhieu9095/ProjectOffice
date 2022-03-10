@@ -15,7 +15,7 @@ app.controller("HomeCtrl", function ($scope, $controller, $q, $timeout, HomeServ
     };
     $scope.GetTreeFolderGroup = function () {
         $scope.showLoading(null);
-        surePortalCommon.initJstree($scope.filter);
+        vanPhongDienTuCommon.initJstree($scope.filter);
         $scope.hideLoading();
     }
     $scope.init = function () {

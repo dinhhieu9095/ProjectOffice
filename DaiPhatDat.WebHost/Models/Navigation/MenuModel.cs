@@ -53,19 +53,19 @@ namespace DaiPhatDat.WebHost.Models.Navigation
                 {
                     switch (TypeModule)
                     {
-                        case SurePortalModules.Org:
+                        case VanPhongDienTuModules.Org:
                             _display = "Sơ đồ tổ chức";
                             break;
-                        case SurePortalModules.BW:
+                        case VanPhongDienTuModules.BW:
                             _display = "Trình ký điện tử";
                             break;
-                        case SurePortalModules.Doc:
+                        case VanPhongDienTuModules.Doc:
                             _display = "Quản lý văn bản";
                             break;
-                        case SurePortalModules.Contract:
+                        case VanPhongDienTuModules.Contract:
                             _display = "Quản lý hợp đồng";
                             break;
-                        case SurePortalModules.Workspace:
+                        case VanPhongDienTuModules.Workspace:
                             _display = "Môi trường làm việc";
                             break;
                         default:
@@ -161,7 +161,7 @@ namespace DaiPhatDat.WebHost.Models.Navigation
         public Guid? ParentId { get; set; }
         public Guid? NavNodeId { get; set; }
         [Display(Name = "Nhóm Module")]
-        public SurePortalModules? TypeModule { get; set; }
+        public VanPhongDienTuModules? TypeModule { get; set; }
         [Display(Name = "Giao diện")]
         public string Layout { get; set; }
         [Display(Name = "Quyền hiển thị")]

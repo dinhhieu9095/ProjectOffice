@@ -562,7 +562,7 @@
     }
     $scope.ChooseUser = function () {
         $scope.showLoading(null);
-        surePortalCommon.initJstreeCheckBox($scope.filterOrg);
+        vanPhongDienTuCommon.initJstreeCheckBox($scope.filterOrg);
         $scope.hideLoading();
     }
     // --------------

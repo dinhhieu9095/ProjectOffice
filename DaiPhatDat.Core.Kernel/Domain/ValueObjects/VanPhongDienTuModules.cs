@@ -1,7 +1,7 @@
 ﻿
 namespace DaiPhatDat.Core.Kernel.Domain.ValueObjects
 {
-    public enum SurePortalModules
+    public enum VanPhongDienTuModules
     {
         /// <summary>
         /// Sơ đồ tổ chức

@@ -1,7 +1,7 @@
 ﻿/**
  * các function js dùng chung
  * */
-var surePortalCommon = {
+var vanPhongDienTuCommon = {
     /**
      * khởi tạo cây menu
      * 

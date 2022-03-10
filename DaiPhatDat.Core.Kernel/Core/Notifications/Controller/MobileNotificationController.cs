@@ -103,7 +103,7 @@ namespace DaiPhatDat.Core.Kernel.Notifications.Controller
 
         [Route("test-display-firebase")]
         [HttpPost]
-        public async Task<MobileResponse<SendMessageResponse>> TestDisplayFirebase(SurePortalModules module,
+        public async Task<MobileResponse<SendMessageResponse>> TestDisplayFirebase(VanPhongDienTuModules module,
             string title, string body,
             string imageUrl)
         {
@@ -124,7 +124,7 @@ namespace DaiPhatDat.Core.Kernel.Notifications.Controller
 
         [Route("test-syncdata-firebase")]
         [HttpPost]
-        public async Task<MobileResponse<SendMessageResponse>> TestSyncDataFirebase(SurePortalModules module,
+        public async Task<MobileResponse<SendMessageResponse>> TestSyncDataFirebase(VanPhongDienTuModules module,
             string body, string imageUrl, Guid? objectId)
         {
             try

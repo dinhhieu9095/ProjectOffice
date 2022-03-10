@@ -1348,12 +1348,12 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
     $scope.ChooseUser = function (type) {
         $scope.showLoading(null);
         if (type == 'TaskItem') {
-            surePortalCommon.initJstreeCheckBox($scope.filterOrgForTask);
+            vanPhongDienTuCommon.initJstreeCheckBox($scope.filterOrgForTask);
         } else
             if (type == 'AssignBy') {
-                surePortalCommon.initJstreeCheckBox($scope.filterOrgForAssignBy);
+                vanPhongDienTuCommon.initJstreeCheckBox($scope.filterOrgForAssignBy);
             } else {
-                surePortalCommon.initJstreeCheckBox($scope.filterOrg);
+                vanPhongDienTuCommon.initJstreeCheckBox($scope.filterOrg);
             }
         $scope.hideLoading();
     }

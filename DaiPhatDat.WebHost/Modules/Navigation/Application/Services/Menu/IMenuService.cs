@@ -12,7 +12,7 @@ namespace DaiPhatDat.WebHost.Modules.Navigation.Application.Services
     {
         IQueryable<Menu> GetAll();
         Task<Tuple<int, IReadOnlyList<MenuPagingDto>>> GetPagingAsync(SearchMenuDto dto);
-        List<MenuPagingDto> GetTreeMenu(SurePortalModules module, string code);
+        List<MenuPagingDto> GetTreeMenu(VanPhongDienTuModules module, string code);
         List<MenuPagingDto> GetTreeMenu(string code);
         Task<MenuDto> GetByIdAsync(Guid id);
         Task<MenuDto> AddAsync(MenuDto dto);
