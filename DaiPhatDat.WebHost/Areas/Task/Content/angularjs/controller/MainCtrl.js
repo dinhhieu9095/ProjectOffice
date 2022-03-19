@@ -1035,9 +1035,6 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                                 return query;
                             },
                             processResults: function (data) {
-                                if (data.length > 0) {
-
-                                }
                                 var items = [];
                                 for (var i = 0; i < data.length; i++) {
                                     var item = {
@@ -1125,11 +1122,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                         $('#ToDateText').focus();
                         validate = false;
                     } else
-                        //if ($scope.Project.ProjectTypeId === '' || $scope.Project.ProjectTypeId === undefined) {
-                        //    toastr.error('Vui lòng nhập loại công việc', 'Thông báo');
-                        //    $('#ProjectTypeId').focus();
-                        //    validate = false;
-                        //} else
+                        
                         if ($scope.Project.ProjectPriorityId === '' || $scope.Project.ProjectPriorityId === undefined) {
                             toastr.error('Vui lòng nhập mức đô quan trọng', 'Thông báo');
                             $('#ProjectPriorityId').focus();
@@ -1257,9 +1250,6 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
         $('#ProjectCategory').select2('destroy');
         $('#ProjectCategory').val(null);
         $("#ProjectCategory option").remove();
-        $('#ProjectAdminCategory').select2('destroy');
-        $('#ProjectAdminCategory').val(null);
-        $("#ProjectAdminCategory option").remove();
         $('#AddEditProject').modal('hide');
     }
     $scope.DeleteProjectMember = function (idx, container) {
@@ -1830,6 +1820,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                         Summary: '-- Chọn phân loại --'
                     }];
                     $scope.AdminCategories = $scope.AdminCategories.concat(rs[3].data);
+                    $scope.TaskItem.AdminCategoryId = guidEmpty;
                     $scope.TaskItemAssignTemps = [];
                     angular.copy($scope.TaskItem.TaskItemAssigns, $scope.TaskItemAssignTemps);
                     $scope.TaskItem.TaskItemPriorityId = $scope.TaskItemPriorities[0].Id;
@@ -2280,9 +2271,6 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
         $('#TaskCategory').val(null);
         $("#TaskCategory option").remove();
 
-        $('#TaskAdminCategory').select2('destroy');
-        $('#TaskAdminCategory').val(null);
-        $("#TaskAdminCategory option").remove();
         $('#AddEditTaskItem').modal('hide');
     }
     $scope.ChangeAssignType = function (idx, container) {

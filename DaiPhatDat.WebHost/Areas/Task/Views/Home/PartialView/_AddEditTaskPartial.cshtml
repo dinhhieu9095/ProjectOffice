@@ -102,7 +102,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>@ResourceManagement.GetResourceText("Task.Home.Category", "Phân loại", "Categories")</label>
-                                    <select class="form-control" ng-model="TaskItem.AdminCategoryId" id="TaskAdminCategory" name="TaskAdminCategory" ng-options="item.Id as item.Sumary for item in AdminCategories track by item.id"></select>
+                                    <select ui-select2 ng-model="TaskItem.AdminCategoryId" id="TaskAdminCategory" ng-options="item.Id as item.Summary for item in AdminCategories"></select>
                                 </div>
                             </div>
 

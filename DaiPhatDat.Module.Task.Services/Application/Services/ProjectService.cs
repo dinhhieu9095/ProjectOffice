@@ -478,7 +478,7 @@ namespace DaiPhatDat.Module.Task.Services
                         _attachmentRepository.DeleteRange(attachDels);
                     }
                     await scope.SaveChangesAsync();
-                    if (dto.AdminCategoryId.HasValue)
+                    if (dto.AdminCategoryId.HasValue && dto.AdminCategoryId != Guid.Empty)
                     {
                         var param = new List<SqlParameter>();
                         param.Add(new SqlParameter()
@@ -491,7 +491,7 @@ namespace DaiPhatDat.Module.Task.Services
                         param.Add(new SqlParameter()
                         {
                             SqlDbType = SqlDbType.UniqueIdentifier,
-                            ParameterName = "@TaskId",
+                            ParameterName = "@ParentId",
                             IsNullable = true,
                             Value = DBNull.Value
                         });
@@ -502,7 +502,14 @@ namespace DaiPhatDat.Module.Task.Services
                             IsNullable = false,
                             Value = dto.Id
                         });
-                        await _objectRepository.SqlQueryAsync(typeof(TaskItemDto), "[dbo].[SP_ADMIN_CATEGORY_CLONE_TASK] @AdminCategoryId, @TaskId, @ProjectId", param.ToArray());
+                        param.Add(new SqlParameter()
+                        {
+                            SqlDbType = SqlDbType.UniqueIdentifier,
+                            ParameterName = "@CurrentUserId",
+                            IsNullable = false,
+                            Value = dto.ModifiedBy
+                        });
+                        await _objectRepository.SqlQueryAsync(typeof(TaskItemDto), "[dbo].[SP_ADMIN_CATEGORY_CLONE_TASK] @AdminCategoryId, @ProjectId, @ParentId, @CurrentUserId", param.ToArray());
                     }
                 }
                 sendMessage = SendMessageResponse.CreateSuccessResponse(string.Empty);

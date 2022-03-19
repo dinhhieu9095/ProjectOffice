@@ -8,7 +8,7 @@
             , 'ui.date'
             , 'object-to-form-data',
         'dcbImgFallback',
-        //'ui.select2',
+            'ui.select2',
         'scrollable-table',
      'localytics.directives',
         'bw.paging',

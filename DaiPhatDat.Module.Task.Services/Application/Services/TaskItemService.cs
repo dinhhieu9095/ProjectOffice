@@ -72,6 +72,8 @@ namespace DaiPhatDat.Module.Task.Services
                     var users = _userServices.GetUsers();
                     var userDepartments = await _userDepartmentServices.GetCachedUserDepartmentDtos();
                     dto = _mapper.Map<TaskItemDto>(entity);
+                    if(!dto.AdminCategoryId.HasValue)
+                        dto.AdminCategoryId = Guid.Empty;
                     if (!string.IsNullOrEmpty(dto.TaskItemCategory))
                     {
                         dto.TaskItemCategories = dto.TaskItemCategory.Split(';').ToList();
@@ -525,7 +527,7 @@ namespace DaiPhatDat.Module.Task.Services
                         });
                         await _objectRepository.SqlQueryAsync(typeof(ProjectDto), "[dbo].[SP_UPDATE_TASK_RANGE_DATE] @ProjectId, @TaskId, @FromDate, @ToDate, @IsUpdateStatus", param.ToArray());
                     }
-                    if (dto.AdminCategoryId.HasValue)
+                    if (dto.AdminCategoryId.HasValue && dto.AdminCategoryId != Guid.Empty)
                     {
                         var param = new List<SqlParameter>();
                         param.Add(new SqlParameter()
@@ -538,7 +540,7 @@ namespace DaiPhatDat.Module.Task.Services
                         param.Add(new SqlParameter()
                         {
                             SqlDbType = SqlDbType.UniqueIdentifier,
-                            ParameterName = "@TaskId",
+                            ParameterName = "@ParentId",
                             IsNullable = false,
                             Value = dto.Id
                         });
@@ -549,7 +551,14 @@ namespace DaiPhatDat.Module.Task.Services
                             IsNullable = false,
                             Value = dto.ProjectId
                         });
-                        await _objectRepository.SqlQueryAsync(typeof(TaskItemDto), "[dbo].[SP_ADMIN_CATEGORY_CLONE_TASK] @AdminCategoryId, @TaskId, @ProjectId", param.ToArray());
+                        param.Add(new SqlParameter()
+                        {
+                            SqlDbType = SqlDbType.UniqueIdentifier,
+                            ParameterName = "@CurrentUserId",
+                            IsNullable = false,
+                            Value = dto.ModifiedBy
+                        });
+                        await _objectRepository.SqlQueryAsync(typeof(TaskItemDto), "[dbo].[SP_ADMIN_CATEGORY_CLONE_TASK] @AdminCategoryId, @ProjectId, @ParentId, @CurrentUserId", param.ToArray());
                     }
                 }
                 sendMessage = SendMessageResponse.CreateSuccessResponse(string.Empty);
