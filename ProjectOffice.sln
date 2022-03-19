@@ -20,9 +20,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaiPhatDat.Module.Task.Web", "DaiPhatDat.WebHost\Areas\Task\DaiPhatDat.Module.Task.Web.csproj", "{BBACC4EE-4DF4-4C8A-AB64-652F328B5078}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{EEB2A4C0-0DA2-4683-9C6B-EE4DE6E559A4}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\Users\dinhh\Desktop\db.sql = ..\..\Users\dinhh\Desktop\db.sql
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

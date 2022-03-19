@@ -1349,6 +1349,7 @@
     <Content Include="Content\Highcharts\themes\sunset.js" />
     <Content Include="Content\Highcharts\themes\sunset.src.js" />
     <Content Include="Global.asax" />
+    <Content Include="StoreProcedure\db.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1498,7 +1499,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="StoreProcedure\" />
     <Folder Include="Views\Apis\" />
     <Folder Include="Views\Main\" />
     <Folder Include="Views\TaskItemAssign\" />
