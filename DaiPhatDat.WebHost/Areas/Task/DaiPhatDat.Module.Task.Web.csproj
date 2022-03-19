@@ -268,6 +268,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdminCategoryModel.cs" />
     <Compile Include="Models\TaskDetailModel.cs" />
     <Compile Include="Models\QueryCommonModel.cs" />
     <Compile Include="Models\ProjectCategoryModel.cs" />
@@ -322,6 +323,7 @@
     <Content Include="Content\angularjs\app\VanPhongDienTuApp.js" />
     <Content Include="Content\angularjs\controller\BaseCtrl.js" />
     <Content Include="Content\angularjs\controller\CalendarCtrl.js" />
+    <Content Include="Content\angularjs\controller\AdminCategoryCtrl.js" />
     <Content Include="Content\angularjs\controller\ReportAdminCtrl.js" />
     <Content Include="Content\angularjs\controller\ReportProjectCtrl.js" />
     <Content Include="Content\angularjs\controller\ReportOnePageCtrl.js" />
@@ -706,6 +708,7 @@
     <Content Include="Content\angularjs\libs\js\ui-select2.js" />
     <Content Include="Content\angularjs\orgchartapp.js" />
     <Content Include="Content\angularjs\paging.js" />
+    <Content Include="Content\angularjs\services\AdminCategoryService.js" />
     <Content Include="Content\angularjs\services\ReportAdminService.js" />
     <Content Include="Content\angularjs\services\ReportService.js" />
     <Content Include="Content\angularjs\services\TaskItemDetailService.js" />
@@ -1486,6 +1489,12 @@
     <Content Include="Views\SystemManagement\Index.cshtml" />
     <Content Include="Views\Report\ReportAll.cshtml" />
     <Content Include="Views\Report\PartialView\_FormSearchReport.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\_ViewTaskInMain.cshtml" />
+    <Content Include="Views\Admin\PartialView\_AddEditProjectPartial.cshtml" />
+    <Content Include="Views\Admin\PartialView\_AddEditTaskPartial.cshtml" />
+    <Content Include="Views\Admin\PartialView\_TaskItemDetail.cshtml" />
+    <Content Include="Views\Admin\PartialView\_TaskItemVS1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

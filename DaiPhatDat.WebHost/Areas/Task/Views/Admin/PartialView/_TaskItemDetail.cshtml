@@ -1,0 +1,275 @@
+﻿@using DaiPhatDat.Core.Kernel;
+<script src="~/Areas/Task/Content/angularjs/services/TaskItemDetailService.js"></script>
+<script src="~/Areas/Task/Content/angularjs/controller/TaskItemDetailCtrl.js"></script>
+
+<div id="modal-task-detail" style="display: none">
+    <div class="documentDetail p-5">
+        <div class="form-horizontal" id="MainDocumentDetails">
+            <div>
+                <div class="lv-detailCont dl-tracking-detail" id="documentdetail-detailCont">
+                    <input id="projectId" type="hidden" value="{{ taskItem.item.ProjectId }}" />
+                    <input id="taskItemId" type="hidden" value="{{ taskItem.item.TaskItemId }}" />
+                    <div class="lv-detailCont-in">
+                        <div>
+                            <div class="font-weight-bold">
+                                <h3>{{ taskItem.item.TaskItemName }}</h3>
+                            </div>
+                        </div>
+                        <div class="lv-detailInfo">
+                            <div class="detail-block detail-block-relative">
+                                <span ng-if="taskItem.item.AssignByFullName != null && taskItem.item.AssignByFullName != ''" class="dl-label-color float-left dl-p-r-5" style="clear: both">@ResourceManagement.GetResourceText("Task.TaskDetail.AssignBy", "Giao bởi", "Assign By"):</span>
+                                <span ng-if="taskItem.item.AssignByFullName != null && taskItem.item.AssignByFullName != ''" class="dl-label float-left dl-p-r-5">{{ taskItem.item.AssignByFullName }} - {{ taskItem.item.AssignByJobTitleName }} </span>
+                                <span ng-if="taskItem.item.TaskItemFromDateFormat != null && taskItem.item.TaskItemFromDateFormat != ''" class="dl-label dl-label-color float-left dl-p-r-5"> @ResourceManagement.GetResourceText("Task.TaskDetail.From", "Từ", "From"):</span>
+                                <span ng-if="taskItem.item.TaskItemFromDateFormat != null && taskItem.item.TaskItemFromDateFormat != ''" class="dl-label float-left">{{ taskItem.item.TaskItemFromDateFormat }}</span>
+                                <div class="detail-block detail-block-absolute">
+                                    <div ng-if="taskItem.item.IsGroupLabel != true" class="pull-right">
+                                        <label class="label label-inline label-status progress-task {{taskItem.item.Process}}">
+                                            {{taskItem.item.TaskItemStatusName}}
+                                            <span ng-if="taskItem.item.PercentFinish != null && taskItem.item.PercentFinish > 0" class="label-process"> ({{taskItem.item.PercentFinish}}%)</span>
+                                        </label>
+                                    </div>
+                                    
+                                    <span ng-if="taskItem.item.IsSecurity != null && taskItem.item.IsSecurity == true" class="float-right btn-circle status-value dl-p-r-5 {{taskItem.item.StatusColor}}">@ResourceManagement.GetResourceText("Task.TaskDetail.TaskSecurity", "Công việc bảo mật", "Task security")</span>
+                                </div>
+                            </div>
+                            <div ng-if="taskItem.item.TaskItemParentName != null && taskItem.item.TaskItemParentName != ''" class="detail-block">
+                                <span class="dl-label-color float-left">@ResourceManagement.GetResourceText("Task.TaskDetail.TaskParent", "Công việc cha", "Task parent"):</span>
+                                <span class="dl-label float-left">
+                                    <a class="task-item-parent-anchor" data-project-id="{{ taskItem.item.ProjectId }}" data-task-item-parent-id="{{ taskItem.item.TaskItemParentId }}" href="javascript:;">{{taskItem.item.TaskItemParentName}}</a>
+                                </span>
+                            </div>
+                            <div class="detail-block" ng-if="taskItem.item.TaskItemPriorityId != 0">
+                                <span class="dl-label-color float-left dl-p-r-5">@ResourceManagement.GetResourceText("Task.TaskDetail.Priority", "Mức độ quan trọng", "Priority"):</span>
+                                <b class="dl-label float-left">{{ taskItem.item.TaskItemPriorityName }}</b> @*Html.Localize("TaskItemPriorityId." + Model.TaskItemPriorityId)*@
+                            </div>
+                            <div ng-if="taskItem.countAttachTask > 0" class="table-responsive">
+                                <div class="text-black text-bold pr-2 pull-left dl-label-color attachment-down">
+                                    @ResourceManagement.GetResourceText("Task.TaskItemDetail.Documents", "Tài liệu", "Documents"):
+                                    <span ng-repeat="attachment in taskItem.item.Attachments | filter: { Source: 1}" class="">
+                                        <a class="file-name" target="_blank" href="~/Task/Project/DownloadFileTrackingWorkflowDocument?fileTrackingWorkflowDocumentID={{attachment.Id}}&deptID=00000000-0000-0000-0000-000000000000" ng-click="attachment.openPreviewFileTrackingModel(attachment.Id)" title="{{attachment.FileName}}">{{attachment.FileName}} ({{attachment.FileSize}}) <i class="fas fa-arrow-down"></i></a> <span class="spliter">|</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div id="collapseTaskDetail" class="more-content collapse" data-parent="#accordionTask">
+                                <div class="detail-block">
+                                    <span class="dl-label-color float-left">@ResourceManagement.GetResourceText("Task.TaskDetail.ProjectName", "Tên dự án", "Project name"): <span class="item-project-name">{{ taskItem.item.ProjectSummary }}</span></span>
+                                </div>
+                                <div ng-if="taskItem.item.TaskItemConclusion" class="detail-block detail-noidung">
+                                    <span class="dl-label-color float-left">@ResourceManagement.GetResourceText("Task.TaskDetail.Content", "Nội dung", "Content"): <span class="item-content">{{ taskItem.item.TaskItemConclusion }}</span> </span>
+                                    <span class="icon-xemthem" style="display:none">...</span>
+                                </div>
+                                <div ng-if="taskItem.item.TaskItemCategories.length > 0 && taskItem.item.IsGroupLabel != true" class="text-black text-bold pr-2 dl-label-color" style="clear:both">
+                                    @ResourceManagement.GetResourceText("Task.TaskDetail.TagTask", "Nhãn công việc", "Tag task"): <span ng-repeat="category in taskItem.item.TaskItemCategories" class="label-category">{{category}}</span>
+                                </div>
+                                <div class="detail-block detail-block-hashtag" style="display: none">
+                                    <input type="hidden" id="form-render-task-categories-hidden" value="{{ taskItem.item.TaskItemCategories }}" />
+                                    <select id="form-render-task-categories" name="TaskItemCategories" multiple></select>
+                                    <button id="save-categories" class="btn btn-primary"><span class="fa fa-save"></span></button>
+                                </div>
+                            </div>
+                            <div class="more-btn" id="headingOne3" ng-if="taskItem.item.TaskItemConclusion || (taskItem.item.TaskItemCategories.length > 0 && taskItem.item.IsGroupLabel != true) || taskItem.item.TaskItemCategories.length > 0 || taskItem.item.ProjectSummary.length > 0">
+                                <button type="button" class="btn btn-primary btn-xs collapsed" data-toggle="collapse" data-target="#collapseTaskDetail"><span class="collapse-show">@ResourceManagement.GetResourceText("Task.Home.Expand", "Mở rộng", "Expand")</span><span class="collapse-hide">@ResourceManagement.GetResourceText("Task.Home.Hide", "Thu gọn", "Hide")</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tabbable-line">
+                <ul class="nav nav-tabs nav-tabs-line mb-5">
+                    <li class="nav-item" id="tabli_detailProcess" ng-if="taskItem.item.IsGroupLabel != true">
+                        <a class="nav-link" href="#tab_detailProcess" data-toggle="tab">
+                            <span class="nav-icon"><i class="flaticon2-chat-1"></i></span>
+                            <span class="nav-text">@ResourceManagement.GetResourceText("Task.TaskDetail.Excute", "Thực hiện", "Excute") ({{ taskItem.item.TaskItemAssigns.length }}) </span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="tabli_taskChild">
+                        <a class="nav-link" href="#tab_taskChild" data-toggle="tab">
+                            <span class="nav-icon"><i class="flaticon2-chat-1"></i></span>
+                            <span class="nav-text">@ResourceManagement.GetResourceText("Task.TaskDetail.TaskChildren", "Công việc con", "Task children") ({{taskItem.item.Children.length}}) </span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="tabli_attachmentChildZone">
+                        <a class="nav-link" href="#tab_attachmentChildZone_Task" data-toggle="tab">
+                            <span class="nav-icon"><i class="flaticon2-paper"></i></span>
+                            <span class="nav-text">@ResourceManagement.GetResourceText("Task.TaskDetail.Document", "Tài liệu", "Document")</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane" ng-if="taskItem.item.IsGroupLabel != true" id="tab_detailProcess">
+                        <div class="lv-detailProcess">
+                            <div class="portlet light">
+                                <div class="portlet-body" style="display: block;" id="documentTrackingHistory">
+                                    <div class="timeline white-bg" id="">
+                                        <div class="assignTo">
+                                            <div ng-repeat="taskItemAssign in taskItem.item.TaskItemAssigns" ng-if="taskItemAssign.AssignToFullName != null && taskItemAssign.AssignToFullName != ''" class="userItem userItemXuLyChinh">
+                                                <div class="timeline-item">
+                                                    <div class="timeline-body" style="">
+                                                        <div class="timeline-body-head">
+                                                            <div class="timeline-body-head-caption lv-userInfo">
+                                                                <div class="timeline-body-top">
+                                                                    <span class="userBorder {{ taskItemAssign.TaskType == 1 ? 'primaryAssignTo' : '' }}">
+                                                                        <span class="symbol-group">
+                                                                            <span ng-if="taskItemAssign.TaskType == 1" class="symbol symbol-20 symbol-circle user-primary">
+                                                                                <img alt="Pic" ng-src="{{taskItemAssign.AvatarUrl}}">
+                                                                            </span>
+                                                                            <span ng-if="taskItemAssign.TaskType != 1" class="symbol symbol-20 symbol-circle user-second">
+                                                                                <img alt="Pic" ng-src="{{taskItemAssign.AvatarUrl}}">
+                                                                            </span>
+                                                                        </span>
+                                                                    </span>
+                                                                    <a class="timeline-body-title lv-userName">
+                                                                        <b>{{ taskItemAssign.AssignToFullName }}</b>
+                                                                        <span ng-if="taskItemAssign.AssignToJobTitleName != null && taskItemAssign.AssignToJobTitleName != ''" class="timeline-body-time font-grey-cascade lv-JobTitle"> - {{ taskItemAssign.AssignToJobTitleName }}</span>
+                                                                    </a>
+                                                                </div>
+                                                                <span ng-if="taskItemAssign.ModifiedDateFormat != null && taskItemAssign.ModifiedDateFormat != ''" class="font-grey-cascade dl-p-l-5 dl-update-date">
+                                                                    @ResourceManagement.GetResourceText("Task.TaskDetail.UpdateTime", "Cập nhật", "Update time"):
+                                                                    <span class="dl-prim-color">
+                                                                        {{ taskItemAssign.ModifiedDateFormat }}
+                                                                    </span>
+                                                                </span>
+                                                                <span ng-if="taskItemAssign.PercentFinish != null && taskItemAssign.PercentFinish > 0" class="timeline-body-content font-grey-cascade dl-complete-percen">
+                                                                    @ResourceManagement.GetResourceText("Task.TaskDetail.PercentFinish", "Với tỷ lệ hoàn thành", "Percent Finish"):
+                                                                    <span ng-if="taskItemAssign.PercentFinish != null && taskItemAssign.PercentFinish > 0" class="label-process"> {{taskItemAssign.PercentFinish}}%</span>
+                                                                </span>
+                                                                <div ng-if="taskItemAssign.LastResult != null" class="timeline-body-content dl-min-height dl-last-result" style="">
+                                                                    @ResourceManagement.GetResourceText("Task.TaskDetail.Content", "Nội dung", "Content"):
+                                                                    <span class=" tracking-document-name dl-min-height-content" ng-bind-html="taskItemAssign.LastResult">
+                                                                    </span>
+                                                                </div>
+
+                                                                <div class="text-black text-bold pr-2 pull-left dl-label-color attachment-down" ng-show="taskItemAssign.Attachments != null && taskItemAssign.Attachments.length >0 ">
+                                                                    @ResourceManagement.GetResourceText("Task.TaskItemDetail.Documents", "Tài liệu", "Documents"):
+                                                                    <span ng-repeat="att in taskItemAssign.Attachments">
+                                                                        <a class="file-name" target="_blank" href="" ng-click="projectDetail.downloadFile(att.Id)" title="{{att.FileName}}">{{att.FileName}} ({{att.FileSize}}) <i class="fas fa-arrow-down"></i></a> <span class="spliter">|</span>
+                                                                    </span>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="statusProcessing">
+                                                            <a class="btn btn-xs btn-light-warning btn-hover-icon-white font-weight-bold" ng-if="taskItem.item.CurrentUserID == taskItem.item.AssignBy && taskItemAssign.TaskItemStatusId != 3" title="" ng-click="taskItem.returnTask(taskItemAssign.Id)">
+                                                                <span class="svg-icon svg-icon-warning svg-icon-hover-white mr-0">
+                                                                    <svg width="24px" height="24px" viewBox="0 0 24 24">
+                                                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                            <rect x="0" y="0" width="24" height="24" />
+                                                                            <path d="M21.4451171,17.7910156 C21.4451171,16.9707031 21.6208984,13.7333984 19.0671874,11.1650391 C17.3484374,9.43652344 14.7761718,9.13671875 11.6999999,9 L11.6999999,4.69307548 C11.6999999,4.27886191 11.3642135,3.94307548 10.9499999,3.94307548 C10.7636897,3.94307548 10.584049,4.01242035 10.4460626,4.13760526 L3.30599678,10.6152626 C2.99921905,10.8935795 2.976147,11.3678924 3.2544639,11.6746702 C3.26907199,11.6907721 3.28437331,11.7062312 3.30032452,11.7210037 L10.4403903,18.333467 C10.7442966,18.6149166 11.2188212,18.596712 11.5002708,18.2928057 C11.628669,18.1541628 11.6999999,17.9721616 11.6999999,17.7831961 L11.6999999,13.5 C13.6531249,13.5537109 15.0443703,13.6779456 16.3083984,14.0800781 C18.1284272,14.6590944 19.5349747,16.3018455 20.5280411,19.0083314 L20.5280247,19.0083374 C20.6363903,19.3036749 20.9175496,19.5 21.2321404,19.5 L21.4499999,19.5 C21.4499999,19.0068359 21.4451171,18.2255859 21.4451171,17.7910156 Z" fill="#000000" fill-rule="nonzero" />
+                                                                        </g>
+                                                                    </svg>
+                                                                </span>
+                                                                @ResourceManagement.GetResourceText("Task.TaskDetail.Undo", "Thu hồi", "Undo")
+                                                            </a>
+
+                                                            <a ng-click="taskItem.openHistory(taskItemAssign.AssignTo)">
+                                                                <i class="fa fa-history"></i>
+                                                            </a>
+                                                            <label class="label label-inline label-status progress-task {{taskItemAssign.Process}}">
+                                                                {{taskItemAssign.TaskItemStatus.Name}}
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            @*Trao đổi*@
+                            <div class="panel panel-default" id="tab-comment" style="display:none">
+                                <div class="panel-heading" role="tab" id="headingComment">
+                                    <div class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#comment" aria-expanded="false" aria-controls="collapseThree">
+                                            @ResourceManagement.GetResourceText("Task.TaskDetail.Chat", "Trao đổi", "Chat")<span id="count-comment"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div id="comment" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+                                    <div class="panel-body comment-task">
+                                        <div class="comment-task-show hidden">
+                                            <a class="comment-task-show-more hidden">
+                                                @ResourceManagement.GetResourceText("Task.TaskDetail.ViewAll", "Xem tất cả", "View all")
+                                            </a>
+                                            <a class="comment-task-hidden-more hidden">
+                                                @ResourceManagement.GetResourceText("Task.TaskDetail.Collapse", "Thu gọn", "Collapse")
+                                            </a>
+                                        </div>
+                                        <div class="comment-task-content"></div>
+                                        <div class="comment-task-input" ng-if="taskItem.item.IsWriteComment == true">
+                                            <input type="hidden" class="comment-object-id" value="{{taskItem.item.TaskItemId}}" />
+                                            <input class="form-control txtComment" type="text" placeholder="@ResourceManagement.GetResourceText("Task.TaskDetail.ChatContent", "Nội dung trao đổi", "Chat content")" paramvalues="" pageindex="1">
+                                            <a class="comment-task-send"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                                            <div class="icon-container-comment">
+                                                <i class="loader-comment"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab_taskChild">
+                        <div class="task-child pb-4" ng-repeat="taskItem in taskItem.item.TaskDetail" href="javascript:;" data-task-item-child-id="{{child.Id}}">
+                            <div class="jstree-anchor jstree-clicked task-item-child-anchor">
+                                @Html.Partial("PartialView/_TaskItemVS1")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab_attachmentChildZone_Task">
+                        <div class="attachment-zone">
+                            <div ng-if="taskItem.countAttachChild > 0" class="table-responsive">
+                                <table class="table table-striped table-attachment">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:350px">@ResourceManagement.GetResourceText("Task.TaskDetail.Name", "Tên", "Name")</th>
+                                            <th style="text-align:center">@ResourceManagement.GetResourceText("Task.TaskDetail.SaveFile", "Lưu file", "Save file")</th>
+                                            <th>@ResourceManagement.GetResourceText("Task.TaskDetail.Type", "Loại", "Type")</th>
+                                            <th>@ResourceManagement.GetResourceText("Task.TaskDetail.CreateBy", "Người tạo", "Create by")</th>
+                                            <th>@ResourceManagement.GetResourceText("Task.TaskDetail.Time", "Thời gian", "Time")</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="attachment in taskItem.item.AttachmentChildren">
+                                            <td>
+                                                <a class="file-name" target="_blank" href="#" ng-click="taskItem.openPreviewFileTrackingModel(attachment.Id)" title="{{attachment.FileName}}"><i class="{{attachment.Icon}} file-icon"></i> {{ attachment.FileName }}</a>
+                                            </td>
+                                            <td class="file-infor file-infor-down">
+                                                <a class="file-download" target="_blank" href="~/Task/Project/DownloadFileTrackingWorkflowDocument?fileTrackingWorkflowDocumentID={{attachment.Id}}&deptID=00000000-0000-0000-0000-000000000000">
+                                                    <i class="fa fa-download"></i>
+                                                </a>
+                                            </td>
+                                            <td class="file-infor">{{attachment.FileExt}}</td>
+                                            <td class="file-infor">{{attachment.CreateByFullName}}</td>
+                                            <td class="file-infor file-infor-date">{{attachment.DateFormat}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="attachment-noti" ng-if="taskItem.item.countAttachProcess.length <= 0">
+                                @ResourceManagement.GetResourceText("Task.TaskDetail.NoAttachedDocuments", "Chưa có tài liệu đính kèm", "No attached documents")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".icon-xemthem").on('click', function () {
+            $(".detail-noidung .content").css("max-height", "max-content");
+        });
+
+
+
+        $('#MainDocumentDetails #add-hastag-categories').on('click', function () {
+            $("#MainDocumentDetails .detail-block-hashtag").show();
+            $(this).hide();
+        });
+    });
+</script>

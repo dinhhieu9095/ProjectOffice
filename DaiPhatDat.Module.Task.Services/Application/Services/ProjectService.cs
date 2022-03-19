@@ -23,6 +23,8 @@ using DaiPhatDat.Core.Kernel.Orgs.Application.Contract;
 using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
 using DaiPhatDat.Module.Task.Entities;
 using SystemTask = System.Threading.Tasks.Task;
+using System.Data;
+
 namespace DaiPhatDat.Module.Task.Services
 {
     public class ProjectService : IProjectService
@@ -424,6 +426,7 @@ namespace DaiPhatDat.Module.Task.Services
                         entity.Summary= dto.Summary;
                         entity.ToDate= dto.ToDate;
                         entity.UserViews= dto.UserViews;
+                        entity.AdminCategoryId = dto.AdminCategoryId;
                         ProjectHistory projectHistory = new ProjectHistory
                         {
                             Id = Guid.NewGuid(),
@@ -475,7 +478,32 @@ namespace DaiPhatDat.Module.Task.Services
                         _attachmentRepository.DeleteRange(attachDels);
                     }
                     await scope.SaveChangesAsync();
-
+                    if (dto.AdminCategoryId.HasValue)
+                    {
+                        var param = new List<SqlParameter>();
+                        param.Add(new SqlParameter()
+                        {
+                            SqlDbType = SqlDbType.UniqueIdentifier,
+                            ParameterName = "@AdminCategoryId",
+                            IsNullable = false,
+                            Value = dto.AdminCategoryId.Value
+                        });
+                        param.Add(new SqlParameter()
+                        {
+                            SqlDbType = SqlDbType.UniqueIdentifier,
+                            ParameterName = "@TaskId",
+                            IsNullable = true,
+                            Value = DBNull.Value
+                        });
+                        param.Add(new SqlParameter()
+                        {
+                            SqlDbType = SqlDbType.UniqueIdentifier,
+                            ParameterName = "@ProjectId",
+                            IsNullable = false,
+                            Value = dto.Id
+                        });
+                        await _objectRepository.SqlQueryAsync(typeof(TaskItemDto), "[dbo].[SP_ADMIN_CATEGORY_CLONE_TASK] @AdminCategoryId, @TaskId, @ProjectId", param.ToArray());
+                    }
                 }
                 sendMessage = SendMessageResponse.CreateSuccessResponse(string.Empty);
                 return sendMessage;
@@ -974,7 +1002,7 @@ namespace DaiPhatDat.Module.Task.Services
 
                 var asyncTaskItem = await _taskItemRepository.GetAll()
                        .Include(x => x.TaskItemStatus)
-                       .Where(x => (!Id.HasValue || x.ProjectId == Id) && x.IsDeleted == false && (!x.IsGroupLabel.HasValue || x.IsGroupLabel == false))
+                       .Where(x => (!Id.HasValue || x.ProjectId == Id) && x.IsDeleted == false && x.IsAdminCategory == false && (!x.IsGroupLabel.HasValue || x.IsGroupLabel == false))
                        .Select(e => new TaskItemDto() { 
                             Id = e.Id,
                             TaskName = e.TaskName,
@@ -1078,7 +1106,7 @@ namespace DaiPhatDat.Module.Task.Services
                 }
                 var asyncTaskItem = await _taskItemRepository.GetAll()
                        .Include(x => x.TaskItemStatus)
-                       .Where(x => x.IsDeleted == false && (!x.IsGroupLabel.HasValue || x.IsGroupLabel == false))
+                       .Where(x => x.IsDeleted == false && x.IsAdminCategory == false && (!x.IsGroupLabel.HasValue || x.IsGroupLabel == false))
                        .Where(taskItemPredicateBuilder)
                        .Select(e => new TaskItemDto()
                        {
@@ -1185,7 +1213,7 @@ namespace DaiPhatDat.Module.Task.Services
                     var taskAssigns = await dbContextReadOnlyScope.DbContexts
                        .Get<TaskContext>()
                        .Set<TaskItemAssign>()
-                       .Where(x => x.ProjectId == id && !x.TaskItem.IsDeleted)
+                       .Where(x => x.ProjectId == id && !x.TaskItem.IsDeleted && !x.TaskItem.IsAdminCategory)
                        .ToListAsync();
 
                     if (taskAssigns.Any())

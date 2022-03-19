@@ -79,6 +79,8 @@ namespace DaiPhatDat.Module.Task.Services
         public int? Order { get; set; }
         public int TaskGroupType { get; set; }
         public bool IsAuto { get; set; }
+        public bool IsAdminCategory { get; set; }
+        public Guid? AdminCategoryId { get; set; }
         public ProjectDto Project { get; set; }
 
         public TaskItemDto Parent { get; set; }

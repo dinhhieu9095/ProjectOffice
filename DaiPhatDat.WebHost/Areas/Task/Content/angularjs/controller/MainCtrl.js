@@ -229,17 +229,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
             }
             //$scope.my_tree.add_branch(branch, myTreeData[i]);
         });
-        //$scope.col_defs = [
-        //    { field: "Name", displayName: "Nội dung", visible: false, typeHtml: false },
-        //    { field: "StatusName", displayName: "Tình trạng", visible: true, typeHtml: false },
-        //    { field: "DateFormat", displayName: "Thời gian", visible: true, typeHtml: false},
-        //    { field: "FullName", displayName: "Người xử lý", visible: true, typeHtml: false },
-        //    //{ field: "Type", displayName: "Type", visible: true },
-        //    { field: "ProcessHtml", displayName: "Tiến độ", visible: true, typeHtml: (view == "grantt") ? true: false}
-        //    //{ field: "ProcessHtml", displayName: "ProcessHtml", visible: true, cellTemplate: true }
-        //];
         $scope.getDataByProject(parentId);
-
     };
     $scope.SetShowType = function (view) {
         if (view === "calendar") {
@@ -807,6 +797,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
     $scope.fileTemps = [];
     $scope.hasSubmit = false;
     $scope.ViewProject = function (action) {
+        $scope.viewProjectAction = action;
         if (!$scope.hasSubmit) {
             $scope.showLoading(null);
             $scope.hasSubmit = true;
@@ -815,6 +806,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                 ProjectCategories: [],
             };
             $scope.fileTemps = [];
+            var promises = [];
             if (action === 'Update') {
                 if ($scope.selectedRow == null || $scope.selectedRow.Type !== 'project') {
                     $scope.hideLoading();
@@ -827,7 +819,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                 var param = {
                     id: $scope.filter.projectId
                 }
-                var promises = [MainService.GetProject(param), MainService.GetProjectTypes(), MainService.GetProjectPriorities(), MainService.GetProjectCategories({ projectId: $scope.filter.projectId })];
+                promises = [MainService.GetProject(param), MainService.GetProjectTypes(), MainService.GetProjectPriorities(), MainService.GetProjectCategories({ projectId: $scope.filter.projectId }), MainService.GetAdminCategories()];
                 $q.all(promises).then(function (rs) {
                     if (rs[0].data.Message != undefined && rs[0].data.Message == 'AccessDenied') {
                         toastr.error('Bạn không có quyền chỉnh sửa dự án này', 'Thông báo');
@@ -839,11 +831,15 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                     $scope.ProjectTypes = rs[1].data;
                     $scope.ProjectPriorities = rs[2].data;
                     $scope.ProjectCategories = rs[3].data;
-
+                    $scope.AdminCategories = [{
+                        Id: guidEmpty,
+                        Summary: '-- Chọn phân loại --'
+                    }];
+                    $scope.AdminCategories = $scope.AdminCategories.concat(rs[4].data);
                     $scope.Project.CreatedDateText = moment($scope.Project.CreatedDate).format("DD/MM/YYYY");
                     $('.select2css').select2({
                         placeholder: "Tất cả",
-                        width: '100%',
+                        width: '100%'
                     });
                     $('#ProjectCategory').select2({
                         placeholder: 'Chọn loại dự án',
@@ -976,11 +972,17 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                 });
             } else if (action === 'New') {
                 $scope.modalTitle = "Thêm dự án"
-                var promises = [MainService.GetProjectTypes(), MainService.GetProjectPriorities(), MainService.GetProject({ id: null })];
+                promises = [MainService.GetProjectTypes(), MainService.GetProjectPriorities(), MainService.GetProject({ id: null }), MainService.GetAdminCategories()];
                 $q.all(promises).then(function (rs) {
                     $scope.ProjectTypes = rs[0].data;
                     $scope.ProjectPriorities = rs[1].data;
-                    $scope.Project = rs[2].data
+                    $scope.Project = rs[2].data;
+                    $scope.AdminCategories = [{
+                        Id: guidEmpty,
+                        Summary: '-- Chọn phân loại --'
+                    }];
+                    $scope.AdminCategories = $scope.AdminCategories.concat(rs[3].data);
+                    $scope.Project.AdminCategoryId = guidEmpty;
                     $scope.ProjectCategories = [];
                     if ($scope.ProjectTypes != undefined && $scope.ProjectTypes.length > 0) {
                         $scope.Project.ProjectTypeId = $scope.ProjectTypes[0].Id;
@@ -1255,6 +1257,9 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
         $('#ProjectCategory').select2('destroy');
         $('#ProjectCategory').val(null);
         $("#ProjectCategory option").remove();
+        $('#ProjectAdminCategory').select2('destroy');
+        $('#ProjectAdminCategory').val(null);
+        $("#ProjectAdminCategory option").remove();
         $('#AddEditProject').modal('hide');
     }
     $scope.DeleteProjectMember = function (idx, container) {
@@ -1614,7 +1619,6 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
     // ---- Tạo công việc -----
     $scope.filterTask = {};
     $scope.ViewTaskItem = function (action) {
-
         if (!$scope.hasSubmit) {
             $scope.showLoading(null);
             $scope.hasSubmit = true;
@@ -1646,7 +1650,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                 var param = {
                     id: $scope.selectedRow.Id
                 }
-                var promises = [MainService.GetTaskItem(param), MainService.GetTaskPriorities(), MainService.GetProjectCategories({ projectId: $scope.filterTask.projectId, taskId: $scope.filterTask.taskId })];
+                var promises = [MainService.GetTaskItem(param), MainService.GetTaskPriorities(), MainService.GetProjectCategories({ projectId: $scope.filterTask.projectId, taskId: $scope.filterTask.taskId }), MainService.GetAdminCategories()];
                 $q.all(promises).then(function (rs) {
                     if (rs[0].data.Message != undefined && rs[0].data.Message == 'AccessDenied') {
                         toastr.error('Bạn không có quyền chỉnh sửa công việc này', 'Thông báo');
@@ -1657,6 +1661,11 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                     $scope.TaskItem = rs[0].data;
                     $scope.TaskItemPriorities = rs[1].data;
                     $scope.ProjectCategories = rs[2].data;
+                    $scope.AdminCategories = [{
+                        Id: guidEmpty,
+                        Summary: '-- Chọn phân loại --'
+                    }];
+                    $scope.AdminCategories = $scope.AdminCategories.concat(rs[3].data);
                     if ($scope.TaskItem.IsReport == 1) {
                         $('#TaskGroupType').val('1');
                     } else if ($scope.TaskItem.IsGroupLabel == 1) {
@@ -1808,7 +1817,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                 });
             } else if (action === 'New') {
                 $scope.modalTitle = "Giao việc";
-                var promises = [MainService.GetTaskPriorities(), MainService.GetProjectCategories({ projectId: $scope.filterTask.projectId }), MainService.GetNewTaskItem($scope.TaskItem)];
+                var promises = [MainService.GetTaskPriorities(), MainService.GetProjectCategories({ projectId: $scope.filterTask.projectId }), MainService.GetNewTaskItem($scope.TaskItem), MainService.GetAdminCategories()];
                 $q.all(promises).then(function (rs) {
                     $scope.TaskItemPriorities = rs[0].data;
                     $scope.ProjectCategories = rs[1].data;
@@ -1816,6 +1825,11 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                         $scope.TaskItem.TaskItemPriorityId = $scope.TaskItemPriorities[0].Id;
                     }
                     $scope.TaskItem = rs[2].data;
+                    $scope.AdminCategories = [{
+                        Id: guidEmpty,
+                        Summary: '-- Chọn phân loại --'
+                    }];
+                    $scope.AdminCategories = $scope.AdminCategories.concat(rs[3].data);
                     $scope.TaskItemAssignTemps = [];
                     angular.copy($scope.TaskItem.TaskItemAssigns, $scope.TaskItemAssignTemps);
                     $scope.TaskItem.TaskItemPriorityId = $scope.TaskItemPriorities[0].Id;
@@ -1890,17 +1904,14 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                             },
                         }
                     });
-                    //$('#TaskItemAssign').on('select2:select', function (e) {
-                    //    
-                    //    $scope.TaskItem.TaskItemAssigns.push(e.params.data);
-                    //    $scope.$apply();
-                    //});
+                    
                     $('#TaskCategory').select2({
-                        placeholder: 'Chọn loại công việc',
+                        placeholder: 'Chọn thẻ',
                         tags: true,
                         width: '100%',
                         data: $scope.ProjectCategories
                     });
+                   
                     $('#TaskFromDateText').datepicker(
                         { format: "dd/mm/yyyy" }).on('changeDate', function (e) {
                             var valid = true;
@@ -2268,6 +2279,10 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
         $('#TaskCategory').select2('destroy');
         $('#TaskCategory').val(null);
         $("#TaskCategory option").remove();
+
+        $('#TaskAdminCategory').select2('destroy');
+        $('#TaskAdminCategory').val(null);
+        $("#TaskAdminCategory option").remove();
         $('#AddEditTaskItem').modal('hide');
     }
     $scope.ChangeAssignType = function (idx, container) {

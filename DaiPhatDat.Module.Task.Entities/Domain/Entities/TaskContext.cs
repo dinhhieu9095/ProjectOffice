@@ -17,6 +17,7 @@ namespace DaiPhatDat.Module.Task.Entities
         }
 
         public virtual DbSet<Action> Action { get; set; }
+        public virtual DbSet<AdminCategory> AdminCategory { get; set; }
         public virtual DbSet<Attachment> Attachment { get; set; }
         public virtual DbSet<ProjectFilterParam> ProjectFilterParam { get; set; }
         public virtual DbSet<Project> Project { get; set; }

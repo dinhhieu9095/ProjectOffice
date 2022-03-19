@@ -336,16 +336,7 @@
         });
         return request;
     }
-    //this.ProcessTaskItemAssign = function (data) {
-    //    var request = $http({
-    //        method: "POST",
-    //        data: data,
-    //        url: CommonUtils.RootURL("Task/TaskItemAssign/ProcessTaskItemAssign"),
-    //        dataType: 'json',
-    //        contentType: 'application/json; charset=utf-8'
-    //    });
-    //    return request;
-    //}
+   
     this.ProcessTaskItemAssign = function (task, files) {
         var url = CommonUtils.RootURL("Task/TaskItemAssign/ProcessTaskItemAssign");
         var defer = $q.defer();
@@ -433,4 +424,13 @@
         return defer.promise;
     }
     // ------------------------
+    this.GetAdminCategories = function () {
+        var request = $http({
+            method: "GET",
+            url: CommonUtils.RootURL("Task/Admin/GetAll"),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8'
+        });
+        return request;
+    }
 });

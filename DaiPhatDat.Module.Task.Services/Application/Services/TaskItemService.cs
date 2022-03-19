@@ -195,6 +195,72 @@ namespace DaiPhatDat.Module.Task.Services
             }
             return dto;
         }
+        public async Task<TaskItemDto> GetNewAdminTask(TaskItemDto dto)
+        {
+            try
+            {
+                bool isAuto = true;
+                DateTime fromDate, toDate;
+                
+                dto.IsParentAuto = true;
+                if (dto.ParentId.HasValue)
+                {
+                    TaskItemDto parent = await GetById(dto.ParentId.Value);
+                    dto.IsAuto = parent.IsAuto;
+                    isAuto = true;
+                    fromDate = parent.FromDate.Value;
+                    toDate = parent.ToDate.Value;
+                }
+                else
+                {
+                    dto.IsAuto = true;
+                    isAuto = true;
+                    toDate = DateTime.Now;
+                    fromDate = DateTime.Now;
+                }
+                using (var scope = _dbContextScopeFactory.CreateReadOnly())
+                {
+                    List<TaskItemDto> taskItemDtos = _objectRepository.GetAll().Where(e => dto.ParentId.HasValue ? e.ParentId == dto.ParentId : (e.ProjectId == dto.ProjectId && (!e.ParentId.HasValue || e.ParentId == Guid.Empty))).Select(e => new TaskItemDto
+                    {
+                        FromDate = e.FromDate,
+                        ToDate = e.ToDate
+                    }).ToList();
+                    if (taskItemDtos.Any())
+                    {
+                        DateTime toDateMax = taskItemDtos.Max(e => e.ToDate).Value;
+                        if (!isAuto && toDateMax >= toDate)
+                        {
+                            dto.FromDate = toDateMax;
+                            dto.ToDate = toDateMax;
+                        }
+                        else
+                        {
+                            dto.FromDate = toDateMax.AddDays(1);
+                            dto.ToDate = toDateMax.AddDays(1);
+                        }
+                    }
+                    else
+                    {
+                        dto.FromDate = fromDate;
+                        dto.ToDate = fromDate;
+                    }
+                }
+                if (dto.FromDate.HasValue)
+                {
+                    dto.FromDateText = dto.FromDate.Value.ToString("dd/MM/yyyy");
+                }
+                if (dto.ToDate.HasValue)
+                {
+                    dto.ToDateText = dto.ToDate.Value.ToString("dd/MM/yyyy");
+                }
+            }
+            catch (Exception ex)
+            {
+                _loggerServices.WriteError(ex.ToString());
+                return null;
+            }
+            return dto;
+        }
         public IReadOnlyList<Guid> GetTaskOfUserAssign(Guid id, Guid userId)
         {
             IReadOnlyList<Guid> models = new List<Guid>();
@@ -258,6 +324,8 @@ namespace DaiPhatDat.Module.Task.Services
                         entity.HasRecentActivity = dto.HasRecentActivity;
                         entity.IsAuto = dto.IsAuto;
                         entity.IsDeleted = dto.IsDeleted;
+                        entity.IsAdminCategory = dto.IsAdminCategory;
+                        entity.AdminCategoryId = dto.AdminCategoryId;
                         entity.IsGroupLabel = dto.IsGroupLabel;
                         entity.IsReport = dto.IsReport;
                         entity.IsSecurity = dto.IsSecurity;
@@ -291,12 +359,6 @@ namespace DaiPhatDat.Module.Task.Services
                             TaskItemStatusId = entity.TaskItemStatusId,
                             ProcessResult = entity.TaskName
                         };
-                        //List<TaskItemAssign> assignUpdates = entity.TaskItemAssigns.Where(e => dto.TaskItemAssigns.Any(t => t.AssignTo == e.AssignTo)).ToList();
-                        //foreach (var assign in assignUpdates)
-                        //{
-
-                        //}
-
                         if (entity.TaskItemAssigns != null && entity.TaskItemAssigns.Any())
                         {
                             foreach (var assignentity in entity.TaskItemAssigns.Where(e => !e.IsDeleted))
@@ -462,6 +524,32 @@ namespace DaiPhatDat.Module.Task.Services
                             Value = 1
                         });
                         await _objectRepository.SqlQueryAsync(typeof(ProjectDto), "[dbo].[SP_UPDATE_TASK_RANGE_DATE] @ProjectId, @TaskId, @FromDate, @ToDate, @IsUpdateStatus", param.ToArray());
+                    }
+                    if (dto.AdminCategoryId.HasValue)
+                    {
+                        var param = new List<SqlParameter>();
+                        param.Add(new SqlParameter()
+                        {
+                            SqlDbType = SqlDbType.UniqueIdentifier,
+                            ParameterName = "@AdminCategoryId",
+                            IsNullable = false,
+                            Value = dto.AdminCategoryId.Value
+                        });
+                        param.Add(new SqlParameter()
+                        {
+                            SqlDbType = SqlDbType.UniqueIdentifier,
+                            ParameterName = "@TaskId",
+                            IsNullable = false,
+                            Value = dto.Id
+                        });
+                        param.Add(new SqlParameter()
+                        {
+                            SqlDbType = SqlDbType.UniqueIdentifier,
+                            ParameterName = "@ProjectId",
+                            IsNullable = false,
+                            Value = dto.ProjectId
+                        });
+                        await _objectRepository.SqlQueryAsync(typeof(TaskItemDto), "[dbo].[SP_ADMIN_CATEGORY_CLONE_TASK] @AdminCategoryId, @TaskId, @ProjectId", param.ToArray());
                     }
                 }
                 sendMessage = SendMessageResponse.CreateSuccessResponse(string.Empty);
@@ -2064,5 +2152,213 @@ namespace DaiPhatDat.Module.Task.Services
 
             return result;
         }
+        #region Admin
+        public async Task<SendMessageResponse> SaveAdminTaskAsync(TaskItemDto dto, TaskItemStatusId taskItemStatusId = TaskItemStatusId.New)
+        {
+            SendMessageResponse sendMessage = new SendMessageResponse();
+            try
+            {
+                using (var scope = _dbContextScopeFactory.Create())
+                {
+                    if (DateTime.TryParseExact(dto.FromDateText, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fromDate))
+                    {
+                        dto.FromDate = fromDate;
+                    }
+                    else
+                    {
+                        dto.FromDate = null;
+                    }
+                    if (DateTime.TryParseExact(dto.ToDateText, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime toDate))
+                    {
+                        dto.ToDate = toDate;
+                    }
+                    else
+                    {
+                        dto.ToDate = null;
+                    }
+                    List<AttachmentDto> attachmentDtos = dto.Attachments.ToList();
+                    dto.Attachments = null;
+                    TaskItem entity = _objectRepository.GetAll().Include(e => e.TaskItemAssigns).Where(e => e.Id == dto.Id).FirstOrDefault();
+                    
+                    if (entity != null)
+                    {
+                        if (!((dto.IsFullControl || entity.AssignBy == dto.ModifiedBy) && entity.TaskItemStatusId != TaskItemStatusId.Finished))
+                        {
+                            sendMessage = SendMessageResponse.CreateFailedResponse("AccessDenied");
+                            return sendMessage;
+                        }
+
+                        entity.AssignBy = dto.AssignBy;
+                        entity.Conclusion = dto.Conclusion;
+                        entity.DepartmentId = dto.DepartmentId;
+                        entity.FinishedDate = dto.FinishedDate;
+                        entity.FromDate = dto.FromDate;
+                        entity.HasRecentActivity = dto.HasRecentActivity;
+                        entity.IsAuto = dto.IsAuto;
+                        entity.IsDeleted = dto.IsDeleted;
+                        entity.IsAdminCategory = true;
+                        entity.IsGroupLabel = dto.IsGroupLabel;
+                        entity.IsReport = dto.IsReport;
+                        entity.IsSecurity = dto.IsSecurity;
+                        entity.IsWeirdo = dto.IsWeirdo;
+                        entity.ModifiedBy = dto.ModifiedBy;
+                        entity.ModifiedDate = dto.ModifiedDate;
+                        entity.NatureTaskId = dto.NatureTaskId;
+                        entity.Order = dto.Order;
+                        entity.ParentId = dto.ParentId;
+                        entity.PercentFinish = dto.PercentFinish;
+                        entity.ProjectId = dto.ProjectId;
+                        entity.TaskGroupType = dto.TaskGroupType;
+                        entity.TaskItemCategory = string.Join(";", dto.TaskItemCategories);
+                        entity.TaskItemPriorityId = dto.TaskItemPriorityId;
+                        entity.TaskItemStatusId = dto.TaskItemStatusId;
+                        entity.TaskName = dto.TaskName;
+                        entity.TaskType = dto.TaskType;
+                        entity.ToDate = dto.ToDate;
+                        entity.Weight = dto.Weight;
+                        entity.PercentFinish = dto.PercentFinish;
+
+                        if (entity.TaskItemAssigns != null && entity.TaskItemAssigns.Any())
+                        {
+                            foreach (var assignentity in entity.TaskItemAssigns.Where(e => !e.IsDeleted))
+                            {
+                                var assigndto = dto.TaskItemAssigns.Where(e => e.AssignTo == assignentity.AssignTo).FirstOrDefault();
+                                if (assigndto == null)
+                                {
+                                    assignentity.IsDeleted = true;
+                                }
+                                else
+                                {
+                                    assignentity.TaskType = assigndto.TaskType;
+                                }
+                                assignentity.ModifiedDate = DateTime.Now;
+                            }
+                        }
+                        List<TaskItemAssignDto> assignAdds = dto.TaskItemAssigns.Where(e => !entity.TaskItemAssigns.Where(a => !a.IsDeleted).Any(t => t.AssignTo == e.AssignTo)).ToList();
+                        foreach (var assign in assignAdds)
+                        {
+                            assign.Id = Guid.NewGuid();
+                            assign.TaskItemId = dto.Id;
+                            assign.ProjectId = dto.ProjectId;
+                            assign.ModifiedDate = dto.ModifiedDate;
+                            assign.TaskItemStatusId = TaskItemStatusId.New;
+                            entity.TaskItemAssigns.Add(_mapper.Map<TaskItemAssign>(assign));
+                        }
+                        _objectRepository.Modify(entity);
+                    }
+                    else
+                    {
+                        dto.TaskItemStatusId = taskItemStatusId;
+                        dto.Id = Guid.NewGuid();
+                        dto.CreatedBy = dto.ModifiedBy;
+                        dto.CreatedDate = dto.ModifiedDate;
+                        dto.TaskItemCategory = string.Join(";", dto.TaskItemCategories);
+                        dto.IsDeleted = false;
+                        dto.IsAdminCategory = true;
+                        foreach (var assign in dto.TaskItemAssigns)
+                        {
+                            assign.Id = Guid.NewGuid();
+                            assign.TaskItemId = dto.Id;
+                            assign.ProjectId = dto.ProjectId;
+                            assign.ModifiedDate = dto.ModifiedDate;
+                            assign.TaskItemStatusId = taskItemStatusId;
+                        }
+                        entity = _mapper.Map<TaskItem>(dto);
+                        entity.Project = null;
+                        _objectRepository.Add(entity);
+                    }
+                    foreach (AttachmentDto attachDto in attachmentDtos)
+                    {
+                        //attachDto.ProjectId = entity.ProjectId;
+                        attachDto.ItemId = entity.Id;
+                        Attachment attach = _mapper.Map<Attachment>(attachDto);
+                        _attachmentRepository.Add(attach);
+                    }
+                    if (dto.AttachDelIds != null)
+                    {
+                        if (dto.AttachDelIds.Any())
+                        {
+                            List<Attachment> attachDels = _attachmentRepository.GetAll().Where(e => dto.AttachDelIds.Contains(e.Id)).ToList();
+                            _attachmentRepository.DeleteRange(attachDels);
+                        }
+                    }
+                    await scope.SaveChangesAsync();
+                }
+                sendMessage = SendMessageResponse.CreateSuccessResponse(string.Empty);
+                return sendMessage;
+            }
+            catch (Exception ex)
+            {
+                _loggerServices.WriteError(ex.ToString());
+                sendMessage = SendMessageResponse.CreateFailedResponse(string.Empty);
+                return sendMessage;
+            }
+        }
+        public async Task<TaskItemDto> GetAdminTaskById(Guid id)
+        {
+            TaskItemDto dto = new TaskItemDto();
+            try
+            {
+                using (var scope = _dbContextScopeFactory.CreateReadOnly())
+                {
+                    TaskItem entity = _objectRepository.GetAll().Include(t => t.TaskItemAssigns).Where(p => p.IsDeleted == false && p.Id == id).FirstOrDefault();
+                    entity.TaskItemAssigns = entity.TaskItemAssigns.Where(a => !a.IsDeleted).ToList();
+                    var users = _userServices.GetUsers();
+                    var userDepartments = await _userDepartmentServices.GetCachedUserDepartmentDtos();
+                    dto = _mapper.Map<TaskItemDto>(entity);
+                    if (!string.IsNullOrEmpty(dto.TaskItemCategory))
+                    {
+                        dto.TaskItemCategories = dto.TaskItemCategory.Split(';').ToList();
+                    }
+                    foreach (TaskItemAssignDto assignee in dto.TaskItemAssigns)
+                    {
+                        var userDept = userDepartments.Where(e => e.UserID == assignee.AssignTo).FirstOrDefault();
+                        if (userDept != null)
+                        {
+                            assignee.AssignToFullName = userDept.FullName;
+                            assignee.AssignToJobTitleName = userDept.JobTitleName;
+                            assignee.Department = userDept.DeptName;
+                        }
+                    }
+                    dto.TaskItemAssigns = dto.TaskItemAssigns.OrderBy(e => e.AssignToFullName).ToList();
+                    var assignBy = userDepartments.Where(e => e.UserID == dto.AssignBy).FirstOrDefault();
+                    dto.AssignByFullName = assignBy.FullName;
+                    if (dto.FromDate.HasValue)
+                    {
+                        dto.FromDateText = dto.FromDate.Value.ToString("dd/MM/yyyy");
+                    }
+                    if (dto.ToDate.HasValue)
+                    {
+                        dto.ToDateText = dto.ToDate.Value.ToString("dd/MM/yyyy");
+                    }
+                    if (dto.ParentId.HasValue && dto.ParentId != Guid.Empty)
+                    {
+                        TaskItem parent = _objectRepository.GetAll().Where(p => p.IsDeleted == false && p.Id == dto.ParentId).FirstOrDefault();
+                        dto.IsParentAuto = true;
+                        dto.ParentToDateText = parent.ToDate.Value.ToString("dd/MM/yyyy");
+                        dto.ParentFromDateText = parent.FromDate.Value.ToString("dd/MM/yyyy");
+                    }
+                    else
+                    {
+                        dto.IsParentAuto = true;
+                    }
+                    dto.IsLinked = true;
+                    dto.Project = null;
+                    List<AttachmentDto> attachmentDtos = _attachmentRepository.GetAll().Where(e => e.ItemId.HasValue && e.ItemId == entity.Id && e.Source == Source.TaskItem).Select(e => new AttachmentDto()
+                    {
+                        Id = e.Id,
+                        FileName = e.FileName,
+                        FileExt = e.FileExt
+                    }).ToList();
+                    dto.Attachments = attachmentDtos;
+                }
+            }
+            catch (Exception ex)
+            {
+                _loggerServices.WriteError(ex.ToString());
+            }
+            return dto;
+        }
+        #endregion
     }
 }

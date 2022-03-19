@@ -1,0 +1,30 @@
+﻿@using DaiPhatDat.Core.Kernel;
+<div class="modal fade" id="AddEditProject" tabindex="-1" aria-labelledby="exampleModalSizeLg" role="dialog" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" ng-bind="modalTitle"></h5>
+                <button type="button" ng-click="CloseAdminCategory()" class="close" data-dismiss="modal">
+                    <i aria-hidden="true" class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>@ResourceManagement.GetResourceText("Task.Home.AdminCategorySummary", "Tên phân loại", "Summary")<span class="text-danger"> *</span></label>
+                            <input type="text" class="form-control" autocomplete="off" id="ProjectSummary" name="ProjectSummary" placeholder="@ResourceManagement.GetResourceText("Task.Home.AdminCategorySummary", "Tên phân loại", "Summary")" ng-model="Project.Summary">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer display-block">
+                <div class="pull-right">
+                    <button type="button" ng-click="SaveAdminCategory()" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Save", "Lưu", "Save")</button>
+                    <button type="button" ng-click="CloseAdminCategory()" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">@ResourceManagement.GetResourceText("Task.Home.Close", "Đóng", "Close")</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

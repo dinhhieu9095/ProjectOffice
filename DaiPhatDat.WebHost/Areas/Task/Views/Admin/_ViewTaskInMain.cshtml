@@ -1,0 +1,9 @@
+﻿@using DaiPhatDat.Core.Kernel;
+@using DaiPhatDat.Module.Task.Web;
+@model DaiPhatDat.Module.Task.Web.TaskViewTypeModel
+@if (Model.Name.Equals(HomeController.ViewTable)
+    || Model.Name.Equals(HomeController.ViewGrantt))
+{
+    <tree-grid tree-data="tree_data" tree-control="my_tree" col-defs="col_defs" expand-on="expanding_property" my-dbl-click-callback="callbackDblFunctionInController(branch)" my-click-callback="callbackFunctionInController(branch)" my-drag-drop-callback="callbackFunctionDragDropInController(branchS,branchD, branchChildrenD,indexS,indexD)" on-select="onSelectItem(branch)" icon-leaf="glyphicon glyphicon-globe"></tree-grid>
+}
+

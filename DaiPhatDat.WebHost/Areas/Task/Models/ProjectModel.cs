@@ -101,7 +101,7 @@ namespace DaiPhatDat.Module.Task.Web
         public string MinFromDateText { get; set; }
         public string MaxToDateText { get; set; }
         public List<Guid> AttachDelIds { get; set; }
-
+        public Guid? AdminCategoryId { get; set; }
         #endregion
     }
     public class ProjectMemberModel

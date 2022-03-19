@@ -68,7 +68,9 @@ namespace DaiPhatDat.Module.Task.Entities
         public int? NatureTaskId { get; set; }
         public int? Order { get; set; }
         public bool IsAuto { get; set; }
+        public bool IsAdminCategory { get; set; }
         public int TaskGroupType { get; set; }
+        public Guid? AdminCategoryId { get; set; }
 
         public Project Project { get; set; }
 

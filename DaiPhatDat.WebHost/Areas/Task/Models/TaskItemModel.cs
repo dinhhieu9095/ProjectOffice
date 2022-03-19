@@ -77,6 +77,7 @@ namespace DaiPhatDat.Module.Task.Web
         public int? NatureTaskId { get; set; }
         public int? Order { get; set; }
         public bool IsAuto { get; set; }
+        public bool IsAdminCategory { get; set; }
         public int TaskGroupType { get; set; }
 
         public ProjectModel Project { get; set; }
@@ -110,6 +111,7 @@ namespace DaiPhatDat.Module.Task.Web
         public string FromDateText { get; set; }
 
         public string ToDateText { get; set; }
+        public Guid? AdminCategoryId { get; set; }
         public string Process
         {
             get

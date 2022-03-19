@@ -70,6 +70,7 @@ namespace DaiPhatDat.Module.Task.Entities
         public string AppraiseResult { get; set; }
         public bool IsLinked { get; set; }
         public bool IsAuto { get; set; }
+        public Guid? AdminCategoryId { get; set; }
         public ICollection<Attachment> Attachments { get; set; }
 
         public ProjectPriority ProjectPriority { get; set; }

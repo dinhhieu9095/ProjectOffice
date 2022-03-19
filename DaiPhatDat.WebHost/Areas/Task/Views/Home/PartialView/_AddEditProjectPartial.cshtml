@@ -53,18 +53,20 @@
                     </div>
                     <div id="collapseProject" class="more-content collapse" data-parent="#accordionProject">
                         <div class="row">
-                            @*<div class="col-md-5 pr-0">
-                                    <div class="form-group">
-                                        <label>@ResourceManagement.GetResourceText("Task.Home.ProjectType", "Loại công việc", "Project type")<span class="text-danger"> *</span></label>
-                                        <select class="form-control select2css" ng-model="Project.ProjectTypeId" id="ProjectTypeId" ng-options="option.Id as option.Name for option in ProjectTypes">
-                                        </select>
-                                    </div>
-                                </div>*@
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>@ResourceManagement.GetResourceText("Task.Home.Category", "Phân loại", "Categories")</label>
+                                    <select class="form-control select2css" ng-model="Project.AdminCategoryId" id="ProjectAdminCategory" name="ProjectAdminCategory" ng-options="item.Id as item.Summary for item in AdminCategories"></select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <label>@ResourceManagement.GetResourceText("Task.Home.ProjectCategory", "Phân loại", "Project categories")</label>
-                                    <select class="form-control" id="ProjectCategory" name="ProjectCategory" multiple>
-                                    </select>
+                                    <label>@ResourceManagement.GetResourceText("Task.Home.Hashtag", "Thẻ", "Hashtag")</label>
+                                    <select class="form-control" id="ProjectCategory" name="ProjectCategory" multiple></select>
                                 </div>
                             </div>
                             <div class="col-md-4 pl-0">

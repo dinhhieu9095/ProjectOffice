@@ -287,7 +287,7 @@ namespace DaiPhatDat.Module.Task.Services
                 var trackingProgress = userReportQuery.TrackingProgress;
                 var trackingStatus = userReportQuery.TrackingStatus;
                 var trackingCrucial = userReportQuery.TrackingCrucial;
-                taskItemPredicateBuilder = taskItemPredicateBuilder.And(x => x.Project.IsActive == true && !x.IsDeleted && x.IsGroupLabel != true);
+                taskItemPredicateBuilder = taskItemPredicateBuilder.And(x => x.Project.IsActive == true && !x.IsDeleted && !x.IsAdminCategory && x.IsGroupLabel != true);
                 if (userReportQuery.ProjectId.HasValue && userReportQuery.ProjectId != Guid.Empty)
                 {
                     taskItemPredicateBuilder = taskItemPredicateBuilder.And(x => x.ProjectId == userReportQuery.ProjectId);
@@ -526,7 +526,7 @@ namespace DaiPhatDat.Module.Task.Services
                     var trackingProgress = userReportQuery.TrackingProgress;
                     var trackingStatus = userReportQuery.TrackingStatus;
                     var trackingCrucial = userReportQuery.TrackingCrucial;
-                    taskItemPredicateBuilder = taskItemPredicateBuilder.And(x => x.Project.IsActive == true && !x.IsDeleted && x.IsGroupLabel != true);
+                    taskItemPredicateBuilder = taskItemPredicateBuilder.And(x => x.Project.IsActive == true && !x.IsDeleted && !x.IsAdminCategory && x.IsGroupLabel != true);
                     taskItemPredicateBuilder = taskItemPredicateBuilder.And(
                         x => DbFunctions.TruncateTime(x.FromDate) >= DbFunctions.TruncateTime(fromDate) &&
                              DbFunctions.TruncateTime(x.FromDate) <= DbFunctions.TruncateTime(toDate) ||
@@ -779,7 +779,7 @@ namespace DaiPhatDat.Module.Task.Services
                 var trackingProgress = userReportQuery.TrackingProgress;
                 var trackingStatus = userReportQuery.TrackingStatus;
                 var trackingCrucial = userReportQuery.TrackingCrucial;
-                taskItemPredicateBuilder = taskItemPredicateBuilder.And(x => x.Project.IsActive == true && !x.IsDeleted);
+                taskItemPredicateBuilder = taskItemPredicateBuilder.And(x => x.Project.IsActive == true && !x.IsDeleted && !x.IsAdminCategory);
                 if (userReportQuery.ProjectId.HasValue && userReportQuery.ProjectId != Guid.Empty)
                 {
                     taskItemPredicateBuilder = taskItemPredicateBuilder.And(x => x.ProjectId == userReportQuery.ProjectId.Value);
@@ -841,7 +841,7 @@ namespace DaiPhatDat.Module.Task.Services
                     .OrderBy(x => x.CreatedDate)
                     .ThenBy(x => x.TaskName)
                     .ToListAsync(cancellationToken))
-                    .Where(x => x.TaskItemAssigns.Any() && x.IsDeleted == false && x.Project.IsActive == true)
+                    .Where(x => x.TaskItemAssigns.Any() && x.IsDeleted == false && !x.IsAdminCategory && x.Project.IsActive == true)
                     .Select(x => new TaskItemDto
                     {
                         Id = x.Id,
@@ -1331,7 +1331,7 @@ namespace DaiPhatDat.Module.Task.Services
                 var trackingProgress = userReportQuery.TrackingProgress;
                 var trackingStatus = userReportQuery.TrackingStatus;
                 var trackingCrucial = userReportQuery.TrackingCrucial;
-                taskItemPredicateBuilder = taskItemPredicateBuilder.And(x => x.Project.IsActive == true && !x.IsDeleted && x.IsGroupLabel == false);
+                taskItemPredicateBuilder = taskItemPredicateBuilder.And(x => x.Project.IsActive == true && !x.IsDeleted && !x.IsAdminCategory && x.IsGroupLabel == false);
                 if (userReportQuery.ProjectId.HasValue && userReportQuery.ProjectId != Guid.Empty)
                 {
                     taskItemPredicateBuilder = taskItemPredicateBuilder.And(x => x.ProjectId == userReportQuery.ProjectId);
@@ -1569,7 +1569,7 @@ namespace DaiPhatDat.Module.Task.Services
                     .Get<TaskContext>()
                     .Set<TaskItem>()
                     .AsNoTracking()
-                    .Where(x => projectIds.Contains(x.ProjectId.Value) && x.IsGroupLabel == true && x.IsDeleted == false)
+                    .Where(x => projectIds.Contains(x.ProjectId.Value) && x.IsGroupLabel == true && x.IsDeleted == false && !x.IsAdminCategory)
                     .OrderBy(x => x.Order).ThenBy(x => x.CreatedDate)
                     .ThenBy(x => x.TaskName)
                     .ToList()

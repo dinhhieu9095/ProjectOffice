@@ -39,8 +39,6 @@
                             <label>@ResourceManagement.GetResourceText("Task.Home.Assignee", "Người thực hiện", "Assignee")<span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <select ng-model="TaskItem.TaskItemAssigns" class="form-control" id="TaskItemAssign" name="TaskItemAssign" multiple ng-options="option as option.AssignToFullName for option in TaskItem.TaskItemAssigns">
-                                    @*<option ng-repeat="option in TaskItemAssignTemps track by $index" value="{{option}}">{{option.AssignToFullName}}</option>*@
-
                                 </select>
                                 <div class="input-group-append"><span class="input-group-text" ng-click="ChooseUser('TaskItem')"><i class="fa fa-user"></i></span></div>
                             </div>
@@ -92,21 +90,14 @@
                         <div class="row" ng-show="TaskItem.IsGroupLabel != 1">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>@ResourceManagement.GetResourceText("Task.Home.Hashtag", "Thẻ", "Hashtag")</label>
-                                    <select class="form-control" ng-model="TaskItem.TaskItemCategories" id="TaskCategory" name="TaskCategory" multiple></select>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
                                     <label>@ResourceManagement.GetResourceText("Task.Home.Category", "Phân loại", "Categories")</label>
-                                    <select class="form-control" ng-model="TaskItem.AdminCategoryId" id="TaskAdminCategory" name="TaskAdminCategory" ng-options="item.Id as item.Sumary for item in AdminCategories track by item.id"></select>
+                                    <select class="form-control" ng-model="TaskItem.TaskItemCategories" id="TaskCategory" name="TaskCategory" multiple>
+                                    </select>
                                 </div>
                             </div>
-
+                            
                         </div>
+
                     </div>
                     <div class="box-attachment">
                         <div id="file{{$index}}" ng-repeat="file in TaskItem.Attachments track by $index" class="d-flex justify-content-between my-2 p-2 border align-items-center">
@@ -138,7 +129,6 @@
                         </label>
                     </div>
                     <div class="pull-right">
-                        <button type="button" ng-click="SaveDraftTaskItem()" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.SaveDraft", "Lưu nháp", "Save as draft")</button>
                         <button type="button" ng-click="SaveTaskItem()" class="btn btn-primary font-weight-bold">@ResourceManagement.GetResourceText("Task.Home.Save", "Lưu", "Save")</button>
                         <button type="button" ng-click="CloseTaskItem()" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">@ResourceManagement.GetResourceText("Task.Home.Close", "Đóng", "Close")</button>
                     </div>

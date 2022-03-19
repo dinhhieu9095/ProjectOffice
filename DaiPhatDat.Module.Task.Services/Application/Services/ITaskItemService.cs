@@ -11,8 +11,11 @@ namespace DaiPhatDat.Module.Task.Services
     {
         Task<TaskItemDto> GetById(Guid id);
         Task<TaskItemDto> GetNewTask(TaskItemDto dto);
+        Task<TaskItemDto> GetNewAdminTask(TaskItemDto dto);
         IReadOnlyList<Guid> GetTaskOfUserAssign(Guid id, Guid userId);
         Task<SendMessageResponse> SaveAsync(TaskItemDto dto, TaskItemStatusId taskItemStatusId = TaskItemStatusId.New);
+        Task<SendMessageResponse> SaveAdminTaskAsync(TaskItemDto dto, TaskItemStatusId taskItemStatusId = TaskItemStatusId.New);
+        Task<TaskItemDto> GetAdminTaskById(Guid id);
         Task<SendMessageResponse> DeleteTaskItem(TaskItemDto dto);
         Task<TaskItemDetailDto> RenderProjectTask(Guid Id, UserDto currentUser = default);
 

@@ -80,6 +80,7 @@ namespace DaiPhatDat.Module.Task.Services
         /// </summary>
         public bool IsAuto { get; set; }
 
+        public Guid? AdminCategoryId { get; set; }
         public ICollection<AttachmentDto> Attachments { get; set; }
 
         public ProjectPriorityDto ProjectPriority { get; set; }

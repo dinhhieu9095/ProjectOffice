@@ -31,7 +31,7 @@ namespace DaiPhatDat.Module.Task.Web
         private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
         [HttpPost]
-        public async Task<JsonResult> GetTaskItem(Guid? id)
+        public async Task<JsonResult> GetTaskItem(Guid? id, bool isAdminCategory = false)
         {
             TaskItemModel model = new TaskItemModel();
             try
@@ -54,6 +54,10 @@ namespace DaiPhatDat.Module.Task.Web
                 else
                 {
                     dto = new TaskItemDto { AssignBy = CurrentUser.Id, AssignByFullName = CurrentUser.FullName };
+                    if (isAdminCategory)
+                    {
+                        dto.IsAdminCategory = true;
+                    }
                     dto.TaskItemAssigns.Add(new TaskItemAssignDto
                     {
                          AssignToFullName = CurrentUser.FullName,

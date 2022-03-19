@@ -1,0 +1,174 @@
+﻿@model DaiPhatDat.Module.Task.Web.TaskViewTypeModel
+@using DaiPhatDat.Module.Task.Web;
+@using DaiPhatDat.Module.Task.Entities
+@using DaiPhatDat.Core.Kernel;
+<style type="text/css">
+    .sticky-toolbar {
+        position: absolute;
+        right: 0;
+        top: 50%;
+    }
+
+    .offcanvas-right.offcanvas-on {
+        left: -72%;
+        width: 72%;
+    }
+</style>
+<div id="MainCtrl" ng-controller="AdminCategoryCtrl" ng-cloak>
+    <div class="card card-custom card-stretch" id="kt_todo_list">
+        <div class="card-header align-items-center flex-wrap py-3 px-4 border-bottom h-auto">
+            <h3 class="card-title m-0">
+                <div class="dropdown">
+                    <span class="btn btn-icon btn-light-primary btn-sm" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-exchange-alt"></i>
+                    </span>
+                    <div class="dropdown-menu dropdown-menu-left p-0 m-0 dropdown-menu-sm" style="">
+                        <ul class="navi py-3">
+                            <li class="navi-item">
+                                <a ng-click="ChangeView('grantt')" class="navi-link">
+                                    <span class="svg-icon svg-icon-primary mr-3">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <polygon points="0 0 24 0 24 24 0 24" />
+                                                <rect fill="#000000" opacity="0.3" x="2" y="5" width="20" height="2" rx="1" />
+                                                <rect fill="#000000" opacity="1" x="2" y="17" width="20" height="2" rx="1" />
+                                                <rect fill="#000000" opacity="0.3" x="2" y="9" width="5" height="2" rx="1" />
+                                                <rect fill="#000000" opacity="1" x="16" y="13" width="6" height="2" rx="1" />
+                                                <rect fill="#000000" opacity="0.3" x="9" y="9" width="13" height="2" rx="1" />
+                                                <rect fill="#000000" opacity="0.3" x="2" y="13" width="12" height="2" rx="1" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="navi-text">@ResourceManagement.GetResourceText("Task.Home.ViewGrantt", "Grantt", "Grantt")</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <select class="form-control" id="projectFilters" name="projectFilters" ng-model="projectFilterId" ng-options="option.ProjectId as option.Name for option in projectFilters track by option.ProjectId">
+                    </select>
+                </div>
+                <span class="ml-3">Danh sách công việc</span>
+            </h3>
+            <div class="card-toolbar m-0 task-tool">
+                <a ng-show="isAddTask" ng-click="ViewTaskItem('New')" class="btn btn-text-dark-50 btn-icon-primary btn-hover-icon-warning font-weight-bold btn-hover-bg-light">
+                    <span class="svg-icon svg-icon-primary">
+                        <svg width="28px" height="28px" viewBox="0 0 28 28">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect fill="#000000" x="2" y="9" width="18" height="4" rx="1"></rect>
+                                <rect fill="#000000" opacity="0.4" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) " x="2" y="11" width="19" height="4" rx="1"></rect>
+                            </g>
+                        </svg>
+                    </span>
+                    @ResourceManagement.GetResourceText("Task.Home.AddTask", "Giao việc", "Add task")
+                </a>
+
+                <a ng-show="isEditTask" ng-click="ViewTaskItem('Update')" class="btn btn-text-dark-50 btn-icon-primary btn-hover-icon-warning font-weight-bold btn-hover-bg-light">
+                    <span class="svg-icon svg-icon-primary">
+                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24"></rect>
+                                <path d="M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409)"></path>
+                                <rect fill="#000000" opacity="0.3" x="5" y="20" width="15" height="2" rx="1"></rect>
+                            </g>
+                        </svg>
+                    </span>
+                    @ResourceManagement.GetResourceText("Task.Home.EditTask", "Chỉnh sửa công việc", "Edit task")
+                </a>
+                
+                <button ng-click="my_tree.collapse_all()" class="btn btn-default btn-sm">@ResourceManagement.GetResourceText("Task.Home.CollapseAll", "Thu gọn", "Collapse All")</button>
+                <div class="dropdown ml-2" data-toggle="tooltip" title="" data-original-title="">
+                    <span class="btn btn-default btn-icon btn-sm" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </span>
+                    <div class="dropdown-menu p-0 m-0">
+                        <ul class="navi py-3">
+                            <li class="navi-item">
+                                <a ng-show="isEditProject" ng-click="ViewAdminCategory('Update')" class="navi-link">
+                                    <span class="svg-icon svg-icon-primary">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24"></rect>
+                                                <path d="M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409)"></path>
+                                                <rect fill="#000000" opacity="0.3" x="5" y="20" width="15" height="2" rx="1"></rect>
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    @ResourceManagement.GetResourceText("Task.Home.EditAdminCategory", "Chỉnh sửa phân loại", "Edit category")
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a ng-show="isDeleteProject" ng-click="DeleteAdminCategory()" class="navi-link">
+                                    <span class="svg-icon svg-icon-primary">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
+                                                <path d="M12.0355339,10.6213203 L14.863961,7.79289322 C15.2544853,7.40236893 15.8876503,7.40236893 16.2781746,7.79289322 C16.6686989,8.18341751 16.6686989,8.81658249 16.2781746,9.20710678 L13.4497475,12.0355339 L16.2781746,14.863961 C16.6686989,15.2544853 16.6686989,15.8876503 16.2781746,16.2781746 C15.8876503,16.6686989 15.2544853,16.6686989 14.863961,16.2781746 L12.0355339,13.4497475 L9.20710678,16.2781746 C8.81658249,16.6686989 8.18341751,16.6686989 7.79289322,16.2781746 C7.40236893,15.8876503 7.40236893,15.2544853 7.79289322,14.863961 L10.6213203,12.0355339 L7.79289322,9.20710678 C7.40236893,8.81658249 7.40236893,8.18341751 7.79289322,7.79289322 C8.18341751,7.40236893 8.81658249,7.40236893 9.20710678,7.79289322 L12.0355339,10.6213203 Z" fill="#000000" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    @ResourceManagement.GetResourceText("Task.Home.DeleteAdminCategory", "Xóa phân loại", "Delete category")
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a ng-show="isDeleteTask" ng-click="DeleteTaskItem()" class="navi-link">
+                                    <span class="svg-icon svg-icon-primary">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
+                                                <path d="M12.0355339,10.6213203 L14.863961,7.79289322 C15.2544853,7.40236893 15.8876503,7.40236893 16.2781746,7.79289322 C16.6686989,8.18341751 16.6686989,8.81658249 16.2781746,9.20710678 L13.4497475,12.0355339 L16.2781746,14.863961 C16.6686989,15.2544853 16.6686989,15.8876503 16.2781746,16.2781746 C15.8876503,16.6686989 15.2544853,16.6686989 14.863961,16.2781746 L12.0355339,13.4497475 L9.20710678,16.2781746 C8.81658249,16.6686989 8.18341751,16.6686989 7.79289322,16.2781746 C7.40236893,15.8876503 7.40236893,15.2544853 7.79289322,14.863961 L10.6213203,12.0355339 L7.79289322,9.20710678 C7.40236893,8.81658249 7.40236893,8.18341751 7.79289322,7.79289322 C8.18341751,7.40236893 8.81658249,7.40236893 9.20710678,7.79289322 L12.0355339,10.6213203 Z" fill="#000000" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    @ResourceManagement.GetResourceText("Task.Home.DeleteTask", "Xóa công việc", "Delete task")
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--begin::Body-->
+        <div class="card-body p-0">
+            <div class="task-content">
+                @{
+                    @Html.Partial(AdminController.PartialViewTaskInMain, Model)
+                }
+            </div>
+            <!--begin::chi tiet du an-->
+            <div id="kt_demo_panel" class="offcanvas offcanvas-right">
+                <div class="offcanvas-header d-flex align-items-center justify-content-between pb-0 px-5 pt-5" kt-hidden-height="46" style="">
+                    <h4 class="font-weight-bold m-0"></h4>
+                    <a href="#" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_demo_panel_close" ng-click="CloseTaskDetail();">
+                        <i class="ki ki-close icon-xs text-muted"></i>
+                    </a>
+                </div>
+                <div class="offcanvas-content">
+                    @Html.Partial("~/Areas/Task/Views/Admin/PartialView/_TaskItemDetail.cshtml")
+                </div>
+            </div>
+            <!--end::chi tiet du an-->
+        </div>
+        <!--end::Body-->
+
+    </div>
+    <div class="dropdown sticky">
+        <button type="button" class="btn btn-danger btn-circle btn-icon" ng-click="ViewAdminCategory('New')"><i class="fas fa-plus"></i></button>
+    </div>
+
+    @Html.Partial("PartialView/_AddEditProjectPartial")
+    @Html.Partial("PartialView/_AddEditTaskPartial")
+</div>
+
+<script type="text/javascript">
+    var ColumnHeader = JSON.parse( @Html.Raw(Json.Encode(ViewBag.col_defs)));
+</script>
+
+<!-- Modal-->
+@section scripts {
+    <script src="~/Areas/Task/Content/angularjs/controller/AdminCategoryCtrl.js"></script>
+    <script src="~/Areas/Task/Content/angularjs/services/AdminCategoryService.js"></script>
+}
