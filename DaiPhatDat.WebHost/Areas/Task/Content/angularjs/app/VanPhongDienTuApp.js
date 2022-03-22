@@ -96,6 +96,7 @@
     });
     app.directive('myEnter', function () {
         return function (scope, element, attrs) {
+            console.log('test');
             element.bind("keydown", function (event) {
                 if (event.which === 13) {
                     scope.$apply(function () {

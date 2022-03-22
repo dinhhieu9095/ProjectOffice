@@ -11,6 +11,7 @@ namespace DaiPhatDat.Module.Task.Services
         IEnumerable<FileCommentDto> FileComments(Guid commentId);
 
         List<CommentDto> GetByObjectID(Guid objectId);
+        List<CommentDto> GetLimitByObjectID(Guid objectId, int pageIndex, int pageSize);
         bool CreateComment(string content, Guid taskItemId, Guid currentUserId);
         bool UpdateComment(string content, Guid commentId, Guid currentUserId);
 

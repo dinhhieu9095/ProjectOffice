@@ -96,28 +96,65 @@ namespace DaiPhatDat.Module.Task.Services
         }
         public List<CommentDto> GetByObjectID(Guid objectId)
         {
-            var userDto = _userServices.GetUsers();
-            var rs = GetAll().Where(x => x.ObjectID == objectId)
-                .Select(x => new CommentDto
-                {
-                    ID = x.ID,
-                    Content = x.Content,
-                    Created = x.Created,
-                    UserID = x.UserID,
-                    IsActive = x.IsActive,
-                    ModuleCode = x.ModuleCode,
-                    ObjectID = x.ObjectID,
-                    HistoryContent = x.HistoryContent,
-                    IsChange = x.IsChange
-                })
-                .OrderBy(x => x.Created).ToList();
-
-            rs.ForEach(x =>
+            List<CommentDto> rs = new List<CommentDto>();
+            using (var scope = _dbContextScopeFactory.CreateReadOnly())
             {
-                x.FullName = userDto.Where(y => y.Id == x.UserID)
-                    .Select(y => y.FullName)
-                    .FirstOrDefault() ?? String.Empty;
-            });
+                var userDto = _userServices.GetUsers();
+                rs = GetAll().Where(x => x.ObjectID == objectId).OrderBy(x => x.Created)
+                    .Select(x => new CommentDto
+                    {
+                        ID = x.ID,
+                        Content = x.Content,
+                        Created = x.Created,
+                        UserID = x.UserID,
+                        IsActive = x.IsActive,
+                        ModuleCode = x.ModuleCode,
+                        ObjectID = x.ObjectID,
+                        HistoryContent = x.HistoryContent,
+                        IsChange = x.IsChange
+                    })
+                    .ToList();
+                rs = rs.OrderBy(e => e.Created).ToList();
+                rs.ForEach(x =>
+                {
+                    x.FullName = userDto.Where(y => y.Id == x.UserID)
+                        .Select(y => y.FullName)
+                        .FirstOrDefault() ?? String.Empty;
+                });
+            }
+
+            return rs;
+        }
+
+        public List<CommentDto> GetLimitByObjectID(Guid objectId, int pageIndex, int pageSize)
+        {
+            List<CommentDto> rs = new List<CommentDto>();
+            using (var scope = _dbContextScopeFactory.CreateReadOnly())
+            {
+                var userDto = _userServices.GetUsers();
+                rs = GetAll().Where(x => x.ObjectID == objectId).OrderByDescending(x => x.Created).Skip(pageIndex).Take(pageSize)
+                    .Select(x => new CommentDto
+                    {
+                        ID = x.ID,
+                        Content = x.Content,
+                        Created = x.Created,
+                        UserID = x.UserID,
+                        IsActive = x.IsActive,
+                        ModuleCode = x.ModuleCode,
+                        ObjectID = x.ObjectID,
+                        HistoryContent = x.HistoryContent,
+                        IsChange = x.IsChange
+                    })
+                    .ToList();
+                rs = rs.OrderBy(e => e.Created).ToList();
+                rs.ForEach(x =>
+                {
+                    x.FullName = userDto.Where(y => y.Id == x.UserID)
+                        .Select(y => y.FullName)
+                        .FirstOrDefault() ?? String.Empty;
+                });
+            }
+                
             return rs;
         }
 

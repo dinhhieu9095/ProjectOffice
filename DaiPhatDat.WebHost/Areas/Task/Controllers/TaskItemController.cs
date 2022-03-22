@@ -17,15 +17,17 @@ namespace DaiPhatDat.Module.Task.Web
     [Authorize]
     public class TaskItemController : BaseTaskController
     {
-        public TaskItemController(ILoggerServices loggerServices, IUserServices userService, IUserDepartmentServices userDepartmentServices, ITaskItemService taskItemService, IMapper mapper, ICategoryService categoryService, IAttachmentService attachmentService, IProjectService projectService) : base(loggerServices, userService, userDepartmentServices)
+        public TaskItemController(ILoggerServices loggerServices, IUserServices userService, IUserDepartmentServices userDepartmentServices, ITaskItemService taskItemService, IMapper mapper, ICategoryService categoryService, IAttachmentService attachmentService, IProjectService projectService, ICommentService commentService) : base(loggerServices, userService, userDepartmentServices)
         {
             _attachmentService = attachmentService;
             _projectService = projectService;
             _mapper = mapper;
             _categoryService = categoryService;
             _taskItemService = taskItemService;
+            _commentService = commentService;
         }
         private readonly ITaskItemService _taskItemService;
+        private readonly ICommentService _commentService;
         private readonly IProjectService _projectService;
         private readonly IAttachmentService _attachmentService;
         private readonly ICategoryService _categoryService;
@@ -413,6 +415,76 @@ namespace DaiPhatDat.Module.Task.Web
             }
         }
 
-      
+        [HttpPost]
+        public JsonResult GetComments(QueryCommonModel model)
+        {
+            var result = new List<CommentDto>();
+            try
+            {
+                if (!model.TaskItemId.HasValue)
+                    return Json(false, JsonRequestBehavior.AllowGet);
+                //List<CommentDto> list = _commentService.GetLimitByObjectID(model.TaskItemId.Value, model.PageSize, 10);
+                List<CommentDto> list = _commentService.GetByObjectID(model.TaskItemId.Value);
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i].UserID == CurrentUser.Id)
+                    {
+                        list[i].Class = "text-right";
+                        list[i].Class1 = "label-light-success";
+                    }
+                }
+                result = list;
+            }
+            catch (Exception ex)
+            {
+                _loggerServices.WriteError(ex.Message);
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult CreateComment(CommentDto dto)
+        {
+            try
+            {
+                if (dto.ObjectID.HasValue)
+                {
+                    bool op = _commentService.CreateComment(dto.Content, dto.ObjectID.Value, CurrentUser.Id);
+                    if (op)
+                    {
+                        //List<CommentDto> list = _commentService.GetLimitByObjectID(dto.ObjectID.Value, 0, dto.Total+1);
+                        List<CommentDto> list = _commentService.GetByObjectID(dto.ObjectID.Value);
+                        for (int i = 0; i < list.Count; i++)
+                        {
+                            if (list[i].UserID == CurrentUser.Id)
+                            {
+                                list[i].Class = "text-right";
+                                list[i].Class1 = "label-light-success";
+                            }
+                        }
+                        return Json(list, JsonRequestBehavior.AllowGet);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _loggerServices.WriteError(ex.ToString());
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult UpdateComment(CommentDto dto)
+        {
+            SendMessageResponse rs = null;
+            try
+            {
+                bool op = _commentService.UpdateComment(dto.Content, dto.ID, CurrentUser.Id);
+                rs.IsSuccess = op;
+            }
+            catch (Exception ex)
+            {
+                _loggerServices.WriteError(ex.ToString());
+            }
+            return Json(rs, JsonRequestBehavior.AllowGet);
+        }
     }
 }

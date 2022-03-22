@@ -143,18 +143,34 @@ app.directive('draggable', function () {
         }
     };
 });
+app.directive('myEnterTask', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown", function (event) {
+            if (event.which === 13) {
+                scope.$apply(function () {
+                    scope.taskItem.createComment();
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
+});
 app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFactory, MainService) {
     $controller('BaseCtrl', { $scope: $scope });
     $controller('CalendarCtrl', { $scope: $scope });
     $controller('ProjectDetailCtrl', { $scope: $scope });
     $controller('TaskItemDetailCtrl', { $scope: $scope });
     $controller('LeftMenuCtrl', { $scope: $scope });
-
+    
     $scope.ProjectTaskItem = [];
     $scope.projectFilters = [{
         Name: 'Tất cả',
         Id: ''
     }];
+    $scope.CreateComment = function () {
+        debugger
+    }
     $scope.ViewBreadCrumb = [];
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);

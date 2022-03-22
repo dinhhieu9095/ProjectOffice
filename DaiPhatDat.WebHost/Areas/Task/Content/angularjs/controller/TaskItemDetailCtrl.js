@@ -4,12 +4,13 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-
+   
     $scope.taskItem = {
         countAttachTask: 0,
 
         countAttachProcess: 0,
-
+        hasSubmit: false,
+        Comments: [],
         filter: {
             UserId: null,
             ProjectId: null,
@@ -95,7 +96,6 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
             })
             //}
         },
-
         getReport: function () {
             //if ($scope.taskItem.item.TaskItems == null) {
             $scope.showLoading(null);
@@ -477,6 +477,71 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
             })
         },
 
+        getComments: function () {
+            $scope.showLoading(null);
+            $scope.taskItem.Comments = []
+            if ($scope.taskItem.hasSubmit) return;
+            $scope.taskItem.hasSubmit = true;
+            //$('#scroll-comment').off("scroll", $scope.taskItem.scollComment);
+            var param = {
+                TaskItemId: $scope.taskItem.filter.TaskItemId,
+                PageSize: $scope.taskItem.Comments ? $scope.taskItem.Comments.length: 0
+            };
+            TaskItemDetailService.getComments(param).then(function (rs) {
+                $scope.taskItem.Comments = rs.data;
+                //$('#scroll-comment').on("scroll", $scope.taskItem.scollComment);
+                $timeout(function () {
+                    var d = $('#scroll-comment');
+                    console.log(d.prop("scrollHeight"));
+                    d.scrollTop(d.prop("scrollHeight"));
+                },1000)
+                
+                $scope.taskItem.hasSubmit = false;
+                $scope.hideLoading(null);
+            });
+        },
+        scollComment: function () {
+            var st = $(this).scrollTop();
+            if (st === 0) {
+                if ($scope.taskItem.hasSubmit) return;
+                $scope.showLoading(null);
+                $scope.taskItem.hasSubmit = true;
+                var param = {
+                    TaskItemId: $scope.taskItem.filter.TaskItemId,
+                    PageSize: $scope.taskItem.Comments ? $scope.taskItem.Comments.length : 0
+                };
+                TaskItemDetailService.getComments(param).then(function (rs) {
+                    if (!rs.data || rs.data.length === 0) {
+                        $('#scroll-comment').off("scroll", $scope.taskItem.scollComment);
+                    } else {
+                        $scope.taskItem.Comments = rs.data.concat($scope.taskItem.Comments);
+                        var d = $('#scroll-comment');
+                        d.scrollTop(10);
+                    }
+                    $scope.taskItem.hasSubmit = false;
+                    $scope.hideLoading(null);
+                });
+            }
+        },
+        createComment: function () {
+            if (!$scope.taskItem.CommentText || $scope.taskItem.CommentText.length === 0) {
+                return;
+            }
+            var param = {
+                ObjectId: $scope.taskItem.item.TaskItemId,
+                Content: $scope.taskItem.CommentText,
+                Total: $scope.taskItem.Comments.length
+            };
+            TaskItemDetailService.createComment(param).then(function (rs) {
+                $scope.taskItem.Comments = rs.data;
+                $scope.taskItem.CommentText = '';
+            });
+        },
+        updateComment: function (data) {
+            TaskItemDetailService.updateComment(data).then(function (rs) {
+                $scope.taskItem.Comments = rs.data;
+            });
+        },
         init: function (id) {
             this.filter.TaskItemId = id;
             this.clearForm();

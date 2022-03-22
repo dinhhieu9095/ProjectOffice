@@ -45,6 +45,7 @@
             return request;
         },
 
+
         reportTask: function (id) {
             var request = $http({
                 method: 'GET',
@@ -75,6 +76,39 @@
                 contentType: 'application/json; charset=utf-8'
             });
 
+            return request;
+        },
+
+        getComments: function (filter) {
+            var request = $http({
+                method: 'POST',
+                url: CommonUtils.RootURL("Task/TaskItem/getComments"),
+                data: filter,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8'
+            });
+
+            return request;
+        },
+        createComment: function (data) {
+            var request = $http({
+                method: 'POST',
+                url: CommonUtils.RootURL("Task/TaskItem/createComment"),
+                data: data,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8'
+            });
+
+            return request;
+        },
+        updateComment: function (data) {
+            var request = $http({
+                method: 'POST',
+                url: CommonUtils.RootURL("Task/TaskItem/updateComment"),
+                data: data,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8'
+            });
             return request;
         }
     }

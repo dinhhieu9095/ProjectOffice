@@ -97,6 +97,12 @@
                             <span class="nav-text">@ResourceManagement.GetResourceText("Task.TaskDetail.Document", "Tài liệu", "Document")</span>
                         </a>
                     </li>
+                    <li class="nav-item" id="commentZoneTask" ng-click="taskItem.getComments()">
+                        <a class="nav-link" href="#tab_commentZoneTask" data-toggle="tab">
+                            <span class="nav-icon"><i class="flaticon2-paper"></i></span>
+                            <span class="nav-text">@ResourceManagement.GetResourceText("Task.TaskDetail.Comment", "Bình luận", "Comment")</span>
+                        </a>
+                    </li>
                     <li class="nav-item" id="tabli_detailHis" ng-click="taskItem.getHistory(null)">
                         <a class="nav-link" href="#tab_taskDetailHis" data-toggle="tab">
                             <span class="nav-icon"><i class="fa fa-history"></i></span>
@@ -265,6 +271,22 @@
 
                             <div class="attachment-noti" ng-if="taskItem.item.countAttachProcess.length <= 0">
                                 @ResourceManagement.GetResourceText("Task.TaskDetail.NoAttachedDocuments", "Chưa có tài liệu đính kèm", "No attached documents")
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab_commentZoneTask" class="tab-pane">
+                        <div class="portlet-body">
+                            <ul class="navi navi-hover" id="scroll-comment" style="max-height: 300px; min-height: 300px; overflow-y:scroll">
+                                <li class="navi-item" ng-class="cmt.Class" ng-repeat="cmt in taskItem.Comments">
+                                <a class="navi-link cursor-pointer" ng-click="taskItem.CommentOption()">
+                                    <span class="navi-text">
+                                    <span class="label label-xl label-inline" ng-class="cmt.Class1" ng-bind="cmt.Content"></span>
+                                        </span></a></li>
+                                <li class="navi-separator mb-3 opacity-70"></li>
+                            </ul>
+                            <div class="row">
+                                <input class="col-md-8 pr-0" id="CommentText" name="CommentText" ng-model="taskItem.CommentText" my-enter-task />
+                                <button class="btn btn-primary col-md-4 pr-0" ng-click="taskItem.createComment()">@ResourceManagement.GetResourceText("Task.TaskDetail.SendComent", "Gửi", "Send")</button>
                             </div>
                         </div>
                     </div>
