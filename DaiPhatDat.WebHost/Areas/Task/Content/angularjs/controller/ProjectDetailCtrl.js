@@ -26,7 +26,6 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
         getData: function () {
             $scope.showLoading(null);
             ProjectDetailService.getData($scope.projectDetail.filter.ProjectId).then(function (rs) {
-                debugger
                 $scope.projectDetail.item = rs.data;
                 $("#modal-project-detail").css("display", "block");
                 $("#modal-task-detail").css("display", "none");
@@ -417,8 +416,14 @@ app.controller("ProjectDetailCtrl", function ($scope, $controller, $q, $timeout,
             this.clearForm();
             this.filter.ProjectId = id;
             this.getData();
+        },
+        initNotify: function () {
+            const projectId = urlParams.get('projectId');
+            if (projectId && projectId !== '') {
+                $scope.projectDetail.init(projectId);
+            }
         }
     };
 
-    //$scope.projectDetail.init('e28f4c01-31e8-49e1-adc1-6cb61c7330d9');
+    $scope.projectDetail.initNotify();
 });

@@ -440,6 +440,7 @@
     <Content Include="Views\Shared\_OrgChartModalPartial.cshtml" />
     <Content Include="Views\Shared\_TopMenuPartial.cshtml" />
     <Content Include="Views\Shared\_UserProfilePartial.cshtml" />
+    <Content Include="Views\Home\UserNotification.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\" />

@@ -20,6 +20,10 @@ using System.Threading;
 using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
 using RefactorThis.GraphDiff;
 using System.Configuration;
+using DaiPhatDat.Core.Kernel.Notifications.Application;
+using DaiPhatDat.Core.Kernel.Notifications.Application.Dto;
+using DaiPhatDat.Core.Kernel;
+using DaiPhatDat.Core.Kernel.Notifications.Application.NotificationTypes;
 
 namespace DaiPhatDat.Module.Task.Services
 {
@@ -32,6 +36,7 @@ namespace DaiPhatDat.Module.Task.Services
         private readonly IDepartmentServices _departmentServices;
         private readonly IUserServices _userServices;
         private readonly IUserDepartmentServices _userDepartmentServices;
+        private readonly INotificationServices _notificationServices;
         private readonly IProjectRepository _projectRepository;
         private readonly IProjectService _projectService;
         private readonly ITaskItemRepository _objectRepository;
@@ -41,7 +46,7 @@ namespace DaiPhatDat.Module.Task.Services
         private readonly ITaskItemProcessHistoryRepository _taskItemHistoryRepository;
         private readonly ITaskItemAssignRepository _taskItemAssignRepository;
         private readonly IActionRepository _actionRepository;
-        public TaskItemService(ILoggerServices loggerServices, IDbContextScopeFactory dbContextScopeFactory, IMapper mapper, IUserServices userServices, ICategoryService categoryService, IDepartmentServices departmentServices, IUserDepartmentServices userDepartmentServices, ITaskItemRepository objectRepository, IProjectService projectService, ITaskItemProcessHistoryRepository taskItemHistoryRepository, ICommentService commentService, IAttachmentService attachmentService, IProjectRepository projectRepository, IAttachmentRepository attachmentRepository, IActionRepository actionRepository, ITaskItemAssignRepository taskItemAssignRepository)
+        public TaskItemService(ILoggerServices loggerServices, IDbContextScopeFactory dbContextScopeFactory, IMapper mapper, IUserServices userServices, ICategoryService categoryService, IDepartmentServices departmentServices, IUserDepartmentServices userDepartmentServices, ITaskItemRepository objectRepository, IProjectService projectService, ITaskItemProcessHistoryRepository taskItemHistoryRepository, ICommentService commentService, IAttachmentService attachmentService, IProjectRepository projectRepository, IAttachmentRepository attachmentRepository, IActionRepository actionRepository, ITaskItemAssignRepository taskItemAssignRepository, INotificationServices notificationServices)
         {
             _loggerServices = loggerServices;
             _dbContextScopeFactory = dbContextScopeFactory;
@@ -59,6 +64,7 @@ namespace DaiPhatDat.Module.Task.Services
             _attachmentRepository = attachmentRepository;
             _actionRepository = actionRepository;
             _taskItemAssignRepository = taskItemAssignRepository;
+            _notificationServices = notificationServices;
         }
         public async Task<TaskItemDto> GetById(Guid id)
         {
@@ -114,6 +120,7 @@ namespace DaiPhatDat.Module.Task.Services
                     }
                     dto.IsLinked = entity.Project.IsLinked;
                     dto.Project = null;
+                    dto.AdminCategoryId = null;
                     List<AttachmentDto> attachmentDtos = _attachmentRepository.GetAll().Where(e => e.ProjectId == entity.ProjectId && e.ItemId.HasValue && e.ItemId == entity.Id && e.Source == Source.TaskItem).Select(e => new AttachmentDto()
                     {
                         Id = e.Id,
@@ -287,8 +294,10 @@ namespace DaiPhatDat.Module.Task.Services
             SendMessageResponse sendMessage = new SendMessageResponse();
             try
             {
+                List<CreateNotificationDto> crtNoties = new List<CreateNotificationDto>();
                 using (var scope = _dbContextScopeFactory.Create())
                 {
+                    List<TaskItemAssignDto> lstUserNoti = new List<TaskItemAssignDto>();
                     if (DateTime.TryParseExact(dto.FromDateText, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fromDate))
                     {
                         dto.FromDate = fromDate;
@@ -387,6 +396,7 @@ namespace DaiPhatDat.Module.Task.Services
                             assign.TaskItemStatusId = TaskItemStatusId.New;
                             entity.TaskItemAssigns.Add(_mapper.Map<TaskItemAssign>(assign));
                         }
+                        lstUserNoti.AddRange(assignAdds);
                         _objectRepository.Modify(entity);
                         _taskItemHistoryRepository.Add(taskHistory);
                     }
@@ -436,25 +446,9 @@ namespace DaiPhatDat.Module.Task.Services
                             assign.ModifiedDate = dto.ModifiedDate;
                             assign.TaskItemStatusId = taskItemStatusId;
                         }
+                        lstUserNoti.AddRange(dto.TaskItemAssigns);
                         entity = _mapper.Map<TaskItem>(dto);
                         entity.Project = null;
-                        foreach (var assign in dto.TaskItemAssigns)
-                        {
-                            //TaskItemProcessHistory taskAssignHistory = new TaskItemProcessHistory
-                            //{
-                            //    Id = Guid.NewGuid(),
-                            //    ProjectId = dto.ProjectId,
-                            //    TaskItemAssignId = assign.Id,
-                            //    ActionId = ActionId.Assign,
-                            //    CreatedBy = dto.ModifiedBy,
-                            //    PercentFinish = dto.PercentFinish,
-                            //    CreatedDate = dto.ModifiedDate,
-                            //    TaskItemId = dto.Id,
-                            //    TaskItemStatusId = dto.TaskItemStatusId,
-                            //    ProcessResult = dto.TaskName
-                            //};
-                            //entity.TaskItemProcessHistories.Add(taskAssignHistory);
-                        }
                         TaskItemProcessHistory taskHistory = new TaskItemProcessHistory
                         {
                             Id = Guid.NewGuid(),
@@ -526,6 +520,31 @@ namespace DaiPhatDat.Module.Task.Services
                             Value = 1
                         });
                         await _objectRepository.SqlQueryAsync(typeof(ProjectDto), "[dbo].[SP_UPDATE_TASK_RANGE_DATE] @ProjectId, @TaskId, @FromDate, @ToDate, @IsUpdateStatus", param.ToArray());
+                        
+                        
+                        foreach (var noti in lstUserNoti)
+                        {
+                            string subject = "";
+                            if (dto.TaskItemStatusId == TaskItemStatusId.New)
+                            {
+                                subject = string.Format(ResourceManagement.GetResourceText("Task.Noti.NewTask", "Công việc {0} được tạo mới!", "A new task {0} has been created!"), dto.TaskName);
+                            }
+                            else
+                            {
+                                subject = string.Format(ResourceManagement.GetResourceText("Task.Noti.UpdateTask", "Công việc {0} đã được cập nhật!", "A task {0} has been updated!"), dto.TaskName);
+                            }
+                            var create = new CreateNotificationDto
+                            {
+                                ObjectId = noti.TaskItemId.Value,
+                                Subject = subject,
+                                ModuleCode = "Task",
+                                Url = string.Format(@"/Task/Home/TaskItemDetailNotify?taskId={0}", dto.Id),
+                                SenderId = dto.ModifiedBy,
+                                RecipientId = noti.AssignTo.Value,
+                            };
+                            crtNoties.Add(create);
+                        }
+
                     }
                     if (dto.AdminCategoryId.HasValue && dto.AdminCategoryId != Guid.Empty)
                     {
@@ -560,6 +579,10 @@ namespace DaiPhatDat.Module.Task.Services
                         });
                         await _objectRepository.SqlQueryAsync(typeof(TaskItemDto), "[dbo].[SP_ADMIN_CATEGORY_CLONE_TASK] @AdminCategoryId, @ProjectId, @ParentId, @CurrentUserId", param.ToArray());
                     }
+                }
+                if (crtNoties.Count > 0)
+                {
+                    bool nt = await _notificationServices.AddRangeAsync(crtNoties);
                 }
                 sendMessage = SendMessageResponse.CreateSuccessResponse(string.Empty);
                 return sendMessage;

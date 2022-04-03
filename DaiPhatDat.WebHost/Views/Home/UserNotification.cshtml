@@ -1,0 +1,21 @@
+﻿@using DaiPhatDat.WebHost.Common
+@model List<DaiPhatDat.Core.Kernel.Notifications.Application.Dto.NotificationDto>
+@{
+    string siteUrl = System.Configuration.ConfigurationManager.AppSettings["SiteURL"];
+    siteUrl = siteUrl.Substring(0, siteUrl.Length - 1);
+}
+
+@foreach (var item in Model)
+{
+    string linklv1 = "#";
+    if (!string.IsNullOrEmpty(item.Url))
+    {
+        linklv1 = item.Url.Replace("~", "");
+        linklv1 = siteUrl + linklv1;
+    }
+    <li>
+        <a href="@Url.Action("LoadURLNotification", "Home", new { Id = item.Id })">
+            <span>@item.Subject</span>
+        </a>
+    </li>
+}

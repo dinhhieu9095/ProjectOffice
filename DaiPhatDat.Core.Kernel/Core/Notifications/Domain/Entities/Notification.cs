@@ -13,7 +13,7 @@ namespace DaiPhatDat.Core.Kernel.Notifications.Domain.Entities
 
         public bool IsDeleted { get; private set; }
 
-        public Guid NotificationTypeId { get; private set; }
+        public Guid? NotificationTypeId { get; private set; }
 
         public virtual NotificationType NotificationType { get; protected set; }
 
@@ -37,12 +37,13 @@ namespace DaiPhatDat.Core.Kernel.Notifications.Domain.Entities
         public string CcEmail { get; private set; }
 
 
-        public static Notification Create(Guid notificationTypeId, string moduleCode, Guid? senderId,
+        public static Notification Create(Guid? notificationTypeId, string moduleCode, Guid? senderId,
             Guid recipientId, Guid? objectId, string url, string subject, string body,
             byte[] additionalData = null)
         {
             return new Notification()
             {
+                Id = Guid.NewGuid(),
                 IsDeleted = false,
                 AdditionalData = additionalData,
                 IsRead = false,

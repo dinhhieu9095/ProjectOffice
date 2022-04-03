@@ -165,7 +165,7 @@ namespace DaiPhatDat.Module.Task.Web
             return PartialView(HomeController.PartialViewTaskInMain);
         }
         [HttpPost]
-        public async Task<JsonResult> GetDataByProject(Guid? parentId, Guid? filterId, Guid? folderId, string view, AdvanceFilterModel filter)
+        public JsonResult GetDataByProject(Guid? parentId, Guid? filterId, Guid? folderId, string view, AdvanceFilterModel filter)
         {
             bool bResult = true;
             string strMsg = string.Empty;
@@ -1015,6 +1015,16 @@ namespace DaiPhatDat.Module.Task.Web
         }
         public ActionResult NotFound()
         {
+            return View();
+        }
+        public ActionResult TaskItemDetailNotify(Guid taskId)
+        {
+            ViewBag.taskId = taskId;
+            return View();
+        }
+        public ActionResult ProjectDetailNotify(Guid projectId)
+        {
+            ViewBag.projectId = projectId;
             return View();
         }
         #region Contanst

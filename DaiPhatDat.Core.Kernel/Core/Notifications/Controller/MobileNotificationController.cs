@@ -50,24 +50,7 @@ namespace DaiPhatDat.Core.Kernel.Notifications.Controller
                     .Create(MobileStatusCode.Error, ex.ToString(), null);
             }
         }
-        [Route("search")]
-        [HttpGet]
-        public async Task<MobileResponse<IReadOnlyList<NotificationDto>>> Search(NotificationActionTypes actionType,
-            string moduleCode)
-        {
-            try
-            {
-                var result = await _notificationServices.SearchListAsync(CurrentUser.Id, moduleCode, actionType);
-                return MobileResponse<IReadOnlyList<NotificationDto>>
-                    .Create(MobileStatusCode.Success, null, result);
-            }
-            catch (Exception ex)
-            {
-                _loggerServices.WriteError(ex.ToString());
-                return MobileResponse<IReadOnlyList<NotificationDto>>
-                    .Create(MobileStatusCode.Error, ex.ToString(), null);
-            }
-        }
+       
 
         [Route("delete")]
         [HttpPost]

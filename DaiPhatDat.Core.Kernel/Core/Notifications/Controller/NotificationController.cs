@@ -30,11 +30,18 @@ namespace DaiPhatDat.Core.Kernel.Orgs.Controllers
             var messages = await _notificationServices.GetMessagesAsync(CurrentUser.Id, NotificationActionTypes.Web);
             return Json(messages, JsonRequestBehavior.AllowGet);
         }
+        [Route("")]
+        [HttpGet]
+        public async Task<JsonResult> GetNotification(int size)
+        {
+            var messages = await _notificationServices.SearchListAsync(CurrentUser.Id, "", NotificationActionTypes.Web, size);
+            return Json(messages, JsonRequestBehavior.AllowGet);
+        }
         [Route("search")]
         [HttpGet]
-        public async Task<JsonResult> Search(string moduleCode, NotificationActionTypes actionType)
+        public async Task<JsonResult> Search(string moduleCode, NotificationActionTypes actionType, int size)
         {
-            var messages = await _notificationServices.SearchListAsync(CurrentUser.Id, moduleCode, actionType);
+            var messages = await _notificationServices.SearchListAsync(CurrentUser.Id, moduleCode, actionType, size);
             return Json(messages, JsonRequestBehavior.AllowGet);
         }
 

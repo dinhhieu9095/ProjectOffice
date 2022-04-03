@@ -55,19 +55,20 @@
                             float: left;
                         }
                     </style>
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                    <a href="javascript:;" onclick="getnotifications()" class="dropdown-toggle dropdown-noti" data-toggle="dropdown" aria-expanded="true">
                         <i class="icon-bell"></i>
-                        <span class="badge badge-default lv-notification-badge-count">0</span>
+                        <span class="badge badge-default lv-notification-badge-count">@ViewBag.TotalNofi</span>
                     </a>
                     <ul class="dropdown-menu noti-menu">
                         <li class="external">
                             <h3>
-                                Bạn có <span class="bold lv-notification-count">0</span> Thông báo mới
+                                Bạn có <span class="bold lv-notification-count">@ViewBag.TotalNofi</span> Thông báo mới
                             </h3>
                             <div class="pull-right red"><a href="javascript:;" id="lv-delete-all-notification"><i class="icon icon-trash"></i> Xóa tất cả</a></div>
                         </li>
+                        
                         <li class="seeMore">
-                            <a id="notification-see-all" href="/Module/Notification">Xem tất cả</a>
+                            <a id="notification-see-all" href="" onclick="getmorenotifications()">Xem thêm</a>
                         </li>
                     </ul>
                 </li>
@@ -247,8 +248,32 @@
         }
 </style>
 <script type="text/javascript">
+    var index = 0;
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    function getnotifications() {
+        debugger
+        var item = $('.dropdown-noti')
+        if (item.hasClass('collapsed')) {
+            return
+        }
+        $.ajax({
+            type: "Get",
+            url: '/home/GetNotifications',
+            data: {
+                size: index
+            },
+            async: true,
+            success: function (html) {
+                debugger
+                index++;
+                if (html) {
+                    $(html).insertBefore($('.seeMore'));
+                }
+            },
+            dataType: "html"
+        })
     }
 </script>
 

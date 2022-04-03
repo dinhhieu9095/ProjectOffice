@@ -9,19 +9,19 @@ namespace DaiPhatDat.Core.Kernel.Notifications.Domain.ValueObjects
         /// <summary>
         /// Trên giao diện web
         /// </summary>
-        Web,
+        Web = 1,
         /// <summary>
         /// Trên thiết bị di động
         /// </summary>
-        Mobile,
+        Mobile = 2,
         /// <summary>
         /// Bằng sms
         /// </summary>
-        Sms,
+        Sms = 3,
         /// <summary>
         /// Bằng email
         /// </summary>
-        Email,
-        Firebase
+        Email = 4,
+        Firebase = 5
     }
 }

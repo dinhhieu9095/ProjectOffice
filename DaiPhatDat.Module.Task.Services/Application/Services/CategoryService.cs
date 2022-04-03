@@ -1091,6 +1091,8 @@ END");
             if (newVersion < version)
             {
                 newVersion = version;
+
+                queries.Add(@"ALTER TABLE Core.Notifications ALTER COLUMN NotificationTypeId uniqueidentifier NULL;");
                 queries.Add(@"insert into [Task].[TaskItemStatus]
   Values(9, N'Nháp', 'DRAFT', 1)");
                 #region 6

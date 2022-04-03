@@ -68,23 +68,29 @@ namespace DaiPhatDat.Core.Kernel.Notifications.Application
                 return _mapper.Map<List<NotificationDto>>(models);
             }
         }
-        public async Task<IReadOnlyList<NotificationDto>> SearchListAsync(Guid userId,
-            string moduleCode,
-            NotificationActionTypes actionType)
+        public NotificationDto GetById(Guid Id)
         {
             using (_dbContextScopeFactory.CreateReadOnly())
             {
-                var minDate = DateTime.Now.AddDays(-14);
+                var model = _notificationRepository.Find(e=> e.Id == Id);
+                return _mapper.Map<NotificationDto>(model);
+            }
+        }
+        public async Task<List<NotificationDto>> SearchListAsync(Guid userId,
+            string moduleCode,
+            NotificationActionTypes actionType, int size)
+        {
+            using (_dbContextScopeFactory.CreateReadOnly())
+            {
                 if (string.IsNullOrEmpty(moduleCode))
                 {
                     return await _notificationRepository
                         .GetAll()
                         .Where(w =>
                         !w.IsDeleted &&
-                        w.CreatedDate >= minDate &&
                         w.RecipientId == userId &&
-                        w.NotificationType.ActionType == actionType)
-                        .OrderByDescending(w => w.CreatedDate)
+                        (!w.NotificationTypeId.HasValue || w.NotificationType.ActionType == actionType))
+                        .OrderByDescending(w => w.CreatedDate).Skip(size).Take(15)
                         .ProjectTo<NotificationDto>(_mapper.ConfigurationProvider)
                         .ToListAsync();
                 }
@@ -92,13 +98,39 @@ namespace DaiPhatDat.Core.Kernel.Notifications.Application
                           .GetAll()
                           .Where(w =>
                           !w.IsDeleted &&
-                          w.CreatedDate >= minDate &&
                           w.RecipientId == userId &&
                           w.ModuleCode.Equals(moduleCode, StringComparison.OrdinalIgnoreCase) &&
-                          w.NotificationType.ActionType == actionType)
-                          .OrderByDescending(w => w.CreatedDate)
+                          (!w.NotificationTypeId.HasValue || w.NotificationType.ActionType == actionType))
+                          .OrderByDescending(w => w.CreatedDate).Skip(size).Take(15)
                           .ProjectTo<NotificationDto>(_mapper.ConfigurationProvider)
                           .ToListAsync();
+            }
+        }
+
+        public int TotalNotificationAsync(Guid userId,
+            string moduleCode,
+            NotificationActionTypes actionType)
+        {
+            using (_dbContextScopeFactory.CreateReadOnly())
+            {
+                if (string.IsNullOrEmpty(moduleCode))
+                {
+                    return _notificationRepository
+                        .GetAll().AsNoTracking().Include(e=>e.NotificationType)
+                        .Where(w =>
+                        !w.IsDeleted &&
+                        w.RecipientId == userId &&
+                        (!w.NotificationTypeId.HasValue || w.NotificationType.ActionType == actionType) && !w.IsRead)
+                        .Count();
+                }
+                return _notificationRepository
+                          .GetAll().AsNoTracking().Include(e => e.NotificationType)
+                          .Where(w =>
+                          !w.IsDeleted &&
+                          w.RecipientId == userId &&
+                          w.ModuleCode.Equals(moduleCode, StringComparison.OrdinalIgnoreCase) &&
+                         (!w.NotificationTypeId.HasValue || w.NotificationType.ActionType == actionType) && !w.IsRead)
+                          .Count();
             }
         }
 
@@ -123,6 +155,33 @@ namespace DaiPhatDat.Core.Kernel.Notifications.Application
                 _notificationRepository.Add(notification);
                 await scope.SaveChangesAsync();
                 return notification.Id;
+            }
+        }
+        public async Task<bool> AddRangeAsync(List<CreateNotificationDto> list)
+        {
+            try
+            {
+                using (var scope = _dbContextScopeFactory.Create())
+                {
+                    List<Notification> entities = new List<Notification>();
+                    foreach (var notificationDto in list)
+                    {
+                        var notification = Notification.Create(notificationDto.NotificationTypeId,
+                        notificationDto.ModuleCode, notificationDto.SenderId, notificationDto.RecipientId,
+                       notificationDto.ObjectId, notificationDto.Url, notificationDto.Subject, notificationDto.Body,
+                        notificationDto.AdditionalData);
+                        notification.CreatedDate = DateTime.Now;
+                        notification.ModifiedDate = DateTime.Now;
+                        entities.Add(notification);
+                    }
+                    _notificationRepository.AddRange(entities);
+                    return await scope.SaveChangesAsync() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
         }
 

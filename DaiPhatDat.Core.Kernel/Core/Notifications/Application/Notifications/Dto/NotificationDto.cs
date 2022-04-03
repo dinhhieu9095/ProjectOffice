@@ -12,7 +12,7 @@ namespace DaiPhatDat.Core.Kernel.Notifications.Application.Dto
 
         public bool IsDeleted { get; set; }
 
-        public Guid NotificationTypeId { get; set; }
+        public Guid? NotificationTypeId { get; set; }
 
         public bool IsRead { get; set; }
 
@@ -42,7 +42,7 @@ namespace DaiPhatDat.Core.Kernel.Notifications.Application.Dto
 
         public byte[] AdditionalData { get; set; }
 
-        public Guid NotificationTypeId { get; set; }
+        public Guid? NotificationTypeId { get; set; }
 
         public Guid RecipientId { get; set; }
 

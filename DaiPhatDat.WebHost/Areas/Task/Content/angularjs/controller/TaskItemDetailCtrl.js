@@ -406,22 +406,10 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
         },
 
         clearForm: function () {
-            $scope.projectDetail.item = {};
+            if($scope.projectDetail) $scope.projectDetail.item = {};
             $("#pie-chart-task-status").html('');
             $("#pie-chart-task-proccess").html('');
             $("#bar-chart-task").html('');
-            //$('#tabli_detailProcess').tab('show');
-            //$("#tabli_detailProcess").click();
-            //$("#tabli_detailProcess").trigger('click');
-            //$("#tabli_detailProcess").attr("class", 'tab-pane active');
-
-            //for (var i = 0; i < $('#modal-task-detail .nav-tabs .tab-li').length; i++) {
-            //    $('#modal-task-detail .nav-tabs .tab-li').eq(i).removeClass('active');
-            //}
-
-            //for (var i = 0; i < $('#modal-task-detail .tab-content .tab-pane').length; i++) {
-            //    $('#modal-task-detail .tab-content .tab-pane').eq(i).removeClass('active')
-            //}
         },
 
         openHistory: function (userId) {
@@ -492,7 +480,6 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
                 //$('#scroll-comment').on("scroll", $scope.taskItem.scollComment);
                 $timeout(function () {
                     var d = $('#scroll-comment');
-                    console.log(d.prop("scrollHeight"));
                     d.scrollTop(d.prop("scrollHeight"));
                 },1000)
                 
@@ -546,8 +533,13 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
             this.filter.TaskItemId = id;
             this.clearForm();
             this.getData();
+        },
+        initNotify: function () {
+            const taskId = urlParams.get('taskId');
+            if (taskId && taskId !== '') {
+                $scope.taskItem.init(taskId);
+            }
         }
     };
-
-    //$scope.taskItem.init('62b16201-78ab-aa06-1fb4-a7156dc031a8');
+    $scope.taskItem.initNotify();
 });

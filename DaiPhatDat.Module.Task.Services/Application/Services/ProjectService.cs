@@ -24,6 +24,8 @@ using DaiPhatDat.Core.Kernel.Orgs.Application.Dto;
 using DaiPhatDat.Module.Task.Entities;
 using SystemTask = System.Threading.Tasks.Task;
 using System.Data;
+using DaiPhatDat.Core.Kernel.Notifications.Application.Dto;
+using DaiPhatDat.Core.Kernel.Notifications.Application;
 
 namespace DaiPhatDat.Module.Task.Services
 {
@@ -36,6 +38,7 @@ namespace DaiPhatDat.Module.Task.Services
         private readonly ITaskItemRepository _taskItemRepository;
         private readonly ICategoryService _categoryService;
         private readonly IDepartmentServices _departmentServices;
+        private readonly INotificationServices _notificationServices;
         private readonly IAttachmentService _attachmentService;
         private readonly IProjectCategoryRepository _projectCategoryRepository;
         private readonly IProjectHistoryRepository _projectHistoryRepository;
@@ -43,7 +46,7 @@ namespace DaiPhatDat.Module.Task.Services
         private readonly IUserServices _userServices;
         private readonly IUserDepartmentServices _userDepartmentServices;
         private readonly IActionRepository _actionRepository;
-        public ProjectService(ILoggerServices loggerServices, IDbContextScopeFactory dbContextScopeFactory, IMapper mapper, IProjectRepository objectRepository, IUserServices userServices, ICategoryService categoryService, IDepartmentServices departmentServices, IProjectHistoryRepository projectHistoryRepository, IAttachmentRepository attachmentRepository, IProjectCategoryRepository projectCategoryRepository, IUserDepartmentServices userDepartmentServices, IAttachmentService attachmentService, ITaskItemRepository taskItemRepository, IActionRepository actionRepository)
+        public ProjectService(ILoggerServices loggerServices, IDbContextScopeFactory dbContextScopeFactory, IMapper mapper, IProjectRepository objectRepository, IUserServices userServices, ICategoryService categoryService, IDepartmentServices departmentServices, IProjectHistoryRepository projectHistoryRepository, IAttachmentRepository attachmentRepository, IProjectCategoryRepository projectCategoryRepository, IUserDepartmentServices userDepartmentServices, IAttachmentService attachmentService, ITaskItemRepository taskItemRepository, IActionRepository actionRepository, INotificationServices notificationServices)
         {
             _loggerServices = loggerServices;
             _dbContextScopeFactory = dbContextScopeFactory;
@@ -59,6 +62,7 @@ namespace DaiPhatDat.Module.Task.Services
             _attachmentRepository = attachmentRepository;
             _taskItemRepository = taskItemRepository;
             _actionRepository = actionRepository;
+            _notificationServices = notificationServices;
         }
         public async Task<ProjectDto> GetById(Guid id)
         {
@@ -478,6 +482,30 @@ namespace DaiPhatDat.Module.Task.Services
                         _attachmentRepository.DeleteRange(attachDels);
                     }
                     await scope.SaveChangesAsync();
+                    List<CreateNotificationDto> crtNoties = new List<CreateNotificationDto>();
+                    foreach (var noti in dto.ProjectMembers)
+                    {
+                        string subject = "";
+                        if (dto.ProjectStatusId == ProjectStatusId.New)
+                        {
+                            subject = string.Format(ResourceManagement.GetResourceText("Task.Noti.NewProject", "Dự án  {0} được tạo mới!", "Project {0} has been created!"), dto.Summary);
+                        }
+                        else
+                        {
+                            subject = string.Format(ResourceManagement.GetResourceText("Task.Noti.UpdateProject", "Dự án  {0} đã được cập nhật!", "Project {0} has been updated!"), dto.Summary);
+                        }
+                        var create = new CreateNotificationDto
+                        {
+                            ObjectId = dto.Id,
+                            Subject = subject,
+                            ModuleCode = "Task",
+                            Url = string.Format(@"/Task/Home/ProjectDetailNotify?projectId={0}", dto.Id),
+                            SenderId = dto.ModifiedBy,
+                            RecipientId = noti.UserId,
+                        };
+                        crtNoties.Add(create);
+                    }
+                    bool t = await _notificationServices.AddRangeAsync(crtNoties);
                     if (dto.AdminCategoryId.HasValue && dto.AdminCategoryId != Guid.Empty)
                     {
                         var param = new List<SqlParameter>();
