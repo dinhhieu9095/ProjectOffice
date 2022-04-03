@@ -4,10 +4,6 @@
 
         <div class="menuLeft">
             <div ng-repeat="item in leftMenu.data" class="menu-item" id="menu-item-{{ item.Code }}" aria-haspopup="true" ng-click="leftMenu.loadMenu(item.ID, item.Code)" data-treeleftid="{{ item.ID }}">
-                @*<a href="javascript:;" class="menu-link menu-toggle">
-                <h4 class="menu-text menu-heading text-uppercase mb-0" ng-bind-html="item.Name"></h4>
-                <i class="fas fa-chevron-right"></i>
-            </a>*@
                 <div class="menu-nav">
                     <div class="menu-sticky-zoon">
                         <div class="d-block float-right">
