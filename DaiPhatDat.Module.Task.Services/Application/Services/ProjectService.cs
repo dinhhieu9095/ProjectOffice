@@ -1141,7 +1141,7 @@ namespace DaiPhatDat.Module.Task.Services
                 }
                 var asyncTaskItem = await _taskItemRepository.GetAll()
                        .Include(x => x.TaskItemStatus)
-                       .Where(x => x.IsDeleted == false && x.IsAdminCategory == false && (!x.IsGroupLabel.HasValue || x.IsGroupLabel == false))
+                       .Where(x => x.IsDeleted == false && x.Project.IsActive == true && x.IsAdminCategory == false && (!x.IsGroupLabel.HasValue || x.IsGroupLabel == false))
                        .Where(taskItemPredicateBuilder)
                        .Select(e => new TaskItemDto()
                        {

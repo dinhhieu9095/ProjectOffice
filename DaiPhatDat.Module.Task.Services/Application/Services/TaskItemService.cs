@@ -352,6 +352,10 @@ namespace DaiPhatDat.Module.Task.Services
                         entity.TaskItemCategory = string.Join(";", dto.TaskItemCategories);
                         entity.TaskItemPriorityId = dto.TaskItemPriorityId;
                         entity.TaskItemStatusId = dto.TaskItemStatusId;
+                        if(dto.TaskItemStatusId == TaskItemStatusId.Draft)
+                        {
+                            entity.TaskItemStatusId = taskItemStatusId;
+                        }
                         entity.TaskName = dto.TaskName;
                         entity.TaskType = dto.TaskType;
                         entity.ToDate = dto.ToDate;
