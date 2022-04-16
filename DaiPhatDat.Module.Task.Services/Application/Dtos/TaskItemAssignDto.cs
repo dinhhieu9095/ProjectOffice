@@ -69,6 +69,7 @@ namespace DaiPhatDat.Module.Task.Services
         public string Problem { get; set; }
 
         public Guid? UserHandoverId { get; set; }
+        public int? WorkingHours { get; set; }
 
         public TaskItemDto TaskItem { get; set; }
 

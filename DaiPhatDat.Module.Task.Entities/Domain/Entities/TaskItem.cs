@@ -71,6 +71,8 @@ namespace DaiPhatDat.Module.Task.Entities
         public bool IsAdminCategory { get; set; }
         public int TaskGroupType { get; set; }
         public Guid? AdminCategoryId { get; set; }
+        public int? WorkingHours { get; set; }
+
 
         public Project Project { get; set; }
 

@@ -79,6 +79,8 @@ namespace DaiPhatDat.Module.Task.Web
         public bool IsAuto { get; set; }
         public bool IsAdminCategory { get; set; }
         public int TaskGroupType { get; set; }
+        public int? WorkingHours { get; set; }
+
 
         public ProjectModel Project { get; set; }
 

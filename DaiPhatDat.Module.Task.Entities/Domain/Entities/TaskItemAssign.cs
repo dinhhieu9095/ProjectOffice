@@ -66,6 +66,8 @@ namespace DaiPhatDat.Module.Task.Entities
         public Guid? UserHandoverId { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsExtend { get; set; }
+        public int? WorkingHours { get; set; }
+
 
         public TaskItem TaskItem { get; set; }
 

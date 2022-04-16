@@ -72,6 +72,8 @@ namespace DaiPhatDat.Module.Task.Web
 
         public Guid? UserHandoverId { get; set; }
         public string AvatarUrl { get; set; }
+        public int? WorkingHours { get; set; }
+
 
         public TaskItemModel TaskItemModel { get; set; }
 

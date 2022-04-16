@@ -22,7 +22,7 @@
                         <i class="fas fa-circle text-primary mx-2 font-size-sm"></i>
                         <label class="text-primary">{{TaskItemAssign.TaskItemModel.FromDateText}} - {{TaskItemAssign.TaskItemModel.ToDateText}}</label>
                     </div>
-                    
+
                 </div>
                 <div class="row" ng-show="TaskItemAssign.TaskType == 1">
                     <div class="col-md-2">
@@ -40,6 +40,14 @@
                         <div class="form-group">
                             <label>@ResourceManagement.GetResourceText("Task.Home.ExtendDate", "Ngày gia hạn", "Extend date")<span class="text-danger">*</span></label>
                             <input ng-model="TaskItemAssign.ExtendDateText" class="form-control" type="text" autocomplete="off" placeholder="dd/MM/yyyy" data-date-format="dd/mm/yyyy" id="ExtendDate" name="ExtendDate">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                                <label>@ResourceManagement.GetResourceText("Task.Home.WorkingHours", "Thời gian làm", "Working hours")<span class="text-danger">*</span></label>
+                            <input ng-model="TaskItemAssign.WorkingHours" class="form-control" type="number" min="0" id="WorkingHours" name="WorkingHours" />
                         </div>
                     </div>
                 </div>
@@ -70,7 +78,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
 
                 <div class="box-attachment">

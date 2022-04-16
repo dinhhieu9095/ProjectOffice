@@ -2239,6 +2239,10 @@ END CATCH");
                 #region 2
                 queries.Add(@"insert into [Task].[Action]
   values (15, N'Lưu nháp', 1)");
+                queries.Add(@"ALTER TABLE Task.TaskItemAssign ADD
+	WorkingHours int NULL");
+                queries.Add(@"ALTER TABLE Task.TaskItem ADD
+	WorkingHours int NULL");
                 #endregion
             }
             if (newVersion != currentVersion)

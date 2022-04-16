@@ -81,6 +81,8 @@ namespace DaiPhatDat.Module.Task.Services
         public bool IsAuto { get; set; }
         public bool IsAdminCategory { get; set; }
         public Guid? AdminCategoryId { get; set; }
+        public int? WorkingHours { get; set; }
+
         public ProjectDto Project { get; set; }
 
         public TaskItemDto Parent { get; set; }

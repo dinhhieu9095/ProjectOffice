@@ -241,6 +241,7 @@ namespace DaiPhatDat.Module.Task.Services
                                     dto.TaskItemStatusId = TaskItemStatusId.InProcess;
                                     dto.ActionId = ActionId.Process;
                                     entity.PercentFinish = dto.PercentFinish;
+                                    entity.WorkingHours = dto.WorkingHours;
                                     taskAssignHistory.PercentFinish = dto.PercentFinish;
                                     break;
                                 case "Report":
@@ -333,6 +334,7 @@ namespace DaiPhatDat.Module.Task.Services
                         {
                             taskEntity.TaskItemStatusId = entity.TaskItemStatusId;
                             taskEntity.PercentFinish = entity.PercentFinish;
+                            taskEntity.WorkingHours = entity.WorkingHours;
                         }
                         else if (dto.IsAssignBy)
                         {
