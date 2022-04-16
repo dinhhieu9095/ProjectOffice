@@ -58,9 +58,7 @@
                                     <span class="dl-label-color float-left">@ResourceManagement.GetResourceText("Task.TaskDetail.Content", "Nội dung", "Content"): <span class="item-content">{{ taskItem.item.TaskItemConclusion }}</span> </span>
                                     <span class="icon-xemthem" style="display:none">...</span>
                                 </div>
-                                @*<div class="detail-block detail-block-tag">
-                                        <button id="add-hastag-categories" class="btn btn-primary"><span class="fa fa-tag"></span>Thêm nhãn công việc</button>
-                                    </div>*@
+                                
                                 <div ng-if="taskItem.item.TaskItemCategories.length > 0 && taskItem.item.IsGroupLabel != true" class="text-black text-bold pr-2 dl-label-color" style="clear:both">
                                     @ResourceManagement.GetResourceText("Task.TaskDetail.TagTask", "Nhãn công việc", "Tag task"): <span ng-repeat="category in taskItem.item.TaskItemCategories" class="label-category">{{category}}</span>
                                 </div>
@@ -197,39 +195,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                            @*Trao đổi*@
-                            <div class="panel panel-default" id="tab-comment" style="display:none">
-                                <div class="panel-heading" role="tab" id="headingComment">
-                                    <div class="panel-title">
-                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#comment" aria-expanded="false" aria-controls="collapseThree">
-                                            @ResourceManagement.GetResourceText("Task.TaskDetail.Chat", "Trao đổi", "Chat")<span id="count-comment"></span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div id="comment" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
-                                    <div class="panel-body comment-task">
-                                        <div class="comment-task-show hidden">
-                                            <a class="comment-task-show-more hidden">
-                                                @ResourceManagement.GetResourceText("Task.TaskDetail.ViewAll", "Xem tất cả", "View all")
-                                            </a>
-                                            <a class="comment-task-hidden-more hidden">
-                                                @ResourceManagement.GetResourceText("Task.TaskDetail.Collapse", "Thu gọn", "Collapse")
-                                            </a>
-                                        </div>
-                                        <div class="comment-task-content"></div>
-                                        <div class="comment-task-input" ng-if="taskItem.item.IsWriteComment == true">
-                                            <input type="hidden" class="comment-object-id" value="{{taskItem.item.TaskItemId}}" />
-                                            <input class="form-control txtComment" type="text" placeholder="@ResourceManagement.GetResourceText("Task.TaskDetail.ChatContent", "Nội dung trao đổi", "Chat content")" paramvalues="" pageindex="1">
-                                            <a class="comment-task-send"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-                                            <div class="icon-container-comment">
-                                                <i class="loader-comment"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                     
                     </div>
                     <div class="tab-pane" id="tab_taskChild">
                         <div class="task-child pb-4" ng-repeat="taskItem in taskItem.item.TaskDetail" href="javascript:;" data-task-item-child-id="{{child.Id}}">
@@ -278,10 +244,17 @@
                         <div class="portlet-body">
                             <ul class="navi navi-hover" id="scroll-comment" style="max-height: 300px; min-height: 300px; overflow-y:scroll">
                                 <li class="navi-item" ng-class="cmt.Class" ng-repeat="cmt in taskItem.Comments">
-                                <a class="navi-link cursor-pointer" ng-click="taskItem.CommentOption()">
-                                    <span class="navi-text">
-                                    <span class="label label-xl label-inline" ng-class="cmt.Class1" ng-bind="cmt.Content"></span>
-                                        </span></a></li>
+                                   
+                                    <a class="navi-link cursor-pointer" ng-click="taskItem.CommentOption()">
+                                        <span class="navi-text">
+                                            <span ng-if="cmt.Class === null" class="symbol symbol-20 symbol-circle">
+                                                <img alt="Pic" ng-src="{{cmt.Avatar}}" title="{{cmt.FullName}}">
+                                                <span class="symbol-name-bottom" ng-bind="cmt.FullName"></span>
+                                            </span>
+                                            <span class="label label-xl label-inline" ng-class="cmt.Class1" ng-bind="cmt.Content"></span>
+                                        </span>
+                                    </a>
+                                </li>
                                 <li class="navi-separator mb-3 opacity-70"></li>
                             </ul>
                             <div class="row">

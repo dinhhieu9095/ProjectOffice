@@ -374,6 +374,10 @@ namespace DaiPhatDat.Module.Task.Services
                             TaskItemStatusId = entity.TaskItemStatusId,
                             ProcessResult = entity.TaskName
                         };
+                        if (dto.TaskItemStatusId == TaskItemStatusId.Draft)
+                        {
+                            taskHistory.ActionId = ActionId.SaveDraft;
+                        }
                         if (entity.TaskItemAssigns != null && entity.TaskItemAssigns.Any())
                         {
                             foreach (var assignentity in entity.TaskItemAssigns.Where(e => !e.IsDeleted))
@@ -448,7 +452,7 @@ namespace DaiPhatDat.Module.Task.Services
                             assign.TaskItemId = dto.Id;
                             assign.ProjectId = dto.ProjectId;
                             assign.ModifiedDate = dto.ModifiedDate;
-                            assign.TaskItemStatusId = taskItemStatusId;
+                            assign.TaskItemStatusId = TaskItemStatusId.New;
                         }
                         lstUserNoti.AddRange(dto.TaskItemAssigns);
                         entity = _mapper.Map<TaskItem>(dto);
@@ -466,6 +470,10 @@ namespace DaiPhatDat.Module.Task.Services
                             TaskItemStatusId = dto.TaskItemStatusId,
                             ProcessResult = entity.TaskName
                         };
+                        if (dto.TaskItemStatusId == TaskItemStatusId.Draft)
+                        {
+                            taskHistory.ActionId = ActionId.SaveDraft;
+                        }
                         entity.TaskItemProcessHistories.Add(taskHistory);
                         _objectRepository.Add(entity);
                     }
@@ -695,6 +703,7 @@ namespace DaiPhatDat.Module.Task.Services
                     if (dto.ActionText == "Finish")
                     {
                         actionId = ActionId.Finish;
+                        dto.FinishedDate = dto.ModifiedDate;
                         dto.TaskItemStatusId = TaskItemStatusId.Finished;
                     }
                     if (dto.ActionText == "Evict")
@@ -708,6 +717,7 @@ namespace DaiPhatDat.Module.Task.Services
                         item.TaskItemStatusId = dto.TaskItemStatusId;
                         item.ModifiedBy = dto.ModifiedBy;
                         item.ModifiedDate = dto.ModifiedDate;
+                        item.FinishedDate = dto.FinishedDate;
                         TaskItemProcessHistory taskChildHistory = new TaskItemProcessHistory
                         {
                             Id = Guid.NewGuid(),
@@ -1046,7 +1056,7 @@ namespace DaiPhatDat.Module.Task.Services
                 if (taskItemAssign.Any(x => x.AssignTo == userId
                  && (x.TaskItemStatusId == TaskItemStatusId.New
                      || x.TaskItemStatusId == TaskItemStatusId.InProcess
-                     || x.TaskItemStatusId == TaskItemStatusId.Read)) && taskItem.IsGroupLabel != true)
+                     || x.TaskItemStatusId == TaskItemStatusId.Read)) && taskItem.IsGroupLabel != true && taskItem.TaskItemStatusId.GetValueOrDefault() != TaskItemStatusId.Draft)
                     itemActions.Add(new ItemActionDto { Code = ActionClick.Process.ToString(), Name = "Xử lý" });
 
                 //chỉnh sửa

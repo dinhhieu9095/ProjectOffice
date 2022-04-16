@@ -36,8 +36,8 @@ namespace DaiPhatDat.Module.Task.Web
 
         public int? TaskFinished => TaskItems.Count(x => x.TaskItemStatusId == TaskItemStatusId.Finished);
 
-        public int? TaskOutOfDate => TaskItems.Count(x => (x.TaskItemStatusId != TaskItemStatusId.Finished && x.ToDate < DateTime.Now)
-            || (x.TaskItemStatusId == TaskItemStatusId.Finished && x.ToDate < x.FinishedDate));
+        public int? TaskOutOfDate => TaskItems.Count(x => (x.TaskItemStatusId != TaskItemStatusId.Finished && x.ToDate.HasValue && x.ToDate < DateTime.Now)
+            || (x.TaskItemStatusId == TaskItemStatusId.Finished && x.FinishedDate.HasValue && x.ToDate.HasValue && x.ToDate < x.FinishedDate));
 
         public int? TaskInDueDate => TotalTask - TaskOutOfDate;
     }

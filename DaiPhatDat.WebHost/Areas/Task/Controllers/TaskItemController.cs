@@ -270,7 +270,7 @@ namespace DaiPhatDat.Module.Task.Web
                 result.TaskItemAssigns.ToList().ForEach(item =>
                 {
                     string imgSrc = DefaultImageBase64;
-                    var isImg = System.IO.File.Exists(Server.MapPath(string.Concat("~", AVARTAR_URL, "/", item.Id)));
+                    var isImg = System.IO.File.Exists(Server.MapPath(string.Concat("~", AVARTAR_URL, "/", item.AssignTo)));
                     if (isImg)
                     {
                         imgSrc = string.Concat(AVARTAR_URL, "/", item.Id);
@@ -285,7 +285,7 @@ namespace DaiPhatDat.Module.Task.Web
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
+        
         [HttpGet]
         public async Task<JsonResult> Attachments(Guid projectId, Guid taskItemId)
         {
@@ -425,6 +425,8 @@ namespace DaiPhatDat.Module.Task.Web
                     return Json(false, JsonRequestBehavior.AllowGet);
                 //List<CommentDto> list = _commentService.GetLimitByObjectID(model.TaskItemId.Value, model.PageSize, 10);
                 List<CommentDto> list = _commentService.GetByObjectID(model.TaskItemId.Value);
+                string imgSrc = DefaultImageBase64;
+
                 for (int i = 0; i < list.Count; i++)
                 {
                     if (list[i].UserID == CurrentUser.Id)
@@ -432,6 +434,12 @@ namespace DaiPhatDat.Module.Task.Web
                         list[i].Class = "text-right";
                         list[i].Class1 = "label-light-success";
                     }
+                    var isImg = System.IO.File.Exists(Server.MapPath(string.Concat("~", AVARTAR_URL, "/", list[i].UserID)));
+                    if (isImg)
+                    {
+                        imgSrc = string.Concat(AVARTAR_URL, "/", list[i].UserID);
+                    }
+                    list[i].Avatar = imgSrc;
                 }
                 result = list;
             }
@@ -453,6 +461,8 @@ namespace DaiPhatDat.Module.Task.Web
                     {
                         //List<CommentDto> list = _commentService.GetLimitByObjectID(dto.ObjectID.Value, 0, dto.Total+1);
                         List<CommentDto> list = _commentService.GetByObjectID(dto.ObjectID.Value);
+                        string imgSrc = DefaultImageBase64;
+
                         for (int i = 0; i < list.Count; i++)
                         {
                             if (list[i].UserID == CurrentUser.Id)
@@ -460,6 +470,12 @@ namespace DaiPhatDat.Module.Task.Web
                                 list[i].Class = "text-right";
                                 list[i].Class1 = "label-light-success";
                             }
+                            var isImg = System.IO.File.Exists(Server.MapPath(string.Concat("~", AVARTAR_URL, "/", list[i].UserID)));
+                            if (isImg)
+                            {
+                                imgSrc = string.Concat(AVARTAR_URL, "/", list[i].UserID);
+                            }
+                            list[i].Avatar = imgSrc;
                         }
                         return Json(list, JsonRequestBehavior.AllowGet);
                     }

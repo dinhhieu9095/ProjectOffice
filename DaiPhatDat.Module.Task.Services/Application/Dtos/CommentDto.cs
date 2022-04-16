@@ -25,6 +25,7 @@ namespace DaiPhatDat.Module.Task.Services
 
         public string Class { get; set; }
         public string Class1 { get; set; }
+        public string Avatar { get; set; }
         public int Total { get; set; }
         public virtual List<FileCommentDto> FileComments { get; set; }
     }

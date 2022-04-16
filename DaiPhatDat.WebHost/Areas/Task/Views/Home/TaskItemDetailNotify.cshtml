@@ -209,39 +209,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                        @*Trao đổi*@
-                                        <div class="panel panel-default" id="tab-comment" style="display:none">
-                                            <div class="panel-heading" role="tab" id="headingComment">
-                                                <div class="panel-title">
-                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#comment" aria-expanded="false" aria-controls="collapseThree">
-                                                        @ResourceManagement.GetResourceText("Task.TaskDetail.Chat", "Trao đổi", "Chat")<span id="count-comment"></span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div id="comment" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
-                                                <div class="panel-body comment-task">
-                                                    <div class="comment-task-show hidden">
-                                                        <a class="comment-task-show-more hidden">
-                                                            @ResourceManagement.GetResourceText("Task.TaskDetail.ViewAll", "Xem tất cả", "View all")
-                                                        </a>
-                                                        <a class="comment-task-hidden-more hidden">
-                                                            @ResourceManagement.GetResourceText("Task.TaskDetail.Collapse", "Thu gọn", "Collapse")
-                                                        </a>
-                                                    </div>
-                                                    <div class="comment-task-content"></div>
-                                                    <div class="comment-task-input" ng-if="taskItem.item.IsWriteComment == true">
-                                                        <input type="hidden" class="comment-object-id" value="{{taskItem.item.TaskItemId}}" />
-                                                        <input class="form-control txtComment" type="text" placeholder="@ResourceManagement.GetResourceText("Task.TaskDetail.ChatContent", "Nội dung trao đổi", "Chat content")" paramvalues="" pageindex="1">
-                                                        <a class="comment-task-send"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-                                                        <div class="icon-container-comment">
-                                                            <i class="loader-comment"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="tab-pane" id="tab_taskChild">
                                     <div class="task-child pb-4" ng-repeat="taskItem in taskItem.item.TaskDetail" href="javascript:;" data-task-item-child-id="{{child.Id}}">

@@ -73,6 +73,10 @@ namespace DaiPhatDat.Module.Task.Entities
         ///     Báo cáo trả lại
         /// </summary>  
         ReturnReport = 14,
+        /// <summary>
+        ///     Lưu Nháp
+        /// </summary>  
+        SaveDraft = 15,
     }
     public enum EnumNatureTask
     {

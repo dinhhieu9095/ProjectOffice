@@ -1088,7 +1088,7 @@ END");
                 queries.Add(@"Insert into [Task].[Action]
   values (13, N'Từ chối gia hạn',1),(14, N'Báo cáo trả lại',1)");
             }
-            if (newVersion < version)
+            if (newVersion < 20220320)
             {
                 newVersion = version;
 
@@ -1970,6 +1970,276 @@ BEGIN CATCH
 END CATCH");
                 #endregion
 
+            }
+            if (newVersion < version)
+            {
+                newVersion = version;
+                #region 1
+                queries.Add(@"ALTER PROCEDURE [dbo].[SP_Select_Projects_MultiFilters]
+--DECLARE
+	@CurrentDate	DATETIME		= '',					--getdate(),
+	@CurrentUser	NVARCHAR(200)	= '',					-- .Func_GetUserIDByLoginName('benthanh\nguyenminhphuong'), -- '',
+	@TrackStatus	NVARCHAR(20)	= '',					--/ 0: moi, 1: dang xu ly, 2: bao cao, 3: huy, 4: ket thuc
+	@DocStatus		NVARCHAR(20)	= '',					-- mã tình trạng văn bản
+	@ProcessType	INT				= 0,					--/ 0: tat ca, -1: trong han, -2: qua han, > 3 den han (processtype se ngay den han)
+	@TrackType		NVARCHAR(20)	= '',					--/ '1,2,3': tat ca, 1: XLC, 2: PH, 3: ĐB,
+	@DocType		NVARCHAR(20)	= '1',					-- 0: Vb đi, 1: vb đến, 2: cong viec, 3: cong viec dinh ky
+	@ExternalType	INT				= 0,					-- 0: tat ca, 1: ben ngoai, 2: noi bo
+	@UserType		INT				= 0,					--/ 0: assignto, 1: approved, 2: assignedby
+	@UserDelegate   NVARCHAR(200)   = NULL,					-- lấy dữ liệu theo người ủy quyền
+	@PrivateFolder	NVARCHAR(36)	= NULL,					-- lấy dữ liệu theo folder cá nhân
+	@Category		NVARCHAR(36)	= NULL,					-- lấy dữ liệu theo danh mục phân loại
+	@TimeFilter		NVARCHAR(200)	= NULL,					-- filter thời gian theo ngày tạo văn bản   				
+    @KeyWord		NVARCHAR(200)	= '',
+	@Page			INT				= 1,
+	@PageSize		INT				= 10,
+    @IsCount		BIT				= 0,
+	@OrderBy		NVARCHAR(50)    = 'CreatedDate DESC',
+	@FromDate		NVARCHAR(10)	= '',
+	@ToDate		NVARCHAR(10)	= '',
+	@TaskFromDateOfFromDate			VARCHAR(50)			= '',
+	@TaskFromDateOfToDate				VARCHAR(50)			= '',
+	@TaskToDateOfFromDate			VARCHAR(50)			= '',
+	@TaskToDateOfToDate				VARCHAR(50)			= '',
+	@DepartmentId	NVARCHAR(36)	= '',
+	@UserId		NVARCHAR(36)	= '',
+	@UserHandoverId NVARCHAR(36) = '',
+	@StatusTime int = 0,
+	@TaskItemStatusId nvarchar(20) = '',
+	@AssignTo nvarchar(36) = '',
+	@AssignBy nvarchar (36) ='',
+	@IsFullControl int = 0,
+	@TaskItemPriorityId VARCHAR(20)			= null,
+	@TaskItemNatureId nvarchar(20)			= null,
+	@ProjectHashtag	NVARCHAR(255)		= '',
+	@TaskHashtag	NVARCHAR(255)		= '',
+	@IsReport			VARCHAR(10)			= '',
+	@IsWeirdo			VARCHAR(10)			= '',
+	@TaskType			VARCHAR(10)			= '',
+	@IsExtend		VARCHAR(50)					= '',
+	@ProjectId nvarchar(50) = ''
+AS
+
+--SELECt @CurrentDate = '2019-12-16 08:17', @KeyWord = N'',
+--@CurrentUser = dbo.Func_GetUserIDByLoginName('dxg\thaidt'),
+--@OrderBy = 'CreatedDate DESC', @IsCount = '0', @Page = '1', 
+--@PageSize = '15' ,@TrackStatus = '6' ,@DocType = '2', @UserType = '2'
+BEGIN TRY
+	 DECLARE @sql nvarchar(max) = ''
+	 -- Lay danh project ban dau
+	if @IsFullControl = 1
+		Set @sql = 'Select Distinct TItem.Id from task.TaskItemAssign TIAssign 
+					FULL OUTER JOIN Task.TaskItem TItem on TItem.Id = TIAssign.TaskItemId
+					FULL OUTER JOIN Task.Project Pro on Pro.Id = TItem.ProjectId
+					where Pro.IsActive = 1  AND TItem.IsDeleted = 0 AND (TItem.IsGroupLabel <> 1 OR TItem.IsGroupLabel IS NULL) '
+	else
+		Set @sql = 'Select Distinct TItem.Id from task.TaskItemAssign TIAssign 
+				FULL OUTER JOIN Task.TaskItem TItem on TItem.Id = TIAssign.TaskItemId
+				FULL OUTER JOIN Task.Project Pro on Pro.Id = TItem.ProjectId
+				where Pro.IsActive = 1 AND TItem.IsDeleted = 0 AND (TItem.IsGroupLabel <> 1 OR TItem.IsGroupLabel IS NULL)
+				AND TIAssign.[TaskItemStatusId] != 3 and (Pro.ApprovedBy = ''' + @CurrentUser + ''' 
+					OR Pro.CreatedBy = ''' + @CurrentUser + '''
+					OR Pro.UserViews like N''%' + @CurrentUser + '%''
+					OR Pro.ManagerId like N''%' + @CurrentUser + '%''
+					OR TItem.AssignBy = ''' + @CurrentUser + '''
+					OR (TIAssign.TaskItemId IS NOT NULL 
+						AND TIAssign.TaskItemId != ''00000000-0000-0000-0000-000000000000''
+						AND (TIAssign.AssignTo = ''' + @CurrentUser + '''
+								OR TIAssign.AssignFollow = ''' + @CurrentUser + '''))) '
+	
+	-- Keyword Condition
+	IF (@Keyword != '') 
+	BEGIN
+		SET @sql = @sql +
+								' AND (Pro.Summary like N''%' + @Keyword + '%''
+										OR TItem.TaskName like N''%' + @Keyword + '%'')';
+	END
+	IF (@ProjectId != '') 
+	BEGIN
+			SET @sql = @sql + ' AND Pro.Id = ''' + @ProjectId + '''';
+	END
+	-- AssignBy Condition
+	IF (@AssignBy != '') 
+	BEGIN
+		if @AssignBy = 'CurentUser'
+			SET @sql = @sql + ' AND TItem.AssignBy = ''' + @CurrentUser + ''' ';
+		else
+			SET @sql = @sql + ' AND TItem.AssignBy = ''' + @AssignBy + ''' ';
+	END
+	
+	-- TaskItemStatusId Condition
+	IF (@TaskItemStatusId != '')
+	BEGIN
+		SET @sql = @sql + ' AND  TItem.TaskItemStatusId In (' + @TaskItemStatusId + ') AND (TItem.IsGroupLabel Is null or TItem.IsGroupLabel = 0 ) ';
+	END
+	
+	-- AssignTo Condition
+	IF (@AssignTo != '')
+	BEGIN
+		if @AssignTo = 'CurentUser'
+			SET @sql = @sql + ' AND TIAssign.AssignTo = ''' + @CurrentUser + ''' ';
+		else
+			SET @sql = @sql + ' AND TIAssign.AssignTo = ''' + @AssignTo + ''' ';
+		
+	END
+
+	-- TaskType Condition
+	IF (@TaskType != '')
+	BEGIN
+		SET @sql = @sql + ' AND TIAssign.TaskType in (' + @TaskType + ') ';
+	END
+	print '#12312'
+	-- mặc định
+	IF (@StatusTime = 0)
+	BEGIN
+		IF (@TaskFromDateOfFromDate != '')
+		BEGIN
+			declare @fromDateOfFromDate nvarchar(50) = (SELECT CONVERT(nvarchar(50), convert(datetime, @TaskFromDateOfFromDate, 103)))
+			SET @sql = @sql + ' AND (TItem.FromDate >= ''' + @fromDateOfFromDate + ''' 
+											OR TItem.FromDate >= ''' + @fromDateOfFromDate + '''
+											OR Pro.FromDate >= ''' + @fromDateOfFromDate + ''')';
+		END
+		print '#12312'
+		IF (@TaskFromDateOfToDate != '')
+		BEGIN
+			declare @fromDateOfToDate nvarchar(50) = (SELECT CONVERT(nvarchar(50), convert(datetime, @TaskFromDateOfToDate, 103)))
+			SET @sql = @sql + ' AND (TItem.FromDate <= ''' + @fromDateOfToDate + '''
+											OR TItem.FromDate <= ''' + @fromDateOfToDate + '''
+											OR Pro.FromDate <= ''' + @fromDateOfToDate + ''')';
+		END
+		print '#12312'
+		-- so sánh với todate của công việc
+		IF (@TaskToDateOfFromDate != '')
+		BEGIN
+		declare @toDateOfFromDate nvarchar(50) = (SELECT CONVERT(nvarchar(50), convert(datetime, @TaskToDateOfFromDate, 103)))
+			SET @sql = @sql + ' AND (TItem.ToDate >= ''' + @toDateOfFromDate + ''' 
+											OR TItem.ToDate >= ''' + @toDateOfFromDate + '''
+											OR Pro.ToDate >= ''' + @toDateOfFromDate + ''')';
+		END
+		print '#12312'
+		IF (@TaskToDateOfToDate != '')
+		BEGIN
+			declare @toDateOfToDate nvarchar(50) = (SELECT CONVERT(nvarchar(50), convert(datetime, @TaskToDateOfToDate, 103)))
+			SET @sql = @sql + ' AND (TItem.ToDate <= ''' + @toDateOfToDate + '''
+											OR TItem.ToDate <= ''' + @toDateOfToDate + '''
+											OR Pro.ToDate <= ''' + @toDateOfToDate + ''')';
+
+		END
+		print '#12312'
+		-- FromDate Condition
+		IF (@FromDate != '')
+		BEGIN
+			DECLARE @fDate nvarchar(255) = (SELECT convert(datetime, @FromDate, 103))
+			SET @sql = @sql + ' AND (TItem.FromDate >= ''' + @fDate + ''' 
+											OR TItem.FromDate >= ''' + @fDate + '''
+											OR Pro.FromDate >= ''' + @fDate + ''')';
+		END
+
+		-- ToDate Condition
+		IF (@ToDate != '')
+		BEGIN
+		DECLARE @tDate nvarchar(255) = (SELECT convert(datetime, @ToDate, 103))
+			SET @sql = @sql + ' AND (TItem.ToDate <= ''' + @tDate + '''
+											OR TItem.ToDate <= ''' + @tDate + '''
+											OR Pro.ToDate <= ''' + @tDate + ''')';
+		END
+	END
+	ELSE
+	BEGIN
+	-- sắp hết hạn
+		IF (@StatusTime = 1)
+		BEGIN
+			SET @sql = @sql + ' AND dbo.Func_Doc_CheckIsOverDue(TItem.ToDate, 
+																	  TItem.FinishedDate, 
+																	  TItem.TaskItemStatusId, 
+																	  dateadd(DAY, 2, getdate())) = 1
+									  AND dbo.Func_Doc_CheckIsOverDue(TItem.ToDate, 
+																	  TItem.FinishedDate, 
+																	  TItem.TaskItemStatusId, 
+																	  getdate()) = 0 
+										AND (TItem.IsGroupLabel Is null or TItem.IsGroupLabel = 0 ) ';
+		END
+		-- quá hạn
+		IF (@StatusTime = 2)
+		BEGIN
+			SET @sql = @sql + ' AND dbo.Func_Doc_CheckIsOverDue(TItem.ToDate, 
+																	  TItem.FinishedDate,
+																	  TItem.TaskItemStatusId, 
+																	  getdate()) = 1 
+								AND (TItem.IsGroupLabel Is null or TItem.IsGroupLabel = 0 ) ';
+		END
+	END
+
+	-- gia hạn
+	IF (@IsExtend = '1')
+	BEGIN
+		SET @sql = @sql + ' AND (TIAssign.IsExtend = 1) '
+								 
+	END
+
+	-- Priority
+	IF (@TaskItemPriorityId IS NOT NULL)
+	BEGIN
+		SET @sql = @sql + ' AND (TItem.TaskItemPriorityId In (' + @TaskItemPriorityId + '))';
+	END
+
+	--natureTask
+	IF @TaskItemNatureId IS NOT NULL
+	BEGIN
+		SET @sql = @sql + ' AND (TItem.NatureTaskId In (' + @TaskItemNatureId + '))';
+	END
+
+
+	-- Hashtag
+	 
+	IF (@ProjectHashtag != '')
+	BEGIN
+		--SET @ProTaskSqlTrack = @ProTaskSqlTrack + ' AND (Pro.ProjectCategory like N''%' + @ProjectHashtag + '%'')';
+		SET @sql = @sql + ' AND (EXISTS  (SELECT 1
+													FROM dbo.Func_SplitTextToTable(N'''+@ProjectHashtag+''','','') where items in (select *  from dbo.Func_SplitTextToTable(Pro.ProjectCategory,'';''))))';
+		--SET @ProTaskSqlTrack = @ProTaskSqlTrack + ' AND (Pro.ProjectCategory like N''%' + @ProjectHashtag + '%'')';
+	END
+
+	IF (@TaskHashtag != '')
+	BEGIN
+		--SET @ProTaskSqlTrack = @ProTaskSqlTrack + ' AND (Pro.ProjectCategory like N''%' + @ProjectHashtag + '%'')';
+		SET @sql = @sql + ' AND (EXISTS  (SELECT 1
+													FROM dbo.Func_SplitTextToTable(N'''+@TaskHashtag+''','','') where items in (select *  from dbo.Func_SplitTextToTable(TaskItemCategory,'';''))))';
+		--SET @ProTaskSqlTrack = @ProTaskSqlTrack + ' AND (TItem.TaskItemCategory like N''%' + @TaskHashtag + '%'')';
+	END
+
+	-- IsReport
+	IF (@IsReport != '')
+	BEGIN
+		SET @sql = @sql + ' AND (TItem.IsReport = ' + @IsReport + ')';
+	END
+
+	IF (@IsWeirdo != '')
+	BEGIN
+		SET @sql = @sql + ' AND (TItem.IsReport = ' + @IsWeirdo + ')';
+	END
+
+	set @sql = 'Select Count(*) As TotalRow from (' + @sql + ') As X'
+	print @sql
+	EXEC sys.sp_executesql @Sql;
+END TRY
+BEGIN CATCH
+-- Whoops, there was an error
+ IF @@TRANCOUNT > 0
+ ROLLBACK TRANSACTION
+-- Raise an error with the details of the exception
+ DECLARE @ErrMsg nvarchar(4000), @ErrSeverity int
+
+ SELECT @ErrMsg = ERROR_MESSAGE(),
+ @ErrSeverity = ERROR_SEVERITY()
+ 
+ RAISERROR(@ErrMsg, @ErrSeverity, 1)
+END CATCH");
+                #endregion
+                #region 2
+                queries.Add(@"insert into [Task].[Action]
+  values (15, N'Lưu nháp', 1)");
+                #endregion
             }
             if (newVersion != currentVersion)
             {

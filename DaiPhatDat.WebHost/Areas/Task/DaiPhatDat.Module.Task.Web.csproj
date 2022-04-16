@@ -1494,8 +1494,6 @@
     <Content Include="Views\Admin\_ViewTaskInMain.cshtml" />
     <Content Include="Views\Admin\PartialView\_AddEditProjectPartial.cshtml" />
     <Content Include="Views\Admin\PartialView\_AddEditTaskPartial.cshtml" />
-    <Content Include="Views\Admin\PartialView\_TaskItemDetail.cshtml" />
-    <Content Include="Views\Admin\PartialView\_TaskItemVS1.cshtml" />
     <Content Include="Views\Home\ProjectDetailNotify.cshtml" />
     <Content Include="Views\Home\TaskItemDetailNotify.cshtml" />
   </ItemGroup>

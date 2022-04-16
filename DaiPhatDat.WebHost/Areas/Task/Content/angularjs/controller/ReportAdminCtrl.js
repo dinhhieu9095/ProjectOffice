@@ -201,12 +201,13 @@ app.controller("ReportAdminCtrl", function ($scope, $controller, ReportAdminServ
                 point: {
                     events: {
                         click: function (e) {
+                            debugger
                             statusId = e.point.id;
                             let index = 0;
                             switch (statusId) {
                                 case 'indueDate':
                                     $scope.table = $scope.item.ReportProject.TaskItems.filter(function (item) {
-
+                                        debugger
                                         if (item.Process === "in-due-date") {
                                             index++;
                                             item.Index = index;

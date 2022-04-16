@@ -2191,6 +2191,58 @@ div #navigation-left-filter-tree .jstree-default .jstree-icon:empty {
     visibility: visible;
 }
 
+/**/
+.symbol-name-bottom {
+    position: absolute;
+    left: -8px;
+    display: block;
+    text-align: center;
+    top: 32px;
+    height: 28px;
+    line-height: 28px;
+    width: auto;
+    color: #fff;
+    font-size: 12px;
+    z-index: 9999;
+    padding: 0 10px;
+    white-space: nowrap;
+    background-color: #3699ff;
+    border-radius: 3px;
+    visibility: hidden;
+}
+
+.symbol-name-bottom::before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #3699ff;
+    position: absolute;
+    left: 13px;
+    bottom: 27px;
+}
+
+.user-second .symbol-name-bottom {
+    background-color: #ffa800;
+}
+
+    .user-second .symbol-name-bottom::before {
+        border-top-color: #ffa800;
+    }
+
+.user-third .symbol-name-bottom {
+    background-color: #8e9096;
+}
+
+    .user-third .symbol-name-bottom::before {
+        border-top-color: #8e9096;
+    }
+
+.symbol:hover .symbol-name-bottom {
+    visibility: visible;
+}
  /****/
  /*** meunu control ***/
 .card-toolbar.task-tool .btn .svg-icon {
