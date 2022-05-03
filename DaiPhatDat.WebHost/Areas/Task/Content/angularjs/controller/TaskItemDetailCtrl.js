@@ -6,6 +6,15 @@ app.controller("TaskItemDetailCtrl", function ($scope, $controller, $q, $timeout
     const urlParams = new URLSearchParams(queryString);
    
     $scope.taskItem = {
+        collapsed: function () {
+            if ($("#button-collapse").hasClass("collapsed")) {
+                $(".collapse-show").hide();
+                $(".collapse-hide").show();
+            } else {
+                $(".collapse-show").show();
+                $(".collapse-hide").hide();
+            }
+        },
         countAttachTask: 0,
 
         countAttachProcess: 0,

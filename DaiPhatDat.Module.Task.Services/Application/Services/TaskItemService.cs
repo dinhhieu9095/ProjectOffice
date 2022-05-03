@@ -784,6 +784,7 @@ namespace DaiPhatDat.Module.Task.Services
                         TaskItemStatusName = x.TaskItemStatus != null ? x.TaskItemStatus.Name : "",
                         PercentFinish = x.PercentFinish,
                         IsSecurity = x.IsSecurity,
+                        WorkingHours = x.WorkingHours,
                         TaskItemPriorityName = x.TaskItemPriority.Name,
                         NatureTaskId = x.NatureTaskId,
                         CountHistory = x.TaskItemProcessHistories.Count(y => y.TaskItemAssignId == null || y.TaskItemAssignId == Guid.Empty),
@@ -806,7 +807,8 @@ namespace DaiPhatDat.Module.Task.Services
                                 TaskItemStatusId = y.TaskItemStatusId,
                                 ToDate = y.ToDate,
                                 AppraisePercentFinish = y.AppraisePercentFinish,
-                                PercentFinish = y.PercentFinish
+                                PercentFinish = y.PercentFinish,
+                                WorkingHours = y.WorkingHours
                             }).ToList()
 
                     }).FirstOrDefault();

@@ -10,6 +10,10 @@
     @foreach (var item in Model)
     {
         string linklv1 = "#";
+        if (!string.IsNullOrEmpty(item.NavURL))
+        {
+            linklv1 = item.NavURL;
+        } else
         if (!string.IsNullOrEmpty(item.Link))
         {
             linklv1 = item.Link.Replace("~", "");

@@ -170,7 +170,7 @@ namespace DaiPhatDat.Module.Task.Web
             bool bResult = true;
             string strMsg = string.Empty;
             string strHtmlProcess = "<div class='progress{1}{0}'><div class='progress-bar' style='width: {2}%;' role='progressbar' aria-valuenow='{2}' aria-valuemin='0' aria-valuemax='100'>{3}</div></div>";
-            string strHtmlStatus = "<div class='progress-task {3}'> <div class='process-label'>{2}</div><div class='progress'><div class='progress-bar' role='progressbar' style='width: {0}%;' aria-valuenow='{0}' aria-valuemin='0' aria-valuemax='100'></div>{1}</div></div>";
+            string strHtmlStatus = "<div class='progress-task {3}'> <div class='process-label'>{2}</div><div class='progress'>{1}</div></div>";
             string strHtmlDate = "<div class='timeline'><span>{0} </span> {1} </div>";
             string strHtmlDateHover = " <div class='timeline-day'><i class='far fa-clock mr-2'></i>{0}</div>";
             string strUrl = "/feature/account/Avartar";

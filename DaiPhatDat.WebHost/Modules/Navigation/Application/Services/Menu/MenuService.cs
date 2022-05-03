@@ -201,7 +201,8 @@ namespace DaiPhatDat.WebHost.Navigation.Application
                            Areas = x.Areas,
                            Controller = x.Controller,
                            Action = x.Action,
-                           Params = x.Params
+                           Params = x.Params,
+                           NavURL = x.NavURL
                        })
                        .ToList();
                     return data;

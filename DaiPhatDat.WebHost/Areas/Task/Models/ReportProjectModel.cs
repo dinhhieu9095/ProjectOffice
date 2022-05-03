@@ -21,7 +21,7 @@ namespace DaiPhatDat.Module.Task.Web
         public int? TotalTask => TaskItems.Count();
 
         public int? TaskNew => TaskItems.Count(x => x.TaskItemStatusId == TaskItemStatusId.New);
-
+        public int? TaskDraft => TaskItems.Count(x => x.TaskItemStatusId == TaskItemStatusId.Draft);
         public int? TaskRead => TaskItems.Count(x => x.TaskItemStatusId == TaskItemStatusId.Read);
 
         public int? TaskProcess => TaskItems.Count(x => x.TaskItemStatusId == TaskItemStatusId.InProcess);

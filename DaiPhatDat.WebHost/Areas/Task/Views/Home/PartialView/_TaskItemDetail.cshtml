@@ -68,8 +68,8 @@
                                     <button id="save-categories" class="btn btn-primary"><span class="fa fa-save"></span></button>
                                 </div>
                             </div>
-                            <div class="more-btn" id="headingOne3" ng-if="taskItem.item.TaskItemConclusion || (taskItem.item.TaskItemCategories.length > 0 && taskItem.item.IsGroupLabel != true) || taskItem.item.TaskItemCategories.length > 0 || taskItem.item.ProjectSummary.length > 0">
-                                <button type="button" class="btn btn-primary btn-xs collapsed" data-toggle="collapse" data-target="#collapseTaskDetail"><span class="collapse-show">@ResourceManagement.GetResourceText("Task.Home.Expand", "Mở rộng", "Expand")</span><span class="collapse-hide">@ResourceManagement.GetResourceText("Task.Home.Hide", "Thu gọn", "Hide")</span></button>
+                            <div class="more-btn" id="headingOne3" ng-show="taskItem.item.TaskItemConclusion || (taskItem.item.TaskItemCategories.length > 0 && taskItem.item.IsGroupLabel != true) || taskItem.item.TaskItemCategories.length > 0 || taskItem.item.ProjectSummary.length > 0">
+                                <button type="button" class="btn btn-primary btn-xs collapsed" data-toggle="collapse" id="button-collapse" ng-click="taskItem.collapsed()" data-target="#collapseTaskDetail"><span class="collapse-show">@ResourceManagement.GetResourceText("Task.Home.Expand", "Mở rộng", "Expand")</span><span class="collapse-hide" style="display: none">@ResourceManagement.GetResourceText("Task.Home.Hide", "Thu gọn", "Hide")</span></button>
                             </div>
                         </div>
                     </div>
@@ -152,6 +152,10 @@
                                                                     @ResourceManagement.GetResourceText("Task.TaskDetail.PercentFinish", "Với tỷ lệ hoàn thành", "Percent Finish"):
                                                                     <span ng-if="taskItemAssign.PercentFinish != null && taskItemAssign.PercentFinish > 0" class="label-process"> {{taskItemAssign.PercentFinish}}%</span>
                                                                 </span>
+                                                                <span ng-if="taskItemAssign.WorkingHours != null" class="timeline-body-content font-grey-cascade dl-complete-percen">
+                                                                    @ResourceManagement.GetResourceText("Task.TaskDetail.WorkingHours", "| Thời gian hoàn thành: ", "| Working hours: ")
+                                                                    <span class="label-process" ng-bind-template="{{taskItemAssign.WorkingHours}} h">  </span>
+                                                                </span>
                                                                 <div ng-if="taskItemAssign.LastResult != null" class="timeline-body-content dl-min-height dl-last-result" style="">
                                                                     @ResourceManagement.GetResourceText("Task.TaskDetail.Content", "Nội dung", "Content"):
                                                                     <span class=" tracking-document-name dl-min-height-content" ng-bind-html="taskItemAssign.LastResult">
@@ -168,7 +172,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="statusProcessing">
-                                                            <a class="btn btn-xs btn-light-warning btn-hover-icon-white font-weight-bold" ng-if="taskItem.item.CurrentUserID == taskItem.item.AssignBy && taskItemAssign.TaskItemStatusId != 3" title="" ng-click="taskItem.returnTask(taskItemAssign.Id)">
+                                                            <a class="btn btn-xs btn-light-warning btn-hover-icon-white font-weight-bold" ng-if="taskItem.item.CurrentUserID == taskItem.item.AssignBy && taskItemAssign.TaskItemStatusId != 3 && taskItem.item.TaskItemStatusId != 4" title="" ng-click="taskItem.returnTask(taskItemAssign.Id)">
                                                                 <span class="svg-icon svg-icon-warning svg-icon-hover-white mr-0">
                                                                     <svg width="24px" height="24px" viewBox="0 0 24 24">
                                                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">

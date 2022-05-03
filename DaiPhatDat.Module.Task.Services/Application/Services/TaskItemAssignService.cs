@@ -243,6 +243,7 @@ namespace DaiPhatDat.Module.Task.Services
                                     entity.PercentFinish = dto.PercentFinish;
                                     entity.WorkingHours = dto.WorkingHours;
                                     taskAssignHistory.PercentFinish = dto.PercentFinish;
+                                    taskAssignHistory.ActionId = dto.ActionId;
                                     break;
                                 case "Report":
                                     if(taskEntity.IsReport == false)
@@ -258,18 +259,20 @@ namespace DaiPhatDat.Module.Task.Services
                                     }
                                     entity.PercentFinish = dto.PercentFinish;
                                     taskAssignHistory.PercentFinish = dto.PercentFinish;
-
+                                    taskAssignHistory.ActionId = dto.ActionId;
                                     break;
                                 case "Extend":
                                     entity.IsExtend = true;
                                     entity.ExtendDate = dto.ExtendDate;
                                     dto.ActionId = ActionId.Extend;
                                     entity.PercentFinish = dto.PercentFinish;
-
+                                    taskAssignHistory.PercentFinish = dto.PercentFinish;
+                                    taskAssignHistory.ActionId = dto.ActionId;
                                     break;
                                 case "ReturnReport":
                                     dto.TaskItemStatusId = TaskItemStatusId.ReportReturn;
                                     dto.ActionId = ActionId.Return;
+                                    taskAssignHistory.ActionId = dto.ActionId;
                                     break;
                                 default:
                                     break;
@@ -288,6 +291,7 @@ namespace DaiPhatDat.Module.Task.Services
                             {
                                 case "Appraise":
                                     dto.ActionId = ActionId.Appraise;
+                                    taskAssignHistory.ActionId = dto.ActionId;
 
                                     if (entity.TaskItemStatusId == TaskItemStatusId.Extend)
                                     {
@@ -299,6 +303,8 @@ namespace DaiPhatDat.Module.Task.Services
                                         entity.AppraisePercentFinish = dto.AppraisePercentFinish;
                                         //entity.PercentFinish = dto.AppraisePercentFinish;
                                         dto.ActionId = ActionId.Finish;
+                                        taskAssignHistory.ActionId = dto.ActionId;
+                                        taskAssignHistory.PercentFinish = dto.AppraisePercentFinish;
                                     }
                                     else if (entity.TaskItemStatusId == TaskItemStatusId.ReportReturn)
                                     {
@@ -310,17 +316,23 @@ namespace DaiPhatDat.Module.Task.Services
                                     entity.AppraisePercentFinish = dto.AppraisePercentFinish;
                                     //entity.PercentFinish = dto.AppraisePercentFinish;
                                     dto.ActionId = ActionId.Return;
+                                    taskAssignHistory.ActionId = dto.ActionId;
+                                    taskAssignHistory.PercentFinish = dto.AppraisePercentFinish;
                                     break;
                                 case "AppraiseExtend":
                                     entity.ExtendDate = dto.ExtendDate;
                                     taskEntity.ToDate = dto.ExtendDate;
                                     entity.IsExtend = false;
                                     dto.ActionId = ActionId.AppraiseExtend;
+                                    taskAssignHistory.ActionId = dto.ActionId;
+
                                     break;
                                 case "ReturnExtend":
                                     entity.ExtendDate = null;
                                     entity.IsExtend = false;
                                     dto.ActionId = ActionId.ReturnExtend;
+                                    taskAssignHistory.ActionId = dto.ActionId;
+
                                     break;
                                 default:
                                     break;

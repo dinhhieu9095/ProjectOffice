@@ -63,6 +63,7 @@ namespace DaiPhatDat.Module.Task.Services
         public TaskItemPriorityId? TaskItemPriorityId { get; set; }
 
         public double? PercentFinish { get; set; }
+        public int? WorkingHours { get; set; }
 
         public string StatusColor => TaskInDueDate.Main(TaskItemToDate, FinishedDate, TaskItemStatus) ? "blue" : "red";
         public string Process => TaskInDueDate.Main(TaskItemToDate, FinishedDate, TaskItemStatus) ? "in-due-date" : "out-of-date";

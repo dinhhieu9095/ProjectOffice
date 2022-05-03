@@ -71,6 +71,7 @@ app.controller("ReportAdminCtrl", function ($scope, $controller, ReportAdminServ
 
         let dataSource = [];
         if (data.TaskNew > 0) dataSource.push({ name: 'Mới', id: '0', y: Math.round((data.TaskNew / data.TotalTask) * 100), color: "#999999" });
+        if (data.TaskDraft > 0) dataSource.push({ name: 'Nháp', id: '9', y: Math.round((data.TaskDraft / data.TotalTask) * 100), color: "#a8a8a8" });
         if (data.TaskRead > 0) dataSource.push({ name: 'Đã xem', id: '8', y: Math.round((data.TaskRead / data.TotalTask) * 100), color: "#FF9800" });
         if (data.TaskProcess > 0) dataSource.push({ name: 'Đang thực hiện', id: '1', y: Math.round((data.TaskProcess / data.TotalTask) * 100), color: "#00CBFF" });
         if (data.TaskReport > 0) dataSource.push({ name: 'Báo cáo', id: '2', y: Math.round((data.TaskReport / data.TotalTask) * 100), color: "#0082FF" });

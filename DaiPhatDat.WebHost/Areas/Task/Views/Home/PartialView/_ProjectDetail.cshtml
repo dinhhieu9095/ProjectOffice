@@ -36,7 +36,7 @@
                         <div class="text-black text-bold pr-2 pull-left dl-label-color attachment-down">
                             @ResourceManagement.GetResourceText("Task.ProjectDetail.Documents", "Tài liệu", "Documents"):
                             <span ng-repeat="item in projectDetail.item.Attachments">
-                                <a class="file-name" target="_blank" href="~/Task/Project/DownloadFileTrackingWorkflowDocument?fileTrackingWorkflowDocumentID={{item.Id}}&deptID=00000000-0000-0000-0000-000000000000" ng-click="projectDetail.openPreviewFileTrackingModel(item.Id)" title="{{item.FileName}}">@*<i class="{{item.Icon}} file-icon"></i>*@ {{item.FileName}} (200KB) <i class="fas fa-arrow-down"></i> <span class="spliter">|</span></a>
+                                <a class="file-name" target="_blank" href="~/Task/Project/DownloadFileTrackingWorkflowDocument?fileTrackingWorkflowDocumentID={{item.Id}}&deptID=00000000-0000-0000-0000-000000000000" ng-click="projectDetail.openPreviewFileTrackingModel(item.Id)" title="{{item.FileName}}">@*<i class="{{item.Icon}} file-icon"></i>*@ {{item.FileName}}<i class="fas fa-arrow-down"></i> <span class="spliter">|</span></a>
                             </span>
                         </div>
                     </div>

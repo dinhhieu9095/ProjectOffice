@@ -20,6 +20,7 @@ namespace DaiPhatDat.WebHost.Modules.Navigation.Application.Dto
         public string Controller { get; set; }
         public string Action { get; set; }
         public string Params { get; set; }
+        public string NavURL { get; set; }
         public string Link
         {
             get
