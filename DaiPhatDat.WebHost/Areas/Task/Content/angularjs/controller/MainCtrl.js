@@ -1369,7 +1369,7 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
                 for (var i = 0; i < files.length; i++) {
                     var n = files[i].name.lastIndexOf('.');
                     var fileType = files[i].name.substring(n + 1);
-                    if (!isFileInvalid(files[i].size, fileType)) {
+                    if (!isFileInvalid(files[i].size, fileType, files[i].name)) {
                         return;
                     }
                 }
@@ -1397,18 +1397,21 @@ app.controller("MainCtrl", function ($scope, $controller, $q, $timeout, fileFact
         });
 
         var error = true;
-        if ($scope.fileTemps !== null && $scope.fileTemps.filter(e => e.name === fileName).length > 0) {
-            toastr.error('Tập tin ' + fileName + 'đã tồn tại!', 'Thông báo');
-            error = false;
-        } else
-            if ($scope.TaskItem !== undefined && $scope.TaskItem !== null && $scope.TaskItem.Attachments !== null && $scope.TaskItem.Attachments.filter(e => e.FileName === fileName)) {
-            toastr.error('Tập tin ' + fileName + 'đã tồn tại!', 'Thông báo');
-            error = false;
-        } else
-                if ($scope.Project !== undefined && $scope.Project !== null && $scope.Project.Attachments !== null && $scope.Project.Attachments.filter(e => e.FileName === fileName)) {
+        if (fileName !== undefined) {
+            if ($scope.fileTemps !== null && $scope.fileTemps.filter(e => e.name === fileName).length > 0) {
                 toastr.error('Tập tin ' + fileName + 'đã tồn tại!', 'Thông báo');
                 error = false;
-            }
+            } else
+                if ($scope.TaskItem !== undefined && $scope.TaskItem !== null && $scope.TaskItem.Attachments !== null && $scope.TaskItem.Attachments !== undefined && $scope.TaskItem.Attachments.filter(e => e.FileName === fileName).length > 0) {
+                    toastr.error('Tập tin ' + fileName + 'đã tồn tại!', 'Thông báo');
+                    error = false;
+                } else
+                    if ($scope.Project !== undefined && $scope.Project !== null && $scope.Project.Attachments !== null && $scope.Project.Attachments !== undefined && $scope.Project.Attachments.filter(e => e.FileName === fileName).length > 0) {
+                        toastr.error('Tập tin ' + fileName + 'đã tồn tại!', 'Thông báo');
+                        error = false;
+                    }
+        }
+        
         if (fileSize > 31250000) {
             toastr.error('Vui lòng không chọn file quá 25MB!', 'Thông báo');
             error = false;

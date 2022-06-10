@@ -147,7 +147,7 @@ namespace DaiPhatDat.Module.Task.Services
             }
         }
         public string UserViews { get; set; }
-        public List<UserModel> Users { get; set; }
+        public List<UserProcessViewDto> Users { get; set; }
 
         public int CurrentPage { get; set; }
         public bool? IsGroupLabel { get; set; }
@@ -158,7 +158,7 @@ namespace DaiPhatDat.Module.Task.Services
         public int TotalRecord { get; set; }
 
         public string ColorStatus =>
-                 TaskInDueDate.Main(ToDate, FinishedDate, TaskItemStatusId) ? "blue" : "red";
+                 Process == "out-of-date" ? "#F64E60" : Process == "in-due-date" ? "#1BC5BD" : "#FFA800";
 
         public double? PercentFinish { get; set; }
         public bool HasPagination { get; set; } // dùng trên view table

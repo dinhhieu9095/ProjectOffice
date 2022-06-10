@@ -333,6 +333,114 @@ namespace DaiPhatDat.Module.Task.Web
             }
             return Json(new { status = bResult, msg = strMsg, data = pagingData });
         }
+        [HttpPost]
+        public JsonResult GetDataByProjectMobile(Guid? parentId, Guid? filterId, Guid? folderId, string view, AdvanceFilterModel filter)
+        {
+            bool bResult = true;
+            string strMsg = string.Empty;
+            string strValueDay = ResourceManagement.GetResourceText("Task.Home.TableLeftDay", "còn lại {0} ngày", "{0} day left");
+            string strValueDays = ResourceManagement.GetResourceText("Task.Home.TableLeftDays", "còn lại {0} ngày", "{0} days left");
+            Pagination<FetchProjectsTasksResult> pagingData = null;
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(view)) { }
+                else
+                {
+                    //Mặc định là view grantt
+                    view = ViewGrantt;
+                }
+                ProjectFilterParamDto otherParams = new ProjectFilterParamDto();
+                if (filterId.HasValue && !filterId.Equals(Guid.Empty))
+                {
+                    otherParams = _projectFilterParamService.GetById(filterId.Value);
+
+                }
+                var fetchTaskItemsResult = new List<FetchProjectsTasksResult>();
+                var lstParams = new List<string>();
+                if (parentId.HasValue && !parentId.Value.Equals(Guid.Empty))
+                {
+                    lstParams.Add($"@ParentId:{parentId}");
+                }
+                if (!string.IsNullOrEmpty(otherParams.ParamValue))
+                {
+                    var arrStr = otherParams.ParamValue.Split(';');
+                    lstParams.AddRange(arrStr.ToList());
+                }
+                if (folderId.HasValue && !folderId.Value.Equals(Guid.Empty))
+                {
+                    pagingData = _projectService.GetProjectsByFolderPaging(
+                                         filter.KeyWord,
+                                          lstParams,
+                                       filter.CurrentPage,
+                                        filter.PageSize,
+                                          " CreatedDate DESC ",
+                                          CurrentUser,
+                                          true);
+                }
+                else
+                {
+                    if (view == ViewKanban)
+                    {
+                        lstParams.Add($"@IsAllLevel:{1}");
+
+                    }
+                    pagingData = _projectService.GetTaskWithFilterPaging(filter.KeyWord, lstParams, filter.CurrentPage, filter.PageSize, " CreatedDate DESC ", CurrentUser, parentId != null ? false : true);
+                }
+                {
+                    if (pagingData != null && pagingData.Result != null && pagingData.Result.Count() > 0)
+                    {
+                        var userDepartments = _userDepartmentServices.GetCachedUserDepartmentDtos();
+                        var data = pagingData.Result;
+                        fetchTaskItemsResult = data
+                            .Select(x =>
+                            {
+                                x.CurrentPage = x.CurrentPage;
+                                x.TotalRecord = x.TotalRecord;
+                                x.PageSize = x.PageSize;
+                                x.ParentId = x.ParentId;
+                                if (x.Type == "project")
+                                {
+                                    x.UserId = x.AssignBy;
+                                }
+                                else
+                                {
+                                    x.DragDrop = CurrentUser.Id == x.AssignBy || CurrentUser.Id == x.CreatedBy;
+                                }
+                                if (string.IsNullOrEmpty(x.Type))
+                                {
+                                    x.Type = "task";
+                                }
+                                if (view != null && view.Equals(ViewKanban))
+                                {
+                                    x.FullName = getPrimaryNameByViewKanBan(userDepartments.Result, x.UsersPrimary, x.Type);
+                                }
+                                //x.Process = x.Process;
+                                x.ProcessClass = x.ProcessClass;
+                                x.Status = x.Status;
+                                x.StatusId = getStatusId(x.Status, x.Type);
+                                return x;
+                            })
+                            .ToList();
+                        if (parentId == null)
+                        {
+                            FetchProjectsTasksResult dataEmpty = data.FirstOrDefault();
+                            int iTotalRecord = dataEmpty.TotalRecord;
+                            int iCurrentPage = dataEmpty.CurrentPage;
+                            int iPageSize = dataEmpty.PageSize;
+                        }
+                    }
+                    pagingData.Result = fetchTaskItemsResult;
+                    return Json(new { status = bResult, msg = strMsg, data = pagingData }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                bResult = false;
+                strMsg = ex.Message.ToString();
+                _loggerServices.WriteError(ex.Message.ToString());
+            }
+            return Json(new { status = bResult, msg = strMsg, data = pagingData });
+        }
         private int getStatusId(string statusCode, string type)
         {
             int iStatusId = 0;

@@ -2245,7 +2245,7 @@ END CATCH");
 	WorkingHours int NULL");
                 #endregion
             }
-            if (newVersion < version)
+            if (newVersion < 20220608)
             {
                 newVersion = version;
                 #region 1
@@ -3169,6 +3169,128 @@ BEGIN CATCH
 
 	RAISERROR(@ErrMsg, @ErrSeverity, 1)
 END CATCH");
+                #endregion
+            }
+            if (newVersion < version)
+            {
+                newVersion = version;
+                #region 1
+                queries.Add(@"ALTER  PROCEDURE [dbo].[SP_ADMIN_CATEGORY_CLONE_TASK]
+	@AdminCategoryId uniqueidentifier,
+	@ProjectId uniqueidentifier,
+	@ParentId uniqueidentifier = null,
+	@CurrentUserId	uniqueidentifier
+AS
+BEGIN
+	SET NOCOUNT ON;
+	DECLARE @temp TABLE(id int identity(1,1), newAttrID uniqueidentifier, oldAttrID uniqueidentifier null)
+	insert into Task.TaskItem
+	output inserted.Id, null into @temp
+	select 
+	NEWID(),
+	@ProjectId
+	,[TaskName]
+      ,[FromDate]
+      ,[ToDate]
+      ,[FinishedDate]
+      ,9
+      ,getdate()
+      ,@CurrentUserId
+      ,@CurrentUserId
+      ,[ParentId]
+      ,[PercentFinish]
+      ,[TaskType]
+      ,[IsReport]
+      ,getdate()
+      ,[ParentId]
+      ,[Conclusion]
+      ,[TaskItemPriorityId]
+      ,[DepartmentId]
+      ,[TaskItemCategoryId]
+      ,[IsSecurity]
+      ,[IsWeirdo]
+      ,[HasRecentActivity]
+      ,[Weight]
+      ,[IsDeleted]
+      ,[IsGroupLabel]
+      ,[TaskItemCategory]
+      ,[NatureTaskId]
+      ,[Order]
+      ,[IsAuto]
+      ,[TaskGroupType]
+      ,[IsExtend]
+      ,[ExtendDate]
+      ,0, null, [WorkingHours] from Task.TaskItem as t
+	  where t.ProjectId = @AdminCategoryId
+	  ORDER BY t.Id ASC
+
+	   ;WITH CTE AS
+    (
+        SELECT t.Id,
+        --Use ROW_NUMBER to get matching id which is same as the one generated in @temp
+        ROW_NUMBER()OVER(ORDER BY t.Id ASC) idx
+        FROM Task.TaskItem t
+        WHERE t.ProjectId = @AdminCategoryId
+    )
+	 UPDATE T
+    SET oldAttrID = CTE.Id
+    FROM @temp T
+    INNER JOIN CTE ON T.id = CTE.idx;
+
+	update tk
+	set tk.ParentId = Case
+	when tk.ParentId is null then @ParentId
+	else T.newAttrID end
+	from Task.TaskItem as tk left join @temp as T
+	on tk.ParentId = T.oldAttrID
+	where tk.ProjectId = @ProjectId and tk.Id in (select newAttrID from @temp);
+
+	INSERT INTO Task.TaskItemAssign (
+	 [Id]
+      ,[TaskItemId]
+      ,[ProjectId]
+      ,[AssignTo]
+      ,[LastResult]
+      ,[TaskItemStatusId]
+      ,[ModifiedDate]
+      ,[PercentFinish]
+      ,[FromDate]
+      ,[ToDate]
+      ,[FinishedDate]
+      ,[TaskType]
+	)
+        SELECT 
+			NEWID(),
+            T.NewAttrID
+			,@ProjectId
+			,[AssignTo]
+			,[LastResult]
+			,[TaskItemStatusId]
+			,[ModifiedDate]
+			,[PercentFinish]
+			,[FromDate]
+			,[ToDate]
+			,[FinishedDate]
+			,[TaskType]
+        FROM Task.TaskItemAssign tas
+        INNER JOIN @temp T
+        ON T.oldAttrID = tas.TaskItemId
+
+	INSERT INTO Task.Attachment
+        SELECT 
+			NEWID()
+			,@ProjectId
+            ,T.NewAttrID
+			,[Source]
+			,[FileName]
+			,[FileExt]
+			,[FileContent]
+			,GETDATE()
+			,@CurrentUserId
+        FROM Task.Attachment at
+        INNER JOIN @temp T
+        ON T.oldAttrID = at.ItemId
+END");
                 #endregion
             }
             if (newVersion != currentVersion)

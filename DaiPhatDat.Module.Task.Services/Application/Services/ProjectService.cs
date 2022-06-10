@@ -519,16 +519,16 @@ namespace DaiPhatDat.Module.Task.Services
                         param.Add(new SqlParameter()
                         {
                             SqlDbType = SqlDbType.UniqueIdentifier,
-                            ParameterName = "@ParentId",
-                            IsNullable = true,
-                            Value = DBNull.Value
+                            ParameterName = "@ProjectId",
+                            IsNullable = false,
+                            Value = dto.Id
                         });
                         param.Add(new SqlParameter()
                         {
                             SqlDbType = SqlDbType.UniqueIdentifier,
-                            ParameterName = "@ProjectId",
-                            IsNullable = false,
-                            Value = dto.Id
+                            ParameterName = "@ParentId",
+                            IsNullable = true,
+                            Value = DBNull.Value
                         });
                         param.Add(new SqlParameter()
                         {
@@ -721,10 +721,15 @@ namespace DaiPhatDat.Module.Task.Services
                     sqlQuery.AppendFormat(", {0} = '{1}' ", "@PageSize", pageSize);
                     sqlQuery.AppendFormat(", {0} = '{1}' ", "@IsCount", 1);
                 }
+                var userDepartments = _userDepartmentServices.GetCachedUserDepartmentDtos();
                 using (var scope = _dbContextScopeFactory.CreateReadOnly())
                 {
                     var dbContext = scope.DbContexts.Get<TaskContext>();
                     var dataEntity = dbContext.Database.SqlQuery<FetchProjectsTasksResult>(sqlQuery.ToString()).ToList();
+                    foreach (var item in dataEntity)
+                    {
+                        item.Users = htmlUserProcess(userDepartments.Result, item.UsersPrimary, item.UsersSecond, item.UsersThird, 3);
+                    }
                     dataResult.Count = (dataEntity!=null && dataEntity.Count>0 ) ? dataEntity[0].TotalRecord : 0;
                     dataResult.Skip = page;
                     dataResult.Take = pageSize;
@@ -739,6 +744,53 @@ namespace DaiPhatDat.Module.Task.Services
             return dataResult;
         }
 
+        private List<UserProcessViewDto> htmlUserProcess(IEnumerable<UserDepartmentDto> userDepartments, string strPrimary, string strSecond, string strThird, int iShow = 3)
+        {
+            string siteUrl = System.Configuration.ConfigurationManager.AppSettings["SiteURL"];
+            siteUrl += "/account/Avartar";
+            List<UserProcessViewDto> lstView = new List<UserProcessViewDto>();
+            int iIndex = 0;
+            if (strPrimary != null && strPrimary.Length > 0)
+            {
+                Guid[] values = strPrimary.Split(';').Select(s => Guid.Parse(s.ToString())).ToArray();
+                var primary = userDepartments.Where(x => values.Contains(x.UserID)).OrderBy(e => e.JobTitleOrderNumber).ThenBy(e => e.FullName).ToList();
+                if (primary != null && primary.Count > 0)
+                {
+                    foreach (UserDepartmentDto item in primary)
+                    {
+                        iIndex++;
+                        lstView.Add(new UserProcessViewDto() { ViewType = 1, ViewTypeName = "user-primary", Name = item.FullName, JobTitle = item.JobTitleName, UserId = item.Id, STT = iIndex, DeptName = item.DeptName, SrcImage = string.Concat(siteUrl, "/", item.UserID.ToString()) });
+                    }
+                }
+            }
+            if (strSecond != null && strSecond.Length > 0)
+            {
+                Guid[] values = strSecond.Split(';').Select(s => Guid.Parse(s.ToString())).ToArray();
+                var second = userDepartments.Where(x => values.Contains(x.UserID)).OrderBy(e => e.JobTitleOrderNumber).ThenBy(e => e.FullName).ToList();
+                if (second != null && second.Count > 0)
+                {
+                    foreach (UserDepartmentDto item in second)
+                    {
+                        iIndex++;
+                        lstView.Add(new UserProcessViewDto() { ViewType = 2, ViewTypeName = "user-second", Name = item.FullName, JobTitle = item.JobTitleName, UserId = item.Id, STT = iIndex, DeptName = item.DeptName, SrcImage = string.Concat(siteUrl, "/", item.UserID.ToString()) });
+                    }
+                }
+            }
+            if (strThird != null && strThird.Length > 0)
+            {
+                Guid[] values = strThird.Split(';').Select(s => Guid.Parse(s.ToString())).ToArray();
+                var third = userDepartments.Where(x => values.Contains(x.UserID)).OrderBy(e => e.JobTitleOrderNumber).ThenBy(e => e.FullName).ToList();
+                if (third != null && third.Count > 0)
+                {
+                    foreach (UserDepartmentDto item in third)
+                    {
+                        iIndex++;
+                        lstView.Add(new UserProcessViewDto() { ViewType = 3, ViewTypeName = "user-third", Name = item.FullName, JobTitle = item.JobTitleName, UserId = item.Id, STT = iIndex, DeptName = item.DeptName, SrcImage = string.Concat(siteUrl, "/", item.UserID.ToString()) });
+                    }
+                }
+            }
+            return lstView;
+        }
         public async Task<ProjectDetailDto> RenderProject(Guid projectId, UserDto currentUser = default, bool isMobile = false)
         {
             using (var dbContextReadOnlyScope = _dbContextScopeFactory.CreateReadOnly())

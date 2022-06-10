@@ -10,8 +10,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace DaiPhatDat.Module.Task.Web.Controllers
+namespace DaiPhatDat.Module.Task.Web
 {
+    [Authorize]
     public class ApisController : CoreController
     {
         private readonly IProjectService _projectService;

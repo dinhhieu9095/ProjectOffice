@@ -10453,7 +10453,7 @@ Docs & License: https://fullcalendar.io/
     };
 
     // TODO: expose somehow
-    var API_BASE = 'https://www.googleapis.com/calendar/v3/calendars';
+    var API_BASE = '#';
     var STANDARD_PROPS = {
         url: String,
         googleCalendarApiKey: String,

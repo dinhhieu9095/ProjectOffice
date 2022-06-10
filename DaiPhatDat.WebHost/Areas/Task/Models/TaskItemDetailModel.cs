@@ -67,7 +67,7 @@ namespace DaiPhatDat.Module.Task.Web
         public double? PercentFinish { get; set; }
         public int? WorkingHours { get; set; }
 
-        public string StatusColor => TaskInDueDate.Main(TaskItemToDate, FinishedDate, TaskItemStatus) ? "blue" : "red";
+        public string StatusColor => Process == "out-of-date" ? "#F64E60" : Process == "in-due-date" ? "#1BC5BD" : "#FFA800";
         //public string Process => TaskInDueDate.Main(TaskItemToDate, FinishedDate, TaskItemStatus) ? "in-due-date" : "out-of-date";
         public string Process
         {
