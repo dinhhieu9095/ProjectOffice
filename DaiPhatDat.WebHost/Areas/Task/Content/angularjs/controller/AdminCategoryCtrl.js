@@ -1011,27 +1011,8 @@ app.controller("AdminCategoryCtrl", function ($scope, $controller, $q, $timeout,
                 toastr.error('Vui lòng nhập tên công việc', 'Thông báo');
                 $('#TaskName').focus();
                 validate = false;
-            } else if ($scope.TaskItem.TaskItemAssigns == undefined || $scope.TaskItem.TaskItemAssigns.length <= 0) {
-                toastr.error('Vui lòng chọn người tham gia', 'Thông báo');
-                $('#TaskItemAssign').focus();
-                validate = false;
-            } else if ($scope.TaskItem.TaskItemAssigns.filter(e => e.TaskType == '1').length !== 1) {
-                toastr.error('Vui lòng chọn 1 người xử lý chính', 'Thông báo');
-                $('#TaskItemAssign').focus();
-                validate = false;
             }
-            else if ($scope.TaskItem.FromDateText == '' || $scope.TaskItem.FromDateText == undefined) {
-                toastr.error('Vui lòng nhập từ ngày', 'Thông báo');
-                $('#TaskFromDateText').focus();
-                $('#TaskFromDateText').focus();
-                validate = false;
-            } else if ($scope.TaskItem.ToDateText == '' || $scope.TaskItem.ToDateText == undefined) {
-                toastr.error('Vui lòng nhập đến ngày', 'Thông báo');
-                $('#TaskToDateText').focus();
-                $('#TaskToDateText').focus();
-                validate = false;
-            }
-            else
+            else {
                 if (!$scope.TaskItem.IsParentAuto && fromDate < min) {
                     toastr.error('Ngày bắt đầu không hợp lệ', 'Thông báo');
                     validate = false;
@@ -1040,16 +1021,18 @@ app.controller("AdminCategoryCtrl", function ($scope, $controller, $q, $timeout,
                         toastr.error('Ngày kết thúc không hợp lệ', 'Thông báo');
                         validate = false;
                     }
-            if (validate == false) {
+            }
+            if (validate === false) {
                 $scope.hideLoading();
                 $scope.hasSubmit = false;
                 return;
             }
             $scope.TaskItem.TaskItemCategories = $('#TaskCategory').val();
-            if ($('#TaskGroupType').val() == '1') {
+
+            if ($('#TaskGroupType').val() === '1') {
                 $scope.TaskItem.IsReport = true;
                 $scope.TaskItem.IsGroupLabel = false;
-            } else if ($('#TaskGroupType').val() == '2') {
+            } else if ($('#TaskGroupType').val() === '2') {
                 $scope.TaskItem.IsGroupLabel = true;
                 $scope.TaskItem.IsReport = false;
             } else {
